@@ -1,0 +1,36 @@
+body {
+  --bs-red: #993333;
+  --bs-black: #151515;
+  --bs-brown: #191716;
+  --bs-pink: #e8b4bc;
+  --bs-creme: #f3f7f0;
+  --bs-yellow: #ffc857;
+  --bs-purple: #561643;
+  --bs-pink: #ef798a;
+  --bs-muave: #e8b4bc;
+
+  --grid-size: 25px;
+
+  --header-height: 55px;
+  --footer-height: 40px;
+
+  --nav-item-line-height: 55px;
+
+  /*
+  --linear-gradient-1: linear-gradient(180deg, white, var(--light-blue-2), var(--light-purple-2));
+  --linear-gradient-2: linear-gradient(180deg, var(--light-blue-1), var(--light-purple-1), white);
+  --linear-gradient-3: linear-gradient(120deg, var(--light-blue-1), var(--light-purple-1), white, var(--light-blue-2), var(--light-purple-2), white);
+  --linear-gradient-2: linear-gradient(180deg, var(--light-blue-1), white);
+  */
+
+  --repeating-linear-gradient: repeating-linear-gradient(to left, #f3f7f0 0, #f3f7f0 40px, #ffc857 40px, #ffc857 80px, #ef798a 80px, #ef798a 120px, #561643 120px, #561643 160px, #e8b4bc 160px, #e8b4bc 200px);
+}
+
+@media(max-width: 750px) {
+  body {
+    --header-height: 90px;
+  }
+}
+
+@media(max-width: 420px) {
+}

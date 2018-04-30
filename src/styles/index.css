@@ -1,0 +1,49 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 500;
+}
+
+h1,
+h2 {
+  margin: 0;
+}
+
+h1 {
+  font-size: 50px;
+  line-height: 52px;
+}
+
+h2 {
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-top: 10px;
+}
+
+h3 {
+  font-weight: 700;
+}
+
+p {
+  font-size: 16px;
+  text-align: var(--p-text-align);
+}
+
+small {
+  font-size: 13px;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: #444;
+}
+
+@media(max-width: 750px) {
+  h1 {
+    font-size: 40px;
+    line-height: 42px;
+  }
+
+  h2 {
+    font-size: 0.8;
+  }
+}
