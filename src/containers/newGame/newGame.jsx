@@ -85,7 +85,7 @@ class NewGame extends Component {
             <TextField />
           </div>
           <br />
-          <Button onClick={this._submit} variant='raised' disabled={this.state.submitting}>{this.state.submitting ? 'Starting...' : 'Start Game'}</Button>
+          <Button onClick={this._submit} variant='raised' disabled={this.state.submitting}>{this.state.submitting ? 'Creating...' : 'Create Game'}</Button>
         </Paper>
       </div>
     )

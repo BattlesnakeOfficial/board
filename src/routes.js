@@ -20,6 +20,7 @@ export default [
     path: '/game/default',
     regex: '/game/:id',
     component: Board,
-    name: 'Board'
+    name: 'Board',
+    hidden: true
   }
 ]
