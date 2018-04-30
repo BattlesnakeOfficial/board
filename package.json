@@ -31,6 +31,7 @@
     "react-scripts": "1.1.1",
     "react-transition-group": "^2.2.1",
     "react-vertical-timeline-component": "^2.0.5",
+    "redux": "^4.0.0",
     "responsive-loader": "^1.1.0",
     "rxjs": "^5.5.7",
     "sass-loader": "^7.0.1",

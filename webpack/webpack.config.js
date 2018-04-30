@@ -72,6 +72,8 @@ module.exports = {
     alias: {
       components: path.join(projectClientPath, 'components'),
       containers: path.join(projectClientPath, 'containers'),
+      actions: path.join(projectClientPath, 'actions'),
+      reducers: path.join(projectClientPath, 'reducers'),
       static: path.join(projectClientPath, 'static'),
       lib: path.join(projectClientPath, 'lib'),
       src: projectClientPath,

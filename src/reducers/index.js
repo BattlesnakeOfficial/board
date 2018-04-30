@@ -1,12 +1,6 @@
 import { combineReducers } from 'redux'
-import entities from './entities'
-import selection from './selection'
-import tools from './tools'
-import settings from './settings'
+import games from './games'
 
 export default combineReducers({
-  entities,
-  selection,
-  tools,
-  settings
+  games
 })
