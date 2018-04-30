@@ -18,4 +18,11 @@
   .verticalGrid {
     background: repeating-linear-gradient(to right, var(--bs-grey) 0px, var(--bs-grey) 1px, transparent 1px, transparent var(--grid-size))
   }
+
+  .snake {
+    position: absolute;
+    background: var(--bs-red);
+    width: var(--grid-size);
+    height: var(--grid-size);
+  }
 }

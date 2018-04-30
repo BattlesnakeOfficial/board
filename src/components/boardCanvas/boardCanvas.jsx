@@ -11,6 +11,8 @@ const mapStateToProps = state => {
 }
 
 class BoardCanvas extends Component {
+  state = {}
+
   componentWillReceiveProps(nextProps) {
     console.log(nextProps.frames)
     if (nextProps.frames.length >= 1) {
@@ -18,19 +20,25 @@ class BoardCanvas extends Component {
       console.log('set counter, entering setInterval.')
       this._interval = setInterval(() => {
         if (counter === this.props.frames.length - 1) {
+          console.log('done.')
           clearInterval(this._interval)
         } else {
-          console.log(this.props.frames[counter++])
+          console.log('setting state.')
+          this.setState({...this.props.frames[counter++]})
         }
       }, 200)
     }
   }
 
   render() {
+    console.log(this.state)
     return (
       <Paper style={{minWidth: `calc(${20} * var(--grid-size) + 1px)`, height: `calc(${20} * var(--grid-size) + 1px)`}} className='boardCanvas'>
         <div className='verticalGrid' />
         <div className='horizontalGrid' />
+        {this.state.Snakes && this.state.Snakes.map(({Body}) =>
+          Body.map(({X, Y}) => <div className='snake' style={{top: (Y - 1) * 25, left: (X - 1) * 25}} />)
+        )}
       </Paper>
     )
   }
