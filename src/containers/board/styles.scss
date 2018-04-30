@@ -1,0 +1,13 @@
+.board {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+
+  .panel {
+    display: flex;
+    flex-flow: column nowrap;
+  }
+}

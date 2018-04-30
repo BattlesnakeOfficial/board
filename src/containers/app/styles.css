@@ -1,0 +1,24 @@
+.app {
+  background: var(--bs-creme);
+}
+
+.container {
+  max-width: 1200px;
+  height: calc(100vh - var(--header-height) - var(--footer-height));
+  margin: var(--header-height) auto var(--footer-height);
+  opacity: 0;
+  transition: opacity 0s;
+  vertical-align: middle;
+  padding: 0 25px 0;
+}
+
+.lightsOn {
+  opacity: 1;
+  transition: opacity 0.2s ease-in-out;
+}
+
+@media(max-width: 750px) {
+  .container {
+    padding: 0;
+  }
+}

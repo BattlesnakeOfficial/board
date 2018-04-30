@@ -1,0 +1,28 @@
+.boardCanvas {
+  position: relative;
+  margin-right: 30px;
+
+  .horizontalGrid,
+  .verticalGrid {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+  }
+
+  .horizontalGrid {
+    background: repeating-linear-gradient(180deg, var(--bs-grey) 0px, var(--bs-grey) 1px, transparent 1px, transparent var(--grid-size))
+  }
+
+  .verticalGrid {
+    background: repeating-linear-gradient(to right, var(--bs-grey) 0px, var(--bs-grey) 1px, transparent 1px, transparent var(--grid-size))
+  }
+
+  .snake {
+    position: absolute;
+    background: var(--bs-red);
+    width: var(--grid-size);
+    height: var(--grid-size);
+  }
+}
