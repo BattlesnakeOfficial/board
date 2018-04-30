@@ -31,11 +31,40 @@ class Board extends Component {
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
     })
       .then(response => response.json())
-      .then(console.log)
-      .catch((arg1, arg2) => console.error(arg1, arg2))
+      .then(({ ID }) => {
+        console.log(ID)
+        this.setState({ID})
+
+        fetch(`http://localhost:3005/games/${ID}`)
+          .then(response => response.json())
+          .then(json => console.log(json))
+          .catch(console.error)
+
+        fetch(`http://localhost:3005/games/${ID}/start`, { method: 'POST' })
+          .then(() => console.log('Started Game'))
+          .catch(console.error)
+      })
+      .catch(console.error)
+
+    this._interval = setInterval(() => {
+      fetch(`http://localhost:3005/games/${this.state.ID}`)
+        .then(response => response.json())
+        .then(({Game: {Status}}) => {
+          if (Status === 'complete') {
+            clearInterval(this._interval)
+
+            fetch(`http://localhost:3005/games/${this.state.ID}/frames`)
+              .then(response => response.json())
+              .then(json => this.setState(json))
+              .catch(console.error)
+          }
+        })
+        .catch(console.error)
+    }, 1000)
   }
 
   render() {
+    console.log(this.state)
     return (
       <div className='board'>
         <BoardCanvas {...sampleData} />

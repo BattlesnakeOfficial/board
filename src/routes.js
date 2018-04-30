@@ -1,4 +1,5 @@
 import Board from 'containers/board'
+import NewGame from 'containers/newGame'
 import Error from 'containers/error'
 
 export default [
@@ -10,8 +11,14 @@ export default [
     hidden: true
   },
   {
-    path: '/',
-    regex: '/',
+    path: '/new',
+    regex: '/new',
+    component: NewGame,
+    name: 'New Game'
+  },
+  {
+    path: '/game/default',
+    regex: '/game/:id',
     component: Board,
     name: 'Board'
   }
