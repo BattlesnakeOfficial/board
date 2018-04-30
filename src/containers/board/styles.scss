@@ -3,6 +3,11 @@
   height: 100%;
   display: flex;
   flex-flow: row nowrap;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
+
+  .panel {
+    display: flex;
+    flex-flow: column nowrap;
+  }
 }

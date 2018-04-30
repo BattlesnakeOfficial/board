@@ -1,7 +1,6 @@
 .boardCanvas {
   position: relative;
-  border: 1px solid var(--bs-brown);
-  margin-right: 75px;
+  margin-right: 30px;
 
   .horizontalGrid,
   .verticalGrid {
@@ -13,10 +12,10 @@
   }
 
   .horizontalGrid {
-    background: repeating-linear-gradient(180deg, var(--bs-black) 0px, var(--bs-black) 1px, transparent 1px, transparent var(--grid-size))
+    background: repeating-linear-gradient(180deg, var(--bs-grey) 0px, var(--bs-grey) 1px, transparent 1px, transparent var(--grid-size))
   }
 
   .verticalGrid {
-    background: repeating-linear-gradient(to right, var(--bs-black) 0px, var(--bs-black) 1px, transparent 1px, transparent var(--grid-size))
+    background: repeating-linear-gradient(to right, var(--bs-grey) 0px, var(--bs-grey) 1px, transparent 1px, transparent var(--grid-size))
   }
 }

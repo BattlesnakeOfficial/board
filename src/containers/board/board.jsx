@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import BoardCanvas from 'components/boardCanvas'
 import ControlPanel from 'components/controlPanel'
-import './styles.css'
+import GameStatus from 'components/gameStatus'
+import './styles.scss'
 
 const sampleData = {
   size: [20, 20],
@@ -14,7 +15,10 @@ class Board extends Component {
     return (
       <div className='board'>
         <BoardCanvas {...sampleData} />
-        <ControlPanel />
+        <div className='panel' style={{height: `calc(var(--grid-size) * ${20}`}}>
+          <GameStatus />
+          <ControlPanel />
+        </div>
       </div>
     )
   }

@@ -1,7 +1,9 @@
 .controlPanel {
-  flex: 1 1 auto;
   position: relative;
-  height: 500px;
-  border: 1px solid var(--bs-brown);
-  background: var(--bs-creme)
+  width: 400px;
+  margin-top: 15px;
+
+  .typography {
+    margin: 10px;
+  }
 }
