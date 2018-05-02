@@ -6,8 +6,7 @@
         "start": "webpack --mode development --watch",
         "build": "webpack --mode production"
     },
-    "repository": "https://github.com/graeme-hill/bsboard",
-    "author": "Battlesnake Community",
+    "repository": "https://github.com/battlesnakeio/board",
     "license": "MIT",
     "dependencies": {
         "npm": "^6.0.0",
