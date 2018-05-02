@@ -1,5 +1,3 @@
-import { getJson } from "./http-client";
-
 const FRAMES_PER_PAGE = 50;
 const RETRY_DELAY_MILLIS = 2000;
 const SNAKE_MIN_DELAY_MILLIS = 200;
@@ -36,7 +34,7 @@ function makeQueryString(query) {
 }
 
 function get(url, query) {
-    return getJson(url + makeQueryString(query));
+    return fetch(url + makeQueryString(query)).then(res => res.json());
 }
 
 function isLastFrameOfGame(game, frame) {
