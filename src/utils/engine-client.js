@@ -60,11 +60,13 @@ function readFramePages(game, baseUrl, receiveFrame, page) {
             return;
         }
         
+        const nextPage = res.Frames.length ? page + 1 : page;
+
         // Wait for a bit if last call was empty and game is still going so
         // we don't DOS the engine API.
         const delayMillis = res.Frames.length ? 0 : RETRY_DELAY_MILLIS;
         return delay(delayMillis).then(() => {
-            readFramePages(game, baseUrl, receiveFrame, page+1);
+            readFramePages(game, baseUrl, receiveFrame, nextPage);
         });
     });
 }

@@ -2,6 +2,24 @@ function cellIndex(game, row, col) {
     return row * game.Game.Width + col;
 }
 
+// This is a workaround for fields that are omitted when they have the defualt
+// value. ie: int fields that need to default to 0 rather than undefined.
+function cleanFrame(frame) {
+    frame.Turn = frame.Turn || 0;
+    
+    for (const snake of frame.Snakes) {
+        for (const part of snake.Body) {
+            part.X = part.X || 0;
+            part.Y = part.Y || 0;
+        }
+    }
+
+    for (const food of frame.Food) {
+        food.X = food.X || 0;
+        food.Y = food.Y || 0;
+    }
+}
+
 function makeCellLookup(game, frame) {
     const lookup = {};
 
@@ -27,6 +45,8 @@ function makeFoodLookup(game, frame) {
 }
 
 export function makeGrid(game, frame) {
+    cleanFrame(frame);
+
     const grid = [];
     const snakeLookup = makeCellLookup(game, frame);
     const foodLookup = makeFoodLookup(game, frame);
