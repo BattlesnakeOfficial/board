@@ -37,20 +37,34 @@ function get(url, query) {
     return fetch(url + makeQueryString(query)).then(res => res.json());
 }
 
+function oneLeft(snakes) {
+    const alive = snakes.filter(s => !s.Death);
+    return alive.length <= 1;
+}
+
 function isLastFrameOfGame(game, frame) {
     if (!frame) {
         return false;
     }
-    return game.LastFrame && game.LastFrame.Turn <= frame.Turn;
+
+    if (frame.Snakes.length === 0) {
+        return true;
+    }
+
+    if (frame.Snakes.length === 1) {
+        return !!frame.Snakes[i].Death;
+    }
+
+    return oneLeft(frame.Snakes);
 }
 
-function readFramePages(game, baseUrl, receiveFrame, page) {
-    const offset = page * FRAMES_PER_PAGE;
+function readFramePages(game, baseUrl, receiveFrame, offset) {
     const limit = FRAMES_PER_PAGE;
     const id = game.Game.ID;
     const promise = getFrames(baseUrl, id, offset, FRAMES_PER_PAGE);
     return promise.then(res => {
         res.Frames = res.Frames || [];
+
         for (const frame of res.Frames) {
              receiveFrame(game, frame);
         }
@@ -60,13 +74,13 @@ function readFramePages(game, baseUrl, receiveFrame, page) {
             return;
         }
         
-        const nextPage = res.Frames.length ? page + 1 : page;
+        const nextOffset = res.Frames.length + offset;
 
         // Wait for a bit if last call was empty and game is still going so
         // we don't DOS the engine API.
         const delayMillis = res.Frames.length ? 0 : RETRY_DELAY_MILLIS;
         return delay(delayMillis).then(() => {
-            readFramePages(game, baseUrl, receiveFrame, nextPage);
+            readFramePages(game, baseUrl, receiveFrame, nextOffset);
         });
     });
 }
