@@ -24,7 +24,7 @@ http://localhost:3000/?engine=http%3A%2F%2Flocalhost%3A3005&game=3bb6f305-04fd-4
 ```
 
 Since it is a common pattern to create a game, start it, and then view it in
-the browser there is a bash script to do this for you:
+the browser there is a bash script to do this for you (only tested on linux):
 
 ```
 ./rungame.sh
