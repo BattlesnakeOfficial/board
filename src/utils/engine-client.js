@@ -33,8 +33,9 @@ function makeQueryString(query) {
   return result;
 }
 
-function get(url, query) {
-  return fetch(url + makeQueryString(query)).then(res => res.json());
+async function get(url, query) {
+  const fetchResult = await fetch(url + makeQueryString(query));
+  return fetchResult.json();
 }
 
 function oneLeft(snakes) {
@@ -58,30 +59,27 @@ function isLastFrameOfGame(game, frame) {
   return oneLeft(frame.Snakes);
 }
 
-function readFramePages(game, baseUrl, receiveFrame, offset) {
+async function readFramePages(game, baseUrl, receiveFrame, offset) {
   const id = game.Game.ID;
-  const promise = getFrames(baseUrl, id, offset, FRAMES_PER_PAGE);
-  return promise.then(res => {
-    res.Frames = res.Frames || [];
+  const res = await getFrames(baseUrl, id, offset, FRAMES_PER_PAGE);
+  res.Frames = res.Frames || [];
 
-    for (const frame of res.Frames) {
-      receiveFrame(game, frame);
-    }
+  for (const frame of res.Frames) {
+    receiveFrame(game, frame);
+  }
 
-    const lastFrameOfPage = res.Frames[res.Frames.length - 1];
-    if (isLastFrameOfGame(game, lastFrameOfPage)) {
-      return;
-    }
+  const lastFrameOfPage = res.Frames[res.Frames.length - 1];
+  if (isLastFrameOfGame(game, lastFrameOfPage)) {
+    return;
+  }
 
-    const nextOffset = res.Frames.length + offset;
+  const nextOffset = res.Frames.length + offset;
 
-    // Wait for a bit if last call was empty and game is still going so
-    // we don't DOS the engine API.
-    const delayMillis = res.Frames.length ? 0 : RETRY_DELAY_MILLIS;
-    return delay(delayMillis).then(() => {
-      readFramePages(game, baseUrl, receiveFrame, nextOffset);
-    });
-  });
+  // Wait for a bit if last call was empty and game is still going so
+  // we don't DOS the engine API.
+  const delayMillis = res.Frames.length ? 0 : RETRY_DELAY_MILLIS;
+  await delay(delayMillis);
+  await readFramePages(game, baseUrl, receiveFrame, nextOffset);
 }
 
 function delay(millis) {
@@ -93,18 +91,16 @@ export function getGameInfo(baseUrl, gameId) {
   return get(url);
 }
 
-export function readAllFrames(baseUrl, gameId, receiveFrame) {
+export async function readAllFrames(baseUrl, gameId, receiveFrame) {
   let chain = Promise.resolve();
 
   function onFrame(g, f) {
-    chain = chain.then(() => {
-      return delay(SNAKE_MIN_DELAY_MILLIS).then(() => {
-        receiveFrame(g, f);
-      });
+    chain = chain.then(async () => {
+      await delay(SNAKE_MIN_DELAY_MILLIS);
+      receiveFrame(g, f);
     });
   }
 
-  return getGameInfo(baseUrl, gameId).then(g => {
-    return readFramePages(g, baseUrl, onFrame, 0);
-  });
+  const g = await getGameInfo(baseUrl, gameId);
+  return await readFramePages(g, baseUrl, onFrame, 0);
 }

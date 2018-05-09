@@ -15,15 +15,14 @@ export const receiveFrame = (game, frame) => ({
 });
 
 export const fetchFrames = (game, engine) => {
-  return dispatch => {
+  return async dispatch => {
     dispatch(requestFrames(game, engine));
 
-    return readAllFrames(engine, game, (game, frame) => {
+    await readAllFrames(engine, game, (game, frame) => {
       // Workaround for bug where turn exluded on turn 0
       frame.Turn = frame.Turn || 0;
       dispatch(receiveFrame(game, frame));
-    }).then(() => {
-      dispatch(gameOver());
     });
+    dispatch(gameOver());
   };
 };
