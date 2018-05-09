@@ -52,14 +52,13 @@ function isLastFrameOfGame(game, frame) {
     }
 
     if (frame.Snakes.length === 1) {
-        return !!frame.Snakes[i].Death;
+        return !!frame.Snakes[0].Death;
     }
 
     return oneLeft(frame.Snakes);
 }
 
 function readFramePages(game, baseUrl, receiveFrame, offset) {
-    const limit = FRAMES_PER_PAGE;
     const id = game.Game.ID;
     const promise = getFrames(baseUrl, id, offset, FRAMES_PER_PAGE);
     return promise.then(res => {

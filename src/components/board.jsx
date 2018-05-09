@@ -8,7 +8,6 @@ class Board extends React.Component {
     }
 
     render() {
-        const options = this.props.options;
         const grid = this.props.grid;
 
         return (
