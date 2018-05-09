@@ -1,6 +1,6 @@
 const FRAMES_PER_PAGE = 50;
 const RETRY_DELAY_MILLIS = 2000;
-const SNAKE_MIN_DELAY_MILLIS = 200;
+const SNAKE_MIN_DELAY_MILLIS = 100;
 
 export function getFrames(baseUrl, gameId, offset, limit) {
     const url = join(baseUrl, `/games/${gameId}/frames`);
