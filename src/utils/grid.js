@@ -2,7 +2,7 @@ function cellIndex(game, row, col) {
   return row * game.Game.Width + col;
 }
 
-// This is a workaround for fields that are omitted when they have the defualt
+// This is a workaround for fields that are omitted when they have the default
 // value. ie: int fields that need to default to 0 rather than undefined.
 function cleanFrame(frame) {
   frame.Turn = frame.Turn || 0;
