@@ -8,7 +8,8 @@ const options = parseUrl();
 const mapStateToProps = state => {
   return {
     options: options,
-    grid: state.grid
+    grid: state.grid,
+    snakes: state.snakes
   };
 };
 

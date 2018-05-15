@@ -57,7 +57,8 @@ export function makeGrid(game, frame) {
       const snake = snakeLookup[index];
       const color = snake && snake.Color ? snake.Color : null;
       const isFood = foodLookup[index];
-      column.push({ index, color, isFood });
+      const isDead = snake && !!snake.Death;
+      column.push({ index, color, isFood, isDead });
     }
     grid.push(column);
   }

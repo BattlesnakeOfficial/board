@@ -1,4 +1,5 @@
 import React from "react";
+import Avatar from "./avatar";
 import "./board.css";
 
 class Board extends React.Component {
@@ -11,16 +12,26 @@ class Board extends React.Component {
 
     return (
       <div>
+        <div>
+          {this.props.snakes
+            ? this.props.snakes.map(snake => <Avatar snake={snake} />)
+            : undefined}
+        </div>
+
         <div className="grid">
           {grid.map((row, rowIndex) => (
             <div className="row" key={"row" + rowIndex}>
-              {row.map(cell => (
-                <div
-                  className={"cell " + (cell.isFood ? "food" : "")}
-                  key={"cell" + cell.index}
-                  style={{ backgroundColor: cell.color }}
-                />
-              ))}
+              {row.map(cell => {
+                const foodClass = cell.isFood ? " food" : "";
+                const deadClass = cell.isDead ? " dead" : "";
+                return (
+                  <div
+                    className={"cell " + deadClass + foodClass}
+                    key={"cell" + cell.index}
+                    style={{ backgroundColor: cell.color }}
+                  />
+                );
+              })}
             </div>
           ))}
         </div>
