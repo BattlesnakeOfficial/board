@@ -5,7 +5,6 @@ import { Provider } from "react-redux";
 import rootReducer from "./reducers";
 import App from "./containers/app";
 import thunkMiddleware from "redux-thunk";
-import registerServiceWorker from "./registerServiceWorker";
 
 const middleware = applyMiddleware(thunkMiddleware);
 const initialState = {
@@ -20,4 +19,3 @@ render(
   </Provider>,
   document.getElementById("root")
 );
-registerServiceWorker();
