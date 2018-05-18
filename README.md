@@ -24,26 +24,15 @@ http://localhost:3000/?engine=http%3A%2F%2Flocalhost%3A3005&game=3bb6f305-04fd-4
 ```
 
 Since it is a common pattern to create a game, start it, and then view it in
-the browser there is a bash script to do this for you (only tested on linux):
+the browser you can do something like this:
 
 ```
-./rungame.sh
+GAME_ID=`engine-cli create -c ~/snake-config.json | cut -d'"' -f 2`
+engine-cli run -g $GAME_ID
+xdg-open "http://localhost:3000?engine=http%3A%2F%2Flocalhost%3A3005&game=$GAME_ID"
 ```
 
-It assumes that you already have engine and board running on localhost with
-default ports.
+## Linting and formatting
 
-## Suggested editor plugins/settings
-
-### VS Code
-
-#### Extensions
-
-* ESLint
-* Prettier
-
-#### Workspace Settings
-
-```
-"editor.formatOnSave": true
-```
+ESLint and Prettier are setup in this project so you may want to install
+compatible plugins in your editor.
