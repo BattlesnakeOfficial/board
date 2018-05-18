@@ -1,5 +1,5 @@
 function cellIndex(game, row, col) {
-  return row * game.Game.Width + col;
+  return row * game.Width + col;
 }
 
 // This is a workaround for fields that are omitted when they have the default
@@ -50,9 +50,9 @@ export function makeGrid(game, frame) {
   const grid = [];
   const snakeLookup = makeCellLookup(game, frame);
   const foodLookup = makeFoodLookup(game, frame);
-  for (let row = 0; row < game.Game.Height; row++) {
+  for (let row = 0; row < game.Height; row++) {
     const column = [];
-    for (let col = 0; col < game.Game.Height; col++) {
+    for (let col = 0; col < game.Width; col++) {
       const index = cellIndex(game, row, col);
       const snake = snakeLookup[index];
       const color = snake && snake.Color ? snake.Color : null;
