@@ -1,6 +1,6 @@
 # Battlesnake 2019 Board
 
-[![Build Status](https://travis-ci.org/battlesnakeio/board.svg?branch=master)](https://travis-ci.org/battlesnakeio/board)
+[![Build Status](https://travis-ci.com/battlesnakeio/board.svg?branch=master)](https://travis-ci.com/battlesnakeio/board)
 
 ## Development
 
