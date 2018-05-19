@@ -1,8 +1,6 @@
 import { streamAllFrames } from "./engine-client";
 import { streamAll } from "../io/websocket";
 
-//let resources = basicResources();
-
 jest.mock("../io/websocket", () => {
   return {
     streamAll: jest.fn()
