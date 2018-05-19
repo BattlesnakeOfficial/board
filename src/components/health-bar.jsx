@@ -31,7 +31,6 @@ class HealthBar extends React.Component {
         <VitalityBar barWidth={vitalityWidth} color={this.props.snake.Color} />
       </HealthContainer>
     );
-    // return <div>{Math.round(percentage * 100)}%</div>;
   }
 }
 
