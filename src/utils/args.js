@@ -1,11 +1,6 @@
-// Creates a dictionary of parameters based on the browser window's url.
-export function parseUrl() {
-  return parseQueryString(window.location.search);
-}
-
 // Creates a dictionary of parameters based on the given query string. q should
 // look like "?foo=bar&thing=blah".
-function parseQueryString(q) {
+export function parseQueryString(q) {
   if (!q || !q.length) {
     return {};
   }
