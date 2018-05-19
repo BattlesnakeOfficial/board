@@ -1,3 +1,6 @@
+// Establishes websocket connection on given url and then calls receive for
+// every object sent from the server. Returns a promise that resolves when
+// receive returns true or when the server closes the connection.
 export function streamAll(url, receive) {
   let done = false;
 
