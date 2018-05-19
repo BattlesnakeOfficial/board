@@ -20,9 +20,10 @@ function mockStreamAll(resources) {
   };
 }
 
-// Runs the given action in a future event loop iteration to make it act async
-function next(action) {
-  return new Promise((resolve, reject) => setTimeout(resolve, 0));
+// Promise that resolves on next event loop iteration. Helps make mock
+// functions that act async.
+function next() {
+  return new Promise(resolve => setTimeout(resolve, 0));
 }
 
 function mockFetch(resources) {
