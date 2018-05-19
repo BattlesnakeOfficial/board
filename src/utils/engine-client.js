@@ -1,31 +1,10 @@
-const SNAKE_MIN_DELAY_MILLIS = 50;
+import { streamAll } from "../io/websocket";
+import { makeQueryString, httpToWsProtocol } from "./url";
 
-export let streamAll = websocketStreamAll;
+const SNAKE_MIN_DELAY_MILLIS = 50;
 
 function join(a, b) {
   return a.replace(/\/+$/, "") + "/" + b.replace(/^\/+/, "");
-}
-
-function makeQueryString(query) {
-  if (!query) {
-    return "";
-  }
-
-  let sep = "?";
-  let result = "";
-
-  for (const key in query) {
-    const value = query[key];
-    result += sep + key;
-
-    if (value !== undefined) {
-      result += "=" + value;
-    }
-
-    sep = "&";
-  }
-
-  return result;
 }
 
 async function get(url, query) {
@@ -39,10 +18,6 @@ function oneLeft(snakes) {
 }
 
 function isLastFrameOfGame(game, frame) {
-  if (!frame) {
-    return false;
-  }
-
   if (frame.Snakes.length === 0) {
     return true;
   }
@@ -56,50 +31,6 @@ function isLastFrameOfGame(game, frame) {
 
 function delay(millis) {
   return new Promise(resolve => setTimeout(resolve, millis));
-}
-
-function httpToWsProtocol(url) {
-  const mappings = {
-    http: "ws",
-    https: "wss"
-  };
-
-  for (const from in mappings) {
-    const to = mappings[from];
-    if (url.substr(0, from.length + 1) === from + ":") {
-      return to + url.substr(from.length);
-    }
-  }
-
-  console.error("Invalid URL: " + url);
-  return url;
-}
-
-function websocketStreamAll(url, receive) {
-  let done = false;
-
-  return new Promise((resolve, reject) => {
-    const ws = new WebSocket(url);
-    ws.addEventListener("message", e => {
-      const obj = JSON.parse(e.data);
-      done = receive(obj);
-      if (done) {
-        ws.close();
-        resolve();
-      }
-    });
-
-    ws.addEventListener("onerror", e => {
-      reject(e);
-    });
-
-    ws.addEventListener("onclose", e => {
-      if (!done) {
-        done = true;
-        resolve();
-      }
-    });
-  });
 }
 
 export function getGameInfo(baseUrl, gameId) {

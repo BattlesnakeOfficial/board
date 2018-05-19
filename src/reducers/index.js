@@ -5,7 +5,7 @@ const frames = (state = {}, action) => {
     case "RECEIVE_FRAME":
       return {
         ...state,
-        grid: makeGrid(action.game, action.frame),
+        grid: makeGrid(action.game.Game, action.frame),
         snakes: action.frame.Snakes
       };
     case "REQUEST_FRAMES":
