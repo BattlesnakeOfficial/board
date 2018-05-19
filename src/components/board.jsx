@@ -1,6 +1,37 @@
 import React from "react";
 import Avatar from "./avatar";
-import "./board.css";
+import styled from "react-emotion";
+
+const DEAD_OPACITY = 0.25;
+
+const Grid = styled("div")({
+  borderLeft: "1px solid black",
+  borderTop: "1px solid black",
+  padding: 0,
+  display: "inline-block"
+});
+
+const Row = styled("div")({
+  margin: 0,
+  padding: 0,
+  height: "21px"
+});
+
+const Cell = styled("div")(
+  {
+    display: "inline-block",
+    borderRight: "1px solid black",
+    borderBottom: "1px solid black",
+    width: "20px",
+    height: "20px",
+    margin: 0,
+    padding: 0
+  },
+  props => ({
+    backgroundColor: props.isFood ? "pink" : props.color,
+    opacity: props.isDead ? DEAD_OPACITY : 1
+  })
+);
 
 class Board extends React.Component {
   componentDidMount() {
@@ -18,23 +49,20 @@ class Board extends React.Component {
             : undefined}
         </div>
 
-        <div className="grid">
+        <Grid>
           {grid.map((row, rowIndex) => (
-            <div className="row" key={"row" + rowIndex}>
-              {row.map(cell => {
-                const foodClass = cell.isFood ? " food" : "";
-                const deadClass = cell.isDead ? " dead" : "";
-                return (
-                  <div
-                    className={"cell " + deadClass + foodClass}
-                    key={"cell" + cell.index}
-                    style={{ backgroundColor: cell.color }}
-                  />
-                );
-              })}
-            </div>
+            <Row key={"row" + rowIndex}>
+              {row.map(cell => (
+                <Cell
+                  isFood={cell.isFood}
+                  isDead={cell.isDead}
+                  color={cell.color}
+                  key={"cell" + cell.index}
+                />
+              ))}
+            </Row>
           ))}
-        </div>
+        </Grid>
       </div>
     );
   }
