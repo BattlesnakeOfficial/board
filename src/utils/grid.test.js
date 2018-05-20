@@ -46,16 +46,16 @@ it("should place snakes on valid board", () => {
   expect(grid[5][2].isFood).toBeFalsy();
   expect(grid[1][8].isFood).toBeFalsy();
 
-  expect(grid[0][0].color).toBe("red");
-  expect(grid[1][0].color).toBe("red");
-  expect(grid[2][0].color).toBe("red");
+  expect(grid[0][0].snakePart.color).toBe("red");
+  expect(grid[1][0].snakePart.color).toBe("red");
+  expect(grid[2][0].snakePart.color).toBe("red");
 
-  expect(grid[3][5].color).toBe("green");
-  expect(grid[3][6].color).toBe("green");
-  expect(grid[4][6].color).toBe("green");
-  expect(grid[4][7].color).toBe("green");
+  expect(grid[3][5].snakePart.color).toBe("green");
+  expect(grid[3][6].snakePart.color).toBe("green");
+  expect(grid[4][6].snakePart.color).toBe("green");
+  expect(grid[4][7].snakePart.color).toBe("green");
 
-  expect(grid[0][1].color).toBeFalsy();
+  expect(grid[0][1].snakePart).toBeFalsy();
 });
 
 it("should default undefined numbers to zero", () => {
@@ -85,8 +85,8 @@ it("should default undefined numbers to zero", () => {
   expect(grid[8][0].isFood).toBe(true);
   expect(grid[0][5].isFood).toBe(true);
 
-  expect(grid[0][0].color).toBe("red");
-  expect(grid[1][0].color).toBe("red");
-  expect(grid[1][1].color).toBe("red");
-  expect(grid[0][1].color).toBe("red");
+  expect(grid[0][0].snakePart.color).toBe("red");
+  expect(grid[1][0].snakePart.color).toBe("red");
+  expect(grid[1][1].snakePart.color).toBe("red");
+  expect(grid[0][1].snakePart.color).toBe("red");
 });

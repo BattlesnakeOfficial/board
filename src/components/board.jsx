@@ -1,6 +1,7 @@
 import React from "react";
 import Avatar from "./avatar";
 import styled from "react-emotion";
+import BlankState from "./blank-state";
 
 const DEAD_OPACITY = 0.25;
 
@@ -27,25 +28,48 @@ const Cell = styled("div")(
     margin: 0,
     padding: 0
   },
-  props => ({
-    backgroundColor: props.isFood ? "pink" : props.color,
-    opacity: props.isDead ? DEAD_OPACITY : 1
-  })
+  props => {
+    const color = props.snakePart ? props.snakePart.color : undefined;
+    const isDead = props.snakePart ? props.snakePart.isDead : false;
+
+    return {
+      backgroundColor: props.isFood ? "pink" : color,
+      opacity: isDead ? DEAD_OPACITY : 1
+    };
+  }
 );
 
 class Board extends React.Component {
-  componentDidMount() {
-    this.props.fetchFrames(this.props.options.game, this.props.options.engine);
+  componentWillMount() {
+    console.log(this.props.options.game, this.props.options.engine);
+    if (this.props.options.game && this.props.options.engine) {
+      this.props.fetchFrames(
+        this.props.options.game,
+        this.props.options.engine
+      );
+    } else {
+      this.invalidArgs = true;
+    }
   }
 
   render() {
+    if (this.invalidArgs) {
+      return <BlankState />;
+    } else {
+      return this.renderGame();
+    }
+  }
+
+  renderGame() {
     const grid = this.props.grid;
 
     return (
       <div>
         <div>
           {this.props.snakes
-            ? this.props.snakes.map(snake => <Avatar snake={snake} />)
+            ? this.props.snakes.map((snake, i) => (
+                <Avatar snake={snake} key={"avatar" + i} />
+              ))
             : undefined}
         </div>
 
@@ -55,8 +79,7 @@ class Board extends React.Component {
               {row.map(cell => (
                 <Cell
                   isFood={cell.isFood}
-                  isDead={cell.isDead}
-                  color={cell.color}
+                  snakePart={cell.snakePart}
                   key={"cell" + cell.index}
                 />
               ))}

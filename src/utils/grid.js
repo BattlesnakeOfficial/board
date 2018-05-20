@@ -20,13 +20,48 @@ function cleanFrame(frame) {
   }
 }
 
-function makeCellLookup(game, frame) {
+function getDirection(a, b) {
+  if (a.X < b.X) {
+    return "right";
+  } else if (b.X < a.X) {
+    return "left";
+  } else if (a.Y < b.Y) {
+    return "down";
+  }
+  return "up";
+}
+
+function getType(snake, part) {
+  const head = snake.Body[snake.Body.length - 1];
+  const tail = snake.Body[0];
+
+  if (head.X === part.X && head.Y === part.Y) {
+    return "head";
+  }
+
+  if (tail.X === part.X && tail.Y === part.Y) {
+    return "tail";
+  }
+
+  return "body";
+}
+
+function makeSnakeLookup(game, frame) {
   const lookup = {};
 
   for (const snake of frame.Snakes) {
+    let lastPart = null;
     for (const part of snake.Body) {
+      const direction = lastPart ? getDirection(lastPart, part) : null;
+      const type = getType(snake, part);
       const index = cellIndex(game, part.Y, part.X);
-      lookup[index] = snake;
+      lookup[index] = {
+        direction,
+        type,
+        color: snake.Color,
+        isDead: !!snake.Death
+      };
+      lastPart = part;
     }
   }
 
@@ -48,17 +83,15 @@ export function makeGrid(game, frame) {
   cleanFrame(frame);
 
   const grid = [];
-  const snakeLookup = makeCellLookup(game, frame);
+  const snakeLookup = makeSnakeLookup(game, frame);
   const foodLookup = makeFoodLookup(game, frame);
   for (let row = 0; row < game.Height; row++) {
     const column = [];
     for (let col = 0; col < game.Width; col++) {
       const index = cellIndex(game, row, col);
-      const snake = snakeLookup[index];
-      const color = snake && snake.Color ? snake.Color : null;
+      const snakePart = snakeLookup[index];
       const isFood = foodLookup[index];
-      const isDead = snake && !!snake.Death;
-      column.push({ index, color, isFood, isDead });
+      column.push({ index, isFood, snakePart });
     }
     grid.push(column);
   }
