@@ -1,13 +1,7 @@
-import { makeGrid } from "./grid";
+import { formatFrame } from "./game-state";
 
 it("should place snakes on valid board", () => {
-  const game = {
-    ID: "123",
-    Width: 10,
-    Height: 15
-  };
-
-  const frame = {
+  const apiFrame = {
     Turn: 1,
     Food: [{ X: 5, Y: 2 }, { X: 1, Y: 8 }],
     Snakes: [
@@ -30,43 +24,45 @@ it("should place snakes on valid board", () => {
     ]
   };
 
-  const grid = makeGrid(game, frame);
-  expect(grid).toHaveLength(15);
+  const frame = formatFrame(apiFrame);
 
-  for (const row of grid) {
-    expect(row).toHaveLength(10);
-  }
+  expect(frame.turn).toBe(1);
+  expect(frame.snakes).toHaveLength(2);
+  expect(frame.food).toHaveLength(2);
 
-  expect(grid[0][0].index).toEqual(0);
-  expect(grid[0][1].index).toEqual(1);
-  expect(grid[1][1].index).toEqual(11);
+  expect(frame.food[0]).toEqual({ x: 5, y: 2 });
+  expect(frame.food[1]).toEqual({ x: 1, y: 8 });
 
-  expect(grid[2][5].isFood).toBe(true);
-  expect(grid[8][1].isFood).toBe(true);
-  expect(grid[5][2].isFood).toBeFalsy();
-  expect(grid[1][8].isFood).toBeFalsy();
+  expect(frame.snakes[0]).toEqual({
+    name: "snake 1",
+    health: 80,
+    color: "red",
+    body: [
+      { x: 0, y: 0, direction: "down", type: "tail" },
+      { x: 0, y: 1, direction: "down", type: "body" },
+      { x: 0, y: 2, direction: null, type: "head" }
+    ],
+    isDead: false
+  });
 
-  expect(grid[0][0].snakePart.color).toBe("red");
-  expect(grid[1][0].snakePart.color).toBe("red");
-  expect(grid[2][0].snakePart.color).toBe("red");
-
-  expect(grid[3][5].snakePart.color).toBe("green");
-  expect(grid[3][6].snakePart.color).toBe("green");
-  expect(grid[4][6].snakePart.color).toBe("green");
-  expect(grid[4][7].snakePart.color).toBe("green");
-
-  expect(grid[0][1].snakePart).toBeFalsy();
+  expect(frame.snakes[1]).toEqual({
+    name: "snake 2",
+    health: 70,
+    color: "green",
+    body: [
+      { x: 5, y: 3, direction: "right", type: "tail" },
+      { x: 6, y: 3, direction: "down", type: "body" },
+      { x: 6, y: 4, direction: "right", type: "body" },
+      { x: 7, y: 4, direction: null, type: "head" }
+    ],
+    isDead: false
+  });
 });
 
-it("should default undefined numbers to zero", () => {
-  const game = {
-    ID: "123",
-    Width: 10,
-    Height: 15
-  };
-
-  const frame = {
-    Food: [{ X: 5 }, { Y: 8 }, {}],
+it("should recognize dead snakes", () => {
+  const apiFrame = {
+    Turn: 1,
+    Food: [{ X: 5, Y: 2 }, { X: 1, Y: 8 }],
     Snakes: [
       {
         ID: "snake1",
@@ -74,19 +70,65 @@ it("should default undefined numbers to zero", () => {
         URL: "http://snake1",
         Health: 80,
         Color: "red",
-        Body: [{}, { Y: 1 }, { X: 1, Y: 1 }, { X: 1 }]
+        Death: { Cause: "asdf", Turn: 3 },
+        Body: [{ X: 1, Y: 1 }, { X: 0, Y: 1 }, { X: 0, Y: 0 }]
       }
     ]
   };
 
-  const grid = makeGrid(game, frame);
+  const frame = formatFrame(apiFrame);
 
-  expect(grid[0][0].isFood).toBe(true);
-  expect(grid[8][0].isFood).toBe(true);
-  expect(grid[0][5].isFood).toBe(true);
+  expect(frame.turn).toBe(1);
+  expect(frame.snakes).toHaveLength(1);
+  expect(frame.food).toHaveLength(2);
 
-  expect(grid[0][0].snakePart.color).toBe("red");
-  expect(grid[1][0].snakePart.color).toBe("red");
-  expect(grid[1][1].snakePart.color).toBe("red");
-  expect(grid[0][1].snakePart.color).toBe("red");
+  expect(frame.food[0]).toEqual({ x: 5, y: 2 });
+  expect(frame.food[1]).toEqual({ x: 1, y: 8 });
+
+  expect(frame.snakes[0]).toEqual({
+    name: "snake 1",
+    health: 80,
+    color: "red",
+    body: [
+      { x: 1, y: 1, direction: "left", type: "tail" },
+      { x: 0, y: 1, direction: "up", type: "body" },
+      { x: 0, y: 0, direction: null, type: "head" }
+    ],
+    isDead: true,
+    death: { cause: "asdf", turn: 3 }
+  });
+});
+
+it("should set undefined numbers to zero", () => {
+  const apiFrame = {
+    Food: [{}],
+    Snakes: [
+      {
+        ID: "snake1",
+        Name: "snake 1",
+        URL: "http://snake1",
+        Health: 80,
+        Color: "red",
+        Death: { Cause: "asdf" },
+        Body: [{}]
+      }
+    ]
+  };
+
+  const frame = formatFrame(apiFrame);
+
+  expect(frame.turn).toBe(0);
+  expect(frame.snakes).toHaveLength(1);
+  expect(frame.food).toHaveLength(1);
+
+  expect(frame.food[0]).toEqual({ x: 0, y: 0 });
+
+  expect(frame.snakes[0]).toEqual({
+    name: "snake 1",
+    health: 80,
+    color: "red",
+    body: [{ x: 0, y: 0, direction: null, type: "head" }],
+    isDead: true,
+    death: { cause: "asdf", turn: 0 }
+  });
 });
