@@ -23,12 +23,12 @@ const VitalityBar = styled("div")(
 
 class HealthBar extends React.Component {
   render() {
-    const ratio = this.props.snake.Health / MAX_HEALTH;
+    const ratio = this.props.snake.health / MAX_HEALTH;
     const vitalityWidth = HEALTH_BAR_WIDTH * ratio;
 
     return (
       <HealthContainer>
-        <VitalityBar barWidth={vitalityWidth} color={this.props.snake.Color} />
+        <VitalityBar barWidth={vitalityWidth} color={this.props.snake.color} />
       </HealthContainer>
     );
   }

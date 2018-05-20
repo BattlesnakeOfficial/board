@@ -21,7 +21,7 @@ class Avatar extends React.Component {
 
     return (
       <Container opacity={opacity}>
-        <div>{this.props.snake.Name}</div>
+        <div>{this.props.snake.name}</div>
         <HealthBar snake={this.props.snake} />
       </Container>
     );

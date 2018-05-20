@@ -1,12 +1,17 @@
-import { makeGrid } from "../utils/grid";
+import { formatFrame } from "../utils/game-state";
 
 const frames = (state = {}, action) => {
   switch (action.type) {
     case "RECEIVE_FRAME":
+      const frame = formatFrame(action.frame);
       return {
         ...state,
-        grid: makeGrid(action.game.Game, action.frame),
-        snakes: action.frame.Snakes
+        grid: {
+          height: action.game.Game.Height,
+          width: action.game.Game.Width
+        },
+        snakes: frame.snakes,
+        food: frame.food
       };
     case "REQUEST_FRAMES":
       return { ...state };
