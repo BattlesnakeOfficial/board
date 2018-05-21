@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "react-emotion";
 
 const DEAD_OPACITY = 0.15;
 const CELL_SIZE = 20;
@@ -9,80 +8,31 @@ function toGridSpace(slot) {
   return (CELL_SIZE + CELL_SPACING) * slot + CELL_SPACING;
 }
 
-const Grid = styled("div")(
-  {
-    backgroundColor: "#ddd",
-    position: "relative"
-  },
-  props => {
-    const width = toGridSpace(props.columns);
-    const height = toGridSpace(props.rows);
-    return {
-      width: width + "px",
-      height: height + "px"
-    };
-  }
-);
-
-const SnakePart = styled("div")(props => {
-  const xBias = props.direction === "left" ? -CELL_SPACING : 0;
-  const yBias = props.direction === "up" ? -CELL_SPACING : 0;
-  const xOffset = toGridSpace(props.x) + xBias;
-  const yOffset = toGridSpace(props.y) + yBias;
-
+function getPartWidth(part) {
   const extraWidth =
-    props.direction === "left" || props.direction === "right"
-      ? CELL_SPACING
-      : 0;
+    part.direction === "left" || part.direction === "right" ? CELL_SPACING : 0;
+  return CELL_SIZE + extraWidth;
+}
 
+function getPartHeight(part) {
   const extraHeight =
-    props.direction === "up" || props.direction === "down" ? CELL_SPACING : 0;
+    part.direction === "up" || part.direction === "down" ? CELL_SPACING : 0;
+  return CELL_SIZE + extraHeight;
+}
 
-  return {
-    width: CELL_SIZE + extraWidth,
-    height: CELL_SIZE + extraHeight,
-    left: xOffset + "px",
-    top: yOffset + "px",
-    backgroundColor: props.color,
-    position: "absolute",
-    opacity: props.isDead ? DEAD_OPACITY : 1
-  };
-});
+function getPartXOffset(part) {
+  const xBias = part.direction === "left" ? -CELL_SPACING : 0;
+  return toGridSpace(part.x) + xBias;
+}
 
-const Food = styled("div")(
-  {
-    width: CELL_SIZE,
-    height: CELL_SIZE,
-    backgroundColor: "orange",
-    borderRadius: CELL_SIZE / 2 + "px"
-  },
-  props => {
-    const xOffset = toGridSpace(props.x);
-    const yOffset = toGridSpace(props.y);
-    return {
-      left: xOffset + "px",
-      top: yOffset + "px",
-      position: "absolute"
-    };
-  }
-);
+function getPartYOffset(part) {
+  const yBias = part.direction === "up" ? -CELL_SPACING : 0;
+  return toGridSpace(part.y) + yBias;
+}
 
-const Cell = styled("div")(
-  {
-    width: CELL_SIZE,
-    height: CELL_SIZE,
-    backgroundColor: "#eee"
-  },
-  props => {
-    const xOffset = toGridSpace(props.x);
-    const yOffset = toGridSpace(props.y);
-    return {
-      left: xOffset + "px",
-      top: yOffset + "px",
-      position: "absolute"
-    };
-  }
-);
+function getOpacity(snake) {
+  return snake.isDead ? DEAD_OPACITY : 1;
+}
 
 function range(size) {
   const result = [];
@@ -108,33 +58,50 @@ class Board extends React.Component {
       return aOrder - bOrder;
     });
 
+    const width = toGridSpace(this.props.width);
+    const height = toGridSpace(this.props.height);
+
     return (
-      <div>
-        <Grid rows={this.props.height} columns={this.props.width}>
-          {range(this.props.height).map((_, row) =>
-            range(this.props.width).map((_, col) => (
-              <Cell x={col} y={row} key={"cell" + row + "," + col} />
-            ))
-          )}
+      <svg width={width} height={height}>
+        <rect width={width} height={height} fill="#ddd" />
 
-          {snakes.map((snake, snakeIndex) =>
-            snake.body.map((part, partIndex) => (
-              <SnakePart
-                x={part.x}
-                y={part.y}
-                color={snake.color}
-                direction={part.direction}
-                isDead={snake.isDead}
-                key={"part" + snakeIndex + "," + partIndex}
-              />
-            ))
-          )}
+        {range(this.props.height).map((_, row) =>
+          range(this.props.width).map((_, col) => (
+            <rect
+              x={toGridSpace(col)}
+              y={toGridSpace(row)}
+              width={CELL_SIZE}
+              height={CELL_SIZE}
+              fill="#e8e8e8"
+              key={"cell" + row + "," + col}
+            />
+          ))
+        )}
 
-          {food.map((f, foodIndex) => (
-            <Food x={f.x} y={f.y} key={"food" + foodIndex} />
-          ))}
-        </Grid>
-      </div>
+        {snakes.map((snake, snakeIndex) =>
+          snake.body.map((part, partIndex) => (
+            <rect
+              x={getPartXOffset(part)}
+              y={getPartYOffset(part)}
+              width={getPartWidth(part)}
+              height={getPartHeight(part)}
+              opacity={getOpacity(snake)}
+              fill={snake.color}
+              key={"part" + snakeIndex + "," + partIndex}
+            />
+          ))
+        )}
+
+        {food.map((f, foodIndex) => (
+          <circle
+            cx={toGridSpace(f.x) + CELL_SIZE / 2}
+            cy={toGridSpace(f.y) + CELL_SIZE / 2}
+            r={CELL_SIZE / 2}
+            fill="orange"
+            key={"food" + foodIndex}
+          />
+        ))}
+      </svg>
     );
   }
 
