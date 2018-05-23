@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { parseQueryString } from "../utils/args";
+import { parseQueryString } from "../utils/url";
 import Board from "../components/board";
 import { fetchFrames } from "../actions";
 

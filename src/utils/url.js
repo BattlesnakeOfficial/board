@@ -27,3 +27,38 @@ function parseArg(a) {
   const value = parts[1] === undefined ? true : decodeURIComponent(parts[1]);
   return { key, value };
 }
+
+// Converts { a: "aaa", b: "bbb" } to "?a=aaa&b=bbb"
+export function makeQueryString(query) {
+  if (!query) {
+    return "";
+  }
+
+  let sep = "?";
+  let result = "";
+
+  for (const key in query) {
+    const value = query[key];
+    result += `${sep}${key}=${value}`;
+    sep = "&";
+  }
+
+  return result;
+}
+
+// Converts http://foo to ws://foo or https://foo to wss://foo
+export function httpToWsProtocol(url) {
+  const mappings = {
+    http: "ws",
+    https: "wss"
+  };
+
+  for (const from in mappings) {
+    const to = mappings[from];
+    if (url.substr(0, from.length + 1) === from + ":") {
+      return to + url.substr(from.length);
+    }
+  }
+
+  throw new Error("Invalid URL: " + url);
+}

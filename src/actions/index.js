@@ -1,4 +1,4 @@
-import { readAllFrames } from "../utils/engine-client";
+import { streamAllFrames } from "../utils/engine-client";
 
 export const gameOver = () => ({
   type: "GAME_OVER"
@@ -18,7 +18,7 @@ export const fetchFrames = (game, engine) => {
   return async dispatch => {
     dispatch(requestFrames(game, engine));
 
-    await readAllFrames(engine, game, (game, frame) => {
+    await streamAllFrames(engine, game, (game, frame) => {
       // Workaround for bug where turn exluded on turn 0
       frame.Turn = frame.Turn || 0;
       dispatch(receiveFrame(game, frame));
