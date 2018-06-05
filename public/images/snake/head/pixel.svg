@@ -1,0 +1,6 @@
+<svg id="root" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink= "http://www.w3.org/1999/xlink">
+  <rect fill="none" x="5" y="20.33" width="15.4" height="15.4"/>
+  <polygon points="89.51 36.5 89.38 36.5 89.38 36.63 89.51 36.5"/>
+  <polygon points="78.85 47.12 78.76 47.12 78.76 47.2 78.85 47.12"/>
+  <path d="M0,100l89.38.07V89.45l-.14-.14H78.76V78.9l-.21-.21H68.14V68.55l-10.62-.17V57.74H68.14V47.12H78.76V36.5H89.38V25.88H100V.11L0,0ZM5,20.33H20.4v15.4H5Z"/>
+</svg>

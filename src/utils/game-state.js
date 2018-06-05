@@ -68,11 +68,11 @@ function getDirection(a, b) {
 
 function getType(snake, partIndex) {
   if (partIndex === snake.Body.length - 1) {
-    return "head";
+    return "tail";
   }
 
   if (partIndex === 0) {
-    return "tail";
+    return "head";
   }
 
   return "body";
