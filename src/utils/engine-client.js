@@ -35,7 +35,7 @@ function delay(millis) {
 // Gets a list of all unique SVG paths required by the snakes.
 function getAllSvgs(snakes) {
   const all = snakes.reduce((result, snake) => {
-    return result.concat([snake.head, snake.tail]);
+    return result.concat([snake.Head, snake.Tail]);
   }, []);
   const unique = new Set(all);
   return Array.from(unique);
@@ -44,16 +44,16 @@ function getAllSvgs(snakes) {
 function assignHeadAndTailUrls(snakes) {
   for (const snake of snakes) {
     // Assign default if missing
-    if (!snake.head) {
-      snake.head = DEFAULT_SNAKE_HEAD;
+    if (!snake.Head) {
+      snake.Head = DEFAULT_SNAKE_HEAD;
     }
-    if (!snake.tail) {
-      snake.tail = DEFAULT_SNAKE_TAIL;
+    if (!snake.Tail) {
+      snake.Tail = DEFAULT_SNAKE_TAIL;
     }
 
     // Format as actual URL if it's just a name
-    snake.head = getSnakeHeadSvgUrl(snake.head);
-    snake.tail = getSnakeTailSvgUrl(snake.tail);
+    snake.Head = getSnakeHeadSvgUrl(snake.Head);
+    snake.Tail = getSnakeTailSvgUrl(snake.Tail);
   }
 }
 
@@ -62,13 +62,13 @@ async function setHeadAndTailSvgs(snakes) {
   await loadSvgs(getAllSvgs(snakes));
 
   for (const snake of snakes) {
-    snake.headSvg = getSvg(snake.head);
-    snake.tailSvg = getSvg(snake.tail);
+    snake.HeadSvg = getSvg(snake.Head);
+    snake.TailSvg = getSvg(snake.Tail);
   }
 }
 
-function isAbsolutePath(nameOrPath) {
-  return nameOrPath.indexOf("://") >= 0;
+function isIllegalSvgPath(nameOrPath) {
+  return nameOrPath.indexOf("/") >= 0 || nameOrPath.indexOf(".") >= 0;
 }
 
 function svgUrlFromName(base, relative) {
@@ -76,15 +76,13 @@ function svgUrlFromName(base, relative) {
 }
 
 function getSnakeHeadSvgUrl(path) {
-  return isAbsolutePath(path)
-    ? path
-    : svgUrlFromName("images/snake/head", path);
+  const effectivePath = isIllegalSvgPath(path) ? DEFAULT_SNAKE_HEAD : path;
+  return svgUrlFromName("images/snake/head", effectivePath);
 }
 
 function getSnakeTailSvgUrl(path) {
-  return isAbsolutePath(path)
-    ? path
-    : svgUrlFromName("images/snake/tail", path);
+  const effectivePath = isIllegalSvgPath(path) ? DEFAULT_SNAKE_TAIL : path;
+  return svgUrlFromName("images/snake/tail", effectivePath);
 }
 
 async function prepareFrame(frame) {

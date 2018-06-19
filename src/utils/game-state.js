@@ -1,3 +1,5 @@
+const DEFAULT_HEAD_DIRECTION = "up";
+
 export function formatFrame(frame) {
   cleanFrame(frame);
   return {
@@ -19,7 +21,10 @@ function formatSnake(snake) {
     health: snake.Health,
     isDead: !!snake.Death,
     death: formatDeath(snake.Death),
-    ...snake
+    head: snake.Head,
+    tail: snake.Tail,
+    headSvg: snake.HeadSvg,
+    tailSvg: snake.TailSvg
   };
 }
 
@@ -35,7 +40,9 @@ function formatDeath(death) {
 }
 
 function headDirection(snake) {
-  return snake.Body.length ? getDirection(snake.Body[1], snake.Body[0]) : null;
+  return snake.Body.length > 1
+    ? getDirection(snake.Body[1], snake.Body[0])
+    : DEFAULT_HEAD_DIRECTION;
 }
 
 function isCovered(snake, partIndex) {
@@ -80,12 +87,12 @@ function getDirection(a, b) {
 }
 
 function getType(snake, partIndex) {
-  if (partIndex === snake.Body.length - 1) {
-    return "tail";
-  }
-
   if (partIndex === 0) {
     return "head";
+  }
+
+  if (partIndex === snake.Body.length - 1) {
+    return "tail";
   }
 
   return "body";

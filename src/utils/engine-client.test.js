@@ -29,7 +29,8 @@ function next() {
 function mockFetch(resources) {
   return url =>
     Promise.resolve({
-      json: () => resources[url]
+      json: () => resources[url],
+      text: () => resources[url]
     });
 }
 
@@ -77,9 +78,13 @@ function singleSnakeData() {
 
   const framesResponse = [frame0, frame1];
 
+  const svgText = "<svg />";
+
   return {
     "http://localhost/games/123": gameResponse,
-    "ws://localhost/socket/123": framesResponse
+    "ws://localhost/socket/123": framesResponse,
+    "images/snake/head/regular.svg": svgText,
+    "images/snake/tail/regular.svg": svgText
   };
 }
 
@@ -93,14 +98,18 @@ function multiSnakeData() {
         Name: "abc",
         URL: "http://localhost:5000",
         Health: 1,
-        Body: [{ X: 3, Y: 3 }, { X: 3, Y: 4 }, { X: 3, Y: 5 }]
+        Body: [{ X: 3, Y: 3 }, { X: 3, Y: 4 }, { X: 3, Y: 5 }],
+        Head: "regular",
+        Tail: "regular"
       },
       {
         ID: "qwer",
         Name: "qwer",
         URL: "http://localhost:5000",
         Health: 10,
-        Body: [{ X: 6, Y: 3 }, { X: 6, Y: 4 }, { X: 6, Y: 5 }]
+        Body: [{ X: 6, Y: 3 }, { X: 6, Y: 4 }, { X: 6, Y: 5 }],
+        Head: "http://illegal/head.svg",
+        Tail: "http://illegal/tail.svg"
       }
     ]
   };

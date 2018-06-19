@@ -38,11 +38,15 @@ it("should place snakes on valid board", () => {
     health: 80,
     color: "red",
     body: [
-      { x: 0, y: 0, direction: "down", type: "tail" },
-      { x: 0, y: 1, direction: "down", type: "body" },
-      { x: 0, y: 2, direction: null, type: "head" }
+      { x: 0, y: 0, direction: "up", type: "head", shouldRender: true },
+      { x: 0, y: 1, direction: "up", type: "body", shouldRender: true },
+      { x: 0, y: 2, direction: "up", type: "tail", shouldRender: true }
     ],
-    isDead: false
+    isDead: false,
+    head: undefined,
+    tail: undefined,
+    headSvg: undefined,
+    tailSvg: undefined
   });
 
   expect(frame.snakes[1]).toEqual({
@@ -50,12 +54,16 @@ it("should place snakes on valid board", () => {
     health: 70,
     color: "green",
     body: [
-      { x: 5, y: 3, direction: "right", type: "tail" },
-      { x: 6, y: 3, direction: "down", type: "body" },
-      { x: 6, y: 4, direction: "right", type: "body" },
-      { x: 7, y: 4, direction: null, type: "head" }
+      { x: 5, y: 3, direction: "left", type: "head", shouldRender: true },
+      { x: 6, y: 3, direction: "left", type: "body", shouldRender: true },
+      { x: 6, y: 4, direction: "up", type: "body", shouldRender: true },
+      { x: 7, y: 4, direction: "left", type: "tail", shouldRender: true }
     ],
-    isDead: false
+    isDead: false,
+    head: undefined,
+    tail: undefined,
+    headSvg: undefined,
+    tailSvg: undefined
   });
 });
 
@@ -90,12 +98,16 @@ it("should recognize dead snakes", () => {
     health: 80,
     color: "red",
     body: [
-      { x: 1, y: 1, direction: "left", type: "tail" },
-      { x: 0, y: 1, direction: "up", type: "body" },
-      { x: 0, y: 0, direction: null, type: "head" }
+      { x: 1, y: 1, direction: "right", type: "head", shouldRender: true },
+      { x: 0, y: 1, direction: "right", type: "body", shouldRender: true },
+      { x: 0, y: 0, direction: "down", type: "tail", shouldRender: true }
     ],
     isDead: true,
-    death: { cause: "asdf", turn: 3 }
+    death: { cause: "asdf", turn: 3 },
+    head: undefined,
+    tail: undefined,
+    headSvg: undefined,
+    tailSvg: undefined
   });
 });
 
@@ -127,8 +139,12 @@ it("should set undefined numbers to zero", () => {
     name: "snake 1",
     health: 80,
     color: "red",
-    body: [{ x: 0, y: 0, direction: null, type: "head" }],
+    body: [{ x: 0, y: 0, direction: "up", type: "head", shouldRender: true }],
     isDead: true,
-    death: { cause: "asdf", turn: 0 }
+    death: { cause: "asdf", turn: 0 },
+    head: undefined,
+    tail: undefined,
+    headSvg: undefined,
+    tailSvg: undefined
   });
 });

@@ -25,6 +25,21 @@ describe("join", () => {
     const result = join("aaa/", "bbb/", "/ccc");
     expect(result).toBe("aaa/bbb/ccc");
   });
+
+  it("joins with empty middle value", () => {
+    const result = join("aaa/", "", "/ccc");
+    expect(result).toBe("aaa/ccc");
+  });
+
+  it("joins with empty end value", () => {
+    const result = join("aaa/", "bbb", "");
+    expect(result).toBe("aaa/bbb");
+  });
+
+  it("joins with empty start value", () => {
+    const result = join("/", "", "/ccc");
+    expect(result).toBe("ccc");
+  });
 });
 
 describe("parseQueryString", () => {
