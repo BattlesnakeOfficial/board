@@ -34,11 +34,23 @@ function formatDeath(death) {
   };
 }
 
+function headDirection(snake) {
+  return snake.Body.length ? getDirection(snake.Body[1], snake.Body[0]) : null;
+}
+
+function isCovered(snake, partIndex) {
+  const part = snake.Body[partIndex];
+  const next = snake.Body[partIndex - 1];
+
+  return next && next.X === part.X && next.Y === part.Y;
+}
+
 function formatSnakePart(snake, partIndex) {
   const part = snake.Body[partIndex];
-  const next = snake.Body[partIndex + 1];
+  const next = snake.Body[partIndex - 1];
   return {
-    direction: next ? getDirection(part, next) : null,
+    direction: next ? getDirection(part, next) : headDirection(snake),
+    shouldRender: !isCovered(snake, partIndex),
     type: getType(snake, partIndex),
     x: part.X,
     y: part.Y

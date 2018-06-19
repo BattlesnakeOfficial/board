@@ -1,5 +1,4 @@
 import React from "react";
-import css from "react-emotion";
 
 const DEAD_OPACITY = 0.15;
 const CELL_SIZE = 20;
@@ -31,6 +30,28 @@ function getPartYOffset(part) {
   return toGridSpace(part.y) + yBias;
 }
 
+function getTailXOffset(part) {
+  switch (part.direction) {
+    case "left":
+      return toGridSpace(part.x) + -CELL_SPACING;
+    case "right":
+      return toGridSpace(part.x) + CELL_SPACING;
+    default:
+      return toGridSpace(part.x);
+  }
+}
+
+function getTailYOffset(part) {
+  switch (part.direction) {
+    case "up":
+      return toGridSpace(part.y) + -CELL_SPACING;
+    case "down":
+      return toGridSpace(part.y) + CELL_SPACING;
+    default:
+      return toGridSpace(part.y);
+  }
+}
+
 function getOpacity(snake) {
   return snake.isDead ? DEAD_OPACITY : 1;
 }
@@ -51,21 +72,34 @@ function sortAliveSnakesOnTop(snakes) {
   });
 }
 
-function directionToRotation(direction) {
-  return (
-    {
-      up: 90,
-      down: -90
-    }[direction] || 0
-  );
+function getHeadTransform(direction, viewBox) {
+  const halfX = viewBox.width / 2;
+  const halfY = viewBox.height / 2;
+  switch (direction) {
+    case "left":
+      return `rotate(180 ${halfX} ${halfY})`;
+    case "up":
+      return `rotate(-90 ${halfX} ${halfY})`;
+    case "down":
+      return `rotate(90 ${halfX} ${halfY})`;
+    default:
+      return "";
+  }
 }
 
-function directionToScale(direction) {
-  return (
-    {
-      right: "-1 1"
-    }[direction] || "1 1"
-  );
+function getTailTransform(direction, viewBox) {
+  const halfX = viewBox.width / 2;
+  const halfY = viewBox.height / 2;
+  switch (direction) {
+    case "right":
+      return `rotate(180 ${halfX} ${halfY})`;
+    case "down":
+      return `rotate(-90 ${halfX} ${halfY})`;
+    case "up":
+      return `rotate(90 ${halfX} ${halfY})`;
+    default:
+      return "";
+  }
 }
 
 class Board extends React.Component {
@@ -85,28 +119,36 @@ class Board extends React.Component {
   }
 
   renderHeadPart(snake, snakeIndex, part, partIndex) {
-    const x = getPartXOffset(part);
-    const y = getPartYOffset(part);
-    const r = directionToRotation(part.direction);
-    const s = directionToScale(part.direction);
-    const rx = CELL_SIZE / 2 + x;
-    const ry = CELL_SIZE / 2 + y;
-    const transform = `translate(${x}, ${y})`;
-    //const transform = `rotate(${r}, ${rx}, ${ry}) translate(${x}, ${y})`;
+    const x = toGridSpace(part.x);
+    const y = toGridSpace(part.y);
+    const box = snake.headSvg.viewBox.baseVal;
+    const transform = getHeadTransform(part.direction, box);
+    const viewBoxStr = `${box.x} ${box.y} ${box.width} ${box.height}`;
+
     return (
       <svg
         fill={snake.color}
-        transform={transform}
-        width={getPartWidth(part)}
-        height={getPartHeight(part)}
+        width={CELL_SIZE + "px"}
+        height={CELL_SIZE + "px"}
+        x={x}
+        y={y}
+        viewBox={viewBoxStr}
         opacity={getOpacity(snake)}
         key={"part" + snakeIndex + "," + partIndex}
-        dangerouslySetInnerHTML={{ __html: snake.headSvg.outerHTML }}
-      />
+      >
+        <g
+          transform={transform}
+          dangerouslySetInnerHTML={{ __html: snake.headSvg.innerHTML }}
+        />
+      </svg>
     );
   }
 
   renderMiddlePart(snake, snakeIndex, part, partIndex) {
+    if (!part.shouldRender) {
+      return <svg key={"part" + snakeIndex + "," + partIndex} />;
+    }
+
     return (
       <rect
         x={getPartXOffset(part)}
@@ -121,22 +163,32 @@ class Board extends React.Component {
   }
 
   renderTailPart(snake, snakeIndex, part, partIndex) {
-    const x = getPartXOffset(part);
-    const y = getPartYOffset(part);
-    const r = -90;
-    const rx = CELL_SIZE / 2;
-    const ry = CELL_SIZE / 2;
-    const transform = `translate(${x}, ${y}) rotate(${r}, ${rx}, ${ry})`;
+    const x = getTailXOffset(part);
+    const y = getTailYOffset(part);
+    const box = snake.tailSvg.viewBox.baseVal;
+    const transform = getTailTransform(part.direction, box);
+    const viewBoxStr = `${box.x} ${box.y} ${box.width} ${box.height}`;
+
+    if (!part.shouldRender) {
+      return <svg key={"part" + snakeIndex + "," + partIndex} />;
+    }
+
     return (
-      <image
-        transform={transform}
-        width={getPartWidth(part)}
-        height={getPartHeight(part)}
-        opacity={getOpacity(snake)}
+      <svg
         fill={snake.color}
+        width={CELL_SIZE}
+        height={CELL_SIZE}
+        x={x}
+        y={y}
+        viewBox={viewBoxStr}
+        opacity={getOpacity(snake)}
         key={"part" + snakeIndex + "," + partIndex}
-        href="images/snake/tail/small-rattle.svg"
-      />
+      >
+        <g
+          transform={transform}
+          dangerouslySetInnerHTML={{ __html: snake.tailSvg.innerHTML }}
+        />
+      </svg>
     );
   }
 
