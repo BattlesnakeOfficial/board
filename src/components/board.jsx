@@ -1,4 +1,5 @@
 import React from "react";
+import css from "react-emotion";
 
 const DEAD_OPACITY = 0.15;
 const CELL_SIZE = 20;
@@ -11,13 +12,13 @@ function toGridSpace(slot) {
 function getPartWidth(part) {
   const extraWidth =
     part.direction === "left" || part.direction === "right" ? CELL_SPACING : 0;
-  return CELL_SIZE + extraWidth;
+  return CELL_SIZE + extraWidth + "px";
 }
 
 function getPartHeight(part) {
   const extraHeight =
     part.direction === "up" || part.direction === "down" ? CELL_SPACING : 0;
-  return CELL_SIZE + extraHeight;
+  return CELL_SIZE + extraHeight + "px";
 }
 
 function getPartXOffset(part) {
@@ -90,16 +91,17 @@ class Board extends React.Component {
     const s = directionToScale(part.direction);
     const rx = CELL_SIZE / 2 + x;
     const ry = CELL_SIZE / 2 + y;
-    const transform = `rotate(${r}, ${rx}, ${ry}) translate(${x}, ${y}) scale(${s})`;
+    const transform = `translate(${x}, ${y})`;
+    //const transform = `rotate(${r}, ${rx}, ${ry}) translate(${x}, ${y})`;
     return (
-      <image
+      <svg
+        fill={snake.color}
         transform={transform}
         width={getPartWidth(part)}
         height={getPartHeight(part)}
         opacity={getOpacity(snake)}
-        fill={snake.color}
         key={"part" + snakeIndex + "," + partIndex}
-        href="images/snake/head/bendr.svg"
+        dangerouslySetInnerHTML={{ __html: snake.headSvg.outerHTML }}
       />
     );
   }

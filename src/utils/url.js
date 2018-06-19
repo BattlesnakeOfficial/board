@@ -62,3 +62,24 @@ export function httpToWsProtocol(url) {
 
   throw new Error("Invalid URL: " + url);
 }
+
+// Joins path components and makes sure there is exactly one '/' separating
+// them.
+export function join(...parts) {
+  function joinPair(a, b) {
+    const cleanA = a.replace(/\/+$/, "");
+    const cleanB = b.replace(/^\/+/, "");
+
+    if (cleanA === "") {
+      return cleanB;
+    }
+
+    if (cleanB === "") {
+      return cleanA;
+    }
+
+    return `${cleanA}/${cleanB}`;
+  }
+
+  return parts.reduce((current, next) => joinPair(current, next), "");
+}

@@ -1,4 +1,31 @@
-import { parseQueryString, makeQueryString, httpToWsProtocol } from "./url";
+import {
+  parseQueryString,
+  makeQueryString,
+  httpToWsProtocol,
+  join
+} from "./url";
+
+describe("join", () => {
+  it("joins two without slashes", () => {
+    const result = join("aaa", "bbb");
+    expect(result).toBe("aaa/bbb");
+  });
+
+  it("joins three without slashes", () => {
+    const result = join("aaa", "bbb", "ccc");
+    expect(result).toBe("aaa/bbb/ccc");
+  });
+
+  it("joins two with slashes", () => {
+    const result = join("aaa/", "/bbb");
+    expect(result).toBe("aaa/bbb");
+  });
+
+  it("joins three with slashes", () => {
+    const result = join("aaa/", "bbb/", "/ccc");
+    expect(result).toBe("aaa/bbb/ccc");
+  });
+});
 
 describe("parseQueryString", () => {
   it("parses basic query", () => {

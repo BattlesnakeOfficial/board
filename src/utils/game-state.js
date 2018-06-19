@@ -18,7 +18,8 @@ function formatSnake(snake) {
     name: snake.Name,
     health: snake.Health,
     isDead: !!snake.Death,
-    death: formatDeath(snake.Death)
+    death: formatDeath(snake.Death),
+    ...snake
   };
 }
 
