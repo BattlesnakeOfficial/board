@@ -96,7 +96,6 @@ async function prepareFrame(frame) {
 
 export function getGameInfo(baseUrl, gameId) {
   const url = join(baseUrl, `games/${gameId}`);
-  console.log("GETTING", url);
   return get(url);
 }
 
