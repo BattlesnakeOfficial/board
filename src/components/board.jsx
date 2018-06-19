@@ -33,7 +33,7 @@ function getPartYOffset(part) {
 function getTailXOffset(part) {
   switch (part.direction) {
     case "left":
-      return toGridSpace(part.x) + -CELL_SPACING;
+      return toGridSpace(part.x) - CELL_SPACING;
     case "right":
       return toGridSpace(part.x) + CELL_SPACING;
     default:
@@ -44,7 +44,7 @@ function getTailXOffset(part) {
 function getTailYOffset(part) {
   switch (part.direction) {
     case "up":
-      return toGridSpace(part.y) + -CELL_SPACING;
+      return toGridSpace(part.y) - CELL_SPACING;
     case "down":
       return toGridSpace(part.y) + CELL_SPACING;
     default:
