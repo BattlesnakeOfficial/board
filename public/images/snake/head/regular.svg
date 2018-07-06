@@ -1,0 +1,4 @@
+<svg id="root" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink= "http://www.w3.org/1999/xlink">
+  <circle fill="none" cx="12.52" cy="28.55" r="9.26"/>
+  <path d="M0,100H100L56,55.39,100,15.5V.11L0,0ZM12.52,19.29a9.26,9.26,0,1,1-9.26,9.26A9.26,9.26,0,0,1,12.52,19.29Z"/>
+</svg>
