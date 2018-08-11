@@ -1,6 +1,7 @@
 import React from "react";
 import Grid from "./grid";
 import Scoreboard from "./scoreboard";
+import { colors } from "../theme";
 
 class Board extends React.Component {
   render() {
@@ -15,7 +16,13 @@ class Board extends React.Component {
           width: "100%"
         }}
       >
-        <rect x="0" y="0" width="160" height="90" fill="white" />
+        <rect
+          x="0"
+          y="0"
+          width="160"
+          height="90"
+          fill={colors.pageBackground}
+        />
 
         <Grid
           snakes={this.props.snakes}

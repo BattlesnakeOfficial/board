@@ -1,37 +1,28 @@
 import React from "react";
 import styled from "react-emotion";
+import { colors } from "../theme";
 
 const Name = styled("text")({
-  fontSize: "5px"
-});
-
-const Background = styled("rect")({
-  strokeWidth: 1,
-  stroke: "#000",
-  fill: "#ccc"
+  fontSize: "5px",
+  color: colors.darkText
 });
 
 const HealthBar = styled("rect")({
-  fill: "#0f0"
+  fill: colors.healthBar
 });
 
 const HealthBarOutline = styled("rect")({
   strokeWidth: 1,
-  stroke: "#000"
+  stroke: colors.healthBarOutline
 });
 
 const CauseOfDeath = styled("text")({
   fontSize: "4px",
-  fill: "#fff"
+  fill: colors.lightText
 });
-
-const SnakeName = styled("span")({}, props => ({
-  textDecoration: props.dead ? "line-through" : ""
-}));
 
 class Avatar extends React.Component {
   render() {
-    const headSize = this.props.height - 4;
     const viewBoxWidth = 100;
     const viewBoxHeight = 16;
     const viewBox = `0 0 ${viewBoxWidth} ${viewBoxHeight}`;

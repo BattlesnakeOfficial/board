@@ -1,4 +1,5 @@
 import React from "react";
+import { colors } from "../theme";
 
 const DEAD_OPACITY = 0.15;
 const CELL_SIZE = 20;
@@ -211,7 +212,11 @@ class Grid extends React.Component {
         viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}
         style={{ border: "2px solid green" }}
       >
-        <rect width={viewBoxWidth} height={viewBoxHeight} fill="#ddd" />
+        <rect
+          width={viewBoxWidth}
+          height={viewBoxHeight}
+          fill={colors.gridBackground}
+        />
 
         {range(this.props.rows).map((_, row) =>
           range(this.props.columns).map((_, col) => (
@@ -220,7 +225,7 @@ class Grid extends React.Component {
               y={toGridSpace(row)}
               width={CELL_SIZE}
               height={CELL_SIZE}
-              fill="#e8e8e8"
+              fill={colors.cellBackground}
               key={"cell" + row + "," + col}
             />
           ))
@@ -237,7 +242,7 @@ class Grid extends React.Component {
             cx={toGridSpace(f.x) + CELL_SIZE / 2}
             cy={toGridSpace(f.y) + CELL_SIZE / 2}
             r={CELL_SIZE / 2}
-            fill="orange"
+            fill={colors.food}
             key={"food" + foodIndex}
           />
         ))}
