@@ -1,49 +1,59 @@
 import React from "react";
-// import HealthBar from "./health-bar";
-// import styled from "react-emotion";
+import styled from "react-emotion";
 
-// const DEAD_OPACITY = 0.25;
+const Name = styled("text")({
+  fontSize: "5px"
+});
 
-// const Container = styled("div")(
-//   {
-//     display: "inline-block",
-//     border: "2px solid black",
-//     padding: "5px",
-//     margin: "0 4px 4px 0"
-//   },
-//   props => ({ opacity: props.opacity })
-// );
+const Background = styled("rect")({
+  strokeWidth: 1,
+  stroke: "#000",
+  fill: "#ccc"
+});
+
+const HealthBar = styled("rect")({
+  fill: "#0f0"
+});
+
+const HealthBarOutline = styled("rect")({
+  strokeWidth: 1,
+  stroke: "#000"
+});
+
+const CauseOfDeath = styled("text")({
+  fontSize: "4px",
+  fill: "#fff"
+});
 
 class Avatar extends React.Component {
   render() {
-    // const isDead = !!this.props.snake.Death;
-    // const opacity = isDead ? DEAD_OPACITY : 1;
-
-    // return (
-    //   <Container opacity={opacity}>
-    //     <div>{this.props.snake.name}</div>
-    //     <HealthBar snake={this.props.snake} />
-    //   </Container>
-    // );
-
     const headSize = this.props.height - 4;
     const viewBoxWidth = 100;
-    const viewBoxHeight = viewBoxWidth / (this.props.width / this.props.height);
+    const viewBoxHeight = 16;
     const viewBox = `0 0 ${viewBoxWidth} ${viewBoxHeight}`;
+    const healthWidthConversion = 96 / 100;
+    const healthWidth = this.props.snake.health * healthWidthConversion;
 
     return (
       <svg
         x={this.props.x}
         y={this.props.y + 2}
         viewBox={viewBox}
-        width={this.props.width}
-        height={this.props.height}
+        width={100}
+        height={16}
       >
-        <g
-          dangerouslySetInnerHTML={{
-            __html: this.props.snake.headSvg.innerHTML
-          }}
-        />
+        {/* <Background width={100} height={16} /> */}
+        <Name x="2" y="6">
+          {this.props.snake.name}
+        </Name>
+        <HealthBarOutline x="2" y="8" width="96" height="6" />
+        {this.props.snake.death ? (
+          <CauseOfDeath x="4" y="12">
+            {this.props.snake.death.cause}
+          </CauseOfDeath>
+        ) : (
+          <HealthBar x="2" y="8" width={healthWidth} height="6" />
+        )}
       </svg>
     );
   }

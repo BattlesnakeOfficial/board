@@ -15,7 +15,7 @@ class Board extends React.Component {
           width: "100%"
         }}
       >
-        <rect x="0" y="0" width="160" height="90" fill="pink" />
+        <rect x="0" y="0" width="160" height="90" fill="white" />
 
         <Grid
           snakes={this.props.snakes}

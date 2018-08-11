@@ -17,19 +17,9 @@ class Scoreboard extends React.Component {
         viewBox={viewBox}
         style={{ border: "1px solid black" }}
       >
-        {/* <rect x="5" y="5" width="90" height="20" fill="blue" />
-        <rect x="5" y="30" width="90" height="20" fill="blue" />
-        <rect x="5" y="55" width="90" height="20" fill="blue" /> */}
         {this.props.snakes
           ? this.props.snakes.map((snake, i) => (
-              <Avatar
-                snake={snake}
-                key={"avatar" + i}
-                x="0"
-                y={i * 25}
-                width={100}
-                height={16}
-              />
+              <Avatar snake={snake} key={"avatar" + i} x="0" y={i * 16} />
             ))
           : undefined}
       </svg>
