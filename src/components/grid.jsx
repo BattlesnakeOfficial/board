@@ -157,7 +157,7 @@ class Grid extends React.Component {
         y={y}
         viewBox={viewBoxStr}
         opacity={getOpacity(snake)}
-        key={"part" + snakeIndex + "," + partIndex}
+        key={"part" + snakeIndex + ",head"}
       >
         <g
           transform={transform}
@@ -180,10 +180,8 @@ class Grid extends React.Component {
         height={getPartHeight(part)}
         opacity={getOpacity(snake)}
         fill={snake.color}
-        key={"part" + snakeIndex + "," + partIndex}
-        // stroke={snake.color}
-        // stroke-width="0.5px"
-        shape-rendering="crispEdges"
+        key={`part${snakeIndex},${part.x},${part.y}`}
+        shapeRendering="crispEdges"
       />
     );
   }
@@ -208,7 +206,7 @@ class Grid extends React.Component {
         y={y}
         viewBox={viewBoxStr}
         opacity={getOpacity(snake)}
-        key={"part" + snakeIndex + "," + partIndex}
+        key={"part" + snakeIndex + ",tail"}
       >
         <g
           transform={transform}
