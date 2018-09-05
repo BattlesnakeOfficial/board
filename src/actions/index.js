@@ -29,7 +29,10 @@ export const fetchFrames = (game, engine) => {
 
     const now = new Date().getTime();
     const delta = now - start;
-    console.log(`${turn} turns in ${delta} milliseconds`);
+    const millisPerTurn = delta / turn;
+    console.log(
+      `${turn} turns in ${delta} milliseconds - ${millisPerTurn}/turn`
+    );
     dispatch(gameOver());
   };
 };
