@@ -7,9 +7,9 @@ const Name = styled("text")({
   color: colors.darkText
 });
 
-const HealthBar = styled("rect")({
-  fill: colors.healthBar
-});
+const HealthBar = styled("rect")(({ color }) => ({
+  fill: color
+}));
 
 const HealthBarOutline = styled("rect")({
   strokeWidth: 1,
@@ -46,7 +46,13 @@ class Avatar extends React.Component {
             {this.props.snake.death.cause}
           </CauseOfDeath>
         ) : (
-          <HealthBar x="2" y="8" width={healthWidth} height="6" />
+          <HealthBar
+            x="2"
+            y="8"
+            width={healthWidth}
+            height="6"
+            color={this.props.snake.color}
+          />
         )}
       </svg>
     );
