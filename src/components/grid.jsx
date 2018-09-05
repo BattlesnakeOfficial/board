@@ -34,9 +34,9 @@ function getPartYOffset(part) {
 function getTailXOffset(part) {
   switch (part.direction) {
     case "left":
-      return toGridSpace(part.x) - CELL_SPACING;
+      return toGridSpace(part.x) - CELL_SPACING - 1;
     case "right":
-      return toGridSpace(part.x) + CELL_SPACING;
+      return toGridSpace(part.x) + CELL_SPACING + 1;
     default:
       return toGridSpace(part.x);
   }
@@ -45,9 +45,31 @@ function getTailXOffset(part) {
 function getTailYOffset(part) {
   switch (part.direction) {
     case "up":
-      return toGridSpace(part.y) - CELL_SPACING;
+      return toGridSpace(part.y) - CELL_SPACING - 1;
     case "down":
-      return toGridSpace(part.y) + CELL_SPACING;
+      return toGridSpace(part.y) + CELL_SPACING + 1;
+    default:
+      return toGridSpace(part.y);
+  }
+}
+
+function getHeadXOffset(part) {
+  switch (part.direction) {
+    case "left":
+      return toGridSpace(part.x) + 1;
+    case "right":
+      return toGridSpace(part.x) - 1;
+    default:
+      return toGridSpace(part.x);
+  }
+}
+
+function getHeadYOffset(part) {
+  switch (part.direction) {
+    case "up":
+      return toGridSpace(part.y) + 1;
+    case "down":
+      return toGridSpace(part.y) - 1;
     default:
       return toGridSpace(part.y);
   }
@@ -120,8 +142,8 @@ class Grid extends React.Component {
   }
 
   renderHeadPart(snake, snakeIndex, part, partIndex) {
-    const x = toGridSpace(part.x);
-    const y = toGridSpace(part.y);
+    const x = getHeadXOffset(part);
+    const y = getHeadYOffset(part);
     const box = snake.headSvg.viewBox.baseVal;
     const transform = getHeadTransform(part.direction, box);
     const viewBoxStr = `${box.x} ${box.y} ${box.width} ${box.height}`;
@@ -159,6 +181,9 @@ class Grid extends React.Component {
         opacity={getOpacity(snake)}
         fill={snake.color}
         key={"part" + snakeIndex + "," + partIndex}
+        // stroke={snake.color}
+        // stroke-width="0.5px"
+        shape-rendering="crispEdges"
       />
     );
   }
