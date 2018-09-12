@@ -2,7 +2,7 @@ import { streamAll } from "../io/websocket";
 import { makeQueryString, httpToWsProtocol, join } from "./url";
 import { loadSvgs, getSvg } from "./inline-svg";
 
-const SNAKE_MIN_DELAY_MILLIS = 50;
+const SNAKE_MIN_DELAY_MILLIS = 30;
 const DEFAULT_SNAKE_HEAD = "regular";
 const DEFAULT_SNAKE_TAIL = "regular";
 
