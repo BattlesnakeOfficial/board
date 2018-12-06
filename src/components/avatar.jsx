@@ -19,7 +19,7 @@ const HealthBarOutline = styled("div")({
   width: "100%",
   height: "3.5rem",
   borderStyle: "solid",
-  borderWidth: "0.1rem",
+  borderWidth: "1px",
   borderColor: colors.healthBarOutline,
   color: colors.white
 });
