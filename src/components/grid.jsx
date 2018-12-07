@@ -34,9 +34,9 @@ function getPartYOffset(part) {
 function getTailXOffset(part) {
   switch (part.direction) {
     case "left":
-      return toGridSpace(part.x) - CELL_SPACING - 1;
+      return toGridSpace(part.x) - CELL_SPACING;
     case "right":
-      return toGridSpace(part.x) + CELL_SPACING + 1;
+      return toGridSpace(part.x) + CELL_SPACING;
     default:
       return toGridSpace(part.x);
   }
@@ -45,9 +45,9 @@ function getTailXOffset(part) {
 function getTailYOffset(part) {
   switch (part.direction) {
     case "up":
-      return toGridSpace(part.y) - CELL_SPACING - 1;
+      return toGridSpace(part.y) - CELL_SPACING;
     case "down":
-      return toGridSpace(part.y) + CELL_SPACING + 1;
+      return toGridSpace(part.y) + CELL_SPACING;
     default:
       return toGridSpace(part.y);
   }
@@ -56,9 +56,9 @@ function getTailYOffset(part) {
 function getHeadXOffset(part) {
   switch (part.direction) {
     case "left":
-      return toGridSpace(part.x) + 1;
+      return toGridSpace(part.x);
     case "right":
-      return toGridSpace(part.x) - 1;
+      return toGridSpace(part.x);
     default:
       return toGridSpace(part.x);
   }
@@ -67,9 +67,9 @@ function getHeadXOffset(part) {
 function getHeadYOffset(part) {
   switch (part.direction) {
     case "up":
-      return toGridSpace(part.y) + 1;
+      return toGridSpace(part.y);
     case "down":
-      return toGridSpace(part.y) - 1;
+      return toGridSpace(part.y);
     default:
       return toGridSpace(part.y);
   }
@@ -158,6 +158,7 @@ class Grid extends React.Component {
         viewBox={viewBoxStr}
         opacity={getOpacity(snake)}
         key={"part" + snakeIndex + ",head"}
+        shapeRendering="optimizeSpeed"
       >
         <g
           transform={transform}
@@ -169,7 +170,12 @@ class Grid extends React.Component {
 
   renderMiddlePart(snake, snakeIndex, part, partIndex) {
     if (!part.shouldRender) {
-      return <svg key={"part" + snakeIndex + "," + partIndex} />;
+      return (
+        <svg
+          key={"part" + snakeIndex + "," + partIndex}
+          shapeRendering="optimizeSpeed"
+        />
+      );
     }
 
     return (
@@ -181,7 +187,7 @@ class Grid extends React.Component {
         opacity={getOpacity(snake)}
         fill={snake.color}
         key={`part${snakeIndex},${part.x},${part.y}`}
-        shapeRendering="crispEdges"
+        shapeRendering="optimizeSpeed"
       />
     );
   }
@@ -194,7 +200,12 @@ class Grid extends React.Component {
     const viewBoxStr = `${box.x} ${box.y} ${box.width} ${box.height}`;
 
     if (!part.shouldRender) {
-      return <svg key={"part" + snakeIndex + "," + partIndex} />;
+      return (
+        <svg
+          key={"part" + snakeIndex + "," + partIndex}
+          shapeRendering="optimizeSpeed"
+        />
+      );
     }
 
     return (
@@ -207,6 +218,7 @@ class Grid extends React.Component {
         viewBox={viewBoxStr}
         opacity={getOpacity(snake)}
         key={"part" + snakeIndex + ",tail"}
+        shapeRendering="optimizeSpeed"
       >
         <g
           transform={transform}
@@ -233,12 +245,12 @@ class Grid extends React.Component {
         x={this.props.x}
         y={this.props.y}
         viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}
-        style={{ border: "2px solid green" }}
       >
         <rect
           width={viewBoxWidth}
           height={viewBoxHeight}
           fill={colors.gridBackground}
+          shapeRendering="optimizeSpeed"
         />
 
         {range(this.props.rows).map((_, row) =>
@@ -250,6 +262,7 @@ class Grid extends React.Component {
               height={CELL_SIZE}
               fill={colors.cellBackground}
               key={"cell" + row + "," + col}
+              shapeRendering="optimizeSpeed"
             />
           ))
         )}
@@ -267,6 +280,7 @@ class Grid extends React.Component {
             r={CELL_SIZE / 2}
             fill={colors.food}
             key={"food" + foodIndex}
+            shapeRendering="optimizeQuality"
           />
         ))}
       </svg>

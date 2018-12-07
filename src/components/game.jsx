@@ -1,6 +1,25 @@
 import React from "react";
+import styled from "react-emotion";
+
 import Board from "./board";
+import Scoreboard from "./scoreboard";
 import BlankState from "./blank-state";
+
+const GameBoardWrapper = styled("div")({
+  display: "flex",
+  justifyContent: "space-between",
+  padding: "0 2rem",
+  width: "100%"
+});
+
+const BoardWrapper = styled("div")({
+  width: "65vw"
+});
+
+const ScoreboardWrapper = styled("div")({
+  width: "35vw",
+  marginLeft: "2rem"
+});
 
 class Game extends React.Component {
   componentWillMount() {
@@ -24,12 +43,19 @@ class Game extends React.Component {
 
   renderGame() {
     return (
-      <Board
-        snakes={this.props.snakes}
-        food={this.props.food}
-        columns={this.props.grid.width}
-        rows={this.props.grid.height}
-      />
+      <GameBoardWrapper>
+        <BoardWrapper>
+          <Board
+            snakes={this.props.snakes}
+            food={this.props.food}
+            columns={this.props.grid.width}
+            rows={this.props.grid.height}
+          />
+        </BoardWrapper>
+        <ScoreboardWrapper>
+          <Scoreboard snakes={this.props.snakes} food={this.props.food} />
+        </ScoreboardWrapper>
+      </GameBoardWrapper>
     );
   }
 }
