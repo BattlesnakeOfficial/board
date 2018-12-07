@@ -1,4 +1,4 @@
-import { streamAllFrames, getFrameByTurn } from "../utils/engine-client";
+import { streamAllFrames, getFrameByTurn, delay } from "../utils/engine-client";
 
 export const gameOver = () => ({
   type: "GAME_OVER"
@@ -45,13 +45,29 @@ export const fetchFrames = (game, engine) => {
 
 export const playAllFrames = () => {
   return async (dispatch, getState) => {
-    getState().frames.forEach(async frame => {
-      // TODO: add a delay here. Importing `delay` from engine-client here
-      // has a weird side effect, so not sure how to solve this.
+    for (const frame of getState().frames) {
+      if (getState().paused) return;
+      await delay(50);
       dispatch(setCurrentFrame(frame));
-    });
+    }
 
-    dispatch(gameOver());
+    if (!getState().paused) dispatch(gameOver());
+  };
+};
+
+export const playFromFrame = frame => {
+  return async (dispatch, getState) => {
+    const frames = getState().frames.slice(); // Don't modify in place
+    const frameIndex = frames.indexOf(frame);
+    const slicedFrames = frames.slice(frameIndex);
+
+    for (const frame of slicedFrames) {
+      if (getState().paused) return;
+      await delay(50);
+      dispatch(setCurrentFrame(frame));
+    }
+
+    if (!getState().paused) dispatch(gameOver());
   };
 };
 
@@ -60,7 +76,7 @@ export const toggleGamePause = () => {
     if (getState().paused) {
       console.log("Game resuming");
       dispatch(resumeGame());
-      dispatch(playAllFrames());
+      dispatch(playFromFrame(getState().currentFrame));
     } else {
       console.log("Game paused");
       dispatch(pauseGame());

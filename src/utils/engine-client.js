@@ -2,7 +2,7 @@ import { streamAll } from "../io/websocket";
 import { makeQueryString, httpToWsProtocol, join } from "./url";
 import { loadSvgs, getSvg } from "./inline-svg";
 
-// const SNAKE_MIN_DELAY_MILLIS = 50;
+const SNAKE_MIN_DELAY_MILLIS = 50;
 const DEFAULT_SNAKE_HEAD = "regular";
 const DEFAULT_SNAKE_TAIL = "regular";
 
@@ -28,9 +28,9 @@ function isLastFrameOfGame(game, frame) {
   return oneLeft(frame.Snakes);
 }
 
-// function delay(millis) {
-//   return new Promise(resolve => setTimeout(resolve, millis));
-// }
+export function delay(millis = SNAKE_MIN_DELAY_MILLIS) {
+  return new Promise(resolve => setTimeout(resolve, millis));
+}
 
 // Gets a list of all unique SVG paths required by the snakes.
 function getAllSvgs(snakes) {
