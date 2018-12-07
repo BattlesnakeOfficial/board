@@ -16,7 +16,8 @@ const mapStateToProps = state => {
     options: options,
     grid: state.grid,
     paused: state.paused,
-    currentFrame: state.currentFrame
+    currentFrame: state.currentFrame,
+    frames: state.frames
   };
 };
 

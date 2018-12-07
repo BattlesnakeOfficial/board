@@ -38,6 +38,7 @@ class Game extends React.Component {
     if (this.invalidArgs) {
       return <BlankState />;
     }
+
     if (this.props.currentFrame) {
       return this.renderGame();
     }
