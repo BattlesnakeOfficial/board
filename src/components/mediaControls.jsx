@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "react-emotion";
+import KeyboardEventHandler from "react-keyboard-event-handler";
 
 const MediaControlsWrapper = styled("div")({
   display: "flex",
@@ -45,23 +46,10 @@ const Button = styled("button")`
 `;
 
 class MediaControls extends React.Component {
-  componentWillMount() {
-    // if (this.props.frames) {
-    //   // this.props.fetchFrames(
-    //   //   this.props.options.game,
-    //   //   this.props.options.engine
-    //   // );
-    // } else {
-    //   this.invalidArgs = true;
-    // }
-  }
+  componentWillMount() {}
 
   render() {
-    // if (this.invalidArgs) {
-    //   return null;
-    // } else {
     return this.renderControls();
-    // }
   }
 
   handlePlayPause = () => {
@@ -76,6 +64,22 @@ class MediaControls extends React.Component {
     this.props.stepForwardFrame();
   };
 
+  handleKeyEvent = key => {
+    switch (key) {
+      case "left":
+        this.handleBackward();
+        break;
+      case "right":
+        this.handleForward();
+        break;
+      case "space":
+        this.handlePlayPause();
+        break;
+      default:
+        break;
+    }
+  };
+
   renderControls() {
     return (
       <MediaControlsWrapper>
@@ -88,6 +92,10 @@ class MediaControls extends React.Component {
         <Button onClick={this.handleForward} disabled={!this.props.paused}>
           Forward
         </Button>
+        <KeyboardEventHandler
+          handleKeys={["left", "right", "space"]}
+          onKeyEvent={this.handleKeyEvent}
+        />
       </MediaControlsWrapper>
     );
   }
