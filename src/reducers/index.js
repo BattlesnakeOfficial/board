@@ -1,7 +1,13 @@
 import { formatFrame } from "../utils/game-state";
 
-const frames = (state = {}, action) => {
+export default (state = {}, action) => {
   switch (action.type) {
+    case "PAUSE_GAME":
+      return { ...state, paused: true };
+    case "RESUME_GAME":
+      return { ...state, paused: false };
+    case "SET_CURRENT_FRAME":
+      return { ...state, currentFrame: action.frame };
     case "RECEIVE_FRAME":
       const frame = formatFrame(action.frame);
       return {
@@ -10,8 +16,7 @@ const frames = (state = {}, action) => {
           height: action.game.Game.Height,
           width: action.game.Game.Width
         },
-        snakes: frame.snakes,
-        food: frame.food
+        frames: [...state.frames, frame] // Be smart: this consumes A LOT of memory...
       };
     case "REQUEST_FRAMES":
       return { ...state };
@@ -21,5 +26,3 @@ const frames = (state = {}, action) => {
       return { ...state };
   }
 };
-
-export default frames;

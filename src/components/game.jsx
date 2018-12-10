@@ -1,9 +1,10 @@
 import React from "react";
 import styled from "react-emotion";
 
+import BlankState from "./blank-state";
 import Board from "./board";
 import Scoreboard from "./scoreboard";
-import BlankState from "./blank-state";
+import MediaControls from "./mediaControls";
 
 const GameBoardWrapper = styled("div")({
   display: "flex",
@@ -36,26 +37,41 @@ class Game extends React.Component {
   render() {
     if (this.invalidArgs) {
       return <BlankState />;
-    } else {
+    }
+
+    if (this.props.currentFrame) {
       return this.renderGame();
     }
+
+    return <div>Loading...</div>;
   }
 
   renderGame() {
     return (
-      <GameBoardWrapper>
-        <BoardWrapper>
-          <Board
-            snakes={this.props.snakes}
-            food={this.props.food}
-            columns={this.props.grid.width}
-            rows={this.props.grid.height}
-          />
-        </BoardWrapper>
-        <ScoreboardWrapper>
-          <Scoreboard snakes={this.props.snakes} food={this.props.food} />
-        </ScoreboardWrapper>
-      </GameBoardWrapper>
+      <React.Fragment>
+        <GameBoardWrapper>
+          <BoardWrapper>
+            <Board
+              snakes={this.props.currentFrame.snakes}
+              food={this.props.currentFrame.food}
+              columns={this.props.grid.width}
+              rows={this.props.grid.height}
+            />
+          </BoardWrapper>
+          <ScoreboardWrapper>
+            <Scoreboard
+              snakes={this.props.currentFrame.snakes}
+              food={this.props.currentFrame.food}
+            />
+          </ScoreboardWrapper>
+        </GameBoardWrapper>
+        <MediaControls
+          toggleGamePause={this.props.toggleGamePause}
+          stepBackwardFrame={this.props.stepBackwardFrame}
+          stepForwardFrame={this.props.stepForwardFrame}
+          paused={this.props.paused}
+        />
+      </React.Fragment>
     );
   }
 }
