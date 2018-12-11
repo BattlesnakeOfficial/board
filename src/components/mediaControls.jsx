@@ -12,8 +12,8 @@ const MediaControlsWrapper = styled("div")({
 const Button = styled("button")`
   display: inline-block;
   min-width: 10rem;
-  padding: .5rem 1rem;
-  margin: 0 .5rem;
+  padding: 0.5rem 1rem;
+  margin: 0 0.5rem;
   border: solid 1px #bbb;
   border-radius: 5px;
   background: #efefef;
@@ -22,8 +22,7 @@ const Button = styled("button")`
   text-decoration: none;
   text-align: center;
   cursor: pointer;
-  transition: background 250ms ease-in-out,
-              transform 150ms ease;
+  transition: background 250ms ease-in-out, transform 150ms ease;
   -webkit-appearance: none;
   -moz-appearance: none;
 
