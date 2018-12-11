@@ -92,7 +92,7 @@ export async function streamAllFrames(baseUrl, gameId, receiveFrame) {
       await prepareFrame(frame);
       return receiveFrame(game, frame);
     });
-    return isLastFrameOfGame(game, frame);
+    return isLastFrameOfGame(frame.Snakes);
   }
 
   const wsUrl = join(httpToWsProtocol(baseUrl), `socket/${gameId}`);
