@@ -49,7 +49,7 @@ export const playAllFrames = () => {
   return async (dispatch, getState) => {
     for (const frame of getState().frames) {
       if (getState().paused) return;
-      await delay(10);
+      await delay(50);
       dispatch(setCurrentFrame(frame));
     }
 
@@ -66,17 +66,14 @@ export const playFromFrame = frame => {
 
     for (const frame of slicedFrames) {
       if (getState().paused) return;
-      await delay(10);
+      await delay(50);
       dispatch(setCurrentFrame(frame));
     }
 
     const lastFrame = slicedFrames[slicedFrames.length - 1];
     if (lastFrame.gameOver) {
-      console.log("GAME OVER 2");
       if (!getState().paused) dispatch(gameOver());
     } else {
-      console.log("YOU CAUGHT UP");
-      //await delay(5000);
       dispatch(playFromFrame(lastFrame));
     }
   };
@@ -85,11 +82,9 @@ export const playFromFrame = frame => {
 export const toggleGamePause = () => {
   return async (dispatch, getState) => {
     if (getState().paused) {
-      console.log("Game resuming");
       dispatch(resumeGame());
       dispatch(playFromFrame(getState().currentFrame));
     } else {
-      console.log("Game paused");
       dispatch(pauseGame());
     }
   };

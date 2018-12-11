@@ -123,7 +123,7 @@ function oneLeft(snakes) {
   return alive.length <= 1;
 }
 
-function isLastFrameOfGame(snakes) {
+export function isLastFrameOfGame(snakes) {
   if (snakes.length === 0) {
     return true;
   }
