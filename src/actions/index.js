@@ -45,19 +45,6 @@ export const fetchFrames = (game, engine) => {
   };
 };
 
-export const playAllFrames = () => {
-  return async (dispatch, getState) => {
-    for (const frame of getState().frames) {
-      if (getState().paused) return;
-      await delay(50);
-      dispatch(setCurrentFrame(frame));
-    }
-
-    console.log("GAME OVER 1");
-    if (!getState().paused) dispatch(gameOver());
-  };
-};
-
 export const playFromFrame = frame => {
   return async (dispatch, getState) => {
     const frames = getState().frames.slice(); // Don't modify in place
