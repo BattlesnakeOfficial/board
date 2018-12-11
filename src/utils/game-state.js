@@ -2,10 +2,12 @@ const DEFAULT_HEAD_DIRECTION = "up";
 
 export function formatFrame(frame) {
   cleanFrame(frame);
+  const snakes = formatSnakes(frame.Snakes);
   return {
     turn: frame.Turn,
-    snakes: formatSnakes(frame.Snakes),
-    food: formatPositions(frame.Food)
+    snakes: snakes,
+    food: formatPositions(frame.Food),
+    gameOver: isLastFrameOfGame(snakes)
   };
 }
 
@@ -114,4 +116,21 @@ function cleanFrame(frame) {
     food.X = food.X || 0;
     food.Y = food.Y || 0;
   }
+}
+
+function oneLeft(snakes) {
+  const alive = snakes.filter(s => !s.death);
+  return alive.length <= 1;
+}
+
+export function isLastFrameOfGame(snakes) {
+  if (snakes.length === 0) {
+    return true;
+  }
+
+  if (snakes.length === 1) {
+    return !!snakes[0].death;
+  }
+
+  return oneLeft(snakes);
 }

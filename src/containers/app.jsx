@@ -3,7 +3,6 @@ import { parseQueryString } from "../utils/url";
 import Game from "../components/game";
 import {
   fetchFrames,
-  playAllFrames,
   toggleGamePause,
   stepForwardFrame,
   stepBackwardFrame
@@ -23,10 +22,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
   fetchFrames: (game, engine) => dispatch(fetchFrames(game, engine)),
-  startGame: () => dispatch(playAllFrames()),
   toggleGamePause: paused => dispatch(toggleGamePause(paused)),
   stepForwardFrame: () => dispatch(stepForwardFrame()),
   stepBackwardFrame: () => dispatch(stepBackwardFrame())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Game);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Game);

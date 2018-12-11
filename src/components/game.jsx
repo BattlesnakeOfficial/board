@@ -60,6 +60,7 @@ class Game extends React.Component {
           </BoardWrapper>
           <ScoreboardWrapper>
             <Scoreboard
+              turn={this.props.currentFrame.turn}
               snakes={this.props.currentFrame.snakes}
               food={this.props.currentFrame.food}
             />

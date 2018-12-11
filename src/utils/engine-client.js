@@ -1,6 +1,7 @@
 import { streamAll } from "../io/websocket";
 import { makeQueryString, httpToWsProtocol, join } from "./url";
 import { loadSvgs, getSvg } from "./inline-svg";
+import { isLastFrameOfGame } from "./game-state";
 
 const SNAKE_MIN_DELAY_MILLIS = 50;
 const DEFAULT_SNAKE_HEAD = "regular";
@@ -9,23 +10,6 @@ const DEFAULT_SNAKE_TAIL = "regular";
 async function get(url, query) {
   const fetchResult = await fetch(url + makeQueryString(query));
   return fetchResult.json();
-}
-
-function oneLeft(snakes) {
-  const alive = snakes.filter(s => !s.Death);
-  return alive.length <= 1;
-}
-
-function isLastFrameOfGame(game, frame) {
-  if (frame.Snakes.length === 0) {
-    return true;
-  }
-
-  if (frame.Snakes.length === 1) {
-    return !!frame.Snakes[0].Death;
-  }
-
-  return oneLeft(frame.Snakes);
 }
 
 export function delay(millis = SNAKE_MIN_DELAY_MILLIS) {
@@ -108,7 +92,7 @@ export async function streamAllFrames(baseUrl, gameId, receiveFrame) {
       await prepareFrame(frame);
       return receiveFrame(game, frame);
     });
-    return isLastFrameOfGame(game, frame);
+    return isLastFrameOfGame(frame.Snakes);
   }
 
   const wsUrl = join(httpToWsProtocol(baseUrl), `socket/${gameId}`);

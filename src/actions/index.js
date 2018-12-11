@@ -45,18 +45,6 @@ export const fetchFrames = (game, engine) => {
   };
 };
 
-export const playAllFrames = () => {
-  return async (dispatch, getState) => {
-    for (const frame of getState().frames) {
-      if (getState().paused) return;
-      await delay(50);
-      dispatch(setCurrentFrame(frame));
-    }
-
-    if (!getState().paused) dispatch(gameOver());
-  };
-};
-
 export const playFromFrame = frame => {
   return async (dispatch, getState) => {
     const frames = getState().frames.slice(); // Don't modify in place
@@ -69,18 +57,21 @@ export const playFromFrame = frame => {
       dispatch(setCurrentFrame(frame));
     }
 
-    if (!getState().paused) dispatch(gameOver());
+    const lastFrame = slicedFrames[slicedFrames.length - 1];
+    if (lastFrame.gameOver) {
+      if (!getState().paused) dispatch(gameOver());
+    } else {
+      dispatch(playFromFrame(lastFrame));
+    }
   };
 };
 
 export const toggleGamePause = () => {
   return async (dispatch, getState) => {
     if (getState().paused) {
-      console.log("Game resuming");
       dispatch(resumeGame());
       dispatch(playFromFrame(getState().currentFrame));
     } else {
-      console.log("Game paused");
       dispatch(pauseGame());
     }
   };
