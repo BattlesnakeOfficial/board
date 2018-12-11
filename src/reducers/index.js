@@ -2,8 +2,6 @@ import { formatFrame } from "../utils/game-state";
 
 export default (state = {}, action) => {
   switch (action.type) {
-    case "GAME_OVER":
-      return { ...state, paused: true };
     case "PAUSE_GAME":
       return { ...state, paused: true };
     case "RESUME_GAME":
