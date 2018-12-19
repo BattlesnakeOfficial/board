@@ -22,6 +22,8 @@ export default (state = {}, action) => {
       return { ...state };
     case "FETCH_FRAMES":
       return { ...state };
+    case "HIGHLIGHT_SNAKE":
+      return { ...state, highlightedSnake: action.snakeId };
     default:
       return { ...state };
   }

@@ -1,6 +1,7 @@
 import React from "react";
 import { colors } from "../theme";
 
+const HIGHLIGHT_DIM = 0.25;
 const DEAD_OPACITY = 0.15;
 const CELL_SIZE = 20;
 const CELL_SPACING = 4;
@@ -75,7 +76,11 @@ function getHeadYOffset(part) {
   }
 }
 
-function getOpacity(snake) {
+function getOpacity(snake, highlightedSnake) {
+  if (highlightedSnake) {
+    return snake._id === highlightedSnake ? 1 : HIGHLIGHT_DIM;
+  }
+
   return snake.isDead ? DEAD_OPACITY : 1;
 }
 
@@ -126,22 +131,24 @@ function getTailTransform(direction, viewBox) {
 }
 
 class Grid extends React.Component {
-  renderLoading() {
-    return <p>loading</p>;
-  }
-
-  renderPart(snake, snakeIndex, part, partIndex) {
+  renderPart(snake, snakeIndex, part, partIndex, highlightedSnake) {
     switch (part.type) {
       case "head":
-        return this.renderHeadPart(snake, snakeIndex, part, partIndex);
+        return this.renderHeadPart(snake, snakeIndex, part, highlightedSnake);
       case "tail":
-        return this.renderTailPart(snake, snakeIndex, part, partIndex);
+        return this.renderTailPart(snake, snakeIndex, part, highlightedSnake);
       default:
-        return this.renderMiddlePart(snake, snakeIndex, part, partIndex);
+        return this.renderMiddlePart(
+          snake,
+          snakeIndex,
+          part,
+          partIndex,
+          highlightedSnake
+        );
     }
   }
 
-  renderHeadPart(snake, snakeIndex, part, partIndex) {
+  renderHeadPart(snake, snakeIndex, part, highlighted) {
     const x = getHeadXOffset(part);
     const y = getHeadYOffset(part);
     const box = snake.headSvg.viewBox.baseVal;
@@ -150,14 +157,14 @@ class Grid extends React.Component {
 
     return (
       <svg
+        key={"part" + snakeIndex + ",head"}
         fill={snake.color}
         width={CELL_SIZE + "px"}
         height={CELL_SIZE + "px"}
         x={x}
         y={y}
         viewBox={viewBoxStr}
-        opacity={getOpacity(snake)}
-        key={"part" + snakeIndex + ",head"}
+        opacity={getOpacity(snake, highlighted)}
         shapeRendering="optimizeSpeed"
       >
         <g
@@ -168,7 +175,7 @@ class Grid extends React.Component {
     );
   }
 
-  renderMiddlePart(snake, snakeIndex, part, partIndex) {
+  renderMiddlePart(snake, snakeIndex, part, partIndex, highlighted) {
     if (!part.shouldRender) {
       return (
         <svg
@@ -180,19 +187,19 @@ class Grid extends React.Component {
 
     return (
       <rect
+        key={`part${snakeIndex},${part.x},${part.y}`}
         x={getPartXOffset(part)}
         y={getPartYOffset(part)}
         width={getPartWidth(part)}
         height={getPartHeight(part)}
-        opacity={getOpacity(snake)}
+        opacity={getOpacity(snake, highlighted)}
         fill={snake.color}
-        key={`part${snakeIndex},${part.x},${part.y}`}
         shapeRendering="optimizeSpeed"
       />
     );
   }
 
-  renderTailPart(snake, snakeIndex, part, partIndex) {
+  renderTailPart(snake, snakeIndex, part, highlighted) {
     const x = getTailXOffset(part);
     const y = getTailYOffset(part);
     const box = snake.tailSvg.viewBox.baseVal;
@@ -202,7 +209,7 @@ class Grid extends React.Component {
     if (!part.shouldRender) {
       return (
         <svg
-          key={"part" + snakeIndex + "," + partIndex}
+          key={"part" + snakeIndex + ",tail"}
           shapeRendering="optimizeSpeed"
         />
       );
@@ -210,14 +217,14 @@ class Grid extends React.Component {
 
     return (
       <svg
+        key={"part" + snakeIndex + ",tail"}
         fill={snake.color}
         width={CELL_SIZE}
         height={CELL_SIZE}
         x={x}
         y={y}
         viewBox={viewBoxStr}
-        opacity={getOpacity(snake)}
-        key={"part" + snakeIndex + ",tail"}
+        opacity={getOpacity(snake, highlighted)}
         shapeRendering="optimizeSpeed"
       >
         <g
@@ -250,36 +257,45 @@ class Grid extends React.Component {
           width={viewBoxWidth}
           height={viewBoxHeight}
           fill={colors.gridBackground}
+          opacity={this.props.highlightedSnake ? HIGHLIGHT_DIM : null}
           shapeRendering="optimizeSpeed"
         />
 
         {range(this.props.rows).map((_, row) =>
           range(this.props.columns).map((_, col) => (
             <rect
+              key={"cell" + row + "," + col}
               x={toGridSpace(col)}
               y={toGridSpace(row)}
               width={CELL_SIZE}
               height={CELL_SIZE}
               fill={colors.cellBackground}
-              key={"cell" + row + "," + col}
+              opacity={this.props.highlightedSnake ? HIGHLIGHT_DIM : null}
               shapeRendering="optimizeSpeed"
             />
           ))
         )}
 
-        {sortedSnakes.map((snake, snakeIndex) =>
-          snake.body.map((part, partIndex) =>
-            this.renderPart(snake, snakeIndex, part, partIndex)
-          )
-        )}
+        {sortedSnakes.map((snake, snakeIndex) => {
+          return snake.body.map((part, partIndex) =>
+            this.renderPart(
+              snake,
+              snakeIndex,
+              part,
+              partIndex,
+              this.props.highlightedSnake
+            )
+          );
+        })}
 
         {food.map((f, foodIndex) => (
           <circle
+            key={"food" + foodIndex}
             cx={toGridSpace(f.x) + CELL_SIZE / 2}
             cy={toGridSpace(f.y) + CELL_SIZE / 2}
             r={CELL_SIZE / 2}
             fill={colors.food}
-            key={"food" + foodIndex}
+            opacity={this.props.highlightedSnake ? HIGHLIGHT_DIM : null}
             shapeRendering="optimizeQuality"
           />
         ))}
@@ -291,7 +307,7 @@ class Grid extends React.Component {
     if (this.props.snakes) {
       return this.renderGrid();
     } else {
-      return this.renderLoading();
+      return;
     }
   }
 }

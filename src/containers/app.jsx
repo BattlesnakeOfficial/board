@@ -5,7 +5,8 @@ import {
   fetchFrames,
   toggleGamePause,
   stepForwardFrame,
-  stepBackwardFrame
+  stepBackwardFrame,
+  highlightSnake
 } from "../actions";
 
 const options = parseQueryString(window.location.search);
@@ -16,7 +17,8 @@ const mapStateToProps = state => {
     grid: state.grid,
     paused: state.paused,
     currentFrame: state.currentFrame,
-    frames: state.frames
+    frames: state.frames,
+    highlightedSnake: state.highlightedSnake
   };
 };
 
@@ -24,7 +26,8 @@ const mapDispatchToProps = dispatch => ({
   fetchFrames: (game, engine) => dispatch(fetchFrames(game, engine)),
   toggleGamePause: paused => dispatch(toggleGamePause(paused)),
   stepForwardFrame: () => dispatch(stepForwardFrame()),
-  stepBackwardFrame: () => dispatch(stepBackwardFrame())
+  stepBackwardFrame: () => dispatch(stepBackwardFrame()),
+  highlightSnake: snakeId => dispatch(highlightSnake(snakeId))
 });
 
 export default connect(

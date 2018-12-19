@@ -45,8 +45,6 @@ const Button = styled("button")`
 `;
 
 class MediaControls extends React.Component {
-  componentWillMount() {}
-
   render() {
     return this.renderControls();
   }

@@ -44,7 +44,9 @@ class Avatar extends React.Component {
         <Name>{this.props.snake.name}</Name>
         <HealthBarOutline>
           {this.props.snake.death ? (
-            <CauseOfDeath>{this.props.snake.death.cause}</CauseOfDeath>
+            <CauseOfDeath>
+              Death cause: {this.props.snake.death.cause}
+            </CauseOfDeath>
           ) : (
             <HealthBar
               color={this.props.snake.color}

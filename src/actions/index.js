@@ -27,6 +27,11 @@ export const resumeGame = () => ({
   type: "RESUME_GAME"
 });
 
+export const highlightSnake = snakeId => ({
+  type: "HIGHLIGHT_SNAKE",
+  snakeId
+});
+
 export const fetchFrames = (game, engine) => {
   return async (dispatch, getState) => {
     dispatch(requestFrames());
