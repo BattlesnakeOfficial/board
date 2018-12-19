@@ -16,6 +16,25 @@ export function delay(millis = SNAKE_MIN_DELAY_MILLIS) {
   return new Promise(resolve => setTimeout(resolve, millis));
 }
 
+export function getReadableCauseOfDeath(cause) {
+  // Based on https://github.com/battlesnakeio/engine/blob/master/rules/death_cause.go
+
+  switch (cause) {
+    case "snake-collision":
+      return "Collided with snake body";
+    case "snake-self-collision":
+      return "Collided with own body";
+    case "starvation":
+      return "Starvation";
+    case "head-collision":
+      return "Head on head collision";
+    case "wall-collision":
+      return "Collided with a wall";
+    default:
+      return cause;
+  }
+}
+
 // Gets a list of all unique SVG paths required by the snakes.
 function getAllSvgs(snakes) {
   const all = snakes.reduce((result, snake) => {

@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "react-emotion";
 import { colors } from "../theme";
+import { getReadableCauseOfDeath } from "../utils/engine-client";
 
 const AvatarWrapper = styled("div")({
   marginBottom: "1.5rem"
@@ -38,6 +39,10 @@ const CauseOfDeath = styled("div")({
 });
 
 class Avatar extends React.Component {
+  getCauseOfDeathMessage(cause) {
+    return getReadableCauseOfDeath(cause);
+  }
+
   render() {
     return (
       <AvatarWrapper>
@@ -45,7 +50,7 @@ class Avatar extends React.Component {
         <HealthBarOutline>
           {this.props.snake.death ? (
             <CauseOfDeath>
-              Death cause: {this.props.snake.death.cause}
+              {this.getCauseOfDeathMessage(this.props.snake.death.cause)}
             </CauseOfDeath>
           ) : (
             <HealthBar
