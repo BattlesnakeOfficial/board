@@ -4,7 +4,8 @@ import { colors } from "../theme";
 import { getReadableCauseOfDeath } from "../utils/engine-client";
 
 const AvatarWrapper = styled("div")({
-  marginBottom: "1.5rem"
+  marginBottom: "1.5rem",
+  padding: "1rem"
 });
 
 const Name = styled("span")({

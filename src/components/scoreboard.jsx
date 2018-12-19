@@ -3,11 +3,11 @@ import Avatar from "./avatar";
 import styled from "react-emotion";
 
 const AvatarWrapper = styled("div")`
-  box-shadow: ${props =>
-    props.highlighted ? "0 0 0 3px red" : "0 0 0 3px transparent"};
+  transition: background-color 0.2s, box-shadow 0.2s;
+  box-shadow: ${props => (props.highlighted ? "0 0 0 1px #555" : null)};
 
   &:hover {
-    box-shadow: 0 0 0 3px red;
+    background-color: #ededed;
     cursor: pointer;
   }
 `;
