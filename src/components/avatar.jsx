@@ -39,11 +39,6 @@ const CauseOfDeath = styled("div")({
 
 class Avatar extends React.Component {
   render() {
-    const healthWidthConversion = 96 / 100;
-    const healthWidth = Math.floor(
-      this.props.snake.health * healthWidthConversion
-    );
-
     return (
       <AvatarWrapper>
         <Name>{this.props.snake.name}</Name>
@@ -54,7 +49,7 @@ class Avatar extends React.Component {
             <HealthBar
               color={this.props.snake.color}
               style={{
-                width: `${healthWidth}%`
+                width: `${this.props.snake.health}%`
               }}
             />
           )}
