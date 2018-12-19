@@ -34,6 +34,7 @@ it("should place snakes on valid board", () => {
   expect(frame.food[1]).toEqual({ x: 1, y: 8 });
 
   expect(frame.snakes[0]).toEqual({
+    _id: "snake1",
     name: "snake 1",
     health: 80,
     color: "red",
@@ -50,6 +51,7 @@ it("should place snakes on valid board", () => {
   });
 
   expect(frame.snakes[1]).toEqual({
+    _id: "snake2",
     name: "snake 2",
     health: 70,
     color: "green",
@@ -94,6 +96,7 @@ it("should recognize dead snakes", () => {
   expect(frame.food[1]).toEqual({ x: 1, y: 8 });
 
   expect(frame.snakes[0]).toEqual({
+    _id: "snake1",
     name: "snake 1",
     health: 80,
     color: "red",
@@ -136,6 +139,7 @@ it("should set undefined numbers to zero", () => {
   expect(frame.food[0]).toEqual({ x: 0, y: 0 });
 
   expect(frame.snakes[0]).toEqual({
+    _id: "snake1",
     name: "snake 1",
     health: 80,
     color: "red",

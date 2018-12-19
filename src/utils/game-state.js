@@ -19,6 +19,7 @@ function formatSnake(snake) {
   return {
     body: snake.Body.map((p, i) => formatSnakePart(snake, i)),
     color: snake.Color,
+    _id: snake.ID,
     name: snake.Name,
     health: snake.Health,
     isDead: !!snake.Death,

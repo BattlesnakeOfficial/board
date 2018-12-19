@@ -43,7 +43,7 @@ class Game extends React.Component {
       return this.renderGame();
     }
 
-    return <div>Loading...</div>;
+    return <div>Loading game...</div>;
   }
 
   renderGame() {
@@ -56,6 +56,7 @@ class Game extends React.Component {
               food={this.props.currentFrame.food}
               columns={this.props.grid.width}
               rows={this.props.grid.height}
+              highlightedSnake={this.props.highlightedSnake}
             />
           </BoardWrapper>
           <ScoreboardWrapper>
@@ -63,6 +64,7 @@ class Game extends React.Component {
               turn={this.props.currentFrame.turn}
               snakes={this.props.currentFrame.snakes}
               food={this.props.currentFrame.food}
+              highlightSnake={this.props.highlightSnake}
             />
           </ScoreboardWrapper>
         </GameBoardWrapper>
