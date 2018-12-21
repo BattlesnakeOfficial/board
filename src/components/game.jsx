@@ -14,6 +14,8 @@ const GameBoardWrapper = styled("div")({
 });
 
 const BoardWrapper = styled("div")({
+  display: "flex",
+  flexDirection: "column",
   width: "65vw"
 });
 
@@ -58,6 +60,12 @@ class Game extends React.Component {
               rows={this.props.grid.height}
               highlightedSnake={this.props.highlightedSnake}
             />
+            <MediaControls
+              toggleGamePause={this.props.toggleGamePause}
+              stepBackwardFrame={this.props.stepBackwardFrame}
+              stepForwardFrame={this.props.stepForwardFrame}
+              paused={this.props.paused}
+            />
           </BoardWrapper>
           <ScoreboardWrapper>
             <Scoreboard
@@ -68,12 +76,6 @@ class Game extends React.Component {
             />
           </ScoreboardWrapper>
         </GameBoardWrapper>
-        <MediaControls
-          toggleGamePause={this.props.toggleGamePause}
-          stepBackwardFrame={this.props.stepBackwardFrame}
-          stepForwardFrame={this.props.stepForwardFrame}
-          paused={this.props.paused}
-        />
       </React.Fragment>
     );
   }

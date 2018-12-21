@@ -4,7 +4,7 @@ import { colors } from "../theme";
 import { getReadableCauseOfDeath } from "../utils/engine-client";
 
 const AvatarWrapper = styled("div")({
-  marginBottom: "1.5rem",
+  marginBottom: ".5rem",
   padding: "1rem"
 });
 
@@ -19,7 +19,7 @@ const Name = styled("span")({
 const HealthBarOutline = styled("div")({
   position: "relative",
   width: "100%",
-  height: "3.5rem",
+  height: "3rem",
   borderStyle: "solid",
   borderWidth: "1px",
   borderColor: colors.healthBarOutline,
@@ -33,7 +33,7 @@ const HealthBar = styled("div")(({ color }) => ({
 
 const CauseOfDeath = styled("div")({
   height: "100%",
-  padding: "0.5rem",
+  padding: ".5rem",
   fontSize: "1.8rem",
   fontWeight: 400,
   backgroundColor: colors.healthBarDeathBackground
