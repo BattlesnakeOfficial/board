@@ -26,10 +26,17 @@ const ScoreboardWrapper = styled("div")({
 
 class Game extends React.Component {
   componentWillMount() {
+    let autoplay = false;
+
     if (this.props.options.game && this.props.options.engine) {
+      if (this.props.options.autoplay === "true") {
+        autoplay = true;
+      }
+
       this.props.fetchFrames(
         this.props.options.game,
-        this.props.options.engine
+        this.props.options.engine,
+        autoplay
       );
     } else {
       this.invalidArgs = true;
