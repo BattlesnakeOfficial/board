@@ -32,7 +32,7 @@ export const highlightSnake = snakeId => ({
   snakeId
 });
 
-export const fetchFrames = (game, engine) => {
+export const fetchFrames = (game, engine, autoplay) => {
   return async (dispatch, getState) => {
     dispatch(requestFrames());
 
@@ -45,6 +45,10 @@ export const fetchFrames = (game, engine) => {
       if (frame.Turn === 0) {
         const frame = getState().frames[0];
         dispatch(setCurrentFrame(frame));
+        if (autoplay) {
+          dispatch(resumeGame());
+          dispatch(playFromFrame(frame));
+        }
       }
     });
   };

@@ -23,7 +23,8 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  fetchFrames: (game, engine) => dispatch(fetchFrames(game, engine)),
+  fetchFrames: (game, engine, autoplay) =>
+    dispatch(fetchFrames(game, engine, autoplay)),
   toggleGamePause: paused => dispatch(toggleGamePause(paused)),
   stepForwardFrame: () => dispatch(stepForwardFrame()),
   stepBackwardFrame: () => dispatch(stepBackwardFrame()),
