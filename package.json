@@ -1,6 +1,6 @@
 {
   "name": "battlesnake-board",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "dependencies": {
     "emotion": "^9.1.3",
