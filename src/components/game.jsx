@@ -44,7 +44,6 @@ class Game extends React.Component {
   }
 
   render() {
-    console.log(this.props.options);
     if (this.invalidArgs) {
       return <BlankState />;
     }
