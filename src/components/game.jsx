@@ -74,14 +74,16 @@ class Game extends React.Component {
               paused={this.props.paused}
             />
           </BoardWrapper>
-          <ScoreboardWrapper>
-            <Scoreboard
-              turn={this.props.currentFrame.turn}
-              snakes={this.props.currentFrame.snakes}
-              food={this.props.currentFrame.food}
-              highlightSnake={this.props.highlightSnake}
-            />
-          </ScoreboardWrapper>
+          {this.props.options.hideScoreboard !== "true" && (
+            <ScoreboardWrapper>
+              <Scoreboard
+                turn={this.props.currentFrame.turn}
+                snakes={this.props.currentFrame.snakes}
+                food={this.props.currentFrame.food}
+                highlightSnake={this.props.highlightSnake}
+              />
+            </ScoreboardWrapper>
+          )}
         </GameBoardWrapper>
       </React.Fragment>
     );
