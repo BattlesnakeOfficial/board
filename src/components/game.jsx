@@ -44,6 +44,7 @@ class Game extends React.Component {
   }
 
   render() {
+    console.log(this.props.options);
     if (this.invalidArgs) {
       return <BlankState />;
     }
@@ -74,7 +75,7 @@ class Game extends React.Component {
               paused={this.props.paused}
             />
           </BoardWrapper>
-          {!this.props.options.hideScoreboard && (
+          {this.props.options.hideScoreboard !== "true" && (
             <ScoreboardWrapper>
               <Scoreboard
                 turn={this.props.currentFrame.turn}
