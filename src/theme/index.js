@@ -3,15 +3,9 @@ export const colors = {
   pageBackground: "transparent",
 
   // Grid
-  // gridBackground: "transparent",
-  // cellBackground: "#fefefe",
-  // food: "#ffa500",
-
-  // NEW Grid
-  gridBackground: "transparent",
-  cellBackground: "transparent",
   gridDot: "#63127a",
   food: "#fefefe",
+  // food: "#ffa500", // OLD
 
   // Scoreboard
   healthBar: "#0f0",

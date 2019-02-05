@@ -253,25 +253,18 @@ class Grid extends React.Component {
         y={this.props.y}
         viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}
       >
-        <rect
-          width={viewBoxWidth}
-          height={viewBoxHeight}
-          fill={colors.gridBackground}
-          opacity={this.props.highlightedSnake ? HIGHLIGHT_DIM : null}
-          shapeRendering="optimizeSpeed"
-        />
-
         {range(this.props.rows).map((_, row) =>
           range(this.props.columns).map((_, col) => (
-            <rect
+            <circle
               key={"cell" + row + "," + col}
-              x={toGridSpace(col)}
-              y={toGridSpace(row)}
               width={CELL_SIZE}
               height={CELL_SIZE}
-              fill={colors.cellBackground}
+              fill={colors.gridDot}
+              cx={toGridSpace(col) + CELL_SIZE / 2}
+              cy={toGridSpace(row) + CELL_SIZE / 2}
+              r={CELL_SIZE / 10}
               opacity={this.props.highlightedSnake ? HIGHLIGHT_DIM : null}
-              shapeRendering="optimizeSpeed"
+              shapeRendering="optimizeQuality"
             />
           ))
         )}

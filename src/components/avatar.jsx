@@ -3,14 +3,30 @@ import styled from "react-emotion";
 import { colors } from "../theme";
 import { getReadableCauseOfDeath } from "../utils/engine-client";
 
-const healthBarBorderRadius = "15px";
-
 const AvatarWrapper = styled("div")({
+  display: "flex",
   marginBottom: ".5rem",
-  padding: "1rem",
+  paddingTop: "1rem",
+  paddingBottom: "1rem",
   fontSize: "1.5rem",
   fontWeight: 400
 });
+
+const AvatarLeftCol = styled("div")({
+  marginRight: "1rem"
+});
+
+const AvatarRightCol = styled("div")({
+  width: "100%"
+});
+
+const RoundedAvatar = styled("div")(({ color }) => ({
+  height: "5rem",
+  width: "5rem",
+  borderRadius: "50%",
+  background: colors.black,
+  border: `solid 5px ${color}`
+}));
 
 const Name = styled("span")({
   display: "inline-block",
@@ -18,16 +34,12 @@ const Name = styled("span")({
   color: colors.lightText
 });
 
-const HealthBarOutline = styled("div")({
-  position: "relative",
+const HealthBarWrapper = styled("div")({
   width: "100%",
   height: "1.8rem",
-  borderStyle: "solid",
-  borderWidth: "1px",
-  borderColor: colors.healthBarOutline,
   background: colors.healthBarBackground,
   color: colors.white,
-  borderRadius: healthBarBorderRadius
+  borderRadius: "15px"
 });
 
 const HealthBar = styled("div")(({ color }) => ({
@@ -38,7 +50,7 @@ const HealthBar = styled("div")(({ color }) => ({
 
 const CauseOfDeath = styled("div")({
   height: "100%",
-  paddingTop: ".1rem",
+  paddingTop: ".2rem",
   textAlign: "center",
   fontSize: "1.2rem",
   backgroundColor: colors.healthBarDeathBackground,
@@ -49,21 +61,26 @@ class Avatar extends React.Component {
   render() {
     return (
       <AvatarWrapper>
-        <Name>{this.props.snake.name}</Name>
-        <HealthBarOutline>
-          {this.props.snake.death ? (
-            <CauseOfDeath>
-              Dead: {getReadableCauseOfDeath(this.props.snake.death.cause)}
-            </CauseOfDeath>
-          ) : (
-            <HealthBar
-              color={this.props.snake.color}
-              style={{
-                width: `${this.props.snake.health}%`
-              }}
-            />
-          )}
-        </HealthBarOutline>
+        <AvatarLeftCol>
+          <RoundedAvatar color={this.props.snake.color} />
+        </AvatarLeftCol>
+        <AvatarRightCol>
+          <Name>{this.props.snake.name}</Name>
+          <HealthBarWrapper>
+            {this.props.snake.death ? (
+              <CauseOfDeath>
+                Dead: {getReadableCauseOfDeath(this.props.snake.death.cause)}
+              </CauseOfDeath>
+            ) : (
+              <HealthBar
+                color={this.props.snake.color}
+                style={{
+                  width: `${this.props.snake.health}%`
+                }}
+              />
+            )}
+          </HealthBarWrapper>
+        </AvatarRightCol>
       </AvatarWrapper>
     );
   }

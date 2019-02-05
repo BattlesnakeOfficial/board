@@ -16,10 +16,8 @@ const AvatarWrapper = styled("div")`
 
 const TurnCount = styled("div")({
   width: "100%",
-  borderBottom: "solid 1px #ccc",
-  marginBottom: "2rem",
-  paddingBottom: "1rem",
-  color: colors.white
+  marginBottom: "1rem",
+  color: colors.lightText
 });
 
 class Scoreboard extends React.Component {
