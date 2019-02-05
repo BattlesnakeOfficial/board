@@ -15,7 +15,8 @@ export const colors = {
 
   // Scoreboard
   healthBar: "#0f0",
-  healthBarOutline: "#555",
+  healthBarBackground: "#fefefe",
+  healthBarOutline: "#666",
   healthBarDeathBackground: "#333",
 
   // Misc

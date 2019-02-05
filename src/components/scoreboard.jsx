@@ -5,7 +5,8 @@ import { colors } from "../theme";
 
 const AvatarWrapper = styled("div")`
   transition: background-color 0.2s, box-shadow 0.2s;
-  box-shadow: ${props => (props.highlighted ? "0 0 0 1px #555" : null)};
+  box-shadow: ${props =>
+    props.highlighted ? `0 0 0 1px ${colors.lightText}` : null};
 
   &:hover {
     background-color: ${colors.purple};
@@ -18,7 +19,7 @@ const TurnCount = styled("div")({
   borderBottom: "solid 1px #ccc",
   marginBottom: "2rem",
   paddingBottom: "1rem",
-  color: colors.lightText
+  color: colors.white
 });
 
 class Scoreboard extends React.Component {

@@ -3,40 +3,46 @@ import styled from "react-emotion";
 import { colors } from "../theme";
 import { getReadableCauseOfDeath } from "../utils/engine-client";
 
+const healthBarBorderRadius = "15px";
+
 const AvatarWrapper = styled("div")({
   marginBottom: ".5rem",
-  padding: "1rem"
+  padding: "1rem",
+  fontSize: "1.5rem",
+  fontWeight: 400
 });
 
 const Name = styled("span")({
   display: "inline-block",
   paddingBottom: ".5rem",
-  fontSize: "2.5rem",
-  fontWeight: 400,
   color: colors.lightText
 });
 
 const HealthBarOutline = styled("div")({
   position: "relative",
   width: "100%",
-  height: "3rem",
+  height: "1.8rem",
   borderStyle: "solid",
   borderWidth: "1px",
   borderColor: colors.healthBarOutline,
-  color: colors.white
+  background: colors.healthBarBackground,
+  color: colors.white,
+  borderRadius: healthBarBorderRadius
 });
 
 const HealthBar = styled("div")(({ color }) => ({
   height: "100%",
-  backgroundColor: color
+  backgroundColor: color,
+  borderRadius: "inherit"
 }));
 
 const CauseOfDeath = styled("div")({
   height: "100%",
-  padding: ".5rem",
-  fontSize: "1.8rem",
-  fontWeight: 400,
-  backgroundColor: colors.healthBarDeathBackground
+  paddingTop: ".1rem",
+  textAlign: "center",
+  fontSize: "1.2rem",
+  backgroundColor: colors.healthBarDeathBackground,
+  borderRadius: "inherit"
 });
 
 class Avatar extends React.Component {
@@ -47,7 +53,7 @@ class Avatar extends React.Component {
         <HealthBarOutline>
           {this.props.snake.death ? (
             <CauseOfDeath>
-              {getReadableCauseOfDeath(this.props.snake.death.cause)}
+              Dead: {getReadableCauseOfDeath(this.props.snake.death.cause)}
             </CauseOfDeath>
           ) : (
             <HealthBar
