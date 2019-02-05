@@ -5,6 +5,15 @@ import BlankState from "./blank-state";
 import Board from "./board";
 import Scoreboard from "./scoreboard";
 import MediaControls from "./mediaControls";
+import { colors } from "../theme";
+
+const PageWrapper = styled("div")`
+  position: relative;
+  height: 100%;
+  width: 100%;
+  background: rgb(2, 0, 36);
+  background: linear-gradient(45deg, #000 0%, ${colors.purple} 100%);
+`;
 
 const GameBoardWrapper = styled("div")({
   display: "flex",
@@ -58,35 +67,37 @@ class Game extends React.Component {
   renderGame() {
     return (
       <React.Fragment>
-        <GameBoardWrapper>
-          <BoardWrapper>
-            <Board
-              snakes={this.props.currentFrame.snakes}
-              food={this.props.currentFrame.food}
-              columns={this.props.grid.width}
-              rows={this.props.grid.height}
-              highlightedSnake={this.props.highlightedSnake}
-            />
-            {this.props.options.hideMediaControls !== "true" && (
-              <MediaControls
-                toggleGamePause={this.props.toggleGamePause}
-                stepBackwardFrame={this.props.stepBackwardFrame}
-                stepForwardFrame={this.props.stepForwardFrame}
-                paused={this.props.paused}
-              />
-            )}
-          </BoardWrapper>
-          {this.props.options.hideScoreboard !== "true" && (
-            <ScoreboardWrapper>
-              <Scoreboard
-                turn={this.props.currentFrame.turn}
+        <PageWrapper>
+          <GameBoardWrapper>
+            <BoardWrapper>
+              <Board
                 snakes={this.props.currentFrame.snakes}
                 food={this.props.currentFrame.food}
-                highlightSnake={this.props.highlightSnake}
+                columns={this.props.grid.width}
+                rows={this.props.grid.height}
+                highlightedSnake={this.props.highlightedSnake}
               />
-            </ScoreboardWrapper>
-          )}
-        </GameBoardWrapper>
+              {this.props.options.hideMediaControls !== "true" && (
+                <MediaControls
+                  toggleGamePause={this.props.toggleGamePause}
+                  stepBackwardFrame={this.props.stepBackwardFrame}
+                  stepForwardFrame={this.props.stepForwardFrame}
+                  paused={this.props.paused}
+                />
+              )}
+            </BoardWrapper>
+            {this.props.options.hideScoreboard !== "true" && (
+              <ScoreboardWrapper>
+                <Scoreboard
+                  turn={this.props.currentFrame.turn}
+                  snakes={this.props.currentFrame.snakes}
+                  food={this.props.currentFrame.food}
+                  highlightSnake={this.props.highlightSnake}
+                />
+              </ScoreboardWrapper>
+            )}
+          </GameBoardWrapper>
+        </PageWrapper>
       </React.Fragment>
     );
   }

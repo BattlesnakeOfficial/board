@@ -13,7 +13,7 @@ const Name = styled("span")({
   paddingBottom: ".5rem",
   fontSize: "2.5rem",
   fontWeight: 400,
-  color: colors.darkText
+  color: colors.lightText
 });
 
 const HealthBarOutline = styled("div")({
@@ -40,10 +40,6 @@ const CauseOfDeath = styled("div")({
 });
 
 class Avatar extends React.Component {
-  getCauseOfDeathMessage(cause) {
-    return getReadableCauseOfDeath(cause);
-  }
-
   render() {
     return (
       <AvatarWrapper>
@@ -51,7 +47,7 @@ class Avatar extends React.Component {
         <HealthBarOutline>
           {this.props.snake.death ? (
             <CauseOfDeath>
-              {this.getCauseOfDeathMessage(this.props.snake.death.cause)}
+              {getReadableCauseOfDeath(this.props.snake.death.cause)}
             </CauseOfDeath>
           ) : (
             <HealthBar

@@ -2,7 +2,7 @@ import React from "react";
 import { colors } from "../theme";
 
 const HIGHLIGHT_DIM = 0.25;
-const DEAD_OPACITY = 0.15;
+const DEAD_OPACITY = 0.1;
 const CELL_SIZE = 20;
 const CELL_SPACING = 4;
 
@@ -293,7 +293,7 @@ class Grid extends React.Component {
             key={"food" + foodIndex}
             cx={toGridSpace(f.x) + CELL_SIZE / 2}
             cy={toGridSpace(f.y) + CELL_SIZE / 2}
-            r={CELL_SIZE / 2}
+            r={CELL_SIZE / 3.25}
             fill={colors.food}
             opacity={this.props.highlightedSnake ? HIGHLIGHT_DIM : null}
             shapeRendering="optimizeQuality"

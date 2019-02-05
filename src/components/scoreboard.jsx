@@ -1,13 +1,14 @@
 import React from "react";
-import Avatar from "./avatar";
 import styled from "react-emotion";
+import Avatar from "./avatar";
+import { colors } from "../theme";
 
 const AvatarWrapper = styled("div")`
   transition: background-color 0.2s, box-shadow 0.2s;
   box-shadow: ${props => (props.highlighted ? "0 0 0 1px #555" : null)};
 
   &:hover {
-    background-color: #ededed;
+    background-color: ${colors.purple};
     cursor: pointer;
   }
 `;
@@ -16,7 +17,8 @@ const TurnCount = styled("div")({
   width: "100%",
   borderBottom: "solid 1px #ccc",
   marginBottom: "2rem",
-  paddingBottom: "1rem"
+  paddingBottom: "1rem",
+  color: colors.lightText
 });
 
 class Scoreboard extends React.Component {

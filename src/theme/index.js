@@ -1,14 +1,30 @@
 export const colors = {
-  pageBackground: "#fff",
-  gridBackground: "#ddd",
-  cellBackground: "#e8e8e8",
-  healthBarDeathBackground: "#333",
-  food: "orange",
+  // Page
+  pageBackground: "transparent",
+
+  // Grid
+  // gridBackground: "transparent",
+  // cellBackground: "#fefefe",
+  // food: "#ffa500",
+
+  // NEW Grid
+  gridBackground: "transparent",
+  cellBackground: "transparent",
+  gridDot: "#63127a",
+  food: "#fefefe",
+
+  // Scoreboard
   healthBar: "#0f0",
   healthBarOutline: "#555",
-  lightText: "#fff",
-  darkText: "#000",
+  healthBarDeathBackground: "#333",
 
-  // colour names
-  white: "#fff"
+  // Misc
+  lightText: "#efefef",
+  darkText: "#222",
+
+  // Colour names
+  white: "#fff",
+  black: "#000",
+  orange: "#ffa500",
+  purple: "#240458"
 };
