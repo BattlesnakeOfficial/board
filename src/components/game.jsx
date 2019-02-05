@@ -67,12 +67,14 @@ class Game extends React.Component {
               rows={this.props.grid.height}
               highlightedSnake={this.props.highlightedSnake}
             />
-            <MediaControls
-              toggleGamePause={this.props.toggleGamePause}
-              stepBackwardFrame={this.props.stepBackwardFrame}
-              stepForwardFrame={this.props.stepForwardFrame}
-              paused={this.props.paused}
-            />
+            {this.props.options.hideMediaControls !== "true" && (
+              <MediaControls
+                toggleGamePause={this.props.toggleGamePause}
+                stepBackwardFrame={this.props.stepBackwardFrame}
+                stepForwardFrame={this.props.stepForwardFrame}
+                paused={this.props.paused}
+              />
+            )}
           </BoardWrapper>
           {this.props.options.hideScoreboard !== "true" && (
             <ScoreboardWrapper>
