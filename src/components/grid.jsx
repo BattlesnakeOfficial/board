@@ -287,6 +287,7 @@ class Grid extends React.Component {
             r={CELL_SIZE / 3.25}
             fill={colors.food}
             opacity={this.props.highlightedSnake ? HIGHLIGHT_DIM : null}
+            shapeRendering="optimizeQuality"
           />
         ))}
       </svg>

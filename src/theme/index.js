@@ -4,10 +4,7 @@ export const colors = {
 
   // Grid
   gridDot: "#6a208f",
-  // food: "#fefefe",
-  // foodDark: "#ff5c75",
   food: "#ff5c75",
-  // food: "#ffa500", // OLD
 
   // Scoreboard
   healthBar: "#0f0",
