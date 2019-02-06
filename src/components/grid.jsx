@@ -287,7 +287,11 @@ class Grid extends React.Component {
             cx={toGridSpace(f.x) + CELL_SIZE / 2}
             cy={toGridSpace(f.y) + CELL_SIZE / 2}
             r={CELL_SIZE / 3.25}
-            fill={colors.food}
+            fill={
+              this.props.theme === colors.themeDark
+                ? colors.food
+                : colors.foodDark
+            }
             opacity={this.props.highlightedSnake ? HIGHLIGHT_DIM : null}
             shapeRendering="optimizeQuality"
           />

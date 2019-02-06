@@ -11,8 +11,12 @@ const PageWrapper = styled("div")`
   position: relative;
   height: 100%;
   width: 100%;
-  background: rgb(2, 0, 36);
-  background: linear-gradient(45deg, #000 0%, ${colors.purple} 100%);
+  background: ${({ theme }) =>
+    theme === colors.themeDark ? colors.purple : "transparent"};
+  background: ${({ theme }) =>
+    theme === colors.themeDark
+      ? `linear-gradient(45deg, #000 0%, ${colors.purple} 100%)`
+      : "transparent"};
 `;
 
 const GameBoardWrapper = styled("div")({
@@ -36,6 +40,9 @@ const ScoreboardWrapper = styled("div")({
 class Game extends React.Component {
   componentWillMount() {
     let autoplay = false;
+    this.theme = this.props.options.boardTheme
+      ? this.props.options.boardTheme
+      : colors.themeLight;
 
     if (this.props.options.game && this.props.options.engine) {
       if (this.props.options.autoplay === "true") {
@@ -66,39 +73,39 @@ class Game extends React.Component {
 
   renderGame() {
     return (
-      <React.Fragment>
-        <PageWrapper>
-          <GameBoardWrapper>
-            <BoardWrapper>
-              <Board
+      <PageWrapper theme={this.theme}>
+        <GameBoardWrapper>
+          <BoardWrapper>
+            <Board
+              snakes={this.props.currentFrame.snakes}
+              food={this.props.currentFrame.food}
+              columns={this.props.grid.width}
+              rows={this.props.grid.height}
+              highlightedSnake={this.props.highlightedSnake}
+              theme={this.theme}
+            />
+            {this.props.options.hideMediaControls !== "true" && (
+              <MediaControls
+                toggleGamePause={this.props.toggleGamePause}
+                stepBackwardFrame={this.props.stepBackwardFrame}
+                stepForwardFrame={this.props.stepForwardFrame}
+                paused={this.props.paused}
+              />
+            )}
+          </BoardWrapper>
+          {this.props.options.hideScoreboard !== "true" && (
+            <ScoreboardWrapper>
+              <Scoreboard
+                turn={this.props.currentFrame.turn}
                 snakes={this.props.currentFrame.snakes}
                 food={this.props.currentFrame.food}
-                columns={this.props.grid.width}
-                rows={this.props.grid.height}
-                highlightedSnake={this.props.highlightedSnake}
+                highlightSnake={this.props.highlightSnake}
+                theme={this.theme}
               />
-              {this.props.options.hideMediaControls !== "true" && (
-                <MediaControls
-                  toggleGamePause={this.props.toggleGamePause}
-                  stepBackwardFrame={this.props.stepBackwardFrame}
-                  stepForwardFrame={this.props.stepForwardFrame}
-                  paused={this.props.paused}
-                />
-              )}
-            </BoardWrapper>
-            {this.props.options.hideScoreboard !== "true" && (
-              <ScoreboardWrapper>
-                <Scoreboard
-                  turn={this.props.currentFrame.turn}
-                  snakes={this.props.currentFrame.snakes}
-                  food={this.props.currentFrame.food}
-                  highlightSnake={this.props.highlightSnake}
-                />
-              </ScoreboardWrapper>
-            )}
-          </GameBoardWrapper>
-        </PageWrapper>
-      </React.Fragment>
+            </ScoreboardWrapper>
+          )}
+        </GameBoardWrapper>
+      </PageWrapper>
     );
   }
 }

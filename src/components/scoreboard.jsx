@@ -3,21 +3,26 @@ import styled from "react-emotion";
 import Avatar from "./avatar";
 import { colors } from "../theme";
 
+const Wrapper = styled("div")(({ theme }) => ({
+  color: theme === colors.themeDark ? colors.lightText : colors.darkText,
+  fontWeight: 700
+}));
+
 const AvatarWrapper = styled("div")`
   transition: background-color 0.2s, box-shadow 0.2s;
   box-shadow: ${props =>
     props.highlighted ? `0 0 0 1px ${colors.lightText}` : null};
 
   &:hover {
-    background-color: ${colors.purple};
+    background-color: ${props =>
+      props.theme === colors.themeDark ? colors.purple : colors.lightGray};
     cursor: pointer;
   }
 `;
 
 const TurnCount = styled("div")({
   width: "100%",
-  marginBottom: "1rem",
-  color: colors.lightText
+  marginBottom: "1rem"
 });
 
 class Scoreboard extends React.Component {
@@ -40,7 +45,7 @@ class Scoreboard extends React.Component {
   render() {
     const { highlightedSnake } = this.state;
     return (
-      <React.Fragment>
+      <Wrapper theme={this.props.theme}>
         <TurnCount>Turn: {this.props.turn}</TurnCount>
         {this.props.snakes
           ? this.props.snakes.map((snake, i) => (
@@ -48,12 +53,17 @@ class Scoreboard extends React.Component {
                 key={"avatarwrapper" + i}
                 onClick={() => this.toggleHighlight(snake)}
                 highlighted={highlightedSnake === snake._id}
+                theme={this.props.theme}
               >
-                <Avatar snake={snake} key={"avatar" + i} />
+                <Avatar
+                  snake={snake}
+                  key={"avatar" + i}
+                  theme={this.props.theme}
+                />
               </AvatarWrapper>
             ))
           : undefined}
-      </React.Fragment>
+      </Wrapper>
     );
   }
 }

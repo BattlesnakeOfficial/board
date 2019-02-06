@@ -14,6 +14,7 @@ class Board extends React.Component {
           columns={this.props.columns}
           rows={this.props.rows}
           highlightedSnake={this.props.highlightedSnake}
+          theme={this.props.theme}
           maxWidth={90}
           maxHeight={90}
           x={0}
