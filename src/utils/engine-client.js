@@ -5,7 +5,7 @@ import { isLastFrameOfGame } from "./game-state";
 
 const SNAKE_MIN_DELAY_MILLIS = 50;
 const DEFAULT_SNAKE_HEAD = "tongue";
-const DEFAULT_SNAKE_TAIL = "regular";
+const DEFAULT_SNAKE_TAIL = "bolt";
 
 async function get(url, query) {
   const fetchResult = await fetch(url + makeQueryString(query));

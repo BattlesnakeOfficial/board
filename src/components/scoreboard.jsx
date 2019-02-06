@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "react-emotion";
 import Avatar from "./avatar";
-import { colors } from "../theme";
+import { colors, themes } from "../theme";
 
 const Wrapper = styled("div")(({ theme }) => ({
-  color: theme === colors.themeDark ? colors.lightText : colors.darkText,
+  color: theme === themes.dark ? colors.lightText : colors.darkText,
   fontWeight: 700
 }));
 
@@ -15,7 +15,7 @@ const AvatarWrapper = styled("div")`
 
   &:hover {
     background-color: ${props =>
-      props.theme === colors.themeDark ? colors.purple : colors.lightGray};
+      props.theme === themes.dark ? colors.purple : colors.light};
     cursor: pointer;
   }
 `;

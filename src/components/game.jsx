@@ -5,16 +5,16 @@ import BlankState from "./blank-state";
 import Board from "./board";
 import Scoreboard from "./scoreboard";
 import MediaControls from "./mediaControls";
-import { colors } from "../theme";
+import { colors, themes } from "../theme";
 
 const PageWrapper = styled("div")`
   position: relative;
   height: 100%;
   width: 100%;
   background: ${({ theme }) =>
-    theme === colors.themeDark ? colors.purple : "transparent"};
+    theme === themes.dark ? colors.purple : "transparent"};
   background: ${({ theme }) =>
-    theme === colors.themeDark
+    theme === themes.dark
       ? `linear-gradient(45deg, #000 0%, ${colors.purple} 100%)`
       : "transparent"};
 `;
@@ -42,7 +42,7 @@ class Game extends React.Component {
     let autoplay = false;
     this.theme = this.props.options.boardTheme
       ? this.props.options.boardTheme
-      : colors.themeLight;
+      : themes.light;
 
     if (this.props.options.game && this.props.options.engine) {
       if (this.props.options.autoplay === "true") {

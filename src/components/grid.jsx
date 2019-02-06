@@ -1,7 +1,8 @@
 import React from "react";
-import { colors } from "../theme";
+import { colors, themes } from "../theme";
 
 const HIGHLIGHT_DIM = 0.25;
+const DARK_DIM = 0.75;
 const DEAD_OPACITY = 0.1;
 const CELL_SIZE = 20;
 const CELL_SPACING = 4;
@@ -13,13 +14,13 @@ function toGridSpace(slot) {
 function getPartWidth(part) {
   const extraWidth =
     part.direction === "left" || part.direction === "right" ? CELL_SPACING : 0;
-  return CELL_SIZE + extraWidth + "px";
+  return CELL_SIZE + extraWidth;
 }
 
 function getPartHeight(part) {
   const extraHeight =
     part.direction === "up" || part.direction === "down" ? CELL_SPACING : 0;
-  return CELL_SIZE + extraHeight + "px";
+  return CELL_SIZE + extraHeight;
 }
 
 function getPartXOffset(part) {
@@ -158,12 +159,12 @@ class Grid extends React.Component {
     return (
       <svg
         key={"part" + snakeIndex + ",head"}
-        fill={snake.color}
-        width={CELL_SIZE + "px"}
-        height={CELL_SIZE + "px"}
+        viewBox={viewBoxStr}
         x={x}
         y={y}
-        viewBox={viewBoxStr}
+        width={CELL_SIZE}
+        height={CELL_SIZE}
+        fill={snake.color}
         opacity={getOpacity(snake, highlighted)}
         shapeRendering="optimizeSpeed"
       >
@@ -177,12 +178,7 @@ class Grid extends React.Component {
 
   renderMiddlePart(snake, snakeIndex, part, partIndex, highlighted) {
     if (!part.shouldRender) {
-      return (
-        <svg
-          key={"part" + snakeIndex + "," + partIndex}
-          shapeRendering="optimizeSpeed"
-        />
-      );
+      return <svg key={"part" + snakeIndex + "," + partIndex} />;
     }
 
     return (
@@ -192,8 +188,8 @@ class Grid extends React.Component {
         y={getPartYOffset(part)}
         width={getPartWidth(part)}
         height={getPartHeight(part)}
-        opacity={getOpacity(snake, highlighted)}
         fill={snake.color}
+        opacity={getOpacity(snake, highlighted)}
         shapeRendering="optimizeSpeed"
       />
     );
@@ -207,23 +203,18 @@ class Grid extends React.Component {
     const viewBoxStr = `${box.x} ${box.y} ${box.width} ${box.height}`;
 
     if (!part.shouldRender) {
-      return (
-        <svg
-          key={"part" + snakeIndex + ",tail"}
-          shapeRendering="optimizeSpeed"
-        />
-      );
+      return <svg key={"part" + snakeIndex + ",tail"} />;
     }
 
     return (
       <svg
         key={"part" + snakeIndex + ",tail"}
-        fill={snake.color}
-        width={CELL_SIZE}
-        height={CELL_SIZE}
+        viewBox={viewBoxStr}
         x={x}
         y={y}
-        viewBox={viewBoxStr}
+        width={CELL_SIZE}
+        height={CELL_SIZE}
+        fill={snake.color}
         opacity={getOpacity(snake, highlighted)}
         shapeRendering="optimizeSpeed"
       >
@@ -255,16 +246,23 @@ class Grid extends React.Component {
       >
         {range(this.props.rows).map((_, row) =>
           range(this.props.columns).map((_, col) => (
-            <circle
+            <rect
               key={"cell" + row + "," + col}
+              x={toGridSpace(col)}
+              y={toGridSpace(row)}
               width={CELL_SIZE}
               height={CELL_SIZE}
-              fill={colors.gridDot}
-              cx={toGridSpace(col) + CELL_SIZE / 2}
-              cy={toGridSpace(row) + CELL_SIZE / 2}
-              r={CELL_SIZE / 10}
-              opacity={this.props.highlightedSnake ? HIGHLIGHT_DIM : null}
-              shapeRendering="optimizeQuality"
+              fill={
+                this.props.theme === themes.dark ? "#ddd" : colors.grayLight
+              }
+              opacity={
+                this.props.highlightedSnake
+                  ? HIGHLIGHT_DIM
+                  : this.props.theme === themes.dark
+                  ? DARK_DIM
+                  : null
+              }
+              shapeRendering="optimizeSpeed"
             />
           ))
         )}
@@ -287,13 +285,8 @@ class Grid extends React.Component {
             cx={toGridSpace(f.x) + CELL_SIZE / 2}
             cy={toGridSpace(f.y) + CELL_SIZE / 2}
             r={CELL_SIZE / 3.25}
-            fill={
-              this.props.theme === colors.themeDark
-                ? colors.food
-                : colors.foodDark
-            }
+            fill={colors.food}
             opacity={this.props.highlightedSnake ? HIGHLIGHT_DIM : null}
-            shapeRendering="optimizeQuality"
           />
         ))}
       </svg>

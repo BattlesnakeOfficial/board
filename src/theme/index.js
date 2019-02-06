@@ -1,15 +1,12 @@
 export const colors = {
-  // Themes
-  themeDark: "dark",
-  themeLight: "light",
-
   // Page
   pageBackground: "transparent",
 
   // Grid
-  gridDot: "#63127a",
-  food: "#fefefe",
-  foodDark: "#ff5c75",
+  gridDot: "#6a208f",
+  // food: "#fefefe",
+  // foodDark: "#ff5c75",
+  food: "#ff5c75",
   // food: "#ffa500", // OLD
 
   // Scoreboard
@@ -22,12 +19,37 @@ export const colors = {
   lightText: "#efefef",
   darkText: "#222",
 
-  // Colour names
+  // Colour names (from theme)
+  blue: "#007bff",
+  indigo: "#6610f2",
+  purple: "#6f42c1",
+  pink: "#e83e8c",
+  red: "#dc3545",
+  orange: "#fd7e14",
+  yellow: "#ffc107",
+  green: "#28a745",
+  teal: "#20c997",
+  cyan: "#17a2b8",
   white: "#fff",
-  lightGray: "#cecece",
-  gray: "#777",
-  darkGray: "#333",
-  black: "#000",
-  orange: "#ffa500",
-  purple: "#240458"
+  gray: "#6c757d",
+  grayLight: "#f1f1f1",
+  grayDark: "#343a40",
+  primary: "#007bff",
+  secondary: "#6c757d",
+  success: "#28a745",
+  info: "#17a2b8",
+  warning: "#ffc107",
+  danger: "#dc3545",
+  light: "#f8f9fa",
+  dark: "#343a40"
+
+  // OLD
+  // orange: "#ffa500",
+  // purple: "#240458",
+};
+
+export const themes = {
+  // Themes
+  dark: "dark",
+  light: "light"
 };
