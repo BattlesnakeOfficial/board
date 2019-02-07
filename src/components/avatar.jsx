@@ -4,8 +4,6 @@ import { colors } from "../theme";
 import { getReadableCauseOfDeath } from "../utils/engine-client";
 
 const AvatarWrapper = styled("div")({
-  display: "flex",
-  alignItems: "center",
   marginBottom: ".5rem",
   paddingTop: "1rem",
   width: "100%",
@@ -13,24 +11,8 @@ const AvatarWrapper = styled("div")({
   fontSize: "1.5rem"
 });
 
-const AvatarLeftCol = styled("div")({
-  marginRight: "1rem"
-});
-
-const AvatarRightCol = styled("div")({
-  width: "100%"
-});
-
-const RoundedAvatar = styled("div")(({ color }) => ({
-  height: "5rem",
-  width: "5rem",
-  borderRadius: "50%",
-  background: colors.darkGray,
-  border: `solid 5px ${color}`
-}));
-
 const Name = styled("span")({
-  display: "inline-block",
+  display: "block",
   paddingBottom: ".5rem"
 });
 
@@ -61,26 +43,21 @@ class Avatar extends React.Component {
   render() {
     return (
       <AvatarWrapper>
-        <AvatarLeftCol>
-          <RoundedAvatar color={this.props.snake.color} />
-        </AvatarLeftCol>
-        <AvatarRightCol>
-          <Name>{this.props.snake.name}</Name>
-          <HealthBarWrapper>
-            {this.props.snake.death ? (
-              <CauseOfDeath theme={this.props.theme}>
-                Dead: {getReadableCauseOfDeath(this.props.snake.death.cause)}
-              </CauseOfDeath>
-            ) : (
-              <HealthBar
-                color={this.props.snake.color}
-                style={{
-                  width: `${this.props.snake.health}%`
-                }}
-              />
-            )}
-          </HealthBarWrapper>
-        </AvatarRightCol>
+        <Name>{this.props.snake.name}</Name>
+        <HealthBarWrapper>
+          {this.props.snake.death ? (
+            <CauseOfDeath>
+              Dead: {getReadableCauseOfDeath(this.props.snake.death.cause)}
+            </CauseOfDeath>
+          ) : (
+            <HealthBar
+              color={this.props.snake.color}
+              style={{
+                width: `${this.props.snake.health}%`
+              }}
+            />
+          )}
+        </HealthBarWrapper>
       </AvatarWrapper>
     );
   }
