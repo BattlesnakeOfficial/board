@@ -3,19 +3,26 @@ import styled from "react-emotion";
 import Avatar from "./avatar";
 import { colors, themes } from "../theme";
 
-const sortByName = (a, b) => {
-  if (a.name < b.name) {
-    return -1;
-  }
-  if (a.name > b.name) {
-    return 1;
-  }
-  return 0;
-};
-
 const orderSnakes = snakes => {
-  const aliveSnakes = snakes.filter(s => !s.isDead).sort(sortByName);
-  const deadSnakes = snakes.filter(s => s.isDead).sort(sortByName);
+  // Sort by name
+  const aliveSnakes = snakes
+    .filter(s => !s.isDead)
+    .sort((a, b) => {
+      if (a.name < b.name) {
+        return -1;
+      }
+      if (a.name > b.name) {
+        return 1;
+      }
+      return 0;
+    });
+
+  // Sort by turn died, descending
+  const deadSnakes = snakes
+    .filter(s => s.isDead)
+    .sort((a, b) => a.death.turn - b.death.turn)
+    .reverse();
+
   return aliveSnakes.concat(deadSnakes);
 };
 
