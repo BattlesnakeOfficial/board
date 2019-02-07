@@ -2,11 +2,19 @@ import React from "react";
 import Grid from "./grid";
 import { colors } from "../theme";
 
+const BOARD_SIZE = 100;
+
 class Board extends React.Component {
   render() {
     return (
-      <svg viewBox="0 0 90 90">
-        <rect x="0" y="0" width="90" height="90" fill={colors.pageBackground} />
+      <svg viewBox={`0 0 ${BOARD_SIZE} ${BOARD_SIZE}`}>
+        <rect
+          x="0"
+          y="0"
+          width={BOARD_SIZE}
+          height={BOARD_SIZE}
+          fill={colors.pageBackground}
+        />
 
         <Grid
           snakes={this.props.snakes}
@@ -14,8 +22,9 @@ class Board extends React.Component {
           columns={this.props.columns}
           rows={this.props.rows}
           highlightedSnake={this.props.highlightedSnake}
-          maxWidth={90}
-          maxHeight={90}
+          theme={this.props.theme}
+          maxWidth={BOARD_SIZE}
+          maxHeight={BOARD_SIZE}
           x={0}
           y={0}
         />

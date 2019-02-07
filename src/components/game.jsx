@@ -5,6 +5,19 @@ import BlankState from "./blank-state";
 import Board from "./board";
 import Scoreboard from "./scoreboard";
 import MediaControls from "./mediaControls";
+import { colors, themes } from "../theme";
+
+const PageWrapper = styled("div")`
+  position: relative;
+  height: 100%;
+  width: 100%;
+  background: ${({ theme }) =>
+    theme === themes.dark ? colors.purple : "transparent"};
+  background: ${({ theme }) =>
+    theme === themes.dark
+      ? `linear-gradient(45deg, #000 0%, ${colors.purple} 100%)`
+      : "transparent"};
+`;
 
 const GameBoardWrapper = styled("div")({
   display: "flex",
@@ -27,6 +40,9 @@ const ScoreboardWrapper = styled("div")({
 class Game extends React.Component {
   componentWillMount() {
     let autoplay = false;
+    this.theme = this.props.options.boardTheme
+      ? this.props.options.boardTheme
+      : themes.light;
 
     if (this.props.options.game && this.props.options.engine) {
       if (this.props.options.autoplay === "true") {
@@ -57,7 +73,7 @@ class Game extends React.Component {
 
   renderGame() {
     return (
-      <React.Fragment>
+      <PageWrapper theme={this.theme}>
         <GameBoardWrapper>
           <BoardWrapper>
             <Board
@@ -66,6 +82,7 @@ class Game extends React.Component {
               columns={this.props.grid.width}
               rows={this.props.grid.height}
               highlightedSnake={this.props.highlightedSnake}
+              theme={this.theme}
             />
             {this.props.options.hideMediaControls !== "true" && (
               <MediaControls
@@ -83,11 +100,12 @@ class Game extends React.Component {
                 snakes={this.props.currentFrame.snakes}
                 food={this.props.currentFrame.food}
                 highlightSnake={this.props.highlightSnake}
+                theme={this.theme}
               />
             </ScoreboardWrapper>
           )}
         </GameBoardWrapper>
-      </React.Fragment>
+      </PageWrapper>
     );
   }
 }
