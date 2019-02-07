@@ -3,6 +3,22 @@ import styled from "react-emotion";
 import Avatar from "./avatar";
 import { colors, themes } from "../theme";
 
+const sortByName = (a, b) => {
+  if (a.name < b.name) {
+    return -1;
+  }
+  if (a.name > b.name) {
+    return 1;
+  }
+  return 0;
+};
+
+const orderSnakes = snakes => {
+  const aliveSnakes = snakes.filter(s => !s.isDead).sort(sortByName);
+  const deadSnakes = snakes.filter(s => s.isDead).sort(sortByName);
+  return aliveSnakes.concat(deadSnakes);
+};
+
 const Wrapper = styled("div")(({ theme }) => ({
   color: theme === themes.dark ? colors.lightText : colors.darkText,
   fontWeight: 700
@@ -48,7 +64,7 @@ class Scoreboard extends React.Component {
       <Wrapper theme={this.props.theme}>
         <TurnCount>Turn: {this.props.turn}</TurnCount>
         {this.props.snakes
-          ? this.props.snakes.map((snake, i) => (
+          ? orderSnakes(this.props.snakes).map((snake, i) => (
               <AvatarWrapper
                 key={"avatarwrapper" + i}
                 onClick={() => this.toggleHighlight(snake)}
