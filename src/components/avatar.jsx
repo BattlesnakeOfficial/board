@@ -31,12 +31,11 @@ const HealthBar = styled("div")(({ color }) => ({
 
 const CauseOfDeath = styled("div")({
   height: "100%",
-  paddingTop: ".2rem",
-  textAlign: "center",
+  padding: ".2rem .5rem",
   fontSize: "1.2rem",
   backgroundColor: colors.healthBarDeathBackground,
   borderRadius: "inherit",
-  color: colors.lightText
+  color: colors.darkText
 });
 
 class Avatar extends React.Component {
