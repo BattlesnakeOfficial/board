@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "react-emotion";
-import { colors } from "../theme";
+import { colors, themes } from "../theme";
 import { getReadableCauseOfDeath } from "../utils/engine-client";
 
 const AvatarWrapper = styled("div")({
@@ -29,14 +29,17 @@ const HealthBar = styled("div")(({ color }) => ({
   borderRadius: "inherit"
 }));
 
-const CauseOfDeath = styled("div")({
+const CauseOfDeath = styled("div")(({ theme }) => ({
   height: "100%",
   padding: ".2rem .5rem",
   fontSize: "1.2rem",
-  backgroundColor: colors.healthBarDeathBackground,
+  backgroundColor:
+    theme === themes.dark
+      ? colors.healthBarDeathBackgroundDark
+      : colors.healthBarDeathBackground,
   borderRadius: "inherit",
   color: colors.darkText
-});
+}));
 
 class Avatar extends React.Component {
   render() {
@@ -45,8 +48,8 @@ class Avatar extends React.Component {
         <Name>{this.props.snake.name}</Name>
         <HealthBarWrapper>
           {this.props.snake.death ? (
-            <CauseOfDeath>
-              Dead: {getReadableCauseOfDeath(this.props.snake.death.cause)}
+            <CauseOfDeath theme={this.props.theme}>
+              {getReadableCauseOfDeath(this.props.snake.death.cause)}
             </CauseOfDeath>
           ) : (
             <HealthBar
