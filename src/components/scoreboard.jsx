@@ -28,7 +28,8 @@ const orderSnakes = snakes => {
 
 const Wrapper = styled("div")(({ theme }) => ({
   color: theme === themes.dark ? colors.lightText : colors.darkText,
-  fontWeight: 700
+  fontWeight: 700,
+  fontSize: "2.4rem"
 }));
 
 const AvatarWrapper = styled("div")`

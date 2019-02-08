@@ -23,13 +23,15 @@ const GameBoardWrapper = styled("div")({
   display: "flex",
   justifyContent: "space-between",
   padding: "0 2rem",
-  width: "100%"
+  width: "100%",
+  height: "100%"
 });
 
 const BoardWrapper = styled("div")({
   display: "flex",
   flexDirection: "column",
-  width: "65vw"
+  width: "65vw",
+  height: "100%"
 });
 
 const ScoreboardWrapper = styled("div")({
