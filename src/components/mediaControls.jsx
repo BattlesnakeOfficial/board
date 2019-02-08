@@ -2,12 +2,12 @@ import React from "react";
 import styled from "react-emotion";
 import KeyboardEventHandler from "react-keyboard-event-handler";
 
-const MediaControlsWrapper = styled("div")({
-  display: "flex",
+const MediaControlsWrapper = styled("div")(({ hide }) => ({
+  display: hide ? "none" : "flex",
   justifyContent: "center",
   padding: "2rem 0",
   width: "100%"
-});
+}));
 
 const Button = styled("button")`
   display: inline-block;
@@ -78,8 +78,9 @@ class MediaControls extends React.Component {
   };
 
   renderControls() {
+    const { hideControls } = this.props;
     return (
-      <MediaControlsWrapper>
+      <MediaControlsWrapper hide={hideControls}>
         <Button onClick={this.handlePlayPause}>
           {this.props.paused ? "Play" : "Pause"}
         </Button>
