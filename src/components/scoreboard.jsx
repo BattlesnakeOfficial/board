@@ -45,6 +45,7 @@ const AvatarWrapper = styled("div")`
 
 const TurnCount = styled("div")({
   width: "100%",
+  marginTop: "1rem",
   marginBottom: "1rem"
 });
 
