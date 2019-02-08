@@ -102,7 +102,6 @@ export const toggleGamePause = () => {
   return async (dispatch, getState) => {
     const { currentFrame, gameStatus, paused, engineOptions } = getState();
     if (paused) {
-      console.log(gameStatus);
       if (gameStatus === "stopped") {
         await fetchGameStart(engineOptions.engine, engineOptions.game);
         dispatch(fetchFrames());
