@@ -3,6 +3,7 @@ import { parseQueryString } from "../utils/url";
 import Game from "../components/game";
 import {
   fetchFrames,
+  reloadGame,
   toggleGamePause,
   setEngineOptions,
   stepForwardFrame,
@@ -27,6 +28,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
   setEngineOptions: options => dispatch(setEngineOptions(options)),
   fetchFrames: () => dispatch(fetchFrames()),
+  reloadGame: () => dispatch(reloadGame()),
   toggleGamePause: paused => dispatch(toggleGamePause(paused)),
   stepForwardFrame: () => dispatch(stepForwardFrame()),
   stepBackwardFrame: () => dispatch(stepBackwardFrame()),

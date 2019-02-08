@@ -98,6 +98,16 @@ export const playFromFrame = frame => {
   };
 };
 
+export const reloadGame = () => {
+  return async (dispatch, getState) => {
+    const { frames, paused } = getState();
+    if (paused) {
+      const frame = getFrameByTurn(frames, 0);
+      dispatch(setCurrentFrame(frame));
+    }
+  };
+};
+
 export const toggleGamePause = () => {
   return async (dispatch, getState) => {
     const { currentFrame, gameStatus, paused, engineOptions } = getState();

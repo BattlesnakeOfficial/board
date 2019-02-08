@@ -81,7 +81,9 @@ class Game extends React.Component {
               theme={this.theme}
             />
             <MediaControls
+              currentFrame={this.props.currentFrame}
               hideControls={this.props.options.hideMediaControls === "true"}
+              reloadGame={this.props.reloadGame}
               toggleGamePause={this.props.toggleGamePause}
               stepBackwardFrame={this.props.stepBackwardFrame}
               stepForwardFrame={this.props.stepForwardFrame}

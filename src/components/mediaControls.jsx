@@ -45,9 +45,17 @@ const Button = styled("button")`
 `;
 
 class MediaControls extends React.Component {
+  componentWillMount() {
+    this.keyEvents = ["r", "left", "right", "space"];
+  }
+
   render() {
     return this.renderControls();
   }
+
+  handleReload = () => {
+    this.props.reloadGame();
+  };
 
   handlePlayPause = () => {
     this.props.toggleGamePause();
@@ -63,6 +71,9 @@ class MediaControls extends React.Component {
 
   handleKeyEvent = key => {
     switch (key) {
+      case "r":
+        this.handleReload();
+        break;
       case "left":
         this.handleBackward();
         break;
@@ -78,20 +89,27 @@ class MediaControls extends React.Component {
   };
 
   renderControls() {
-    const { hideControls } = this.props;
+    const { currentFrame, hideControls, paused } = this.props;
+
     return (
       <MediaControlsWrapper hide={hideControls}>
-        <Button onClick={this.handlePlayPause}>
-          {this.props.paused ? "Play" : "Pause"}
+        <Button
+          onClick={this.handleReload}
+          disabled={currentFrame.turn === 0 || !paused}
+        >
+          Reload
         </Button>
-        <Button onClick={this.handleBackward} disabled={!this.props.paused}>
+        <Button onClick={this.handlePlayPause}>
+          {paused ? "Play" : "Pause"}
+        </Button>
+        <Button onClick={this.handleBackward} disabled={!paused}>
           Backward
         </Button>
-        <Button onClick={this.handleForward} disabled={!this.props.paused}>
+        <Button onClick={this.handleForward} disabled={!paused}>
           Forward
         </Button>
         <KeyboardEventHandler
-          handleKeys={["left", "right", "space"]}
+          handleKeys={this.keyEvents}
           onKeyEvent={this.handleKeyEvent}
         />
       </MediaControlsWrapper>
