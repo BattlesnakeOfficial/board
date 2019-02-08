@@ -39,21 +39,15 @@ const ScoreboardWrapper = styled("div")({
 
 class Game extends React.Component {
   componentWillMount() {
-    let autoplay = false;
+    const { options } = this.props;
+
     this.theme = this.props.options.boardTheme
       ? this.props.options.boardTheme
       : themes.light;
 
-    if (this.props.options.game && this.props.options.engine) {
-      if (this.props.options.autoplay === "true") {
-        autoplay = true;
-      }
-
-      this.props.fetchFrames(
-        this.props.options.game,
-        this.props.options.engine,
-        autoplay
-      );
+    if (options.game && options.engine) {
+      this.props.setEngineOptions(options);
+      this.props.fetchFrames();
     } else {
       this.invalidArgs = true;
     }

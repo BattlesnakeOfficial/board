@@ -7,7 +7,7 @@ export function formatFrame(frame) {
     turn: frame.Turn,
     snakes: snakes,
     food: formatPositions(frame.Food),
-    gameOver: isLastFrameOfGame(snakes)
+    gameOver: isLastFrameOfGame(frame)
   };
 }
 
@@ -124,7 +124,9 @@ function oneLeft(snakes) {
   return alive.length <= 1;
 }
 
-export function isLastFrameOfGame(snakes) {
+export function isLastFrameOfGame(frame) {
+  const snakes = formatSnakes(frame.Snakes);
+
   if (snakes.length === 0) {
     return true;
   }

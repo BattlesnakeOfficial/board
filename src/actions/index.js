@@ -1,4 +1,14 @@
-import { streamAllFrames, getFrameByTurn, delay } from "../utils/engine-client";
+import {
+  delay,
+  fetchGameStart,
+  getFrameByTurn,
+  streamAllFrames
+} from "../utils/engine-client";
+
+export const setEngineOptions = engineOptions => ({
+  type: "SET_ENGINE_OPTIONS",
+  engineOptions
+});
 
 export const gameOver = () => ({
   type: "GAME_OVER"
@@ -19,6 +29,11 @@ export const setCurrentFrame = frame => ({
   frame
 });
 
+export const setGameStatus = status => ({
+  type: "SET_GAME_STATUS",
+  status
+});
+
 export const pauseGame = () => ({
   type: "PAUSE_GAME"
 });
@@ -32,11 +47,19 @@ export const highlightSnake = snakeId => ({
   snakeId
 });
 
-export const fetchFrames = (game, engine, autoplay) => {
+export const fetchFrames = () => {
   return async (dispatch, getState) => {
+    const {
+      autoplay,
+      engine: engineUrl,
+      game: gameId
+    } = getState().engineOptions;
+
     dispatch(requestFrames());
 
-    await streamAllFrames(engine, game, (game, frame) => {
+    await streamAllFrames(engineUrl, gameId, (game, frame) => {
+      dispatch(setGameStatus(game.Game.Status));
+
       // Workaround for bug where turn exluded on turn 0
       frame.Turn = frame.Turn || 0;
       dispatch(receiveFrame(game, frame));
@@ -77,9 +100,16 @@ export const playFromFrame = frame => {
 
 export const toggleGamePause = () => {
   return async (dispatch, getState) => {
-    if (getState().paused) {
+    const { currentFrame, gameStatus, paused, engineOptions } = getState();
+    if (paused) {
+      console.log(gameStatus);
+      if (gameStatus === "stopped") {
+        await fetchGameStart(engineOptions.engine, engineOptions.game);
+        dispatch(fetchFrames());
+      }
+
       dispatch(resumeGame());
-      dispatch(playFromFrame(getState().currentFrame));
+      dispatch(playFromFrame(currentFrame));
     } else {
       dispatch(pauseGame());
     }

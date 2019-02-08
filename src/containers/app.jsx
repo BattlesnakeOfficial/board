@@ -4,6 +4,7 @@ import Game from "../components/game";
 import {
   fetchFrames,
   toggleGamePause,
+  setEngineOptions,
   stepForwardFrame,
   stepBackwardFrame,
   highlightSnake
@@ -18,13 +19,14 @@ const mapStateToProps = state => {
     paused: state.paused,
     currentFrame: state.currentFrame,
     frames: state.frames,
-    highlightedSnake: state.highlightedSnake
+    highlightedSnake: state.highlightedSnake,
+    gameStatus: state.gameStatus
   };
 };
 
 const mapDispatchToProps = dispatch => ({
-  fetchFrames: (game, engine, autoplay) =>
-    dispatch(fetchFrames(game, engine, autoplay)),
+  setEngineOptions: options => dispatch(setEngineOptions(options)),
+  fetchFrames: () => dispatch(fetchFrames()),
   toggleGamePause: paused => dispatch(toggleGamePause(paused)),
   stepForwardFrame: () => dispatch(stepForwardFrame()),
   stepBackwardFrame: () => dispatch(stepBackwardFrame()),
