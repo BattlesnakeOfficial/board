@@ -30,10 +30,15 @@ http://localhost:3000/?engine=http%3A%2F%2Flocalhost%3A3005&game=3bb6f305-04fd-4
 `engine` - the battlesnake engine to request frames from.  
 `game` - the id of the game to fetch frames for.  
 `boardTheme` - the theme of the board.  Values dark / light.  Defaults to light.
+`hideScoreboard` - remove the scoreboard for embedding cool games.  Values true/false.   Defaults to false.
+`hideMediaControls` - remove the controls for embedding cool games.  Values true/false.  Defaults to false.
 
 ## Keyboard Shortcuts
 
-If you click on the board you can use the arrow keys to go forwards and backwards through frames, and the space bar to pause / unpause the game.
+If you click on the board you can use:
+ - arrow keys to go forwards and backwards through frames.  
+ - space bar to pause / unpause the game. 
+ - r to reset the game to frame 0. 
 
 ## Handy tips
 
