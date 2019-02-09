@@ -47,6 +47,11 @@ export const highlightSnake = snakeId => ({
   snakeId
 });
 
+const windowPostMessage = msg => {
+  // Uses postMessage API to send data to the parent frame
+  window.parent.postMessage(msg, "*");
+};
+
 export const fetchFrames = () => {
   return async (dispatch, getState) => {
     const {
@@ -70,6 +75,7 @@ export const fetchFrames = () => {
       // Workaround to render the first frame into the board
       if (frame.Turn === 0) {
         const frame = getState().frames[0];
+        windowPostMessage({ turn: frame.turn });
         dispatch(setCurrentFrame(frame));
 
         if (autoplay) {
@@ -122,6 +128,7 @@ export const reloadGame = () => {
 export const toggleGamePause = () => {
   return async (dispatch, getState) => {
     const { currentFrame, gameStatus, paused, engineOptions } = getState();
+
     if (paused) {
       if (gameStatus === "stopped") {
         await fetchGameStart(engineOptions.engine, engineOptions.game);
@@ -131,6 +138,7 @@ export const toggleGamePause = () => {
       dispatch(resumeGame());
       dispatch(playFromFrame(currentFrame));
     } else {
+      windowPostMessage({ turn: currentFrame.turn + 1 });
       dispatch(pauseGame());
     }
   };
@@ -139,8 +147,10 @@ export const toggleGamePause = () => {
 export const stepForwardFrame = () => {
   return async (dispatch, getState) => {
     const { currentFrame, frames } = getState();
-    const stepToFrame = getFrameByTurn(frames, currentFrame.turn + 1);
+    const nextFrame = currentFrame.turn + 1;
+    const stepToFrame = getFrameByTurn(frames, nextFrame);
     if (stepToFrame) {
+      windowPostMessage({ turn: stepToFrame.turn });
       dispatch(setCurrentFrame(stepToFrame));
     }
   };
@@ -149,8 +159,10 @@ export const stepForwardFrame = () => {
 export const stepBackwardFrame = () => {
   return async (dispatch, getState) => {
     const { currentFrame, frames } = getState();
-    const stepToFrame = getFrameByTurn(frames, currentFrame.turn - 1);
+    const prevFrame = currentFrame.turn - 1;
+    const stepToFrame = getFrameByTurn(frames, prevFrame);
     if (stepToFrame) {
+      windowPostMessage({ turn: stepToFrame.turn });
       dispatch(setCurrentFrame(stepToFrame));
     }
   };
