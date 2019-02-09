@@ -28,7 +28,8 @@ const orderSnakes = snakes => {
 
 const Wrapper = styled("div")(({ theme }) => ({
   color: theme === themes.dark ? colors.lightText : colors.darkText,
-  fontWeight: 700
+  fontWeight: 700,
+  fontSize: "2.4rem"
 }));
 
 const AvatarWrapper = styled("div")`
@@ -45,6 +46,7 @@ const AvatarWrapper = styled("div")`
 
 const TurnCount = styled("div")({
   width: "100%",
+  marginTop: "1rem",
   marginBottom: "1rem"
 });
 

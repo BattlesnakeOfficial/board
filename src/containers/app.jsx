@@ -3,7 +3,9 @@ import { parseQueryString } from "../utils/url";
 import Game from "../components/game";
 import {
   fetchFrames,
+  reloadGame,
   toggleGamePause,
+  setEngineOptions,
   stepForwardFrame,
   stepBackwardFrame,
   highlightSnake
@@ -18,13 +20,15 @@ const mapStateToProps = state => {
     paused: state.paused,
     currentFrame: state.currentFrame,
     frames: state.frames,
-    highlightedSnake: state.highlightedSnake
+    highlightedSnake: state.highlightedSnake,
+    gameStatus: state.gameStatus
   };
 };
 
 const mapDispatchToProps = dispatch => ({
-  fetchFrames: (game, engine, autoplay) =>
-    dispatch(fetchFrames(game, engine, autoplay)),
+  setEngineOptions: options => dispatch(setEngineOptions(options)),
+  fetchFrames: () => dispatch(fetchFrames()),
+  reloadGame: () => dispatch(reloadGame()),
   toggleGamePause: paused => dispatch(toggleGamePause(paused)),
   stepForwardFrame: () => dispatch(stepForwardFrame()),
   stepBackwardFrame: () => dispatch(stepBackwardFrame()),

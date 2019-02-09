@@ -23,13 +23,15 @@ const GameBoardWrapper = styled("div")({
   display: "flex",
   justifyContent: "space-between",
   padding: "0 2rem",
-  width: "100%"
+  width: "100%",
+  height: "100%"
 });
 
 const BoardWrapper = styled("div")({
   display: "flex",
   flexDirection: "column",
-  width: "65vw"
+  width: "65vw",
+  height: "100%"
 });
 
 const ScoreboardWrapper = styled("div")({
@@ -39,21 +41,15 @@ const ScoreboardWrapper = styled("div")({
 
 class Game extends React.Component {
   componentWillMount() {
-    let autoplay = false;
+    const { options } = this.props;
+
     this.theme = this.props.options.boardTheme
       ? this.props.options.boardTheme
       : themes.light;
 
-    if (this.props.options.game && this.props.options.engine) {
-      if (this.props.options.autoplay === "true") {
-        autoplay = true;
-      }
-
-      this.props.fetchFrames(
-        this.props.options.game,
-        this.props.options.engine,
-        autoplay
-      );
+    if (options.game && options.engine) {
+      this.props.setEngineOptions(options);
+      this.props.fetchFrames();
     } else {
       this.invalidArgs = true;
     }
@@ -84,14 +80,15 @@ class Game extends React.Component {
               highlightedSnake={this.props.highlightedSnake}
               theme={this.theme}
             />
-            {this.props.options.hideMediaControls !== "true" && (
-              <MediaControls
-                toggleGamePause={this.props.toggleGamePause}
-                stepBackwardFrame={this.props.stepBackwardFrame}
-                stepForwardFrame={this.props.stepForwardFrame}
-                paused={this.props.paused}
-              />
-            )}
+            <MediaControls
+              currentFrame={this.props.currentFrame}
+              hideControls={this.props.options.hideMediaControls === "true"}
+              reloadGame={this.props.reloadGame}
+              toggleGamePause={this.props.toggleGamePause}
+              stepBackwardFrame={this.props.stepBackwardFrame}
+              stepForwardFrame={this.props.stepForwardFrame}
+              paused={this.props.paused}
+            />
           </BoardWrapper>
           {this.props.options.hideScoreboard !== "true" && (
             <ScoreboardWrapper>

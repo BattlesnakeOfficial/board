@@ -96,22 +96,30 @@ async function prepareFrame(frame) {
   await setHeadAndTailSvgs(frame.Snakes);
 }
 
-export function getGameInfo(baseUrl, gameId) {
+export function fetchGameInfo(baseUrl, gameId) {
   const url = join(baseUrl, `games/${gameId}`);
   return get(url);
 }
 
+export async function fetchGameStart(baseUrl, gameId) {
+  const url = join(baseUrl, `games/${gameId}/start`);
+  // Only returns a 200 OK with no data, don't need to deal with the response
+  await fetch(url, {
+    method: "POST",
+    cache: "no-cache"
+  });
+}
+
 export async function streamAllFrames(baseUrl, gameId, receiveFrame) {
-  const game = await getGameInfo(baseUrl, gameId);
+  const game = await fetchGameInfo(baseUrl, gameId);
 
   let chain = Promise.resolve();
-
   function onFrame(frame) {
     chain = chain.then(async () => {
       await prepareFrame(frame);
       return receiveFrame(game, frame);
     });
-    return isLastFrameOfGame(frame.Snakes);
+    return isLastFrameOfGame(frame);
   }
 
   const wsUrl = join(httpToWsProtocol(baseUrl), `socket/${gameId}`);

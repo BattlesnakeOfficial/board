@@ -7,13 +7,12 @@ const AvatarWrapper = styled("div")({
   marginBottom: ".5rem",
   paddingTop: "1rem",
   width: "100%",
-  paddingBottom: "1rem",
-  fontSize: "1.5rem"
+  paddingBottom: "1rem"
 });
 
 const Name = styled("span")({
   display: "block",
-  paddingBottom: ".5rem"
+  paddingBottom: "1rem"
 });
 
 const HealthBarWrapper = styled("div")({
