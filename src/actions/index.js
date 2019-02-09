@@ -52,7 +52,8 @@ export const fetchFrames = () => {
     const {
       autoplay,
       engine: engineUrl,
-      game: gameId
+      game: gameId,
+      turn
     } = getState().engineOptions;
 
     dispatch(requestFrames());
@@ -68,10 +69,18 @@ export const fetchFrames = () => {
       if (frame.Turn === 0) {
         const frame = getState().frames[0];
         dispatch(setCurrentFrame(frame));
+
         if (autoplay) {
           dispatch(resumeGame());
           dispatch(playFromFrame(frame));
         }
+      }
+
+      // Only navigate to the specified frame if it is within the
+      // amount of frames available in the game
+      if (turn && turn <= getState().frames.length) {
+        const frame = getState().frames[turn];
+        dispatch(setCurrentFrame(frame));
       }
     });
   };
