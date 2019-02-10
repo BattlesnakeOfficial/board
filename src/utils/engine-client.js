@@ -3,7 +3,6 @@ import { makeQueryString, httpToWsProtocol, join } from "./url";
 import { loadSvgs, getSvg } from "./inline-svg";
 import { isLastFrameOfGame } from "./game-state";
 
-const SNAKE_MIN_DELAY_MILLIS = 50;
 const DEFAULT_SNAKE_HEAD = "tongue";
 const DEFAULT_SNAKE_TAIL = "bolt";
 
@@ -12,7 +11,7 @@ async function get(url, query) {
   return fetchResult.json();
 }
 
-export function delay(millis = SNAKE_MIN_DELAY_MILLIS) {
+export function delay(millis) {
   return new Promise(resolve => setTimeout(resolve, millis));
 }
 
@@ -89,10 +88,6 @@ function getSnakeTailSvgUrl(path) {
 }
 
 async function prepareFrame(frame) {
-  // Make sure SVGs are loaded and wait for at least minimum delay time.
-  // const delayPromise = delay(SNAKE_MIN_DELAY_MILLIS);
-  // const svgPromise = setHeadAndTailSvgs(frame.Snakes);
-  // await Promise.all([delayPromise, svgPromise]);
   await setHeadAndTailSvgs(frame.Snakes);
 }
 
