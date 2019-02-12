@@ -5,6 +5,8 @@ import {
   streamAllFrames
 } from "../utils/engine-client";
 
+const DEFAULT_FPS = 20;
+
 export const setEngineOptions = engineOptions => ({
   type: "SET_ENGINE_OPTIONS",
   engineOptions
@@ -101,20 +103,20 @@ export const playFromFrame = frame => {
     const frameIndex = frames.indexOf(frame);
     const slicedFrames = frames.slice(frameIndex);
 
-    const ceiledFps = Math.ceil(frameRate || 50);
+    const ceiledFps = Math.ceil(frameRate || DEFAULT_FPS);
     const delayMillis = 1000 / ceiledFps;
 
     for (const frame of slicedFrames) {
       if (getState().paused) return;
       dispatch(setCurrentFrame(frame));
-      await delay(frameRate);
+      await delay(delayMillis);
     }
 
     const lastFrame = slicedFrames[slicedFrames.length - 1];
     if (lastFrame.gameOver) {
       if (!getState().paused) dispatch(gameOver());
     } else {
-      dispatch(playFromFrame(delayMillis));
+      dispatch(playFromFrame(lastFrame));
     }
   };
 };
