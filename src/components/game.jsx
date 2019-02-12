@@ -76,9 +76,9 @@ class Game extends React.Component {
     return (
       <LoadingIndicator>
         <div
-          className="la-ball-grid-beat la-dark"
+          className="la-ball-grid-beat la-dark la-2x"
           style={{
-            color: "#ff5c75"
+            color: colors.food
           }}
         >
           <div />
