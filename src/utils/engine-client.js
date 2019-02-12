@@ -91,10 +91,6 @@ async function prepareFrame(frame) {
   await setHeadAndTailSvgs(frame.Snakes);
 }
 
-// export function calculateFrameRate(delayMilliseconds) {
-//   return (1000 / 25) * 1000;
-// }
-
 export function fetchGameInfo(baseUrl, gameId) {
   const url = join(baseUrl, `games/${gameId}`);
   return get(url);
