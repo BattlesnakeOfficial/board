@@ -96,13 +96,13 @@ export const fetchFrames = () => {
 
 export const playFromFrame = frame => {
   return async (dispatch, getState) => {
-    const { frameRate: delayMillis } = getState().engineOptions;
+    const { frameRate } = getState().engineOptions;
     const frames = getState().frames.slice(); // Don't modify in place
     const frameIndex = frames.indexOf(frame);
     const slicedFrames = frames.slice(frameIndex);
 
-    const ceiledDelay = Math.ceil(delayMillis || 50);
-    const frameRate = 1000 / ceiledDelay;
+    const ceiledFps = Math.ceil(frameRate || 50);
+    const delayMillis = 1000 / ceiledFps;
 
     for (const frame of slicedFrames) {
       if (getState().paused) return;
@@ -114,7 +114,7 @@ export const playFromFrame = frame => {
     if (lastFrame.gameOver) {
       if (!getState().paused) dispatch(gameOver());
     } else {
-      dispatch(playFromFrame(lastFrame));
+      dispatch(playFromFrame(delayMillis));
     }
   };
 };
