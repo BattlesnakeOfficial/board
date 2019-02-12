@@ -9,6 +9,8 @@ export default (state = {}, action) => {
       return { ...state, engineOptions: action.engineOptions };
     case "PAUSE_GAME":
       return { ...state, paused: true };
+    case "GAME_OVER":
+      return { ...state, paused: true };
     case "RESUME_GAME":
       return { ...state, paused: false };
     case "SET_GAME_STATUS":
