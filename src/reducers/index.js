@@ -32,8 +32,29 @@ export default (state = {}, action) => {
     case "FETCH_FRAMES":
       return { ...state };
     case "HIGHLIGHT_SNAKE":
+      postHighlightMessage(state, action);
       return { ...state, highlightedSnake: action.snakeId };
     default:
       return { ...state };
   }
 };
+
+function postHighlightMessage(state, action) {
+  if (!window.parent) {
+    return;
+  }
+  try {
+    window.parent.postMessage(
+      {
+        action: "HIGHLIGHT_SNAKE",
+        id: action.snakeId,
+        name: action.snakeId
+          ? state.currentFrame.snakes.find(s => s._id === action.snakeId).name
+          : null
+      },
+      "*"
+    );
+  } catch (e) {
+    console.error(e);
+  }
+}
