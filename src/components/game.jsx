@@ -19,6 +19,14 @@ const PageWrapper = styled("div")`
       : "transparent"};
 `;
 
+const LoadingIndicator = styled("div")({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  height: "100%",
+  width: "100%"
+});
+
 const GameBoardWrapper = styled("div")({
   display: "flex",
   justifyContent: "space-between",
@@ -27,12 +35,12 @@ const GameBoardWrapper = styled("div")({
   height: "100%"
 });
 
-const BoardWrapper = styled("div")({
+const BoardWrapper = styled("div")(({ hideScoreboard }) => ({
   display: "flex",
   flexDirection: "column",
-  width: "65vw",
+  width: hideScoreboard ? "100%" : "65vw",
   height: "100%"
-});
+}));
 
 const ScoreboardWrapper = styled("div")({
   width: "35vw",
@@ -48,6 +56,7 @@ class Game extends React.Component {
       : themes.light;
 
     if (options.game && options.engine) {
+      this.hideScoreboard = this.props.options.hideScoreboard === "true";
       this.props.setEngineOptions(options);
       this.props.fetchFrames();
     } else {
@@ -64,14 +73,33 @@ class Game extends React.Component {
       return this.renderGame();
     }
 
-    return <div>Loading game...</div>;
+    return (
+      <LoadingIndicator>
+        <div
+          className="la-ball-grid-beat la-dark"
+          style={{
+            color: "#ff5c75"
+          }}
+        >
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+        </div>
+      </LoadingIndicator>
+    );
   }
 
   renderGame() {
     return (
       <PageWrapper theme={this.theme}>
         <GameBoardWrapper>
-          <BoardWrapper>
+          <BoardWrapper hideScoreboard={this.hideScoreboard}>
             <Board
               snakes={this.props.currentFrame.snakes}
               food={this.props.currentFrame.food}
@@ -90,7 +118,7 @@ class Game extends React.Component {
               paused={this.props.paused}
             />
           </BoardWrapper>
-          {this.props.options.hideScoreboard !== "true" && (
+          {!this.hideScoreboard && (
             <ScoreboardWrapper>
               <Scoreboard
                 turn={this.props.currentFrame.turn}
