@@ -131,6 +131,30 @@ function getTailTransform(direction, viewBox) {
   }
 }
 
+function checkIfCornerPart(snake, partIndex) {
+  // If head or tail of the snake, then false
+  if (partIndex === 0 || partIndex === snake.body.length - 1) return false;
+
+  const behind = snake.body[partIndex + 1];
+  const current = snake.body[partIndex];
+
+  // Return false if the behind part has the same position as the current.
+  // Relevant for when the snake initially spawns.
+  if (behind.x === current.x && behind.y === current.y) return false;
+
+  return behind.direction !== current.direction;
+}
+
+function determineCornerType(snake, partIndex) {
+  // If head or tail of the snake, then false
+  if (partIndex === 0 || partIndex === snake.body.length - 1) return false;
+
+  const behind = snake.body[partIndex + 1];
+  const current = snake.body[partIndex];
+
+  return `${current.direction} ${behind.direction}`;
+}
+
 class Grid extends React.Component {
   renderPart(snake, snakeIndex, part, partIndex, highlightedSnake) {
     switch (part.type) {
@@ -139,13 +163,23 @@ class Grid extends React.Component {
       case "tail":
         return this.renderTailPart(snake, snakeIndex, part, highlightedSnake);
       default:
-        return this.renderMiddlePart(
-          snake,
-          snakeIndex,
-          part,
-          partIndex,
-          highlightedSnake
-        );
+        if (checkIfCornerPart(snake, partIndex)) {
+          return this.renderCornerPart(
+            snake,
+            snakeIndex,
+            part,
+            partIndex,
+            highlightedSnake
+          );
+        } else {
+          return this.renderMiddlePart(
+            snake,
+            snakeIndex,
+            part,
+            partIndex,
+            highlightedSnake
+          );
+        }
     }
   }
 
@@ -192,6 +226,75 @@ class Grid extends React.Component {
         opacity={getOpacity(snake, highlighted)}
         shapeRendering="optimizeSpeed"
       />
+    );
+  }
+
+  renderCornerPart(snake, snakeIndex, part, partIndex, highlighted) {
+    if (!part.shouldRender) {
+      return (
+        <svg
+          key={`part${snakeIndex},${part.x},${part.y}`}
+          shapeRendering="optimizeSpeed"
+        />
+      );
+    }
+
+    let viewBox, transform;
+    let path = "M0,0 h40 a60,60 0 0 1 61,60 v81 h-101 z";
+
+    switch (part.direction) {
+      case "left":
+      case "right":
+        viewBox = "0 0 120 100";
+        break;
+      case "up":
+      case "down":
+      default:
+        viewBox = "0 0 100 120";
+        break;
+    }
+
+    switch (determineCornerType(snake, partIndex)) {
+      case "down left":
+        transform = "scale(-1,1) translate(-100, 0)";
+        break;
+      case "left down":
+        transform = "rotate(90,0,0) translate(0,-120)";
+        break;
+      case "right down":
+        transform = "rotate(90,0,0) scale(1,-1)";
+        break;
+      case "up right":
+        transform = "scale(1,-1) translate(0,-120)";
+        break;
+      case "up left":
+        transform = "scale(-1,-1) translate(-100,-120)";
+        break;
+      case "right up":
+        transform = "rotate(-90,0,0) translate(-100,0)";
+        break;
+      case "left up":
+        transform = "rotate(-90,0,0) scale(1,-1) translate(-100,-120)";
+        break;
+      case "down right":
+      default:
+        break;
+    }
+
+    return (
+      <svg
+        key={`part${snakeIndex},${part.x},${part.y}`}
+        x={getPartXOffset(part)}
+        y={getPartYOffset(part)}
+        width={getPartWidth(part)}
+        height={getPartHeight(part)}
+        opacity={getOpacity(snake, highlighted)}
+        fill={snake.color}
+        viewBox={viewBox}
+        shapeRendering="optimizeSpeed"
+      >
+        <path d={path} transform={transform} />
+      </svg>
     );
   }
 
