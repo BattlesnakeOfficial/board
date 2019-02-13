@@ -130,28 +130,28 @@ function getTailTransform(direction, viewBox) {
   }
 }
 
-function checkIfCornerPart(snake, part, partIndex) {
+function checkIfCornerPart(snake, partIndex) {
   // If head or tail of the snake, then false
   if (partIndex === 0 || partIndex === snake.body.length - 1) return false;
 
-  const ahead = snake.body[partIndex - 1];
   const behind = snake.body[partIndex + 1];
+  const current = snake.body[partIndex];
 
   // Return false if the behind part has the same position as the current.
   // Relevant for when the snake initially spawns.
-  if (behind.x === part.x && behind.y === part.y) return false;
+  if (behind.x === current.x && behind.y === current.y) return false;
 
-  return ahead.direction !== behind.direction;
+  return behind.direction !== current.direction;
 }
 
 function determineCornerType(snake, partIndex) {
   // If head or tail of the snake, then false
   if (partIndex === 0 || partIndex === snake.body.length - 1) return false;
 
-  const ahead = snake.body[partIndex - 1];
   const behind = snake.body[partIndex + 1];
+  const current = snake.body[partIndex];
 
-  return `${ahead.direction} ${behind.direction}`;
+  return `${current.direction} ${behind.direction}`;
 }
 
 class Grid extends React.Component {
@@ -162,7 +162,7 @@ class Grid extends React.Component {
       case "tail":
         return this.renderTailPart(snake, snakeIndex, part, highlightedSnake);
       default:
-        if (checkIfCornerPart(snake, part, partIndex)) {
+        if (checkIfCornerPart(snake, partIndex)) {
           return this.renderCornerPart(
             snake,
             snakeIndex,
