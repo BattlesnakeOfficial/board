@@ -31,11 +31,6 @@ export const setCurrentFrame = frame => ({
   frame
 });
 
-export const setTurnCount = turn => ({
-  type: "SET_TURN_COUNT",
-  turn
-});
-
 export const setGameStatus = status => ({
   type: "SET_GAME_STATUS",
   status
@@ -78,7 +73,6 @@ export const fetchFrames = () => {
       if (frame.Turn === 0) {
         const frame = getState().frames[0];
         dispatch(setCurrentFrame(frame));
-        dispatch(setTurnCount(frame.turn));
 
         if (autoplay) {
           dispatch(resumeGame());
@@ -127,7 +121,6 @@ export const reloadGame = () => {
     if (paused) {
       const frame = getFrameByTurn(frames, 0);
       dispatch(setCurrentFrame(frame));
-      dispatch(setTurnCount(frame.turn));
     }
   };
 };
@@ -145,7 +138,6 @@ export const toggleGamePause = () => {
       dispatch(resumeGame());
       dispatch(playFromFrame(currentFrame));
     } else {
-      dispatch(setTurnCount(currentFrame.turn));
       dispatch(pauseGame());
     }
   };
@@ -158,7 +150,6 @@ export const stepForwardFrame = () => {
     const stepToFrame = getFrameByTurn(frames, nextFrame);
     if (stepToFrame) {
       dispatch(setCurrentFrame(stepToFrame));
-      dispatch(setTurnCount(stepToFrame.turn));
     }
   };
 };
@@ -170,7 +161,6 @@ export const stepBackwardFrame = () => {
     const stepToFrame = getFrameByTurn(frames, prevFrame);
     if (stepToFrame) {
       dispatch(setCurrentFrame(stepToFrame));
-      dispatch(setTurnCount(stepToFrame.turn));
     }
   };
 };

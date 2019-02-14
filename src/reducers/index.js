@@ -1,4 +1,4 @@
-import { formatFrame } from "../utils/game-state";
+import { formatFrame, sanitizeFrame } from "../utils/game-state";
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -16,13 +16,11 @@ export default (state = {}, action) => {
     case "SET_GAME_STATUS":
       return { ...state, gameStatus: action.status };
     case "SET_CURRENT_FRAME":
-      return { ...state, currentFrame: action.frame };
-    case "SET_TURN_COUNT":
       windowPostMessage({
         action: action.type,
-        turn: action.turn
+        frame: sanitizeFrame(action.frame)
       });
-      return { ...state };
+      return { ...state, currentFrame: action.frame };
     case "RECEIVE_FRAME":
       const frame = formatFrame(action.frame);
       return {
