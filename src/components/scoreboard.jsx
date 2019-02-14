@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "react-emotion";
 import Avatar from "./avatar";
-import { colors, themes } from "../theme";
+import { breakpoints, colors, themes } from "../theme";
 
 const orderSnakes = snakes => {
   // Sort by name
@@ -28,11 +28,18 @@ const orderSnakes = snakes => {
   return aliveSnakes.concat(deadSnakes);
 };
 
-const Wrapper = styled("div")(({ theme }) => ({
-  color: theme === themes.dark ? colors.lightText : colors.darkText,
-  fontWeight: 700,
-  fontSize: "2.2rem"
-}));
+const Wrapper = styled("div")`
+  display: none;
+  padding-right: 2rem;
+  color: ${({ theme }) =>
+    theme === themes.dark ? colors.lightText : colors.darkText};
+  font-weight: 700;
+  font-size: 2.2rem;
+
+  @media (min-width: ${breakpoints.md}) {
+    display: ${({ hide }) => (hide ? "none" : "block")};
+  }
+`;
 
 const AvatarWrapper = styled("div")`
   transition: background-color 0.2s, box-shadow 0.2s;

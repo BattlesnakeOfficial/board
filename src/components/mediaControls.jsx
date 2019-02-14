@@ -2,11 +2,17 @@ import React from "react";
 import styled from "react-emotion";
 import KeyboardEventHandler from "react-keyboard-event-handler";
 
-const MediaControlsWrapper = styled("div")(({ hide }) => ({
-  display: hide ? "none" : "block",
-  marginTop: "1rem",
-  width: "100%"
-}));
+import { breakpoints } from "../theme";
+
+const MediaControlsWrapper = styled("div")`
+  display: none;
+  margin-top: 1rem;
+  width: 100%;
+
+  @media (min-width: ${breakpoints.md}) {
+    display: ${({ hide }) => (hide ? "none" : "block")};
+  }
+`;
 
 const TurnCount = styled("div")({
   display: "flex",

@@ -5,7 +5,7 @@ import BlankState from "./blank-state";
 import Board from "./board";
 import Scoreboard from "./scoreboard";
 import MediaControls from "./mediaControls";
-import { colors, themes } from "../theme";
+import { breakpoints, colors, themes } from "../theme";
 
 const PageWrapper = styled("div")`
   position: relative;
@@ -30,22 +30,30 @@ const LoadingIndicator = styled("div")({
 const GameBoardWrapper = styled("div")({
   display: "flex",
   justifyContent: "space-between",
-  padding: "0 2rem",
   width: "100%",
   height: "100%"
 });
 
-const BoardWrapper = styled("div")(({ hideScoreboard }) => ({
-  display: "flex",
-  flexDirection: "column",
-  width: hideScoreboard ? "100%" : "65vw",
-  height: "100%"
-}));
+const BoardWrapper = styled("div")`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
 
-const ScoreboardWrapper = styled("div")({
-  width: "35vw",
-  marginLeft: "2rem"
-});
+  @media (min-width: ${breakpoints.md}) {
+    width: ${({ hideScoreboard }) => (hideScoreboard ? "100%" : "65vw")};
+  }
+`;
+
+const ScoreboardWrapper = styled("div")`
+  display: none;
+  width: 35vw;
+  margin-left: 2rem;
+
+  @media (min-width: ${breakpoints.md}) {
+    display: ${({ hide }) => (hide ? "none" : "block")};
+  }
+`;
 
 class Game extends React.Component {
   componentWillMount() {
