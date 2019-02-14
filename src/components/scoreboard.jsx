@@ -8,10 +8,12 @@ const orderSnakes = snakes => {
   const aliveSnakes = snakes
     .filter(s => !s.isDead)
     .sort((a, b) => {
-      if (a.name < b.name) {
+      const aLower = a.name.toLowerCase();
+      const bLower = b.name.toLowerCase();
+      if (aLower < bLower) {
         return -1;
       }
-      if (a.name > b.name) {
+      if (aLower > bLower) {
         return 1;
       }
       return 0;
@@ -29,7 +31,7 @@ const orderSnakes = snakes => {
 const Wrapper = styled("div")(({ theme }) => ({
   color: theme === themes.dark ? colors.lightText : colors.darkText,
   fontWeight: 700,
-  fontSize: "2.4rem"
+  fontSize: "2.2rem"
 }));
 
 const AvatarWrapper = styled("div")`
@@ -43,12 +45,6 @@ const AvatarWrapper = styled("div")`
     cursor: pointer;
   }
 `;
-
-const TurnCount = styled("div")({
-  width: "100%",
-  marginTop: "1rem",
-  marginBottom: "1rem"
-});
 
 class Scoreboard extends React.Component {
   state = {
@@ -71,7 +67,6 @@ class Scoreboard extends React.Component {
     const { highlightedSnake } = this.state;
     return (
       <Wrapper theme={this.props.theme}>
-        <TurnCount>Turn: {this.props.turn}</TurnCount>
         {this.props.snakes
           ? orderSnakes(this.props.snakes).map((snake, i) => (
               <AvatarWrapper

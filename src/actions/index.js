@@ -31,6 +31,11 @@ export const setCurrentFrame = frame => ({
   frame
 });
 
+export const setTurnCount = turn => ({
+  type: "SET_TURN_COUNT",
+  turn
+});
+
 export const setGameStatus = status => ({
   type: "SET_GAME_STATUS",
   status
@@ -48,11 +53,6 @@ export const highlightSnake = snakeId => ({
   type: "HIGHLIGHT_SNAKE",
   snakeId
 });
-
-const windowPostMessage = msg => {
-  // Uses postMessage API to send data to the parent frame
-  window.parent.postMessage(msg, "*");
-};
 
 export const fetchFrames = () => {
   return async (dispatch, getState) => {
@@ -77,8 +77,8 @@ export const fetchFrames = () => {
       // Workaround to render the first frame into the board
       if (frame.Turn === 0) {
         const frame = getState().frames[0];
-        windowPostMessage({ turn: frame.turn });
         dispatch(setCurrentFrame(frame));
+        dispatch(setTurnCount(frame.turn));
 
         if (autoplay) {
           dispatch(resumeGame());
@@ -127,6 +127,7 @@ export const reloadGame = () => {
     if (paused) {
       const frame = getFrameByTurn(frames, 0);
       dispatch(setCurrentFrame(frame));
+      dispatch(setTurnCount(frame.turn));
     }
   };
 };
@@ -144,7 +145,7 @@ export const toggleGamePause = () => {
       dispatch(resumeGame());
       dispatch(playFromFrame(currentFrame));
     } else {
-      windowPostMessage({ turn: currentFrame.turn + 1 });
+      dispatch(setTurnCount(currentFrame.turn + 1));
       dispatch(pauseGame());
     }
   };
@@ -156,8 +157,8 @@ export const stepForwardFrame = () => {
     const nextFrame = currentFrame.turn + 1;
     const stepToFrame = getFrameByTurn(frames, nextFrame);
     if (stepToFrame) {
-      windowPostMessage({ turn: stepToFrame.turn });
       dispatch(setCurrentFrame(stepToFrame));
+      dispatch(setTurnCount(stepToFrame.turn));
     }
   };
 };
@@ -168,8 +169,8 @@ export const stepBackwardFrame = () => {
     const prevFrame = currentFrame.turn - 1;
     const stepToFrame = getFrameByTurn(frames, prevFrame);
     if (stepToFrame) {
-      windowPostMessage({ turn: stepToFrame.turn });
       dispatch(setCurrentFrame(stepToFrame));
+      dispatch(setTurnCount(stepToFrame.turn));
     }
   };
 };
