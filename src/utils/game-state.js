@@ -1,3 +1,5 @@
+import cloneDeep from "lodash.clonedeep";
+
 const DEFAULT_HEAD_DIRECTION = "up";
 
 export function formatFrame(frame) {
@@ -9,6 +11,21 @@ export function formatFrame(frame) {
     food: formatPositions(frame.Food),
     gameOver: isLastFrameOfGame(frame)
   };
+}
+
+export function sanitizeFrame(frame) {
+  // Copy without reference
+  const sanitizedFrame = cloneDeep(frame);
+
+  // nullify some fields
+  for (const i in sanitizedFrame.snakes) {
+    const snake = sanitizedFrame.snakes[i];
+    snake.headSvg = null;
+    snake.tailSvg = null;
+    snake._id = null;
+  }
+
+  return sanitizedFrame;
 }
 
 function formatSnakes(snakes) {
