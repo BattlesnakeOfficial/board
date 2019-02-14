@@ -145,7 +145,7 @@ export const toggleGamePause = () => {
       dispatch(resumeGame());
       dispatch(playFromFrame(currentFrame));
     } else {
-      dispatch(setTurnCount(currentFrame.turn + 1));
+      dispatch(setTurnCount(currentFrame.turn));
       dispatch(pauseGame());
     }
   };
