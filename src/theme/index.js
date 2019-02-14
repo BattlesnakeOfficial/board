@@ -46,6 +46,13 @@ export const colors = {
   // purple: "#240458",
 };
 
+export const breakpoints = {
+  sm: "576px",
+  md: "768px",
+  lg: "992px",
+  xl: "1200px"
+};
+
 export const themes = {
   // Themes
   dark: "dark",

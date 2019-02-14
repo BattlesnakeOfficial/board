@@ -2,23 +2,39 @@ import React from "react";
 import styled from "react-emotion";
 import KeyboardEventHandler from "react-keyboard-event-handler";
 
-const MediaControlsWrapper = styled("div")(({ hide }) => ({
-  display: hide ? "none" : "flex",
+import { breakpoints } from "../theme";
+
+const MediaControlsWrapper = styled("div")`
+  display: none;
+  margin-top: 1rem;
+  width: 100%;
+
+  @media (min-width: ${breakpoints.md}) {
+    display: ${({ hide }) => (hide ? "none" : "block")};
+  }
+`;
+
+const TurnCount = styled("div")({
+  display: "flex",
   justifyContent: "center",
-  padding: "2rem 0",
+  width: "100%",
+  marginBottom: "2rem",
+  color: "#777"
+});
+
+const ButtonWrapper = styled("div")({
+  display: "flex",
+  justifyContent: "center",
   width: "100%"
-}));
+});
 
 const Button = styled("button")`
   display: inline-block;
   min-width: 10rem;
-  padding: 0.5rem 1rem;
-  margin: 0 0.5rem;
-  border: solid 1px #bbb;
-  border-radius: 5px;
-  background: #efefef;
+  text-align: center;
   color: #333;
-  font-size: 2rem;
+  font-size: 1.6rem;
+  border: none;
   text-decoration: none;
   text-align: center;
   cursor: pointer;
@@ -27,7 +43,7 @@ const Button = styled("button")`
   -moz-appearance: none;
 
   &:hover {
-    background: #dfdfdf;
+    cursor: pointer;
   }
 
   &:focus {
@@ -37,10 +53,6 @@ const Button = styled("button")`
   &:disabled {
     color: #ccc;
     cursor: not-allowed;
-  }
-
-  &:disabled:hover {
-    background: #efefef;
   }
 `;
 
@@ -93,25 +105,31 @@ class MediaControls extends React.Component {
 
     return (
       <MediaControlsWrapper hide={hideControls}>
-        <Button
-          onClick={this.handleReload}
-          disabled={currentFrame.turn === 0 || !paused}
-        >
-          Reload
-        </Button>
-        <Button onClick={this.handlePlayPause}>
-          {paused ? "Play" : "Pause"}
-        </Button>
-        <Button onClick={this.handleBackward} disabled={!paused}>
-          Backward
-        </Button>
-        <Button onClick={this.handleForward} disabled={!paused}>
-          Forward
-        </Button>
-        <KeyboardEventHandler
-          handleKeys={this.keyEvents}
-          onKeyEvent={this.handleKeyEvent}
-        />
+        <TurnCount>Turn: {currentFrame.turn}</TurnCount>
+        <ButtonWrapper>
+          <Button
+            onClick={this.handleReload}
+            disabled={currentFrame.turn === 0 || !paused}
+          >
+            Reload
+          </Button>
+          <Button onClick={this.handlePlayPause}>
+            {paused ? "Play" : "Pause"}
+          </Button>
+          <Button
+            onClick={this.handleBackward}
+            disabled={currentFrame.turn === 0 || !paused}
+          >
+            Backward
+          </Button>
+          <Button onClick={this.handleForward} disabled={!paused}>
+            Forward
+          </Button>
+          <KeyboardEventHandler
+            handleKeys={this.keyEvents}
+            onKeyEvent={this.handleKeyEvent}
+          />
+        </ButtonWrapper>
       </MediaControlsWrapper>
     );
   }

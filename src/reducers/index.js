@@ -17,6 +17,12 @@ export default (state = {}, action) => {
       return { ...state, gameStatus: action.status };
     case "SET_CURRENT_FRAME":
       return { ...state, currentFrame: action.frame };
+    case "SET_TURN_COUNT":
+      windowPostMessage({
+        action: action.type,
+        turn: action.turn
+      });
+      return { ...state };
     case "RECEIVE_FRAME":
       const frame = formatFrame(action.frame);
       return {
@@ -32,28 +38,25 @@ export default (state = {}, action) => {
     case "FETCH_FRAMES":
       return { ...state };
     case "HIGHLIGHT_SNAKE":
-      postHighlightMessage(state, action);
+      windowPostMessage({
+        action: action.type,
+        id: action.snakeId,
+        name: action.snakeId
+          ? state.currentFrame.snakes.find(s => s._id === action.snakeId).name
+          : null
+      });
       return { ...state, highlightedSnake: action.snakeId };
     default:
       return { ...state };
   }
 };
 
-function postHighlightMessage(state, action) {
+function windowPostMessage(data) {
   if (!window.parent) {
     return;
   }
   try {
-    window.parent.postMessage(
-      {
-        action: "HIGHLIGHT_SNAKE",
-        id: action.snakeId,
-        name: action.snakeId
-          ? state.currentFrame.snakes.find(s => s._id === action.snakeId).name
-          : null
-      },
-      "*"
-    );
+    window.parent.postMessage(data, "*");
   } catch (e) {
     console.error(e);
   }

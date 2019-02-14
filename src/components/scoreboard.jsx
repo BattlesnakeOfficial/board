@@ -1,17 +1,19 @@
 import React from "react";
 import styled from "react-emotion";
 import Avatar from "./avatar";
-import { colors, themes } from "../theme";
+import { breakpoints, colors, themes } from "../theme";
 
 const orderSnakes = snakes => {
   // Sort by name
   const aliveSnakes = snakes
     .filter(s => !s.isDead)
     .sort((a, b) => {
-      if (a.name < b.name) {
+      const aLower = a.name.toLowerCase();
+      const bLower = b.name.toLowerCase();
+      if (aLower < bLower) {
         return -1;
       }
-      if (a.name > b.name) {
+      if (aLower > bLower) {
         return 1;
       }
       return 0;
@@ -26,11 +28,18 @@ const orderSnakes = snakes => {
   return aliveSnakes.concat(deadSnakes);
 };
 
-const Wrapper = styled("div")(({ theme }) => ({
-  color: theme === themes.dark ? colors.lightText : colors.darkText,
-  fontWeight: 700,
-  fontSize: "2.4rem"
-}));
+const Wrapper = styled("div")`
+  display: none;
+  padding-right: 2rem;
+  color: ${({ theme }) =>
+    theme === themes.dark ? colors.lightText : colors.darkText};
+  font-weight: 700;
+  font-size: 2.2rem;
+
+  @media (min-width: ${breakpoints.md}) {
+    display: ${({ hide }) => (hide ? "none" : "block")};
+  }
+`;
 
 const AvatarWrapper = styled("div")`
   transition: background-color 0.2s, box-shadow 0.2s;
@@ -43,12 +52,6 @@ const AvatarWrapper = styled("div")`
     cursor: pointer;
   }
 `;
-
-const TurnCount = styled("div")({
-  width: "100%",
-  marginTop: "1rem",
-  marginBottom: "1rem"
-});
 
 class Scoreboard extends React.Component {
   state = {
@@ -71,7 +74,6 @@ class Scoreboard extends React.Component {
     const { highlightedSnake } = this.state;
     return (
       <Wrapper theme={this.props.theme}>
-        <TurnCount>Turn: {this.props.turn}</TurnCount>
         {this.props.snakes
           ? orderSnakes(this.props.snakes).map((snake, i) => (
               <AvatarWrapper
