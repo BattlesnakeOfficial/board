@@ -58,8 +58,6 @@ export const fetchFrames = () => {
       turn
     } = getState().engineOptions;
 
-    const gameTurn = parseInt(turn);
-
     dispatch(requestFrames());
 
     await streamAllFrames(engineUrl, gameId, (game, frame) => {
@@ -73,20 +71,21 @@ export const fetchFrames = () => {
       if (frame.Turn === 0) {
         const frame = getState().frames[0];
         dispatch(setCurrentFrame(frame));
-
-        if (autoplay) {
-          dispatch(resumeGame());
-          dispatch(playFromFrame(frame));
-        }
-      }
-
-      // Only navigate to the specified frame if it is within the
-      // amount of frames available in the game
-      if (gameTurn && gameTurn <= getState().frames.length) {
-        const frame = getState().frames[gameTurn];
-        dispatch(setCurrentFrame(frame));
       }
     });
+
+    if (autoplay) {
+      const frame = getState().frames[0];
+      dispatch(resumeGame());
+      dispatch(playFromFrame(frame));
+    }
+
+    // Only navigate to the specified frame if it is within the
+    // amount of frames available in the game
+    if (turn && turn <= getState().frames.length) {
+      const frame = getState().frames[turn];
+      dispatch(setCurrentFrame(frame));
+    }
   };
 };
 

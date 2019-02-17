@@ -6,6 +6,7 @@ export default (state = {}, action) => {
       action.engineOptions.autoplay =
         action.engineOptions.autoplay &&
         action.engineOptions.autoplay === "true";
+      action.engineOptions.turn = parseInt(action.engineOptions.turn) || 0;
       return { ...state, engineOptions: action.engineOptions };
     case "PAUSE_GAME":
       return { ...state, paused: true };
