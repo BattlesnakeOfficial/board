@@ -41,8 +41,8 @@ function formatSnake(snake) {
     health: snake.Health,
     isDead: !!snake.Death,
     death: formatDeath(snake.Death),
-    head: snake.Head,
-    tail: snake.Tail,
+    head: snake.HeadType,
+    tail: snake.TailType,
     headSvg: snake.HeadSvg,
     tailSvg: snake.TailSvg
   };

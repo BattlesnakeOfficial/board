@@ -37,7 +37,7 @@ export function getReadableCauseOfDeath(cause) {
 // Gets a list of all unique SVG paths required by the snakes.
 function getAllSvgs(snakes) {
   const all = snakes.reduce((result, snake) => {
-    return result.concat([snake.Head, snake.Tail]);
+    return result.concat([snake.HeadType, snake.TailType]);
   }, []);
   const unique = new Set(all);
   return Array.from(unique);
@@ -46,16 +46,16 @@ function getAllSvgs(snakes) {
 function assignHeadAndTailUrls(snakes) {
   for (const snake of snakes) {
     // Assign default if missing
-    if (!snake.Head) {
-      snake.Head = DEFAULT_SNAKE_HEAD;
+    if (!snake.HeadType) {
+      snake.HeadType = DEFAULT_SNAKE_HEAD;
     }
-    if (!snake.Tail) {
-      snake.Tail = DEFAULT_SNAKE_TAIL;
+    if (!snake.TailType) {
+      snake.TailType = DEFAULT_SNAKE_TAIL;
     }
 
     // Format as actual URL if it's just a name
-    snake.Head = getSnakeHeadSvgUrl(snake.Head);
-    snake.Tail = getSnakeTailSvgUrl(snake.Tail);
+    snake.HeadType = getSnakeHeadSvgUrl(snake.HeadType);
+    snake.TailType = getSnakeTailSvgUrl(snake.TailType);
   }
 }
 
@@ -64,8 +64,8 @@ async function setHeadAndTailSvgs(snakes) {
   await loadSvgs(getAllSvgs(snakes));
 
   for (const snake of snakes) {
-    snake.HeadSvg = getSvg(snake.Head);
-    snake.TailSvg = getSvg(snake.Tail);
+    snake.HeadSvg = getSvg(snake.HeadType);
+    snake.TailSvg = getSvg(snake.TailType);
   }
 }
 
