@@ -66,25 +66,24 @@ export const fetchFrames = () => {
       // Workaround for bug where turn exluded on turn 0
       frame.Turn = frame.Turn || 0;
       dispatch(receiveFrame(game, frame));
-
-      // Workaround to render the first frame into the board
-      if (frame.Turn === 0) {
-        const frame = getState().frames[0];
-        dispatch(setCurrentFrame(frame));
-      }
     });
 
-    if (autoplay) {
-      const frame = getState().frames[0];
-      dispatch(resumeGame());
-      dispatch(playFromFrame(frame));
-    }
+    const { frames } = getState();
+
+    // Get the first frame by default
+    let frame = frames[0];
 
     // Only navigate to the specified frame if it is within the
     // amount of frames available in the game
     if (turn && turn <= getState().frames.length) {
-      const frame = getState().frames[turn];
-      dispatch(setCurrentFrame(frame));
+      frame = frames[turn];
+    }
+
+    dispatch(setCurrentFrame(frame));
+
+    if (autoplay) {
+      dispatch(resumeGame());
+      dispatch(playFromFrame(frame));
     }
   };
 };
