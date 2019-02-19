@@ -1,11 +1,13 @@
 import React from "react";
 import { colors, themes } from "../theme";
 
-const HIGHLIGHT_DIM = 0.25;
+const HIGHLIGHT_DIM = 0.15;
 const DARK_DIM = 0.75;
 const DEAD_OPACITY = 0.1;
+
 const CELL_SIZE = 20;
 const CELL_SPACING = 4;
+const FOOD_SIZE = (CELL_SIZE / 3.25).toFixed(2);
 
 function toGridSpace(slot) {
   return (CELL_SIZE + CELL_SPACING) * slot + CELL_SPACING;
@@ -78,8 +80,14 @@ function getHeadYOffset(part) {
 }
 
 function getOpacity(snake, highlightedSnake) {
-  if (highlightedSnake) {
-    return snake._id === highlightedSnake ? 1 : HIGHLIGHT_DIM;
+  if (!snake.isDead) {
+    if (highlightedSnake) {
+      return snake._id === highlightedSnake ? 1 : HIGHLIGHT_DIM;
+    }
+  } else {
+    if (highlightedSnake) {
+      return snake._id === highlightedSnake ? 1 : 0;
+    }
   }
 
   return snake.isDead ? DEAD_OPACITY : 1;
@@ -240,7 +248,7 @@ class Grid extends React.Component {
     }
 
     let viewBox, transform;
-    let path = "M0,0 h40 a60,60 0 0 1 61,60 v81 h-101 z";
+    let path = "M0,0 h40 a60,60 0 0 1 60,60 v80 h-100 z";
 
     switch (part.direction) {
       case "left":
@@ -358,13 +366,7 @@ class Grid extends React.Component {
               fill={
                 this.props.theme === themes.dark ? "#ddd" : colors.grayLight
               }
-              opacity={
-                this.props.highlightedSnake
-                  ? HIGHLIGHT_DIM
-                  : this.props.theme === themes.dark
-                  ? DARK_DIM
-                  : null
-              }
+              opacity={this.props.theme === themes.dark ? DARK_DIM : null}
               shapeRendering="optimizeSpeed"
             />
           ))
@@ -387,9 +389,8 @@ class Grid extends React.Component {
             key={"food" + foodIndex}
             cx={toGridSpace(f.x) + CELL_SIZE / 2}
             cy={toGridSpace(f.y) + CELL_SIZE / 2}
-            r={CELL_SIZE / 3.25}
+            r={FOOD_SIZE}
             fill={colors.food}
-            opacity={this.props.highlightedSnake ? HIGHLIGHT_DIM : null}
             shapeRendering="optimizeQuality"
           />
         ))}
