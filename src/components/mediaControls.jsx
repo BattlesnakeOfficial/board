@@ -2,7 +2,7 @@ import React from "react";
 import styled from "react-emotion";
 import KeyboardEventHandler from "react-keyboard-event-handler";
 
-import { breakpoints } from "../theme";
+import { breakpoints, themes } from "../theme";
 
 const MediaControlsWrapper = styled("div")`
   display: none;
@@ -32,7 +32,8 @@ const Button = styled("button")`
   display: inline-block;
   min-width: 10rem;
   text-align: center;
-  color: #333;
+  background: transparent;
+  color: ${({ theme }) => (theme === themes.dark ? "#eee" : "#333")};
   font-size: 1.6rem;
   border: none;
   text-decoration: none;
@@ -101,7 +102,7 @@ class MediaControls extends React.Component {
   };
 
   renderControls() {
-    const { currentFrame, hideControls, paused } = this.props;
+    const { currentFrame, hideControls, paused, theme } = this.props;
 
     return (
       <MediaControlsWrapper hide={hideControls}>
@@ -110,19 +111,21 @@ class MediaControls extends React.Component {
           <Button
             onClick={this.handleReload}
             disabled={currentFrame.turn === 0 || !paused}
+            theme={theme}
           >
             Reload
           </Button>
-          <Button onClick={this.handlePlayPause}>
+          <Button onClick={this.handlePlayPause} theme={theme}>
             {paused ? "Play" : "Pause"}
           </Button>
           <Button
             onClick={this.handleBackward}
             disabled={currentFrame.turn === 0 || !paused}
+            theme={theme}
           >
             Backward
           </Button>
-          <Button onClick={this.handleForward} disabled={!paused}>
+          <Button onClick={this.handleForward} disabled={!paused} theme={theme}>
             Forward
           </Button>
           <KeyboardEventHandler
