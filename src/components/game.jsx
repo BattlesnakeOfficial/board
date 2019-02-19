@@ -2,7 +2,6 @@ import React from "react";
 import styled from "react-emotion";
 
 import BlankState from "./blank-state";
-import LoadingIndicator from "./loading-indicator";
 import Board from "./board";
 import Scoreboard from "./scoreboard";
 import MediaControls from "./mediaControls";
@@ -19,6 +18,14 @@ const PageWrapper = styled("div")`
       ? `linear-gradient(45deg, #000 0%, ${colors.purple} 100%)`
       : "transparent"};
 `;
+
+const LoadingIndicator = styled("div")({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  height: "100%",
+  width: "100%"
+});
 
 const GameBoardWrapper = styled("div")({
   display: "flex",
@@ -66,17 +73,34 @@ class Game extends React.Component {
   }
 
   render() {
-    const { currentFrame } = this.props;
-
     if (this.invalidArgs) {
       return <BlankState />;
     }
 
-    if (currentFrame) {
+    if (this.props.currentFrame) {
       return this.renderGame();
     }
 
-    return <LoadingIndicator />;
+    return (
+      <LoadingIndicator>
+        <div
+          className="la-ball-grid-beat la-dark la-2x"
+          style={{
+            color: colors.food
+          }}
+        >
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+        </div>
+      </LoadingIndicator>
+    );
   }
 
   renderGame() {
