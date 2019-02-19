@@ -100,6 +100,7 @@ class Game extends React.Component {
               stepBackwardFrame={this.props.stepBackwardFrame}
               stepForwardFrame={this.props.stepForwardFrame}
               paused={this.props.paused}
+              theme={this.theme}
             />
           </BoardWrapper>
           {!this.hideScoreboard && (
