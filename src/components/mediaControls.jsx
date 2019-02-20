@@ -2,16 +2,11 @@ import React from "react";
 import styled from "react-emotion";
 import KeyboardEventHandler from "react-keyboard-event-handler";
 
-import { breakpoints, themes } from "../theme";
+import { themes } from "../theme";
 
 const MediaControlsWrapper = styled("div")`
-  display: none;
   margin-top: 1rem;
   width: 100%;
-
-  @media (min-width: ${breakpoints.md}) {
-    display: ${({ hide }) => (hide ? "none" : "block")};
-  }
 `;
 
 const TurnCount = styled("div")({
@@ -19,22 +14,23 @@ const TurnCount = styled("div")({
   justifyContent: "center",
   width: "100%",
   marginBottom: "2rem",
-  color: "#777"
+  fontSize: "1.4rem"
 });
 
 const ButtonWrapper = styled("div")({
   display: "flex",
   justifyContent: "center",
-  width: "100%"
+  width: "100%",
+  marginBottom: "2rem"
 });
 
 const Button = styled("button")`
   display: inline-block;
-  min-width: 10rem;
+  min-width: 3rem;
   text-align: center;
   background: transparent;
   color: ${({ theme }) => (theme === themes.dark ? "#eee" : "#333")};
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   border: none;
   text-decoration: none;
   text-align: center;
@@ -113,20 +109,20 @@ class MediaControls extends React.Component {
             disabled={currentFrame.turn === 0 || !paused}
             theme={theme}
           >
-            Reload
+            Reload [r]
           </Button>
           <Button onClick={this.handlePlayPause} theme={theme}>
-            {paused ? "Play" : "Pause"}
+            {`${paused ? "Play" : "Pause"} [space]`}
           </Button>
           <Button
             onClick={this.handleBackward}
             disabled={currentFrame.turn === 0 || !paused}
             theme={theme}
           >
-            Backward
+            Backward [left]
           </Button>
           <Button onClick={this.handleForward} disabled={!paused} theme={theme}>
-            Forward
+            Forward [right]
           </Button>
           <KeyboardEventHandler
             handleKeys={this.keyEvents}
