@@ -109,20 +109,20 @@ class MediaControls extends React.Component {
             disabled={currentFrame.turn === 0 || !paused}
             theme={theme}
           >
-            Reload [r]
+            Reload
           </Button>
           <Button onClick={this.handlePlayPause} theme={theme}>
-            {`${paused ? "Play" : "Pause"} [space]`}
+            {paused ? "Play" : "Pause"}
           </Button>
           <Button
             onClick={this.handleBackward}
             disabled={currentFrame.turn === 0 || !paused}
             theme={theme}
           >
-            Backward [left]
+            Backward
           </Button>
           <Button onClick={this.handleForward} disabled={!paused} theme={theme}>
-            Forward [right]
+            Forward
           </Button>
           <KeyboardEventHandler
             handleKeys={this.keyEvents}
