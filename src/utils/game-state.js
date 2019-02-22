@@ -2,6 +2,10 @@ import cloneDeep from "lodash.clonedeep";
 
 const DEFAULT_HEAD_DIRECTION = "up";
 
+const TYPE_HEAD = "head";
+const TYPE_TAIL = "tail";
+const TYPE_BODY = "body";
+
 export function formatFrame(frame) {
   cleanFrame(frame);
   const snakes = formatSnakes(frame.Snakes);
@@ -34,7 +38,7 @@ function formatSnakes(snakes) {
 
 function formatSnake(snake) {
   return {
-    body: snake.Body.map((p, i) => formatSnakePart(snake, i)),
+    body: snake.Body.map((_, i) => formatSnakePart(snake, i)),
     color: snake.Color,
     _id: snake.ID,
     name: snake.Name,
@@ -65,22 +69,54 @@ function headDirection(snake) {
     : DEFAULT_HEAD_DIRECTION;
 }
 
-function isCovered(snake, partIndex) {
-  const part = snake.Body[partIndex];
-  const next = snake.Body[partIndex - 1];
+function shouldRenderPart(snake, partIndex) {
+  const headIndex = 0;
+  const tailIndex = snake.Body.length - 1;
+  const head = snake.Body[headIndex];
+  const tail = snake.Body[tailIndex];
+  const currPart = snake.Body[partIndex];
 
-  return next && next.X === part.X && next.Y === part.Y;
+  // always render head
+  if (partIndex === headIndex) {
+    return true;
+  }
+
+  // render tail if not covered by head
+  if (partIndex === tailIndex) {
+    return !(head.X === currPart.X && head.Y === currPart.Y);
+  }
+
+  // render middle part if it's in a different position than
+  // the next piece closer to head, and not in same spot as tail
+  const nextPart = snake.Body[partIndex - 1];
+  return (
+    !(tail.X === currPart.X && tail.Y === currPart.Y) &&
+    !(nextPart && nextPart.X === currPart.X && nextPart.Y === currPart.Y)
+  );
 }
 
 function formatSnakePart(snake, partIndex) {
   const part = snake.Body[partIndex];
-  const next = snake.Body[partIndex - 1];
+  const nextPart = snake.Body[partIndex - 1];
+  const shouldRender = shouldRenderPart(snake, partIndex);
+  const type = getType(snake, partIndex);
+  const { x, y } = formatPosition(part);
+  const direction = nextPart
+    ? // NOTE: This logic is tricky but prevents the last body part
+      // from covering the tail after eating.
+      // If the current part is in the same coordinates as the previous part
+      // and has a type of TYPE_TAIL, then we use the direction of 2 parts away.
+      // Otherwise, just calculate the direction given the current and next parts.
+      part.X === nextPart.X && part.Y === nextPart.Y && type === TYPE_TAIL
+      ? getDirection(part, snake.Body[partIndex - 2])
+      : getDirection(part, nextPart)
+    : headDirection(snake);
   return {
-    direction: next ? getDirection(part, next) : headDirection(snake),
-    shouldRender: !isCovered(snake, partIndex),
-    type: getType(snake, partIndex),
-    x: part.X,
-    y: part.Y
+    direction,
+    shouldRender,
+    type,
+    x,
+    y
   };
 }
 
@@ -108,14 +144,14 @@ function getDirection(a, b) {
 
 function getType(snake, partIndex) {
   if (partIndex === 0) {
-    return "head";
+    return TYPE_HEAD;
   }
 
   if (partIndex === snake.Body.length - 1) {
-    return "tail";
+    return TYPE_TAIL;
   }
 
-  return "body";
+  return TYPE_BODY;
 }
 
 // This is a workaround for fields that are omitted when they have the default
