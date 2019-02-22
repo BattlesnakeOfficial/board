@@ -2,7 +2,7 @@ import React from "react";
 import styled from "react-emotion";
 import KeyboardEventHandler from "react-keyboard-event-handler";
 
-import { themes } from "../theme";
+import { themes, breakpoints } from "../theme";
 
 const MediaControlsWrapper = styled("div")`
   margin-top: 1rem;
@@ -12,10 +12,55 @@ const MediaControlsWrapper = styled("div")`
 const TurnCount = styled("div")({
   display: "flex",
   justifyContent: "center",
-  width: "100%",
   marginBottom: "2rem",
   fontSize: "1.4rem"
 });
+
+const KeyboardShortcutsWrapper = styled("div")({
+  position: "relative",
+  marginLeft: "1rem"
+});
+
+const ShortcutsPaneTrigger = styled("div")`
+  margin: 0;
+  padding: 1rem;
+  height: 3rem;
+  width: 3rem;
+  background: #dfdfdf;
+  border-radius: 50%;
+  line-height: 0.5;
+  text-align: center;
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const ShortcutsPane = styled("div")`
+  position: absolute;
+  bottom: 2.5rem;
+  right: 2.5rem;
+  width: 20rem;
+  padding: 1rem;
+  border: solid 1px #999;
+  background: #fff;
+
+  @media (min-width: ${breakpoints.md}) {
+    left: 2.5rem;
+    right: 0;
+  }
+
+  h4 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+`;
 
 const ButtonWrapper = styled("div")({
   display: "flex",
@@ -54,6 +99,10 @@ const Button = styled("button")`
 `;
 
 class MediaControls extends React.Component {
+  state = {
+    paneHidden: true
+  };
+
   componentWillMount() {
     this.keyEvents = ["r", "left", "right", "space"];
   }
@@ -76,6 +125,12 @@ class MediaControls extends React.Component {
 
   handleForward = () => {
     this.props.stepForwardFrame();
+  };
+
+  handleShortcutPaneShowToggle = () => {
+    this.setState({
+      paneHidden: !this.state.paneHidden
+    });
   };
 
   handleKeyEvent = key => {
@@ -128,6 +183,22 @@ class MediaControls extends React.Component {
             handleKeys={this.keyEvents}
             onKeyEvent={this.handleKeyEvent}
           />
+          <KeyboardShortcutsWrapper>
+            <ShortcutsPaneTrigger onClick={this.handleShortcutPaneShowToggle}>
+              ?
+            </ShortcutsPaneTrigger>
+            {!this.state.paneHidden && (
+              <ShortcutsPane>
+                <h4>Keyboard shortcuts</h4>
+                <ul>
+                  <li>Reload = r</li>
+                  <li>Play/Pause = space</li>
+                  <li>Backward = left arrow</li>
+                  <li>Forward = right arrow</li>
+                </ul>
+              </ShortcutsPane>
+            )}
+          </KeyboardShortcutsWrapper>
         </ButtonWrapper>
       </MediaControlsWrapper>
     );
