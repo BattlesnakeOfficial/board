@@ -5,6 +5,7 @@ import KeyboardEventHandler from "react-keyboard-event-handler";
 import { themes, breakpoints } from "../theme";
 
 const MediaControlsWrapper = styled("div")`
+  display: ${({ hide }) => (hide ? "none" : "block")};
   margin-top: 1rem;
   width: 100%;
 `;
