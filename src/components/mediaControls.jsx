@@ -108,9 +108,27 @@ class MediaControls extends React.Component {
     this.keyEvents = ["r", "left", "right", "space"];
   }
 
+  componentDidMount() {
+    window.addEventListener("message", this.handleParentKeyboardEvent);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("message", this.handleParentKeyboardEvent);
+  }
+
   render() {
     return this.renderControls();
   }
+
+  handleParentKeyboardEvent = e => {
+    const { keyCode } = e.data;
+    const keyboardEvent = new KeyboardEvent("keydown", {
+      bubbles: true,
+      cancelable: true,
+      keyCode
+    });
+    document.body.dispatchEvent(keyboardEvent);
+  };
 
   handleReload = () => {
     this.props.reloadGame();
