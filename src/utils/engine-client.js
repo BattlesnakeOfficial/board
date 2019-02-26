@@ -3,8 +3,8 @@ import { makeQueryString, httpToWsProtocol, join } from "./url";
 import { loadSvgs, getSvg } from "./inline-svg";
 import { isLastFrameOfGame } from "./game-state";
 
-const DEFAULT_SNAKE_HEAD = "tongue";
-const DEFAULT_SNAKE_TAIL = "bolt";
+const DEFAULT_SNAKE_HEAD = "regular";
+const DEFAULT_SNAKE_TAIL = "regular";
 
 async function get(url, query) {
   const fetchResult = await fetch(url + makeQueryString(query));
