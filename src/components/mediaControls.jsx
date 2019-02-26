@@ -105,7 +105,12 @@ class MediaControls extends React.Component {
   };
 
   componentWillMount() {
-    this.keyEvents = ["r", "left", "right", "space"];
+    this.keyboardCodeMap = {
+      KeyR: "r",
+      ArrowLeft: "left",
+      ArrowRight: "right",
+      Space: "space"
+    };
   }
 
   componentDidMount() {
@@ -121,13 +126,8 @@ class MediaControls extends React.Component {
   }
 
   handleParentKeyboardEvent = e => {
-    const { keyCode } = e.data;
-    const keyboardEvent = new KeyboardEvent("keydown", {
-      bubbles: true,
-      cancelable: true,
-      keyCode
-    });
-    document.body.dispatchEvent(keyboardEvent);
+    const { code } = e.data;
+    this.handleKeyEvent(this.keyboardCodeMap[code]);
   };
 
   handleReload = () => {
@@ -199,7 +199,7 @@ class MediaControls extends React.Component {
             Forward
           </Button>
           <KeyboardEventHandler
-            handleKeys={this.keyEvents}
+            handleKeys={Object.values(this.keyboardCodeMap)}
             onKeyEvent={this.handleKeyEvent}
           />
           <KeyboardShortcutsWrapper>
