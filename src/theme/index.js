@@ -11,7 +11,7 @@ export const colors = {
   healthBarBackground: "#fefefe",
   healthBarOutline: "#666",
   healthBarDeathBackground: "#f1f1f1",
-  healthBarDeathBackgroundDark: "#bbb",
+  healthBarDeathBackgroundDark: "#59526b",
 
   // Misc
   lightText: "#efefef",

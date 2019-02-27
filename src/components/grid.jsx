@@ -2,7 +2,7 @@ import React from "react";
 import { colors, themes } from "../theme";
 
 const HIGHLIGHT_DIM = 0.15;
-const DARK_DIM = 0.9;
+const DARK_DIM = 1;
 const DEAD_OPACITY = 0.1;
 
 const CELL_SIZE = 20;
@@ -364,10 +364,10 @@ class Grid extends React.Component {
               width={CELL_SIZE}
               height={CELL_SIZE}
               fill={
-                this.props.theme === themes.dark ? "#e5e6fc" : colors.grayLight
+                this.props.theme === themes.dark ? "#f2edff" : colors.grayLight
               }
-              opacity={this.props.theme === themes.dark ? DARK_DIM : null}
               shapeRendering="optimizeSpeed"
+              // fillOpacity="0"
             />
           ))
         )}
