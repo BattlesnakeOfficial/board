@@ -1,9 +1,4 @@
-import {
-  delay,
-  fetchGameStart,
-  getFrameByTurn,
-  streamAllFrames
-} from "../utils/engine-client";
+import { delay, getFrameByTurn, streamAllFrames } from "../utils/engine-client";
 
 const DEFAULT_FPS = 20;
 
@@ -31,11 +26,6 @@ export const setCurrentFrame = frame => ({
   frame
 });
 
-export const setGameStatus = status => ({
-  type: "SET_GAME_STATUS",
-  status
-});
-
 export const pauseGame = () => ({
   type: "PAUSE_GAME"
 });
@@ -61,8 +51,6 @@ export const fetchFrames = () => {
     dispatch(requestFrames());
 
     await streamAllFrames(engineUrl, gameId, (game, frame) => {
-      dispatch(setGameStatus(game.Game.Status));
-
       // Workaround for bug where turn exluded on turn 0
       frame.Turn = frame.Turn || 0;
       dispatch(receiveFrame(game, frame));
@@ -126,14 +114,9 @@ export const reloadGame = () => {
 
 export const toggleGamePause = () => {
   return async (dispatch, getState) => {
-    const { currentFrame, gameStatus, paused, engineOptions } = getState();
+    const { currentFrame, paused } = getState();
 
     if (paused) {
-      if (gameStatus === "stopped") {
-        await fetchGameStart(engineOptions.engine, engineOptions.game);
-        dispatch(fetchFrames());
-      }
-
       dispatch(resumeGame());
       dispatch(playFromFrame(currentFrame));
     } else {

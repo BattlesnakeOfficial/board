@@ -14,8 +14,6 @@ export default (state = {}, action) => {
       return { ...state, paused: true };
     case "RESUME_GAME":
       return { ...state, paused: false };
-    case "SET_GAME_STATUS":
-      return { ...state, gameStatus: action.status };
     case "SET_CURRENT_FRAME":
       windowPostMessage({
         action: action.type,
