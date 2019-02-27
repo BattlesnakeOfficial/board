@@ -97,20 +97,11 @@ function shouldRenderPart(snake, partIndex) {
 
 function formatSnakePart(snake, partIndex) {
   const part = snake.Body[partIndex];
-  const nextPart = snake.Body[partIndex - 1];
   const shouldRender = shouldRenderPart(snake, partIndex);
   const type = getType(snake, partIndex);
   const { x, y } = formatPosition(part);
-  const direction = nextPart
-    ? // NOTE: This logic is tricky but prevents the last body part
-      // from covering the tail after eating.
-      // If the current part is in the same coordinates as the previous part
-      // and has a type of TYPE_TAIL, then we use the direction of 2 parts away.
-      // Otherwise, just calculate the direction given the current and next parts.
-      part.X === nextPart.X && part.Y === nextPart.Y && type === TYPE_TAIL
-      ? getDirection(part, snake.Body[partIndex - 2])
-      : getDirection(part, nextPart)
-    : headDirection(snake);
+  const direction = formatDirection(type, snake, part);
+
   return {
     direction,
     shouldRender,
@@ -129,6 +120,27 @@ function formatPosition(pos) {
     x: pos.X,
     y: pos.Y
   };
+}
+
+function formatDirection(type, snake, part) {
+  let direction;
+  if (type === "head") {
+    direction = headDirection(snake);
+  } else {
+    // Determine a part's direction by the unique points (x,y)
+    // occupied by the snake.
+    const uniquePoints = [...new Set(snake.Body.map(p => `${p.X},${p.Y}`))];
+    const uniqueIndex = uniquePoints.findIndex(
+      p => p === `${part.X},${part.Y}`
+    );
+
+    direction = getDirection(
+      snake.Body[uniqueIndex],
+      snake.Body[Math.max(uniqueIndex - 1, 0)]
+    );
+  }
+
+  return direction;
 }
 
 function getDirection(a, b) {
