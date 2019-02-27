@@ -332,4 +332,47 @@ describe("should expect tail to be rendered after eating food", () => {
       tailSvg: undefined
     });
   });
+
+  it("tail down, eat on first move", () => {
+    const apiFrame = {
+      Turn: 1,
+      Food: [{ X: 9, Y: 4 }],
+      Snakes: [
+        {
+          ID: "snake1",
+          Name: "snake 1",
+          URL: "http://snake1",
+          Health: 100,
+          Color: "red",
+          Body: [{ X: 6, Y: 5 }, { X: 6, Y: 4 }, { X: 6, Y: 4 }, { X: 6, Y: 4 }]
+        }
+      ]
+    };
+
+    const frame = formatFrame(apiFrame);
+
+    expect(frame.turn).toBe(1);
+    expect(frame.snakes).toHaveLength(1);
+    expect(frame.food).toHaveLength(1);
+
+    expect(frame.food[0]).toEqual({ x: 9, y: 4 });
+
+    expect(frame.snakes[0]).toEqual({
+      _id: "snake1",
+      name: "snake 1",
+      health: 100,
+      color: "red",
+      body: [
+        { x: 6, y: 5, direction: "down", type: "head", shouldRender: true },
+        { x: 6, y: 4, direction: "down", type: "body", shouldRender: false },
+        { x: 6, y: 4, direction: "down", type: "body", shouldRender: false },
+        { x: 6, y: 4, direction: "down", type: "tail", shouldRender: true }
+      ],
+      isDead: false,
+      head: undefined,
+      tail: undefined,
+      headSvg: undefined,
+      tailSvg: undefined
+    });
+  });
 });
