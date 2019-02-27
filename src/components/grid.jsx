@@ -2,7 +2,6 @@ import React from "react";
 import { colors, themes } from "../theme";
 
 const HIGHLIGHT_DIM = 0.15;
-const DARK_DIM = 1;
 const DEAD_OPACITY = 0.1;
 
 const CELL_SIZE = 20;
