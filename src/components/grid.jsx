@@ -2,11 +2,11 @@ import React from "react";
 import { colors, themes } from "../theme";
 
 const HIGHLIGHT_DIM = 0.15;
-const DARK_DIM = 0.75;
+const DARK_DIM = 1;
 const DEAD_OPACITY = 0.1;
 
 const CELL_SIZE = 20;
-const CELL_SPACING = 4;
+const CELL_SPACING = 0;
 const FOOD_SIZE = (CELL_SIZE / 3.25).toFixed(2);
 
 function toGridSpace(slot) {
@@ -363,11 +363,13 @@ class Grid extends React.Component {
               y={toGridSpace(row)}
               width={CELL_SIZE}
               height={CELL_SIZE}
-              fill={
-                this.props.theme === themes.dark ? "#ddd" : colors.grayLight
+              stroke={
+                this.props.theme === themes.dark ? "#d707f3" : colors.grayLight
               }
               opacity={this.props.theme === themes.dark ? DARK_DIM : null}
               shapeRendering="optimizeSpeed"
+              fillOpacity="0"
+              strokeWidth="2"
             />
           ))
         )}
