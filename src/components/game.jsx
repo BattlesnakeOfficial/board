@@ -6,6 +6,7 @@ import LoadingIndicator from "./loading-indicator";
 import Board from "./board";
 import Scoreboard from "./scoreboard";
 import MediaControls from "./mediaControls";
+import Logo from "./logo";
 import { breakpoints, colors, themes } from "../theme";
 
 const PageWrapper = styled("div")`
@@ -25,6 +26,28 @@ const GameBoardWrapper = styled("div")({
   justifyContent: "space-between",
   width: "100%",
   height: "100%"
+});
+
+const HeaderWrapper = styled("div")({
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  marginTop: "1rem",
+  paddingRight: "1rem",
+  textAlign: "center"
+});
+
+const LogoWrapper = styled("div")`
+  width: 100%;
+  height: 6rem;
+
+  @media (min-width: ${breakpoints.lg}) {
+    height: 12rem;
+  }
+`;
+
+const TurnCount = styled("div")({
+  fontSize: "1.4rem"
 });
 
 const BoardWrapper = styled("div")`
@@ -80,6 +103,7 @@ class Game extends React.Component {
   }
 
   renderGame() {
+    const { currentFrame } = this.props;
     return (
       <PageWrapper theme={this.theme}>
         <GameBoardWrapper>
@@ -105,6 +129,12 @@ class Game extends React.Component {
           </BoardWrapper>
           {!this.hideScoreboard && (
             <ScoreboardWrapper>
+              <HeaderWrapper>
+                <LogoWrapper>
+                  <Logo />
+                </LogoWrapper>
+                <TurnCount>Turn: {currentFrame.turn}</TurnCount>
+              </HeaderWrapper>
               <Scoreboard
                 turn={this.props.currentFrame.turn}
                 snakes={this.props.currentFrame.snakes}

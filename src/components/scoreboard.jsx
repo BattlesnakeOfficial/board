@@ -34,10 +34,14 @@ const Wrapper = styled("div")`
   color: ${({ theme }) =>
     theme === themes.dark ? colors.lightText : colors.darkText};
   font-weight: 700;
-  font-size: 2.2rem;
+  font-size: 1.8rem;
 
   @media (min-width: ${breakpoints.md}) {
     display: ${({ hide }) => (hide ? "none" : "block")};
+  }
+
+  @media (min-width: ${breakpoints.lg}) {
+    font-size: 2.2rem;
   }
 `;
 
