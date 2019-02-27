@@ -2,9 +2,9 @@ import { delay, getFrameByTurn, streamAllFrames } from "../utils/engine-client";
 
 const DEFAULT_FPS = 20;
 
-export const setEngineOptions = engineOptions => ({
-  type: "SET_ENGINE_OPTIONS",
-  engineOptions
+export const setGameOptions = gameOptions => ({
+  type: "SET_GAME_OPTIONS",
+  gameOptions
 });
 
 export const gameOver = () => ({
@@ -46,7 +46,7 @@ export const fetchFrames = () => {
       engine: engineUrl,
       game: gameId,
       turn
-    } = getState().engineOptions;
+    } = getState().gameOptions;
 
     dispatch(requestFrames());
 
@@ -79,7 +79,7 @@ export const fetchFrames = () => {
 
 export const playFromFrame = frame => {
   return async (dispatch, getState) => {
-    const { frameRate } = getState().engineOptions;
+    const { frameRate } = getState().gameOptions;
     const frames = getState().frames.slice(); // Don't modify in place
     const frameIndex = frames.indexOf(frame);
     const slicedFrames = frames.slice(frameIndex);
@@ -123,6 +123,10 @@ export const toggleGamePause = () => {
       dispatch(pauseGame());
     }
   };
+};
+
+export const toggleTheme = () => {
+  return async (dispatch, getState) => {};
 };
 
 export const stepForwardFrame = () => {

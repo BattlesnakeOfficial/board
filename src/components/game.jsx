@@ -75,13 +75,11 @@ class Game extends React.Component {
   componentWillMount() {
     const { options } = this.props;
 
-    this.theme = this.props.options.boardTheme
-      ? this.props.options.boardTheme
-      : themes.light;
+    this.theme = options.boardTheme ? options.boardTheme : themes.light;
 
     if (options.game && options.engine) {
-      this.hideScoreboard = this.props.options.hideScoreboard === "true";
-      this.props.setEngineOptions(options);
+      this.hideScoreboard = options.hideScoreboard === "true";
+      this.props.setGameOptions(options);
       this.props.fetchFrames();
     } else {
       this.invalidArgs = true;
@@ -119,6 +117,7 @@ class Game extends React.Component {
             <MediaControls
               currentFrame={this.props.currentFrame}
               hideControls={this.props.options.hideMediaControls === "true"}
+              toggleTheme={this.props.toggleTheme}
               reloadGame={this.props.reloadGame}
               toggleGamePause={this.props.toggleGamePause}
               stepBackwardFrame={this.props.stepBackwardFrame}

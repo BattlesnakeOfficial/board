@@ -123,6 +123,10 @@ class MediaControls extends React.Component {
     this.handleKeyEvent(this.keyboardCodeMap[code]);
   };
 
+  toggleTheme = () => {
+    this.props.toggleTheme();
+  };
+
   handleReload = () => {
     this.props.reloadGame();
   };
@@ -170,6 +174,9 @@ class MediaControls extends React.Component {
     return (
       <MediaControlsWrapper hide={hideControls}>
         <ButtonWrapper>
+          <Button onClick={this.toggleTheme} theme={theme}>
+            {`Toggle ${theme === themes.dark ? "Light" : "Dark"} Theme`}
+          </Button>
           <Button
             onClick={this.handleReload}
             disabled={currentFrame.turn === 0 || !paused}
