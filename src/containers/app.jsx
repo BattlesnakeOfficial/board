@@ -20,8 +20,7 @@ const mapStateToProps = state => {
     paused: state.paused,
     currentFrame: state.currentFrame,
     frames: state.frames,
-    highlightedSnake: state.highlightedSnake,
-    gameStatus: state.gameStatus
+    highlightedSnake: state.highlightedSnake
   };
 };
 

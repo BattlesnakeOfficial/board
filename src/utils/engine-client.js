@@ -96,15 +96,6 @@ export function fetchGameInfo(baseUrl, gameId) {
   return get(url);
 }
 
-export async function fetchGameStart(baseUrl, gameId) {
-  const url = join(baseUrl, `games/${gameId}/start`);
-  // Only returns a 200 OK with no data, don't need to deal with the response
-  await fetch(url, {
-    method: "POST",
-    cache: "no-cache"
-  });
-}
-
 export async function streamAllFrames(baseUrl, gameId, receiveFrame) {
   const game = await fetchGameInfo(baseUrl, gameId);
 
