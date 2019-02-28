@@ -363,10 +363,9 @@ class Grid extends React.Component {
               width={CELL_SIZE}
               height={CELL_SIZE}
               fill={
-                this.props.theme === themes.dark ? "#f2edff" : colors.grayLight
+                this.props.theme === themes.dark ? "#D6D5EA" : colors.grayLight
               }
               shapeRendering="optimizeSpeed"
-              // fillOpacity="0"
             />
           ))
         )}
