@@ -2,6 +2,8 @@ import { formatFrame, sanitizeFrame } from "../utils/game-state";
 
 export default (state = {}, action) => {
   switch (action.type) {
+    case "SET_THEME":
+      return { ...state, theme: action.theme };
     case "SET_GAME_OPTIONS":
       action.gameOptions.autoplay =
         action.gameOptions.autoplay && action.gameOptions.autoplay === "true";

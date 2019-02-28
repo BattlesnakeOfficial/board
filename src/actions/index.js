@@ -1,10 +1,16 @@
 import { delay, getFrameByTurn, streamAllFrames } from "../utils/engine-client";
+import { themes } from "../theme";
 
 const DEFAULT_FPS = 20;
 
 export const setGameOptions = gameOptions => ({
   type: "SET_GAME_OPTIONS",
   gameOptions
+});
+
+export const setTheme = theme => ({
+  type: "SET_THEME",
+  theme
 });
 
 export const gameOver = () => ({
@@ -126,7 +132,10 @@ export const toggleGamePause = () => {
 };
 
 export const toggleTheme = () => {
-  return async (dispatch, getState) => {};
+  return async (dispatch, getState) => {
+    const { theme } = getState();
+    dispatch(setTheme(theme === themes.dark ? themes.light : themes.dark));
+  };
 };
 
 export const stepForwardFrame = () => {

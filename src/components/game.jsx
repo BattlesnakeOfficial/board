@@ -33,6 +33,7 @@ const HeaderWrapper = styled("div")({
   flexDirection: "column",
   justifyContent: "center",
   marginTop: "1rem",
+  marginBottom: "1rem",
   paddingRight: "1rem",
   textAlign: "center"
 });
@@ -75,8 +76,6 @@ class Game extends React.Component {
   componentWillMount() {
     const { options } = this.props;
 
-    this.theme = options.boardTheme ? options.boardTheme : themes.light;
-
     if (options.game && options.engine) {
       this.hideScoreboard = options.hideScoreboard === "true";
       this.props.setGameOptions(options);
@@ -101,29 +100,29 @@ class Game extends React.Component {
   }
 
   renderGame() {
-    const { currentFrame } = this.props;
+    const { currentFrame, options } = this.props;
     return (
-      <PageWrapper theme={this.theme}>
+      <PageWrapper theme={this.props.theme}>
         <GameBoardWrapper>
           <BoardWrapper hideScoreboard={this.hideScoreboard}>
             <Board
-              snakes={this.props.currentFrame.snakes}
-              food={this.props.currentFrame.food}
+              snakes={currentFrame.snakes}
+              food={currentFrame.food}
               columns={this.props.grid.width}
               rows={this.props.grid.height}
               highlightedSnake={this.props.highlightedSnake}
-              theme={this.theme}
+              theme={this.props.theme}
             />
             <MediaControls
-              currentFrame={this.props.currentFrame}
-              hideControls={this.props.options.hideMediaControls === "true"}
+              currentFrame={currentFrame}
+              hideControls={options.hideMediaControls === "true"}
               toggleTheme={this.props.toggleTheme}
               reloadGame={this.props.reloadGame}
               toggleGamePause={this.props.toggleGamePause}
               stepBackwardFrame={this.props.stepBackwardFrame}
               stepForwardFrame={this.props.stepForwardFrame}
               paused={this.props.paused}
-              theme={this.theme}
+              theme={this.props.theme}
             />
           </BoardWrapper>
           {!this.hideScoreboard && (
@@ -135,11 +134,11 @@ class Game extends React.Component {
                 <TurnCount>Turn: {currentFrame.turn}</TurnCount>
               </HeaderWrapper>
               <Scoreboard
-                turn={this.props.currentFrame.turn}
-                snakes={this.props.currentFrame.snakes}
-                food={this.props.currentFrame.food}
+                turn={currentFrame.turn}
+                snakes={currentFrame.snakes}
+                food={currentFrame.food}
                 highlightSnake={this.props.highlightSnake}
-                theme={this.theme}
+                theme={this.props.theme}
               />
             </ScoreboardWrapper>
           )}

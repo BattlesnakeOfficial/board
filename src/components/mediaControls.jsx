@@ -175,7 +175,7 @@ class MediaControls extends React.Component {
       <MediaControlsWrapper hide={hideControls}>
         <ButtonWrapper>
           <Button onClick={this.toggleTheme} theme={theme}>
-            {`Toggle ${theme === themes.dark ? "Light" : "Dark"} Theme`}
+            Toggle Theme
           </Button>
           <Button
             onClick={this.handleReload}
