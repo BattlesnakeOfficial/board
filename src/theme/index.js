@@ -4,7 +4,7 @@ export const colors = {
 
   // Grid
   gridDot: "#6a208f",
-  gridCellBackground: "#eee",
+  gridCellBackground: "#f1f1f1",
   gridCellBackgroundDark: "#ddd",
   food: "#ff5c75",
 
