@@ -113,7 +113,7 @@ function getHeadTransform(direction, viewBox) {
   const halfY = viewBox.height / 2;
   switch (direction) {
     case "left":
-      return `rotate(180 ${halfX} ${halfY})`;
+      return `scale(-1,1) translate(-100, 0)`;
     case "up":
       return `rotate(-90 ${halfX} ${halfY})`;
     case "down":
@@ -363,7 +363,9 @@ class Grid extends React.Component {
               width={CELL_SIZE}
               height={CELL_SIZE}
               fill={
-                this.props.theme === themes.dark ? "#D6D5EA" : colors.grayLight
+                this.props.theme === themes.dark
+                  ? colors.gridCellBackgroundDark
+                  : colors.gridCellBackground
               }
               shapeRendering="optimizeSpeed"
             />
