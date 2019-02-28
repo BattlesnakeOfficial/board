@@ -33,7 +33,7 @@ const Wrapper = styled("div")`
   padding-right: 2rem;
   color: ${({ theme }) =>
     theme === themes.dark ? colors.lightText : colors.darkText};
-  font-weight: 700;
+  font-weight: 600;
   font-size: 1.4rem;
 
   @media (min-width: ${breakpoints.md}) {
@@ -41,8 +41,9 @@ const Wrapper = styled("div")`
     font-size: 1.8rem;
   }
 
-  @media (min-width: ${breakpoints.xl}) {
-    font-size: 2.2rem;
+  @media (min-width: ${breakpoints.xxl}) {
+    font-size: 3.2rem;
+    letter-spacing: 0.1rem;
   }
 `;
 

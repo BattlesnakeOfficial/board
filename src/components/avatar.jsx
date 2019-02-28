@@ -7,6 +7,8 @@ const AvatarWrapper = styled("div")`
   margin-bottom: 0.5rem;
   padding-bottom: 1rem;
   width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
 
   @media (min-width: ${breakpoints.lg}) {
     margin-bottom: 1rem;

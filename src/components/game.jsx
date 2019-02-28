@@ -28,15 +28,30 @@ const GameBoardWrapper = styled("div")({
   height: "100%"
 });
 
-const HeaderWrapper = styled("div")({
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
-  marginTop: "1rem",
-  marginBottom: "1rem",
-  paddingRight: "1rem",
-  textAlign: "center"
-});
+const BoardTitle = styled("div")(({ theme }) => ({
+  paddingLeft: "2rem",
+  paddingTop: "1rem",
+  fontSize: "3.5rem",
+  fontFamily: "'Permanent Marker', cursive",
+  textAlign: "center",
+  color: theme === themes.dark ? colors.lightText : colors.darkText,
+  letterSpacing: ".3rem"
+}));
+
+const HeaderWrapper = styled("div")`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding-right: 1rem;
+  text-align: center;
+
+  @media (min-width: ${breakpoints.xxl}) {
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+  }
+`;
 
 const LogoWrapper = styled("div")`
   width: 100%;
@@ -45,12 +60,26 @@ const LogoWrapper = styled("div")`
   @media (min-width: ${breakpoints.lg}) {
     height: 8rem;
   }
+
+  @media (min-width: ${breakpoints.xxl}) {
+    height: 16rem;
+  }
 `;
 
-const TurnCount = styled("div")(({ theme }) => ({
-  fontSize: "1.4rem",
-  color: theme === themes.dark ? colors.lightText : colors.darkText
-}));
+const TurnCount = styled("div")`
+  font-size: 1.8rem;
+  font-family: "Permanent Marker", cursive;
+  color: ${({ theme }) =>
+    theme === themes.dark ? colors.lightText : colors.darkText};
+
+  @media (min-width: ${breakpoints.xxl}) {
+    font-size: 3rem;
+  }
+`;
+const TurnCountValue = styled("span")`
+  display: inline-block;
+  width: 8rem;
+`;
 
 const BoardWrapper = styled("div")`
   display: flex;
@@ -59,13 +88,13 @@ const BoardWrapper = styled("div")`
   height: 100%;
 
   @media (min-width: ${breakpoints.md}) {
-    width: ${({ hideScoreboard }) => (hideScoreboard ? "100%" : "65vw")};
+    width: ${({ hideScoreboard }) => (hideScoreboard ? "100%" : "60vw")};
   }
 `;
 
 const ScoreboardWrapper = styled("div")`
   display: none;
-  width: 35vw;
+  width: 40vw;
   margin-left: 2rem;
 
   @media (min-width: ${breakpoints.md}) {
@@ -77,8 +106,13 @@ class Game extends React.Component {
   componentWillMount() {
     const { options } = this.props;
 
+    if (options.boardTheme) {
+      this.props.toggleTheme(options.boardTheme);
+    }
+
     if (options.game && options.engine) {
       this.hideScoreboard = options.hideScoreboard === "true";
+      this.title = options.title && decodeURIComponent(options.title);
       this.props.setGameOptions(options);
       this.props.fetchFrames();
     } else {
@@ -106,6 +140,7 @@ class Game extends React.Component {
       <PageWrapper theme={this.props.theme}>
         <GameBoardWrapper>
           <BoardWrapper hideScoreboard={this.hideScoreboard}>
+            <BoardTitle theme={this.props.theme}>{this.title}</BoardTitle>
             <Board
               snakes={currentFrame.snakes}
               food={currentFrame.food}
@@ -133,7 +168,7 @@ class Game extends React.Component {
                   <Logo theme={this.props.theme} />
                 </LogoWrapper>
                 <TurnCount theme={this.props.theme}>
-                  Turn: {currentFrame.turn}
+                  Turn: <TurnCountValue>{currentFrame.turn}</TurnCountValue>
                 </TurnCount>
               </HeaderWrapper>
               <Scoreboard
