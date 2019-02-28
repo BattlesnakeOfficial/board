@@ -5,7 +5,7 @@ export const colors = {
   // Grid
   gridDot: "#6a208f",
   gridCellBackground: "#f1f1f1",
-  gridCellBackgroundDark: "#ddd",
+  gridCellBackgroundDark: "#D6D5EA",
   food: "#ff5c75",
 
   // Scoreboard
