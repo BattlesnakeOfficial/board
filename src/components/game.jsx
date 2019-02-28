@@ -16,7 +16,7 @@ const PageWrapper = styled("div")`
     theme === themes.dark ? colors.purple : "transparent"};
   background: ${({ theme }) =>
     theme === themes.dark
-      ? `linear-gradient(210deg,hsla(260, 89%, 16%, 1) 0%,hsla(277, 95%, 35%, 1) 100%)`
+      ? `linear-gradient(30deg,hsla(260, 89%, 16%, 1) 55%,hsla(277, 95%, 35%, 1) 100%)`
       : "transparent"};
 `;
 
