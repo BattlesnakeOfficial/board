@@ -15,10 +15,11 @@ const AvatarWrapper = styled("div")`
   }
 `;
 
-const Name = styled("span")({
+const Name = styled("span")(({ theme }) => ({
   display: "block",
-  paddingBottom: "0.5rem"
-});
+  paddingBottom: "1rem",
+  textShadow: theme === themes.dark ? "0 1px 2px rgba(0,0,0,0.90)" : null
+}));
 
 const HealthBarWrapper = styled("div")({
   width: "100%",
@@ -35,14 +36,15 @@ const HealthBar = styled("div")(({ color }) => ({
 
 const CauseOfDeath = styled("div")(({ theme }) => ({
   height: "100%",
-  padding: ".2rem .5rem",
-  fontSize: "1.2rem",
+  padding: ".2rem .8rem",
+  fontSize: "1.5rem",
+  lineHeight: "1.3rem",
   backgroundColor:
     theme === themes.dark
       ? colors.healthBarDeathBackgroundDark
       : colors.healthBarDeathBackground,
   borderRadius: "inherit",
-  color: colors.darkText
+  color: theme === themes.dark ? colors.lightText : colors.darkText
 }));
 
 class Avatar extends React.Component {

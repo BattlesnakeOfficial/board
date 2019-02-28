@@ -10,6 +10,14 @@ const MediaControlsWrapper = styled("div")`
   width: 100%;
 `;
 
+const TurnCount = styled("div")(({ theme }) => ({
+  display: "flex",
+  color: theme === themes.dark ? "#eee" : "#333",
+  justifyContent: "center",
+  marginBottom: "2rem",
+  fontSize: "1.4rem"
+}));
+
 const KeyboardShortcutsWrapper = styled("div")({
   position: "relative",
   marginLeft: "1rem"
@@ -173,6 +181,7 @@ class MediaControls extends React.Component {
 
     return (
       <MediaControlsWrapper hide={hideControls}>
+        <TurnCount theme={theme}>Turn: {currentFrame.turn}</TurnCount>
         <ButtonWrapper>
           <Button onClick={this.toggleTheme} theme={theme}>
             Toggle Theme
