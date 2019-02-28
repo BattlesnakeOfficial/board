@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "react-emotion";
 
-import { colors } from "../theme";
+import { colors, themes } from "../theme";
 
 const SVGWrapper = styled("div")`
   height: 100%;
@@ -32,7 +32,13 @@ const SVGLogo = props => {
 
 const StyledLogo = styled(SVGLogo)`
   > path {
-    fill: ${({ color }) => (color ? color : colors.purple)};
+    fill: ${({ color, theme }) => {
+      return !color
+        ? theme === themes.dark
+          ? colors.white
+          : colors.purple
+        : color;
+    }};
   }
 `;
 

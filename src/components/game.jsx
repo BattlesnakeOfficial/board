@@ -40,10 +40,10 @@ const HeaderWrapper = styled("div")({
 
 const LogoWrapper = styled("div")`
   width: 100%;
-  height: 6rem;
+  height: 5rem;
 
   @media (min-width: ${breakpoints.lg}) {
-    height: 12rem;
+    height: 8rem;
   }
 `;
 
@@ -129,7 +129,7 @@ class Game extends React.Component {
             <ScoreboardWrapper>
               <HeaderWrapper>
                 <LogoWrapper>
-                  <Logo />
+                  <Logo theme={this.props.theme} />
                 </LogoWrapper>
                 <TurnCount>Turn: {currentFrame.turn}</TurnCount>
               </HeaderWrapper>
