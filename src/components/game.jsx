@@ -76,6 +76,10 @@ const TurnCount = styled("div")`
     font-size: 3rem;
   }
 `;
+const TurnCountValue = styled("span")`
+  display: inline-block;
+  width: 8rem;
+`;
 
 const BoardWrapper = styled("div")`
   display: flex;
@@ -164,7 +168,7 @@ class Game extends React.Component {
                   <Logo theme={this.props.theme} />
                 </LogoWrapper>
                 <TurnCount theme={this.props.theme}>
-                  Turn: {currentFrame.turn}
+                  Turn: <TurnCountValue>{currentFrame.turn}</TurnCountValue>
                 </TurnCount>
               </HeaderWrapper>
               <Scoreboard
