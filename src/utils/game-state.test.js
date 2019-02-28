@@ -153,6 +153,50 @@ it("should set undefined numbers to zero", () => {
   });
 });
 
+it("should not break on case sensitivity for head and tail types", () => {
+  const apiFrame = {
+    Turn: 0,
+    Food: [{ X: 4, Y: 3 }],
+    Snakes: [
+      {
+        ID: "snake1",
+        Name: "snake 1",
+        URL: "http://snake1",
+        Health: 100,
+        HeadType: "rEgUlAr",
+        TailType: "BOLT",
+        Color: "red",
+        Body: [{ X: 4, Y: 4 }, { X: 4, Y: 4 }, { X: 4, Y: 4 }]
+      }
+    ]
+  };
+
+  const frame = formatFrame(apiFrame);
+
+  expect(frame.turn).toBe(0);
+  expect(frame.snakes).toHaveLength(1);
+  expect(frame.food).toHaveLength(1);
+
+  expect(frame.food[0]).toEqual({ x: 4, y: 3 });
+
+  expect(frame.snakes[0]).toEqual({
+    _id: "snake1",
+    name: "snake 1",
+    health: 100,
+    color: "red",
+    body: [
+      { x: 4, y: 4, direction: "up", type: "head", shouldRender: true },
+      { x: 4, y: 4, direction: "up", type: "body", shouldRender: false },
+      { x: 4, y: 4, direction: "up", type: "tail", shouldRender: false }
+    ],
+    isDead: false,
+    head: "regular",
+    tail: "bolt",
+    headSvg: undefined,
+    tailSvg: undefined
+  });
+});
+
 it("should expect starting turn rendering to be correct", () => {
   const apiFrame = {
     Turn: 0,
@@ -324,6 +368,49 @@ describe("should expect tail to be rendered after eating food", () => {
         { x: 6, y: 4, direction: "left", type: "head", shouldRender: true },
         { x: 7, y: 4, direction: "left", type: "body", shouldRender: false },
         { x: 7, y: 4, direction: "left", type: "tail", shouldRender: true }
+      ],
+      isDead: false,
+      head: undefined,
+      tail: undefined,
+      headSvg: undefined,
+      tailSvg: undefined
+    });
+  });
+
+  it("tail down, eat on first move", () => {
+    const apiFrame = {
+      Turn: 1,
+      Food: [{ X: 9, Y: 4 }],
+      Snakes: [
+        {
+          ID: "snake1",
+          Name: "snake 1",
+          URL: "http://snake1",
+          Health: 100,
+          Color: "red",
+          Body: [{ X: 6, Y: 5 }, { X: 6, Y: 4 }, { X: 6, Y: 4 }, { X: 6, Y: 4 }]
+        }
+      ]
+    };
+
+    const frame = formatFrame(apiFrame);
+
+    expect(frame.turn).toBe(1);
+    expect(frame.snakes).toHaveLength(1);
+    expect(frame.food).toHaveLength(1);
+
+    expect(frame.food[0]).toEqual({ x: 9, y: 4 });
+
+    expect(frame.snakes[0]).toEqual({
+      _id: "snake1",
+      name: "snake 1",
+      health: 100,
+      color: "red",
+      body: [
+        { x: 6, y: 5, direction: "down", type: "head", shouldRender: true },
+        { x: 6, y: 4, direction: "down", type: "body", shouldRender: false },
+        { x: 6, y: 4, direction: "down", type: "body", shouldRender: false },
+        { x: 6, y: 4, direction: "down", type: "tail", shouldRender: true }
       ],
       isDead: false,
       head: undefined,

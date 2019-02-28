@@ -2,20 +2,19 @@ import { formatFrame, sanitizeFrame } from "../utils/game-state";
 
 export default (state = {}, action) => {
   switch (action.type) {
-    case "SET_ENGINE_OPTIONS":
-      action.engineOptions.autoplay =
-        action.engineOptions.autoplay &&
-        action.engineOptions.autoplay === "true";
-      action.engineOptions.turn = parseInt(action.engineOptions.turn) || 0;
-      return { ...state, engineOptions: action.engineOptions };
+    case "SET_THEME":
+      return { ...state, theme: action.theme };
+    case "SET_GAME_OPTIONS":
+      action.gameOptions.autoplay =
+        action.gameOptions.autoplay && action.gameOptions.autoplay === "true";
+      action.gameOptions.turn = parseInt(action.gameOptions.turn) || 0;
+      return { ...state, gameOptions: action.gameOptions };
     case "PAUSE_GAME":
       return { ...state, paused: true };
     case "GAME_OVER":
       return { ...state, paused: true };
     case "RESUME_GAME":
       return { ...state, paused: false };
-    case "SET_GAME_STATUS":
-      return { ...state, gameStatus: action.status };
     case "SET_CURRENT_FRAME":
       windowPostMessage({
         action: action.type,

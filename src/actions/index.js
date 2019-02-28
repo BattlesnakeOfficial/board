@@ -1,15 +1,16 @@
-import {
-  delay,
-  fetchGameStart,
-  getFrameByTurn,
-  streamAllFrames
-} from "../utils/engine-client";
+import { delay, getFrameByTurn, streamAllFrames } from "../utils/engine-client";
+import { themes } from "../theme";
 
 const DEFAULT_FPS = 20;
 
-export const setEngineOptions = engineOptions => ({
-  type: "SET_ENGINE_OPTIONS",
-  engineOptions
+export const setGameOptions = gameOptions => ({
+  type: "SET_GAME_OPTIONS",
+  gameOptions
+});
+
+export const setTheme = theme => ({
+  type: "SET_THEME",
+  theme
 });
 
 export const gameOver = () => ({
@@ -29,11 +30,6 @@ export const receiveFrame = (game, frame) => ({
 export const setCurrentFrame = frame => ({
   type: "SET_CURRENT_FRAME",
   frame
-});
-
-export const setGameStatus = status => ({
-  type: "SET_GAME_STATUS",
-  status
 });
 
 export const pauseGame = () => ({
@@ -56,13 +52,11 @@ export const fetchFrames = () => {
       engine: engineUrl,
       game: gameId,
       turn
-    } = getState().engineOptions;
+    } = getState().gameOptions;
 
     dispatch(requestFrames());
 
     await streamAllFrames(engineUrl, gameId, (game, frame) => {
-      dispatch(setGameStatus(game.Game.Status));
-
       // Workaround for bug where turn exluded on turn 0
       frame.Turn = frame.Turn || 0;
       dispatch(receiveFrame(game, frame));
@@ -91,7 +85,7 @@ export const fetchFrames = () => {
 
 export const playFromFrame = frame => {
   return async (dispatch, getState) => {
-    const { frameRate } = getState().engineOptions;
+    const { frameRate } = getState().gameOptions;
     const frames = getState().frames.slice(); // Don't modify in place
     const frameIndex = frames.indexOf(frame);
     const slicedFrames = frames.slice(frameIndex);
@@ -126,19 +120,21 @@ export const reloadGame = () => {
 
 export const toggleGamePause = () => {
   return async (dispatch, getState) => {
-    const { currentFrame, gameStatus, paused, engineOptions } = getState();
+    const { currentFrame, paused } = getState();
 
     if (paused) {
-      if (gameStatus === "stopped") {
-        await fetchGameStart(engineOptions.engine, engineOptions.game);
-        dispatch(fetchFrames());
-      }
-
       dispatch(resumeGame());
       dispatch(playFromFrame(currentFrame));
     } else {
       dispatch(pauseGame());
     }
+  };
+};
+
+export const toggleTheme = () => {
+  return async (dispatch, getState) => {
+    const { theme } = getState();
+    dispatch(setTheme(theme === themes.dark ? themes.light : themes.dark));
   };
 };
 
