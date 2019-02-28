@@ -47,9 +47,10 @@ const LogoWrapper = styled("div")`
   }
 `;
 
-const TurnCount = styled("div")({
-  fontSize: "1.4rem"
-});
+const TurnCount = styled("div")(({ theme }) => ({
+  fontSize: "1.4rem",
+  color: theme === themes.dark ? colors.lightText : colors.darkText
+}));
 
 const BoardWrapper = styled("div")`
   display: flex;
@@ -131,7 +132,9 @@ class Game extends React.Component {
                 <LogoWrapper>
                   <Logo theme={this.props.theme} />
                 </LogoWrapper>
-                <TurnCount>Turn: {currentFrame.turn}</TurnCount>
+                <TurnCount theme={this.props.theme}>
+                  Turn: {currentFrame.turn}
+                </TurnCount>
               </HeaderWrapper>
               <Scoreboard
                 turn={currentFrame.turn}
