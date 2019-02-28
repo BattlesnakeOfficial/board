@@ -5,7 +5,8 @@ import {
   fetchFrames,
   reloadGame,
   toggleGamePause,
-  setEngineOptions,
+  toggleTheme,
+  setGameOptions,
   stepForwardFrame,
   stepBackwardFrame,
   highlightSnake
@@ -20,13 +21,15 @@ const mapStateToProps = state => {
     paused: state.paused,
     currentFrame: state.currentFrame,
     frames: state.frames,
-    highlightedSnake: state.highlightedSnake
+    highlightedSnake: state.highlightedSnake,
+    theme: state.theme
   };
 };
 
 const mapDispatchToProps = dispatch => ({
-  setEngineOptions: options => dispatch(setEngineOptions(options)),
+  setGameOptions: options => dispatch(setGameOptions(options)),
   fetchFrames: () => dispatch(fetchFrames()),
+  toggleTheme: () => dispatch(toggleTheme()),
   reloadGame: () => dispatch(reloadGame()),
   toggleGamePause: paused => dispatch(toggleGamePause(paused)),
   stepForwardFrame: () => dispatch(stepForwardFrame()),

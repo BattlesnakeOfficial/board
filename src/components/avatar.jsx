@@ -1,18 +1,21 @@
 import React from "react";
 import styled from "react-emotion";
-import { colors, themes } from "../theme";
+import { breakpoints, colors, themes } from "../theme";
 import { getReadableCauseOfDeath } from "../utils/engine-client";
 
-const AvatarWrapper = styled("div")({
-  marginBottom: ".5rem",
-  paddingTop: "1rem",
-  width: "100%",
-  paddingBottom: "1rem"
-});
+const AvatarWrapper = styled("div")`
+  margin-bottom: 0.5rem;
+  padding-bottom: 1rem;
+  width: 100%;
+
+  @media (min-width: ${breakpoints.lg}) {
+    margin-bottom: 1rem;
+  }
+`;
 
 const Name = styled("span")({
   display: "block",
-  paddingBottom: "1rem"
+  paddingBottom: "0.5rem"
 });
 
 const HealthBarWrapper = styled("div")({
