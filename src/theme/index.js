@@ -4,6 +4,8 @@ export const colors = {
 
   // Grid
   gridDot: "#6a208f",
+  gridCellBackground: "#eee",
+  gridCellBackgroundDark: "#ddd",
   food: "#ff5c75",
 
   // Scoreboard
@@ -40,17 +42,14 @@ export const colors = {
   danger: "#dc3545",
   light: "#f8f9fa",
   dark: "#343a40"
-
-  // OLD
-  // orange: "#ffa500",
-  // purple: "#240458",
 };
 
 export const breakpoints = {
   sm: "576px",
   md: "768px",
   lg: "992px",
-  xl: "1200px"
+  xl: "1200px",
+  xxl: "1650px"
 };
 
 export const themes = {

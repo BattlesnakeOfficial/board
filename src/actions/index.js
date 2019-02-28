@@ -131,10 +131,12 @@ export const toggleGamePause = () => {
   };
 };
 
-export const toggleTheme = () => {
+export const toggleTheme = themeToSet => {
   return async (dispatch, getState) => {
     const { theme } = getState();
-    dispatch(setTheme(theme === themes.dark ? themes.light : themes.dark));
+    dispatch(
+      setTheme(themeToSet || theme === themes.dark ? themes.light : themes.dark)
+    );
   };
 };
 
