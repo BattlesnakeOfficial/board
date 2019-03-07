@@ -102,14 +102,12 @@ function shouldRenderPart(snake, partIndex) {
 
 function formatSnakePart(snake, partIndex) {
   const part = snake.Body[partIndex];
-  const shouldRender = shouldRenderPart(snake, partIndex);
   const type = getType(snake, partIndex);
   const { x, y } = formatPosition(part);
   const direction = formatDirection(type, snake, part);
 
   return {
     direction,
-    shouldRender,
     type,
     x,
     y
