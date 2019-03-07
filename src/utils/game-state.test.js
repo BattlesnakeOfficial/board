@@ -184,11 +184,7 @@ it("should not break on case sensitivity for head and tail types", () => {
     name: "snake 1",
     health: 100,
     color: "red",
-    body: [
-      { x: 4, y: 4, direction: "up", type: "head", shouldRender: true },
-      { x: 4, y: 4, direction: "up", type: "body", shouldRender: false },
-      { x: 4, y: 4, direction: "up", type: "tail", shouldRender: false }
-    ],
+    body: [{ x: 4, y: 4, direction: "up", type: "head", shouldRender: true }],
     isDead: false,
     head: "regular",
     tail: "bolt",
@@ -226,11 +222,7 @@ it("should expect starting turn rendering to be correct", () => {
     name: "snake 1",
     health: 100,
     color: "red",
-    body: [
-      { x: 4, y: 4, direction: "up", type: "head", shouldRender: true },
-      { x: 4, y: 4, direction: "up", type: "body", shouldRender: false },
-      { x: 4, y: 4, direction: "up", type: "tail", shouldRender: false }
-    ],
+    body: [{ x: 4, y: 4, direction: "up", type: "head", shouldRender: true }],
     isDead: false,
     head: undefined,
     tail: undefined,
@@ -272,7 +264,6 @@ describe("should expect tail to be rendered after eating food", () => {
       body: [
         { x: 4, y: 4, direction: "up", type: "head", shouldRender: true },
         { x: 4, y: 5, direction: "up", type: "body", shouldRender: true },
-        { x: 4, y: 6, direction: "up", type: "body", shouldRender: false },
         { x: 4, y: 6, direction: "up", type: "tail", shouldRender: true }
       ],
       isDead: false,
@@ -324,7 +315,6 @@ describe("should expect tail to be rendered after eating food", () => {
         { x: 6, y: 4, direction: "right", type: "body", shouldRender: true },
         { x: 5, y: 4, direction: "right", type: "body", shouldRender: true },
         { x: 4, y: 4, direction: "right", type: "body", shouldRender: true },
-        { x: 3, y: 4, direction: "right", type: "body", shouldRender: false },
         { x: 3, y: 4, direction: "right", type: "tail", shouldRender: true }
       ],
       isDead: false,
@@ -366,7 +356,6 @@ describe("should expect tail to be rendered after eating food", () => {
       color: "red",
       body: [
         { x: 6, y: 4, direction: "left", type: "head", shouldRender: true },
-        { x: 7, y: 4, direction: "left", type: "body", shouldRender: false },
         { x: 7, y: 4, direction: "left", type: "tail", shouldRender: true }
       ],
       isDead: false,
@@ -408,8 +397,6 @@ describe("should expect tail to be rendered after eating food", () => {
       color: "red",
       body: [
         { x: 6, y: 5, direction: "down", type: "head", shouldRender: true },
-        { x: 6, y: 4, direction: "down", type: "body", shouldRender: false },
-        { x: 6, y: 4, direction: "down", type: "body", shouldRender: false },
         { x: 6, y: 4, direction: "down", type: "tail", shouldRender: true }
       ],
       isDead: false,

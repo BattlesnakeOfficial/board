@@ -38,7 +38,12 @@ function formatSnakes(snakes) {
 
 function formatSnake(snake) {
   return {
-    body: snake.Body.map((_, i) => formatSnakePart(snake, i)),
+    body: snake.Body.map((_, i) => {
+      if (shouldRenderPart(snake, i)) {
+        return formatSnakePart(snake, i);
+      }
+      return null;
+    }).filter(part => part),
     color: snake.Color,
     _id: snake.ID,
     name: snake.Name,
