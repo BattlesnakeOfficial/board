@@ -218,10 +218,6 @@ class Grid extends React.Component {
   }
 
   renderMiddlePart(snake, snakeIndex, part, partIndex, highlighted) {
-    if (!part.shouldRender) {
-      return <svg key={"part" + snakeIndex + "," + partIndex} />;
-    }
-
     return (
       <rect
         key={`part${snakeIndex},${part.x},${part.y}`}
@@ -237,15 +233,6 @@ class Grid extends React.Component {
   }
 
   renderCornerPart(snake, snakeIndex, part, partIndex, highlighted) {
-    if (!part.shouldRender) {
-      return (
-        <svg
-          key={`part${snakeIndex},${part.x},${part.y}`}
-          shapeRendering="optimizeSpeed"
-        />
-      );
-    }
-
     let viewBox, transform;
     let path = "M0,0 h40 a60,60 0 0 1 60,60 v80 h-100 z";
 
@@ -311,10 +298,6 @@ class Grid extends React.Component {
     const box = snake.tailSvg.viewBox.baseVal;
     const transform = getTailTransform(part.direction, box);
     const viewBoxStr = `${box.x} ${box.y} ${box.width} ${box.height}`;
-
-    if (!part.shouldRender) {
-      return <svg key={"part" + snakeIndex + ",tail"} />;
-    }
 
     return (
       <svg

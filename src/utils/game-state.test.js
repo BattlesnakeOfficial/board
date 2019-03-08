@@ -39,9 +39,9 @@ it("should place snakes on valid board", () => {
     health: 80,
     color: "red",
     body: [
-      { x: 0, y: 0, direction: "up", type: "head", shouldRender: true },
-      { x: 0, y: 1, direction: "up", type: "body", shouldRender: true },
-      { x: 0, y: 2, direction: "up", type: "tail", shouldRender: true }
+      { x: 0, y: 0, direction: "up", type: "head" },
+      { x: 0, y: 1, direction: "up", type: "body" },
+      { x: 0, y: 2, direction: "up", type: "tail" }
     ],
     isDead: false,
     head: undefined,
@@ -56,10 +56,10 @@ it("should place snakes on valid board", () => {
     health: 70,
     color: "green",
     body: [
-      { x: 5, y: 3, direction: "left", type: "head", shouldRender: true },
-      { x: 6, y: 3, direction: "left", type: "body", shouldRender: true },
-      { x: 6, y: 4, direction: "up", type: "body", shouldRender: true },
-      { x: 7, y: 4, direction: "left", type: "tail", shouldRender: true }
+      { x: 5, y: 3, direction: "left", type: "head" },
+      { x: 6, y: 3, direction: "left", type: "body" },
+      { x: 6, y: 4, direction: "up", type: "body" },
+      { x: 7, y: 4, direction: "left", type: "tail" }
     ],
     isDead: false,
     head: undefined,
@@ -101,9 +101,9 @@ it("should recognize dead snakes", () => {
     health: 80,
     color: "red",
     body: [
-      { x: 1, y: 1, direction: "right", type: "head", shouldRender: true },
-      { x: 0, y: 1, direction: "right", type: "body", shouldRender: true },
-      { x: 0, y: 0, direction: "down", type: "tail", shouldRender: true }
+      { x: 1, y: 1, direction: "right", type: "head" },
+      { x: 0, y: 1, direction: "right", type: "body" },
+      { x: 0, y: 0, direction: "down", type: "tail" }
     ],
     isDead: true,
     death: { cause: "asdf", turn: 3 },
@@ -143,7 +143,7 @@ it("should set undefined numbers to zero", () => {
     name: "snake 1",
     health: 80,
     color: "red",
-    body: [{ x: 0, y: 0, direction: "up", type: "head", shouldRender: true }],
+    body: [{ x: 0, y: 0, direction: "up", type: "head" }],
     isDead: true,
     death: { cause: "asdf", turn: 0 },
     head: undefined,
@@ -184,11 +184,7 @@ it("should not break on case sensitivity for head and tail types", () => {
     name: "snake 1",
     health: 100,
     color: "red",
-    body: [
-      { x: 4, y: 4, direction: "up", type: "head", shouldRender: true },
-      { x: 4, y: 4, direction: "up", type: "body", shouldRender: false },
-      { x: 4, y: 4, direction: "up", type: "tail", shouldRender: false }
-    ],
+    body: [{ x: 4, y: 4, direction: "up", type: "head" }],
     isDead: false,
     head: "regular",
     tail: "bolt",
@@ -226,11 +222,7 @@ it("should expect starting turn rendering to be correct", () => {
     name: "snake 1",
     health: 100,
     color: "red",
-    body: [
-      { x: 4, y: 4, direction: "up", type: "head", shouldRender: true },
-      { x: 4, y: 4, direction: "up", type: "body", shouldRender: false },
-      { x: 4, y: 4, direction: "up", type: "tail", shouldRender: false }
-    ],
+    body: [{ x: 4, y: 4, direction: "up", type: "head" }],
     isDead: false,
     head: undefined,
     tail: undefined,
@@ -270,10 +262,9 @@ describe("should expect tail to be rendered after eating food", () => {
       health: 80,
       color: "red",
       body: [
-        { x: 4, y: 4, direction: "up", type: "head", shouldRender: true },
-        { x: 4, y: 5, direction: "up", type: "body", shouldRender: true },
-        { x: 4, y: 6, direction: "up", type: "body", shouldRender: false },
-        { x: 4, y: 6, direction: "up", type: "tail", shouldRender: true }
+        { x: 4, y: 4, direction: "up", type: "head" },
+        { x: 4, y: 5, direction: "up", type: "body" },
+        { x: 4, y: 6, direction: "up", type: "tail" }
       ],
       isDead: false,
       head: undefined,
@@ -320,12 +311,11 @@ describe("should expect tail to be rendered after eating food", () => {
       health: 62,
       color: "red",
       body: [
-        { x: 7, y: 4, direction: "right", type: "head", shouldRender: true },
-        { x: 6, y: 4, direction: "right", type: "body", shouldRender: true },
-        { x: 5, y: 4, direction: "right", type: "body", shouldRender: true },
-        { x: 4, y: 4, direction: "right", type: "body", shouldRender: true },
-        { x: 3, y: 4, direction: "right", type: "body", shouldRender: false },
-        { x: 3, y: 4, direction: "right", type: "tail", shouldRender: true }
+        { x: 7, y: 4, direction: "right", type: "head" },
+        { x: 6, y: 4, direction: "right", type: "body" },
+        { x: 5, y: 4, direction: "right", type: "body" },
+        { x: 4, y: 4, direction: "right", type: "body" },
+        { x: 3, y: 4, direction: "right", type: "tail" }
       ],
       isDead: false,
       head: undefined,
@@ -365,9 +355,8 @@ describe("should expect tail to be rendered after eating food", () => {
       health: 99,
       color: "red",
       body: [
-        { x: 6, y: 4, direction: "left", type: "head", shouldRender: true },
-        { x: 7, y: 4, direction: "left", type: "body", shouldRender: false },
-        { x: 7, y: 4, direction: "left", type: "tail", shouldRender: true }
+        { x: 6, y: 4, direction: "left", type: "head" },
+        { x: 7, y: 4, direction: "left", type: "tail" }
       ],
       isDead: false,
       head: undefined,
@@ -407,10 +396,8 @@ describe("should expect tail to be rendered after eating food", () => {
       health: 100,
       color: "red",
       body: [
-        { x: 6, y: 5, direction: "down", type: "head", shouldRender: true },
-        { x: 6, y: 4, direction: "down", type: "body", shouldRender: false },
-        { x: 6, y: 4, direction: "down", type: "body", shouldRender: false },
-        { x: 6, y: 4, direction: "down", type: "tail", shouldRender: true }
+        { x: 6, y: 5, direction: "down", type: "head" },
+        { x: 6, y: 4, direction: "down", type: "tail" }
       ],
       isDead: false,
       head: undefined,
@@ -418,5 +405,57 @@ describe("should expect tail to be rendered after eating food", () => {
       headSvg: undefined,
       tailSvg: undefined
     });
+  });
+});
+
+it("should expect correctly rendered snake parts after crashing into self", () => {
+  const apiFrame = {
+    Turn: 29,
+    Food: [{ X: 4, Y: 9 }],
+    Snakes: [
+      {
+        ID: "snake1",
+        Name: "snake 1",
+        URL: "http://snake1",
+        Health: 80,
+        Death: { Cause: "self-collision", Turn: 29 },
+        Color: "red",
+        Body: [
+          { X: 6, Y: 6 },
+          { X: 6, Y: 7 },
+          { X: 5, Y: 7 },
+          { X: 5, Y: 6 },
+          { X: 5, Y: 5 }
+        ]
+      }
+    ]
+  };
+
+  const frame = formatFrame(apiFrame);
+
+  expect(frame.turn).toBe(29);
+  expect(frame.snakes).toHaveLength(1);
+  expect(frame.food).toHaveLength(1);
+
+  expect(frame.food[0]).toEqual({ x: 4, y: 9 });
+
+  expect(frame.snakes[0]).toEqual({
+    _id: "snake1",
+    name: "snake 1",
+    health: 80,
+    color: "red",
+    body: [
+      { x: 6, y: 6, direction: "up", type: "head" },
+      { x: 6, y: 7, direction: "up", type: "body" },
+      { x: 5, y: 7, direction: "right", type: "body" },
+      { x: 5, y: 6, direction: "down", type: "body" },
+      { x: 5, y: 5, direction: "down", type: "tail" }
+    ],
+    death: { cause: "self-collision", turn: 29 },
+    isDead: true,
+    head: undefined,
+    tail: undefined,
+    headSvg: undefined,
+    tailSvg: undefined
   });
 });

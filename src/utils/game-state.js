@@ -38,7 +38,12 @@ function formatSnakes(snakes) {
 
 function formatSnake(snake) {
   return {
-    body: snake.Body.map((_, i) => formatSnakePart(snake, i)),
+    body: snake.Body.map((_, i) => {
+      if (shouldRenderPart(snake, i)) {
+        return formatSnakePart(snake, i);
+      }
+      return null;
+    }).filter(part => part),
     color: snake.Color,
     _id: snake.ID,
     name: snake.Name,
@@ -97,14 +102,12 @@ function shouldRenderPart(snake, partIndex) {
 
 function formatSnakePart(snake, partIndex) {
   const part = snake.Body[partIndex];
-  const shouldRender = shouldRenderPart(snake, partIndex);
   const type = getType(snake, partIndex);
   const { x, y } = formatPosition(part);
   const direction = formatDirection(type, snake, part);
 
   return {
     direction,
-    shouldRender,
     type,
     x,
     y
