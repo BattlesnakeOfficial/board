@@ -96,6 +96,7 @@ function shouldRenderPart(snake, partIndex) {
   const nextPart = snake.Body[partIndex - 1];
   return (
     !(tail.X === currPart.X && tail.Y === currPart.Y) &&
+    !(head.X === currPart.X && head.Y === currPart.Y) &&
     !(nextPart && nextPart.X === currPart.X && nextPart.Y === currPart.Y)
   );
 }
