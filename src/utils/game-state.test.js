@@ -408,7 +408,7 @@ describe("should expect tail to be rendered after eating food", () => {
   });
 });
 
-it("should expect correctly rendered snake parts after crashing into self", () => {
+it("should expect correctly rendered snake parts after crashing into body segment of self", () => {
   const apiFrame = {
     Turn: 29,
     Food: [{ X: 4, Y: 9 }],
@@ -452,6 +452,64 @@ it("should expect correctly rendered snake parts after crashing into self", () =
       { x: 5, y: 5, direction: "down", type: "tail" }
     ],
     death: { cause: "self-collision", turn: 29 },
+    isDead: true,
+    head: undefined,
+    tail: undefined,
+    headSvg: undefined,
+    tailSvg: undefined
+  });
+});
+
+it("should expect correctly rendered snake parts after going backwards into body", () => {
+  const apiFrame = {
+    Turn: 50,
+    Food: [{ X: 8, Y: 11 }],
+    Snakes: [
+      {
+        ID: "snake1",
+        Name: "snake 1",
+        URL: "http://snake1",
+        Health: 80,
+        Death: { Cause: "self-collision", Turn: 50 },
+        Color: "red",
+        Body: [
+          { X: 0, Y: 10 },
+          { X: 0, Y: 11 },
+          { X: 0, Y: 10 },
+          { X: 0, Y: 9 },
+          { X: 0, Y: 8 },
+          { X: 1, Y: 8 },
+          { X: 1, Y: 9 },
+          { X: 1, Y: 10 }
+        ]
+      }
+    ]
+  };
+
+  const frame = formatFrame(apiFrame);
+
+  expect(frame.turn).toBe(50);
+  expect(frame.snakes).toHaveLength(1);
+  expect(frame.food).toHaveLength(1);
+
+  expect(frame.food[0]).toEqual({ x: 8, y: 11 });
+
+  expect(frame.snakes[0]).toEqual({
+    _id: "snake1",
+    name: "snake 1",
+    health: 80,
+    color: "red",
+    body: [
+      { x: 0, y: 10, direction: "up", type: "head" },
+      { x: 0, y: 11, direction: "down", type: "body" },
+      { x: 0, y: 10, direction: "down", type: "body" },
+      { x: 0, y: 9, direction: "down", type: "body" },
+      { x: 0, y: 8, direction: "down", type: "body" },
+      { x: 1, y: 8, direction: "left", type: "body" },
+      { x: 1, y: 9, direction: "up", type: "body" },
+      { x: 1, y: 10, direction: "up", type: "tail" }
+    ],
+    death: { cause: "self-collision", turn: 50 },
     isDead: true,
     head: undefined,
     tail: undefined,
