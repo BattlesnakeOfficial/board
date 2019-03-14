@@ -105,16 +105,14 @@ class MediaControls extends React.Component {
     paneHidden: true
   };
 
-  componentWillMount() {
+  componentDidMount() {
     this.keyboardCodeMap = {
       KeyR: "r",
       ArrowLeft: "left",
       ArrowRight: "right",
       Space: "space"
     };
-  }
 
-  componentDidMount() {
     window.addEventListener("message", this.handleParentKeyboardEvent);
   }
 

@@ -103,7 +103,7 @@ const ScoreboardWrapper = styled("div")`
 `;
 
 class Game extends React.Component {
-  componentWillMount() {
+  componentDidMount() {
     const { options } = this.props;
 
     if (options.boardTheme) {
