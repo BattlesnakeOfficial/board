@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "react-emotion";
+import styled from "@emotion/styled";
 import KeyboardEventHandler from "react-keyboard-event-handler";
 
 import { themes, breakpoints } from "../theme";
@@ -105,7 +105,8 @@ class MediaControls extends React.Component {
     paneHidden: true
   };
 
-  componentWillMount() {
+  constructor(props) {
+    super(props);
     this.keyboardCodeMap = {
       KeyR: "r",
       ArrowLeft: "left",

@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "react-emotion";
+import styled from "@emotion/styled";
 
 import BlankState from "./blank-state";
 import LoadingIndicator from "./loading-indicator";
@@ -103,7 +103,7 @@ const ScoreboardWrapper = styled("div")`
 `;
 
 class Game extends React.Component {
-  componentWillMount() {
+  componentDidMount() {
     const { options } = this.props;
 
     if (options.boardTheme) {
