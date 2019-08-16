@@ -27,12 +27,29 @@ http {
     listen 80;
     root /usr/share/nginx/html;
 
+    location /healthz/alive {
+      add_header Content-Type text/plain;
+      return 200 'alive';
+    }
+    location /healthz/ready {
+      add_header Content-Type text/plain;
+      return 200 'ready';
+    }
+
     location /static/ {
+      if (\$http_x_forwarded_proto != "https") {
+        return 301 https://\$host\$request_uri;
+      }
+
       expires   max;
       try_files \$uri =404;
     }
 
     location / {
+      if (\$http_x_forwarded_proto != "https") {
+        return 301 https://\$host\$request_uri;
+      }
+
       expires   -1;
       try_files \$uri /index.html;
     }
