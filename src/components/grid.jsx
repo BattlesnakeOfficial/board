@@ -14,65 +14,77 @@ function toGridSpace(slot) {
 
 function getPartWidth(part) {
   const extraWidth =
-    part.direction === "left" || part.direction === "right" ? CELL_SPACING : 0;
+    part.direction === "left" || part.direction === "right" ? 2 * CELL_SPACING : 0;
   return CELL_SIZE + extraWidth;
 }
 
 function getPartHeight(part) {
   const extraHeight =
-    part.direction === "up" || part.direction === "down" ? CELL_SPACING : 0;
+    part.direction === "up" || part.direction === "down" ? 2 * CELL_SPACING : 0;
   return CELL_SIZE + extraHeight;
 }
 
 function getPartXOffset(part) {
-  const xBias = part.direction === "left" ? -CELL_SPACING : 0;
+  const xBias = part.direction === "left" || part.direction === "right" ? -CELL_SPACING : 0;
   return toGridSpace(part.x) + xBias;
 }
 
 function getPartYOffset(part) {
-  const yBias = part.direction === "up" ? -CELL_SPACING : 0;
+  const yBias = part.direction === "up" || part.direction === "down" ? -CELL_SPACING : 0;
   return toGridSpace(part.y) + yBias;
 }
 
+function getCornerPartXOffset(part, type) {
+  return toGridSpace(part.x) - CELL_SPACING;
+}
+
+function getCornerPartYOffset(part, type) {
+  return toGridSpace(part.y) - CELL_SPACING;
+}
+
 function getTailXOffset(part) {
+  // apply slight offset to avoid ugly white line in between parts (works most of the time)
   switch (part.direction) {
     case "left":
-      return toGridSpace(part.x) - CELL_SPACING;
+      return toGridSpace(part.x) - 0.1;
     case "right":
-      return toGridSpace(part.x) + CELL_SPACING;
+      return toGridSpace(part.x) + 0.1;
     default:
       return toGridSpace(part.x);
   }
 }
 
 function getTailYOffset(part) {
+  // apply slight offset to avoid ugly white line in between parts (works most of the time)
   switch (part.direction) {
     case "up":
-      return toGridSpace(part.y) - CELL_SPACING;
+      return toGridSpace(part.y) - 0.1;
     case "down":
-      return toGridSpace(part.y) + CELL_SPACING;
+      return toGridSpace(part.y) + 0.1;
     default:
       return toGridSpace(part.y);
   }
 }
 
 function getHeadXOffset(part) {
+  // apply slight offset to avoid ugly white line in between parts (works most of the time)
   switch (part.direction) {
     case "left":
-      return toGridSpace(part.x);
+      return toGridSpace(part.x) + 0.1;
     case "right":
-      return toGridSpace(part.x);
+      return toGridSpace(part.x) - 0.1;
     default:
       return toGridSpace(part.x);
   }
 }
 
 function getHeadYOffset(part) {
+  // apply slight offset to avoid ugly white line in between parts (works most of the time)
   switch (part.direction) {
     case "up":
-      return toGridSpace(part.y);
+      return toGridSpace(part.y) + 0.1;
     case "down":
-      return toGridSpace(part.y);
+      return toGridSpace(part.y) - 0.1;
     default:
       return toGridSpace(part.y);
   }
@@ -206,7 +218,6 @@ class Grid extends React.Component {
         width={CELL_SIZE}
         height={CELL_SIZE}
         fill={snake.color}
-        opacity={getOpacity(snake, highlighted)}
         shapeRendering="optimizeSpeed"
       >
         <g
@@ -226,7 +237,6 @@ class Grid extends React.Component {
         width={getPartWidth(part)}
         height={getPartHeight(part)}
         fill={snake.color}
-        opacity={getOpacity(snake, highlighted)}
         shapeRendering="optimizeSpeed"
       />
     );
@@ -234,43 +244,27 @@ class Grid extends React.Component {
 
   renderCornerPart(snake, snakeIndex, part, partIndex, highlighted) {
     let viewBox, transform;
-    let path = "M0,0 h40 a60,60 0 0 1 60,60 v80 h-100 z";
+    let path = "M0,20 h60 a60,60 0 0 1 60,60 v60 h-100 v-20 h-20 z";
 
-    switch (part.direction) {
-      case "left":
-      case "right":
-        viewBox = "0 0 120 100";
-        break;
-      case "up":
-      case "down":
-      default:
-        viewBox = "0 0 100 120";
-        break;
-    }
+    viewBox = "0 0 140 140";
 
-    switch (determineCornerType(snake, partIndex)) {
+    const cornerType = determineCornerType(snake, partIndex);
+    switch (cornerType) {
       case "down left":
-        transform = "scale(-1,1) translate(-100, 0)";
+      case "right up":
+        transform = "rotate(270, 70, 70)";
         break;
       case "left down":
-        transform = "rotate(90,0,0) translate(0,-120)";
-        break;
-      case "right down":
-        transform = "rotate(90,0,0) scale(1,-1)";
-        break;
       case "up right":
-        transform = "scale(1,-1) translate(0,-120)";
-        break;
-      case "up left":
-        transform = "scale(-1,-1) translate(-100,-120)";
-        break;
-      case "right up":
-        transform = "rotate(-90,0,0) translate(-100,0)";
+        transform = "rotate(90, 70, 70)";
         break;
       case "left up":
-        transform = "rotate(-90,0,0) scale(1,-1) translate(-100,-120)";
-        break;
       case "down right":
+        break;
+      case "right down":
+      case "up left":
+        transform = "rotate(180, 70, 70)";
+        break;
       default:
         break;
     }
@@ -278,11 +272,10 @@ class Grid extends React.Component {
     return (
       <svg
         key={`part${snakeIndex},${part.x},${part.y}`}
-        x={getPartXOffset(part)}
-        y={getPartYOffset(part)}
-        width={getPartWidth(part)}
-        height={getPartHeight(part)}
-        opacity={getOpacity(snake, highlighted)}
+        x={getCornerPartXOffset(part, cornerType)}
+        y={getCornerPartYOffset(part, cornerType)}
+        width={CELL_SIZE + 2 * CELL_SPACING}
+        height={CELL_SIZE + 2 * CELL_SPACING}
         fill={snake.color}
         viewBox={viewBox}
         shapeRendering="optimizeSpeed"
@@ -308,7 +301,6 @@ class Grid extends React.Component {
         width={CELL_SIZE}
         height={CELL_SIZE}
         fill={snake.color}
-        opacity={getOpacity(snake, highlighted)}
         shapeRendering="optimizeSpeed"
       >
         <g
@@ -356,14 +348,21 @@ class Grid extends React.Component {
         )}
 
         {sortedSnakes.map((snake, snakeIndex) => {
-          return snake.body.map((part, partIndex) =>
-            this.renderPart(
-              snake,
-              snakeIndex,
-              part,
-              partIndex,
-              this.props.highlightedSnake
-            )
+          return (
+            <g
+              key={`snake${snakeIndex}`}
+              opacity={getOpacity(snake, this.props.highlightedSnake)}
+            >
+              {snake.body.map((part, partIndex) =>
+                this.renderPart(
+                  snake,
+                  snakeIndex,
+                  part,
+                  partIndex,
+                  this.props.highlightedSnake
+                )
+              )}
+            </g>
           );
         })}
 
