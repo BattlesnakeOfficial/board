@@ -7,6 +7,7 @@ const DEAD_OPACITY = 0.1;
 const CELL_SIZE = 20;
 const CELL_SPACING = 4;
 const FOOD_SIZE = (CELL_SIZE / 3.25).toFixed(2);
+const END_OVERLAP = 0.1;
 
 function toGridSpace(slot) {
   return (CELL_SIZE + CELL_SPACING) * slot + CELL_SPACING;
@@ -46,9 +47,9 @@ function getTailXOffset(part) {
   // apply slight offset to avoid ugly white line in between parts (works most of the time)
   switch (part.direction) {
     case "left":
-      return toGridSpace(part.x) - 0.1;
+      return toGridSpace(part.x) - END_OVERLAP;
     case "right":
-      return toGridSpace(part.x) + 0.1;
+      return toGridSpace(part.x) + END_OVERLAP;
     default:
       return toGridSpace(part.x);
   }
@@ -58,9 +59,9 @@ function getTailYOffset(part) {
   // apply slight offset to avoid ugly white line in between parts (works most of the time)
   switch (part.direction) {
     case "up":
-      return toGridSpace(part.y) - 0.1;
+      return toGridSpace(part.y) - END_OVERLAP;
     case "down":
-      return toGridSpace(part.y) + 0.1;
+      return toGridSpace(part.y) + END_OVERLAP;
     default:
       return toGridSpace(part.y);
   }
@@ -70,9 +71,9 @@ function getHeadXOffset(part) {
   // apply slight offset to avoid ugly white line in between parts (works most of the time)
   switch (part.direction) {
     case "left":
-      return toGridSpace(part.x) + 0.1;
+      return toGridSpace(part.x) + END_OVERLAP;
     case "right":
-      return toGridSpace(part.x) - 0.1;
+      return toGridSpace(part.x) - END_OVERLAP;
     default:
       return toGridSpace(part.x);
   }
@@ -82,12 +83,44 @@ function getHeadYOffset(part) {
   // apply slight offset to avoid ugly white line in between parts (works most of the time)
   switch (part.direction) {
     case "up":
-      return toGridSpace(part.y) + 0.1;
+      return toGridSpace(part.y) + END_OVERLAP;
     case "down":
-      return toGridSpace(part.y) - 0.1;
+      return toGridSpace(part.y) - END_OVERLAP;
     default:
       return toGridSpace(part.y);
   }
+}
+
+function getHeadFillerXOffset(part) {
+  // apply slight offset to avoid ugly white line in between parts (works most of the time)
+  switch (part.direction) {
+    case "left":
+      return toGridSpace(part.x + 1) - CELL_SPACING - END_OVERLAP;
+    case "right":
+      return toGridSpace(part.x) - CELL_SPACING - END_OVERLAP;
+    default:
+      return toGridSpace(part.x);
+  }
+}
+
+function getHeadFillerYOffset(part) {
+  // apply slight offset to avoid ugly white line in between parts (works most of the time)
+  switch (part.direction) {
+    case "up":
+      return toGridSpace(part.y + 1) - CELL_SPACING - END_OVERLAP;
+    case "down":
+      return toGridSpace(part.y) - CELL_SPACING - END_OVERLAP;
+    default:
+      return toGridSpace(part.y);
+  }
+}
+
+function getFillerWidth(part) {
+  return (part.direction === "left" || part.direction === "right") ? (CELL_SPACING + 2 * END_OVERLAP) : CELL_SIZE;
+}
+
+function getFillerHeight(part) {
+  return (part.direction === "left" || part.direction === "right") ? CELL_SIZE : (CELL_SPACING + 2 * END_OVERLAP);
 }
 
 function getOpacity(snake, highlightedSnake) {
@@ -210,21 +243,32 @@ class Grid extends React.Component {
     const viewBoxStr = `${box.x} ${box.y} ${box.width} ${box.height}`;
 
     return (
-      <svg
-        key={"part" + snakeIndex + ",head"}
-        viewBox={viewBoxStr}
-        x={x}
-        y={y}
-        width={CELL_SIZE}
-        height={CELL_SIZE}
-        fill={snake.color}
-        shapeRendering="optimizeSpeed"
-      >
-        <g
-          transform={transform}
-          dangerouslySetInnerHTML={{ __html: snake.headSvg.innerHTML }}
-        />
-      </svg>
+      <g key={"part" + snakeIndex + ",head"}>
+        <svg
+          viewBox={viewBoxStr}
+          x={x}
+          y={y}
+          width={CELL_SIZE}
+          height={CELL_SIZE}
+          fill={snake.color}
+          shapeRendering="optimizeSpeed"
+        >
+          <g
+            transform={transform}
+            dangerouslySetInnerHTML={{ __html: snake.headSvg.innerHTML }}
+          />
+        </svg>
+        {snake.body.length > 1 && (
+          <rect
+            x={getHeadFillerXOffset(part)}
+            y={getHeadFillerYOffset(part)}
+            width={getFillerWidth(part)}
+            height={getFillerHeight(part)}
+            fill={snake.color}
+            shapeRendering="optimizeSpeed"
+          />
+        )}
+      </g>
     );
   }
 
