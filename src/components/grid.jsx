@@ -9,6 +9,8 @@ const CELL_SPACING = 4;
 const FOOD_SIZE = (CELL_SIZE / 3.25).toFixed(2);
 const END_OVERLAP = 0.1;
 
+const DIRECTIONS_CW = ["up", "right", "down", "left"];
+
 function toGridSpace(slot) {
   return (CELL_SIZE + CELL_SPACING) * slot + CELL_SPACING;
 }
@@ -183,6 +185,12 @@ function getTailTransform(direction, viewBox) {
   }
 }
 
+function areAdjacentDirections(d1, d2) {
+  // Check if the directions are adjacent in the circular directions array
+  // Otherwise they are the same or opposite directions
+  return Math.abs(DIRECTIONS_CW.indexOf(d1) - DIRECTIONS_CW.indexOf(d2)) % 2 === 1;
+}
+
 function checkIfCornerPart(snake, partIndex) {
   // If head or tail of the snake, then false
   if (partIndex === 0 || partIndex === snake.body.length - 1) return false;
@@ -194,7 +202,9 @@ function checkIfCornerPart(snake, partIndex) {
   // Relevant for when the snake initially spawns.
   if (behind.x === current.x && behind.y === current.y) return false;
 
-  return behind.direction !== current.direction;
+  // Check if the directions are adjacent in the circular directions array
+  // Otherwise they are the same or opposite directions and should be rendered with a straight part
+  return areAdjacentDirections(current.direction, behind.direction);
 }
 
 function determineCornerType(snake, partIndex) {

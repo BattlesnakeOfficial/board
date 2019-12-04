@@ -37,10 +37,11 @@ function formatSnakes(snakes) {
 }
 
 function formatSnake(snake) {
+  var renderedParts = snake.Body.filter((_, i) => shouldRenderPart(snake, i));
   return {
     body: snake.Body.map((_, i) => {
       if (shouldRenderPart(snake, i)) {
-        return formatSnakePart(snake, i);
+        return formatSnakePart(snake, i, renderedParts);
       }
       return null;
     }).filter(part => part),
@@ -101,11 +102,11 @@ function shouldRenderPart(snake, partIndex) {
   );
 }
 
-function formatSnakePart(snake, partIndex) {
+function formatSnakePart(snake, partIndex, renderedParts) {
   const part = snake.Body[partIndex];
   const type = getType(snake, partIndex);
   const { x, y } = formatPosition(part);
-  const direction = formatDirection(type, snake, part);
+  const direction = formatDirection(type, snake, part, renderedParts);
 
   return {
     direction,
@@ -126,21 +127,21 @@ function formatPosition(pos) {
   };
 }
 
-function formatDirection(type, snake, part) {
+function formatDirection(type, snake, part, renderedParts) {
   let direction;
   if (type === "head") {
     direction = headDirection(snake);
   } else {
     // Determine a part's direction by the unique points (x,y)
     // occupied by the snake.
-    const uniquePoints = [...new Set(snake.Body.map(p => `${p.X},${p.Y}`))];
+    const uniquePoints = [...new Set(renderedParts.map(p => `${p.X},${p.Y}`))];
     const uniqueIndex = uniquePoints.findIndex(
       p => p === `${part.X},${part.Y}`
     );
 
     direction = getDirection(
-      snake.Body[uniqueIndex],
-      snake.Body[Math.max(uniqueIndex - 1, 0)]
+      renderedParts[uniqueIndex],
+      renderedParts[Math.max(uniqueIndex - 1, 0)]
     );
   }
 

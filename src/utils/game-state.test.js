@@ -504,8 +504,8 @@ it("should expect correctly rendered snake parts after going backwards into body
       { x: 0, y: 11, direction: "up", type: "body" },
       { x: 0, y: 9, direction: "down", type: "body" },
       { x: 0, y: 8, direction: "down", type: "body" },
-      { x: 1, y: 8, direction: "down", type: "body" },
-      { x: 1, y: 9, direction: "left", type: "body" },
+      { x: 1, y: 8, direction: "left", type: "body" },
+      { x: 1, y: 9, direction: "up", type: "body" },
       { x: 1, y: 10, direction: "up", type: "tail" }
     ],
     death: { cause: "self-collision", turn: 50 },
