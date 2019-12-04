@@ -15,9 +15,20 @@ const AvatarWrapper = styled("div")`
   }
 `;
 
+const NameWrapper = styled("div")({
+  display: "flex",
+  flexDirection: "row"
+});
+
 const Name = styled("span")(({ theme }) => ({
   display: "block",
   paddingBottom: "1rem",
+  textShadow: theme === themes.dark ? "0 1px 2px rgba(0,0,0,0.90)" : null
+}));
+
+const Length = styled("span")(({ theme }) => ({
+  paddingBottom: "1rem",
+  marginLeft: "auto",
   textShadow: theme === themes.dark ? "0 1px 2px rgba(0,0,0,0.90)" : null
 }));
 
@@ -51,7 +62,10 @@ class Avatar extends React.Component {
   render() {
     return (
       <AvatarWrapper>
-        <Name>{this.props.snake.name}</Name>
+        <NameWrapper>
+          <Name>{this.props.snake.name}</Name>
+          <Length>[{this.props.snake.body.length}]</Length>
+        </NameWrapper>
         <HealthBarWrapper>
           {this.props.snake.death ? (
             <CauseOfDeath theme={this.props.theme}>
