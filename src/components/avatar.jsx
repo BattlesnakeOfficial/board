@@ -64,7 +64,7 @@ class Avatar extends React.Component {
       <AvatarWrapper>
         <NameWrapper>
           <Name>{this.props.snake.name}</Name>
-          <Length>[{this.props.snake.body.length}]</Length>
+          <Length>{this.props.snake.body.length}</Length>
         </NameWrapper>
         <HealthBarWrapper>
           {this.props.snake.death ? (
@@ -72,13 +72,13 @@ class Avatar extends React.Component {
               {getReadableCauseOfDeath(this.props.snake.death.cause)}
             </CauseOfDeath>
           ) : (
-            <HealthBar
-              color={this.props.snake.color}
-              style={{
-                width: `${this.props.snake.health}%`
-              }}
-            />
-          )}
+              <HealthBar
+                color={this.props.snake.color}
+                style={{
+                  width: `${this.props.snake.health}%`
+                }}
+              />
+            )}
         </HealthBarWrapper>
       </AvatarWrapper>
     );
