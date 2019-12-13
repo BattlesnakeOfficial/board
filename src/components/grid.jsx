@@ -3,6 +3,7 @@ import { colors, themes } from "../theme";
 
 const HIGHLIGHT_DIM = 0.15;
 const DEAD_OPACITY = 0.1;
+const OVERLAP_OPACITY = 0.3;
 
 const CELL_SIZE = 20;
 const CELL_SPACING = 4;
@@ -17,7 +18,9 @@ function toGridSpace(slot) {
 
 function getPartWidth(part) {
   const extraWidth =
-    part.direction === "left" || part.direction === "right" ? 2 * CELL_SPACING : 0;
+    part.direction === "left" || part.direction === "right"
+      ? 2 * CELL_SPACING
+      : 0;
   return CELL_SIZE + extraWidth;
 }
 
@@ -118,11 +121,15 @@ function getHeadFillerYOffset(part) {
 }
 
 function getFillerWidth(part) {
-  return (part.direction === "left" || part.direction === "right") ? (CELL_SPACING + 2 * END_OVERLAP) : CELL_SIZE;
+  return part.direction === "left" || part.direction === "right"
+    ? CELL_SPACING + 2 * END_OVERLAP
+    : CELL_SIZE;
 }
 
 function getFillerHeight(part) {
-  return (part.direction === "left" || part.direction === "right") ? CELL_SIZE : (CELL_SPACING + 2 * END_OVERLAP);
+  return part.direction === "left" || part.direction === "right"
+    ? CELL_SIZE
+    : CELL_SPACING + 2 * END_OVERLAP;
 }
 
 function getOpacity(snake, highlightedSnake) {
@@ -147,10 +154,15 @@ function range(size) {
   return result;
 }
 
-function sortAliveSnakesOnTop(snakes) {
+function sortAliveSnakesOnTop(snakes, highlightedSnake) {
   return snakes.concat().sort((a, b) => {
-    const aOrder = a.isDead ? 0 : 1;
-    const bOrder = b.isDead ? 0 : 1;
+    let aOrder = a.isDead ? 0 : 1;
+    let bOrder = b.isDead ? 0 : 1;
+
+    // always put the highlighted snake up top
+    if (a._id === highlightedSnake) aOrder = 2;
+    if (b._id === highlightedSnake) bOrder = 2;
+
     return aOrder - bOrder;
   });
 }
@@ -188,7 +200,9 @@ function getTailTransform(direction, viewBox) {
 function areAdjacentDirections(d1, d2) {
   // Check if the directions are adjacent in the circular directions array
   // Otherwise they are the same or opposite directions
-  return Math.abs(DIRECTIONS_CW.indexOf(d1) - DIRECTIONS_CW.indexOf(d2)) % 2 === 1;
+  return (
+    Math.abs(DIRECTIONS_CW.indexOf(d1) - DIRECTIONS_CW.indexOf(d2)) % 2 === 1
+  );
 }
 
 function checkIfCornerPart(snake, partIndex) {
@@ -217,35 +231,29 @@ function determineCornerType(snake, partIndex) {
   return `${current.direction} ${behind.direction}`;
 }
 
+function isOverlappedByTail(snake, part) {
+  const head = snake.body[snake.body.length - 1];
+  return part.isOverlapped && head.x === part.x && head.y === part.y;
+}
+
 class Grid extends React.Component {
-  renderPart(snake, snakeIndex, part, partIndex, highlightedSnake) {
+  renderPart(snake, snakeIndex, part, partIndex) {
+    if (isOverlappedByTail(snake, part)) return;
     switch (part.type) {
       case "head":
-        return this.renderHeadPart(snake, snakeIndex, part, highlightedSnake);
+        return this.renderHeadPart(snake, snakeIndex, part);
       case "tail":
-        return this.renderTailPart(snake, snakeIndex, part, highlightedSnake);
+        return this.renderTailPart(snake, snakeIndex, part);
       default:
         if (checkIfCornerPart(snake, partIndex)) {
-          return this.renderCornerPart(
-            snake,
-            snakeIndex,
-            part,
-            partIndex,
-            highlightedSnake
-          );
+          return this.renderCornerPart(snake, snakeIndex, part, partIndex);
         } else {
-          return this.renderMiddlePart(
-            snake,
-            snakeIndex,
-            part,
-            partIndex,
-            highlightedSnake
-          );
+          return this.renderMiddlePart(snake, snakeIndex, part, partIndex);
         }
     }
   }
 
-  renderHeadPart(snake, snakeIndex, part, highlighted) {
+  renderHeadPart(snake, snakeIndex, part) {
     const x = getHeadXOffset(part);
     const y = getHeadYOffset(part);
     const box = snake.headSvg.viewBox.baseVal;
@@ -268,7 +276,8 @@ class Grid extends React.Component {
             dangerouslySetInnerHTML={{ __html: snake.headSvg.innerHTML }}
           />
         </svg>
-        {snake.body.length > 1 && (
+        {snake.effectiveSpace > 1 && (
+          // only add filler if the snake is effectively longer than one tile
           <rect
             x={getHeadFillerXOffset(part)}
             y={getHeadFillerYOffset(part)}
@@ -282,7 +291,7 @@ class Grid extends React.Component {
     );
   }
 
-  renderMiddlePart(snake, snakeIndex, part, partIndex, highlighted) {
+  renderMiddlePart(snake, snakeIndex, part, partIndex) {
     return (
       <rect
         key={`part${snakeIndex},${part.x},${part.y}`}
@@ -291,12 +300,13 @@ class Grid extends React.Component {
         width={getPartWidth(part)}
         height={getPartHeight(part)}
         fill={snake.color}
+        {...(part.isOverlapped ? { opacity: OVERLAP_OPACITY } : {})}
         shapeRendering="optimizeSpeed"
       />
     );
   }
 
-  renderCornerPart(snake, snakeIndex, part, partIndex, highlighted) {
+  renderCornerPart(snake, snakeIndex, part, partIndex) {
     let viewBox, transform;
     let path = "M0,20 h60 a60,60 0 0 1 60,60 v60 h-100 v-20 h-20 z";
 
@@ -332,6 +342,7 @@ class Grid extends React.Component {
         height={CELL_SIZE + 2 * CELL_SPACING}
         fill={snake.color}
         viewBox={viewBox}
+        {...(part.isOverlapped ? { opacity: OVERLAP_OPACITY } : {})}
         shapeRendering="optimizeSpeed"
       >
         <path d={path} transform={transform} />
@@ -339,7 +350,7 @@ class Grid extends React.Component {
     );
   }
 
-  renderTailPart(snake, snakeIndex, part, highlighted) {
+  renderTailPart(snake, snakeIndex, part) {
     const x = getTailXOffset(part);
     const y = getTailYOffset(part);
     const box = snake.tailSvg.viewBox.baseVal;
@@ -355,6 +366,7 @@ class Grid extends React.Component {
         width={CELL_SIZE}
         height={CELL_SIZE}
         fill={snake.color}
+        {...(part.isOverlapped ? { opacity: OVERLAP_OPACITY } : {})}
         shapeRendering="optimizeSpeed"
       >
         <g
@@ -370,7 +382,10 @@ class Grid extends React.Component {
     const food = this.props.food || [];
 
     // Make alive snakes render on top of dead snakes
-    const sortedSnakes = sortAliveSnakesOnTop(unsortedSnakes);
+    const sortedSnakes = sortAliveSnakesOnTop(
+      unsortedSnakes,
+      this.props.highlightedSnake
+    );
 
     const viewBoxWidth = toGridSpace(this.props.columns);
     const viewBoxHeight = toGridSpace(this.props.rows);
@@ -407,15 +422,17 @@ class Grid extends React.Component {
               key={`snake${snakeIndex}`}
               opacity={getOpacity(snake, this.props.highlightedSnake)}
             >
-              {snake.body.map((part, partIndex) =>
-                this.renderPart(
-                  snake,
-                  snakeIndex,
-                  part,
-                  partIndex,
-                  this.props.highlightedSnake
-                )
-              )}
+              {[...snake.body]
+                .reverse()
+                .map((part, partIndex) =>
+                  this.renderPart(
+                    snake,
+                    snakeIndex,
+                    part,
+                    snake.body.length - partIndex - 1,
+                    this.props.highlightedSnake
+                  )
+                )}
             </g>
           );
         })}

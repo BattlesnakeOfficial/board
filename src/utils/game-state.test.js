@@ -37,6 +37,7 @@ it("should place snakes on valid board", () => {
     _id: "snake1",
     name: "snake 1",
     health: 80,
+    effectiveSpace: 3,
     color: "red",
     body: [
       { x: 0, y: 0, direction: "up", type: "head" },
@@ -54,6 +55,7 @@ it("should place snakes on valid board", () => {
     _id: "snake2",
     name: "snake 2",
     health: 70,
+    effectiveSpace: 4,
     color: "green",
     body: [
       { x: 5, y: 3, direction: "left", type: "head" },
@@ -99,6 +101,7 @@ it("should recognize dead snakes", () => {
     _id: "snake1",
     name: "snake 1",
     health: 80,
+    effectiveSpace: 3,
     color: "red",
     body: [
       { x: 1, y: 1, direction: "right", type: "head" },
@@ -142,6 +145,7 @@ it("should set undefined numbers to zero", () => {
     _id: "snake1",
     name: "snake 1",
     health: 80,
+    effectiveSpace: 1,
     color: "red",
     body: [{ x: 0, y: 0, direction: "up", type: "head" }],
     isDead: true,
@@ -183,8 +187,13 @@ it("should not break on case sensitivity for head and tail types", () => {
     _id: "snake1",
     name: "snake 1",
     health: 100,
+    effectiveSpace: 1,
     color: "red",
-    body: [{ x: 4, y: 4, direction: "up", type: "head" }],
+    body: [
+      { x: 4, y: 4, direction: "up", type: "head" },
+      { x: 4, y: 4, direction: "up", type: "body", isOverlapped: true },
+      { x: 4, y: 4, direction: "up", type: "tail", isOverlapped: true }
+    ],
     isDead: false,
     head: "regular",
     tail: "bolt",
@@ -221,8 +230,13 @@ it("should expect starting turn rendering to be correct", () => {
     _id: "snake1",
     name: "snake 1",
     health: 100,
+    effectiveSpace: 1,
     color: "red",
-    body: [{ x: 4, y: 4, direction: "up", type: "head" }],
+    body: [
+      { x: 4, y: 4, direction: "up", type: "head" },
+      { x: 4, y: 4, direction: "up", type: "body", isOverlapped: true },
+      { x: 4, y: 4, direction: "up", type: "tail", isOverlapped: true }
+    ],
     isDead: false,
     head: undefined,
     tail: undefined,
@@ -260,10 +274,12 @@ describe("should expect tail to be rendered after eating food", () => {
       _id: "snake1",
       name: "snake 1",
       health: 80,
+      effectiveSpace: 3,
       color: "red",
       body: [
         { x: 4, y: 4, direction: "up", type: "head" },
         { x: 4, y: 5, direction: "up", type: "body" },
+        { x: 4, y: 6, direction: "up", type: "body", isOverlapped: true },
         { x: 4, y: 6, direction: "up", type: "tail" }
       ],
       isDead: false,
@@ -309,12 +325,14 @@ describe("should expect tail to be rendered after eating food", () => {
       _id: "snake1",
       name: "snake 1",
       health: 62,
+      effectiveSpace: 5,
       color: "red",
       body: [
         { x: 7, y: 4, direction: "right", type: "head" },
         { x: 6, y: 4, direction: "right", type: "body" },
         { x: 5, y: 4, direction: "right", type: "body" },
         { x: 4, y: 4, direction: "right", type: "body" },
+        { x: 3, y: 4, direction: "right", type: "body", isOverlapped: true },
         { x: 3, y: 4, direction: "right", type: "tail" }
       ],
       isDead: false,
@@ -353,9 +371,11 @@ describe("should expect tail to be rendered after eating food", () => {
       _id: "snake1",
       name: "snake 1",
       health: 99,
+      effectiveSpace: 2,
       color: "red",
       body: [
         { x: 6, y: 4, direction: "left", type: "head" },
+        { x: 7, y: 4, direction: "left", type: "body", isOverlapped: true },
         { x: 7, y: 4, direction: "left", type: "tail" }
       ],
       isDead: false,
@@ -394,9 +414,12 @@ describe("should expect tail to be rendered after eating food", () => {
       _id: "snake1",
       name: "snake 1",
       health: 100,
+      effectiveSpace: 2,
       color: "red",
       body: [
         { x: 6, y: 5, direction: "down", type: "head" },
+        { x: 6, y: 4, direction: "down", type: "body", isOverlapped: true },
+        { x: 6, y: 4, direction: "down", type: "body", isOverlapped: true },
         { x: 6, y: 4, direction: "down", type: "tail" }
       ],
       isDead: false,
@@ -421,6 +444,7 @@ it("should expect correctly rendered snake parts after crashing into body segmen
         Death: { Cause: "self-collision", Turn: 29 },
         Color: "red",
         Body: [
+          { X: 5, Y: 6 },
           { X: 6, Y: 6 },
           { X: 6, Y: 7 },
           { X: 5, Y: 7 },
@@ -443,12 +467,14 @@ it("should expect correctly rendered snake parts after crashing into body segmen
     _id: "snake1",
     name: "snake 1",
     health: 80,
+    effectiveSpace: 5,
     color: "red",
     body: [
-      { x: 6, y: 6, direction: "up", type: "head" },
+      { x: 5, y: 6, direction: "left", type: "head" },
+      { x: 6, y: 6, direction: "left", type: "body" },
       { x: 6, y: 7, direction: "up", type: "body" },
       { x: 5, y: 7, direction: "right", type: "body" },
-      { x: 5, y: 6, direction: "down", type: "body" },
+      { x: 5, y: 6, direction: "down", type: "body", isOverlapped: true },
       { x: 5, y: 5, direction: "down", type: "tail" }
     ],
     death: { cause: "self-collision", turn: 29 },
@@ -498,10 +524,12 @@ it("should expect correctly rendered snake parts after going backwards into body
     _id: "snake1",
     name: "snake 1",
     health: 80,
+    effectiveSpace: 7,
     color: "red",
     body: [
       { x: 0, y: 10, direction: "up", type: "head" },
       { x: 0, y: 11, direction: "up", type: "body" },
+      { x: 0, y: 10, direction: "down", type: "body", isOverlapped: true },
       { x: 0, y: 9, direction: "down", type: "body" },
       { x: 0, y: 8, direction: "down", type: "body" },
       { x: 1, y: 8, direction: "left", type: "body" },

@@ -39,15 +39,11 @@ function formatSnakes(snakes) {
 function formatSnake(snake) {
   var renderedParts = snake.Body.filter((_, i) => shouldRenderPart(snake, i));
   return {
-    body: snake.Body.map((_, i) => {
-      if (shouldRenderPart(snake, i)) {
-        return formatSnakePart(snake, i, renderedParts);
-      }
-      return null;
-    }).filter(part => part),
+    body: snake.Body.map((_, i) => formatSnakePart(snake, i)),
     color: snake.Color,
     _id: snake.ID,
     name: snake.Name,
+    effectiveSpace: renderedParts.length,
     health: snake.Health,
     isDead: !!snake.Death,
     death: formatDeath(snake.Death),
@@ -102,15 +98,17 @@ function shouldRenderPart(snake, partIndex) {
   );
 }
 
-function formatSnakePart(snake, partIndex, renderedParts) {
+function formatSnakePart(snake, partIndex) {
   const part = snake.Body[partIndex];
   const type = getType(snake, partIndex);
   const { x, y } = formatPosition(part);
-  const direction = formatDirection(type, snake, part, renderedParts);
+  const direction = formatDirection(type, snake, part, partIndex);
+  const isOverlapped = !shouldRenderPart(snake, partIndex) ? true : undefined;
 
   return {
     direction,
     type,
+    isOverlapped,
     x,
     y
   };
@@ -127,22 +125,19 @@ function formatPosition(pos) {
   };
 }
 
-function formatDirection(type, snake, part, renderedParts) {
+function formatDirection(type, snake, part, partIndex) {
   let direction;
   if (type === "head") {
     direction = headDirection(snake);
   } else {
-    // Determine a part's direction by the unique points (x,y)
-    // occupied by the snake.
-    const uniquePoints = [...new Set(renderedParts.map(p => `${p.X},${p.Y}`))];
-    const uniqueIndex = uniquePoints.findIndex(
-      p => p === `${part.X},${part.Y}`
-    );
+    // handle special case where parts overlap
+    var prevPart;
+    do {
+      prevPart = snake.Body[Math.max(partIndex - 1, 0)];
+      --partIndex;
+    } while (partIndex > 0 && prevPart.X === part.X && prevPart.Y === part.Y);
 
-    direction = getDirection(
-      renderedParts[uniqueIndex],
-      renderedParts[Math.max(uniqueIndex - 1, 0)]
-    );
+    direction = getDirection(part, prevPart);
   }
 
   return direction;
