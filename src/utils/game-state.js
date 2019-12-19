@@ -45,6 +45,7 @@ function formatSnake(snake) {
     name: snake.Name,
     effectiveSpace: renderedParts.length,
     health: snake.Health,
+    latency: snake.Latency,
     isDead: !!snake.Death,
     death: formatDeath(snake.Death),
     head: snake.HeadType && snake.HeadType.toLowerCase(),

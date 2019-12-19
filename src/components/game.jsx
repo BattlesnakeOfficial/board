@@ -111,6 +111,7 @@ class Game extends React.Component {
     }
 
     if (options.game && options.engine) {
+      this.hideLogo = options.hideLogo === "true";
       this.hideScoreboard = options.hideScoreboard === "true";
       this.title = options.title && decodeURIComponent(options.title);
       this.props.setGameOptions(options);
@@ -164,9 +165,11 @@ class Game extends React.Component {
           {!this.hideScoreboard && (
             <ScoreboardWrapper>
               <HeaderWrapper>
-                <LogoWrapper>
-                  <Logo theme={this.props.theme} />
-                </LogoWrapper>
+                {!this.hideLogo && (
+                  <LogoWrapper>
+                    <Logo theme={this.props.theme} />
+                  </LogoWrapper>
+                )}
                 <TurnCount theme={this.props.theme}>
                   Turn: <TurnCountValue>{currentFrame.turn}</TurnCountValue>
                 </TurnCount>

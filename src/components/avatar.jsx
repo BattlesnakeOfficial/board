@@ -26,9 +26,17 @@ const Name = styled("span")(({ theme }) => ({
   textShadow: theme === themes.dark ? "0 1px 2px rgba(0,0,0,0.90)" : null
 }));
 
-const Length = styled("span")(({ theme }) => ({
-  paddingBottom: "1rem",
+const Latency = styled("span")(({ theme }) => ({
+  fontSize: "1rem",
   marginLeft: "auto",
+  paddingTop: "2rem",
+  paddingBottom: "1rem",
+  textShadow: theme === themes.dark ? "0 1px 2px rgba(0,0,0,0.90)" : null
+}));
+
+const Length = styled("span")(({ theme }) => ({
+  marginLeft: "5px",
+  paddingBottom: "1rem",
   textShadow: theme === themes.dark ? "0 1px 2px rgba(0,0,0,0.90)" : null
 }));
 
@@ -64,6 +72,7 @@ class Avatar extends React.Component {
       <AvatarWrapper>
         <NameWrapper>
           <Name>{this.props.snake.name}</Name>
+          <Latency>{this.props.snake.latency}</Latency>
           <Length>{this.props.snake.body.length}</Length>
         </NameWrapper>
         <HealthBarWrapper>
