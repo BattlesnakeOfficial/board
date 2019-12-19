@@ -16,27 +16,25 @@ const AvatarWrapper = styled("div")`
 `;
 
 const NameWrapper = styled("div")({
+  paddingBottom: "1rem",
   display: "flex",
   flexDirection: "row"
 });
 
 const Name = styled("span")(({ theme }) => ({
   display: "block",
-  paddingBottom: "1rem",
   textShadow: theme === themes.dark ? "0 1px 2px rgba(0,0,0,0.90)" : null
 }));
 
 const Latency = styled("span")(({ theme }) => ({
   fontSize: "1rem",
   marginLeft: "auto",
-  paddingTop: "2rem",
-  paddingBottom: "1rem",
+  paddingTop: "0.65rem",
   textShadow: theme === themes.dark ? "0 1px 2px rgba(0,0,0,0.90)" : null
 }));
 
 const Length = styled("span")(({ theme }) => ({
   marginLeft: "5px",
-  paddingBottom: "1rem",
   textShadow: theme === themes.dark ? "0 1px 2px rgba(0,0,0,0.90)" : null
 }));
 
