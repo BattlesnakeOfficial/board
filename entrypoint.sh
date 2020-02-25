@@ -1,5 +1,9 @@
 #!/bin/sh
 
+echo $0
+echo $1
+APP_VERSION=$1
+
 cat > /etc/nginx/nginx.conf <<EOF
 events {
   worker_connections 1024;
@@ -34,6 +38,10 @@ http {
     location /healthz/ready {
       add_header Content-Type text/plain;
       return 200 'ready';
+    }
+    location /version {
+      add_header Content-Type text/plain;
+      return 200 '$APP_VERSION';
     }
 
     location /static/ {
