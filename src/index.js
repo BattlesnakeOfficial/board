@@ -8,26 +8,39 @@ import App from "./containers/app";
 import { themes } from "./theme";
 import thunkMiddleware from "redux-thunk";
 
-const initialState = {
-  options: null,
-  grid: [],
-  frames: [],
-  paused: true,
-  highlightedSnake: null,
-  theme: themes.light
-};
-const middleware = applyMiddleware(thunkMiddleware);
-const store = createStore(rootReducer, initialState, middleware);
-// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-// const store = createStore(
-//   rootReducer,
-//   initialState,
-//   composeEnhancers(applyMiddleware(thunkMiddleware))
-// );
+let component;
 
-render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
-  document.getElementById("root")
-);
+// NOTE: Because we don't want to introduce a routing library just to add a single endpoint,
+// we check if the incoming request is for the version page specifically, otherwise we boot the app.
+if (window.location.href.endsWith("/version")) {
+  const version =
+    process.env.REACT_APP_APP_VERSION ||
+    "REACT_APP_APP_VERSION environment variable undefined";
+
+  component = <div>{version}</div>;
+} else {
+  const initialState = {
+    options: null,
+    grid: [],
+    frames: [],
+    paused: true,
+    highlightedSnake: null,
+    theme: themes.light,
+  };
+  const middleware = applyMiddleware(thunkMiddleware);
+  const store = createStore(rootReducer, initialState, middleware);
+  // const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+  // const store = createStore(
+  //   rootReducer,
+  //   initialState,
+  //   composeEnhancers(applyMiddleware(thunkMiddleware))
+  // );
+
+  component = (
+    <Provider store={store}>
+      <App />
+    </Provider>
+  );
+}
+
+render(component, document.getElementById("root"));
