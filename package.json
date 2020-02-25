@@ -38,5 +38,10 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "prettier": {
+    "semi": true,
+    "trailingComma": "es5",
+    "singleQuote": false
+  }
 }
