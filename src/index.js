@@ -14,7 +14,7 @@ const initialState = {
   frames: [],
   paused: true,
   highlightedSnake: null,
-  theme: themes.light,
+  theme: themes.light
 };
 const middleware = applyMiddleware(thunkMiddleware);
 const store = createStore(rootReducer, initialState, middleware);

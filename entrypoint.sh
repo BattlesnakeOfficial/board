@@ -1,7 +1,5 @@
 #!/bin/sh
 
-echo $0
-echo $1
 APP_VERSION=$1
 
 cat > /etc/nginx/nginx.conf <<EOF
