@@ -1,6 +1,6 @@
 #!/bin/sh
 
-APP_VERSION=$1
+APP_VERSION=${APP_VERSION:-undefined}
 
 cat > /etc/nginx/nginx.conf <<EOF
 events {
