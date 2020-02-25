@@ -8,7 +8,7 @@ FROM nginx:1.15.2-alpine
 RUN apk add --no-cache curl
 
 ARG app_version
-ENV APP_VERSION=${app_version}
+ENV APP_VERSION=${app_version:-undefined}
 
 COPY --from=build ./build/ /usr/share/nginx/html
 COPY ./entrypoint.sh /bin/entrypoint.sh
