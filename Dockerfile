@@ -1,4 +1,4 @@
-FROM node:10.7.0-alpine AS build
+FROM node:10.19-alpine AS build
 
 COPY . .
 RUN npm ci
