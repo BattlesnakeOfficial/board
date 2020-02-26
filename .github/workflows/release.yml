@@ -11,6 +11,9 @@ jobs:
     name: Push Image to ECR
     runs-on: ubuntu-latest
     steps:
+    - name: Get Repository Name
+      id: get-repository
+      run: echo ::set-output name=repository::${GITHUB_REPOSITORY,,}
     - name: Get Release Version
       id: get-version
       run: echo ::set-output name=version::${GITHUB_REF#refs/tags/}
@@ -29,7 +32,7 @@ jobs:
       id: build-image
       env:
         ECR_REGISTRY: ${{ steps.ecr-login.outputs.registry }}
-        ECR_REPOSITORY: ${{ github.repository }}
+        ECR_REPOSITORY: ${{ steps.get-repository.outputs.repository }}
         IMAGE_TAG: ${{ steps.get-version.outputs.version }}
       run: |
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
