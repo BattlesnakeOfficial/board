@@ -16,19 +16,20 @@ export function delay(millis) {
 }
 
 export function getReadableCauseOfDeath(cause) {
-  // Based on https://github.com/battlesnakeio/engine/blob/master/rules/death_cause.go
-
+  // See https://github.com/BattlesnakeOfficial/rules/blob/master/standard.go
   switch (cause) {
     case "snake-collision":
-      return "Collided with snake body";
+      return "Body Collision";
     case "snake-self-collision":
-      return "Collided with own body";
+      return "Self Collision";
     case "starvation":
-      return "Starvation";
+      return "Starved";
     case "head-collision":
-      return "Head on head collision";
+      return "Lost Head-on-Head Collision";
     case "wall-collision":
-      return "Collided with a wall";
+      return "Out of Bounds";
+    case "team-eliminated":
+      return "Team Eliminated"
     default:
       return cause;
   }
