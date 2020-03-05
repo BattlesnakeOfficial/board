@@ -42,7 +42,8 @@ const HealthBarWrapper = styled("div")({
   width: "100%",
   height: "1.8rem",
   background: colors.healthBarBackground,
-  borderRadius: "1.5rem"
+  borderRadius: "1.5rem",
+  border: `2px solid ${colors.healthBarBackground}`,
 });
 
 const HealthBar = styled("div")(({ color }) => ({
@@ -52,15 +53,11 @@ const HealthBar = styled("div")(({ color }) => ({
 }));
 
 const CauseOfDeath = styled("div")(({ theme }) => ({
-  height: "100%",
-  padding: ".2rem .8rem",
+  width: "100%",
+  height: "1.8rem",
+  padding: ".2rem 0",
   fontSize: "1.5rem",
   lineHeight: "1.3rem",
-  backgroundColor:
-    theme === themes.dark
-      ? colors.healthBarDeathBackgroundDark
-      : colors.healthBarDeathBackground,
-  borderRadius: "inherit",
   color: theme === themes.dark ? colors.lightText : colors.darkText
 }));
 
@@ -73,20 +70,22 @@ class Avatar extends React.Component {
           <Latency>{this.props.snake.latency}</Latency>
           <Length>{this.props.snake.body.length}</Length>
         </NameWrapper>
-        <HealthBarWrapper>
-          {this.props.snake.death ? (
-            <CauseOfDeath theme={this.props.theme}>
-              {getReadableCauseOfDeath(this.props.snake.death.cause)}
-            </CauseOfDeath>
-          ) : (
+
+        {this.props.snake.death ? (
+          <CauseOfDeath theme={this.props.theme}>
+            {getReadableCauseOfDeath(this.props.snake.death)}
+          </CauseOfDeath>
+        ) : (
+            <HealthBarWrapper>
               <HealthBar
                 color={this.props.snake.color}
                 style={{
                   width: `${this.props.snake.health}%`
                 }}
               />
-            )}
-        </HealthBarWrapper>
+            </HealthBarWrapper>
+          )}
+
       </AvatarWrapper>
     );
   }

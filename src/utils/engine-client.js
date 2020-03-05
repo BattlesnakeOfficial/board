@@ -15,23 +15,23 @@ export function delay(millis) {
   return new Promise(resolve => setTimeout(resolve, millis));
 }
 
-export function getReadableCauseOfDeath(cause) {
+export function getReadableCauseOfDeath(death) {
   // See https://github.com/BattlesnakeOfficial/rules/blob/master/standard.go
-  switch (cause) {
+  switch (death.cause) {
     case "snake-collision":
-      return "Body Collision";
+      return `Ran into ${death.eliminatedBy}'s body`;
     case "snake-self-collision":
-      return "Self Collision";
+      return "Collided with itself";
     case "starvation":
       return "Starved";
     case "head-collision":
-      return "Lost Head-on-Head Collision";
+      return `Lost head-to-head with ${death.eliminatedBy}`;
     case "wall-collision":
-      return "Out of Bounds";
+      return "Moved out of bounds";
     case "team-eliminated":
-      return "Team Eliminated"
+      return "Team was eliminated"
     default:
-      return cause;
+      return death.cause;
   }
 }
 

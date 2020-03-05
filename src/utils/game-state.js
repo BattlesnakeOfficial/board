@@ -52,6 +52,19 @@ function formatSnakes(snakes) {
       newSnakes[index].color = teamColors[uniqueTeams.indexOf(snake.team) % teamColors.length]
     });
   }
+
+  // Populate eliminatedBy names
+  newSnakes.forEach(function (snake, index) {
+    if (snake.death && snake.death.eliminatedBy.length > 0) {
+      for (const i in newSnakes) {
+        if (newSnakes[i]._id === snake.death.eliminatedBy) {
+          newSnakes[index].death.eliminatedBy = newSnakes[i].name;
+          break;
+        }
+      }
+    }
+  })
+
   return newSnakes;
 }
 
@@ -79,10 +92,10 @@ function formatDeath(death) {
   if (!death) {
     return;
   }
-
   return {
     cause: death.Cause,
-    turn: death.Turn || 0
+    turn: death.Turn || 0,
+    eliminatedBy: death.EliminatedBy
   };
 }
 
