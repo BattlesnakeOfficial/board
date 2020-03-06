@@ -225,7 +225,6 @@ function oneLeft(snakes) {
 
 function getUniqueTeams(snakes) {
   return snakes
-    .filter(s => !s.death)
     .map(function (snake) { return snake.team; })
     .filter(function (value) { return (typeof value !== "undefined" && value !== "") })
     .filter(function (value, index, self) { return self.indexOf(value) === index })
