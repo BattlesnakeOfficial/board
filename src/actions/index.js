@@ -101,7 +101,14 @@ export const playFromFrame = frame => {
 
     const lastFrame = slicedFrames[slicedFrames.length - 1];
     if (lastFrame.gameOver) {
-      if (!getState().paused) dispatch(gameOver());
+      if (!getState().paused) {
+        if (getState().gameOptions.loop) {
+          const frame = getFrameByTurn(frames, 0);
+          dispatch(playFromFrame(frame));
+        } else {
+          dispatch(gameOver());
+        }
+      }
     } else {
       dispatch(playFromFrame(lastFrame));
     }
