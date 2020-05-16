@@ -1,6 +1,6 @@
 import { streamAll } from "../io/websocket";
 import { makeQueryString, httpToWsProtocol, join } from "./url";
-import { loadSvgs, getSvg } from "./inline-svg";
+import { loadSvgs, getSvg, svgExists } from "./inline-svg";
 import { isLastFrameOfGame } from "./game-state";
 
 const DEFAULT_SNAKE_HEAD = "regular";
@@ -44,7 +44,7 @@ function getAllSvgs(snakes) {
   return Array.from(unique);
 }
 
-function assignHeadAndTailUrls(snakes) {
+async function assignHeadAndTailUrls(snakes) {
   for (const snake of snakes) {
     // Assign default if missing
     if (!snake.HeadType) {
@@ -57,11 +57,18 @@ function assignHeadAndTailUrls(snakes) {
     // Format as actual URL if it's just a name
     snake.HeadType = getSnakeHeadSvgUrl(snake.HeadType);
     snake.TailType = getSnakeTailSvgUrl(snake.TailType);
+
+    if (!(await svgExists(snake.HeadType))) {
+      snake.HeadType = getSnakeHeadSvgUrl(DEFAULT_SNAKE_HEAD);
+    }
+    if (!(await svgExists(snake.TailType))) {
+      snake.TailType = getSnakeTailSvgUrl(DEFAULT_SNAKE_TAIL);
+    }
   }
 }
 
 async function setHeadAndTailSvgs(snakes) {
-  assignHeadAndTailUrls(snakes);
+  await assignHeadAndTailUrls(snakes);
   await loadSvgs(getAllSvgs(snakes));
 
   for (const snake of snakes) {
