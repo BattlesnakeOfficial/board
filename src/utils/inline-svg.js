@@ -20,6 +20,7 @@
  */
 
 const loaded = {};
+const doesntExist = {};
 
 export function loadSvgs(paths) {
   return Promise.all(paths.map(requireSvg));
@@ -49,4 +50,21 @@ function makeDom(svgText) {
   const wrapper = document.createElement("div");
   wrapper.innerHTML = svgText.trim();
   return wrapper.firstChild;
+}
+
+export async function svgExists(path) {
+  if (path in loaded) {
+    return true;
+  }
+  if (path in doesntExist) {
+    return false;
+  }
+  //not cached yet
+  const response = await fetch(path);
+  const svgText = await response.text();
+  const exists = svgText.startsWith('<svg');
+  if (!exists) {
+    doesntExist[path] = true;
+  }
+  return exists;
 }
