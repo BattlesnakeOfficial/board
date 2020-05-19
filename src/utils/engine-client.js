@@ -3,8 +3,8 @@ import { makeQueryString, httpToWsProtocol, join } from "./url";
 import { loadSvgs, getSvg, svgExists } from "./inline-svg";
 import { isLastFrameOfGame } from "./game-state";
 
-const DEFAULT_SNAKE_HEAD = "regular";
-const DEFAULT_SNAKE_TAIL = "regular";
+const DEFAULT_SNAKE_HEAD = "default";
+const DEFAULT_SNAKE_TAIL = "default";
 
 async function get(url, query) {
   const fetchResult = await fetch(url + makeQueryString(query));
@@ -82,17 +82,17 @@ function isIllegalSvgPath(nameOrPath) {
 }
 
 function svgUrlFromName(base, relative) {
-  return join(base, relative) + ".svg";
+  return join("https://media.battlesnake.com", base, relative) + ".svg";
 }
 
 function getSnakeHeadSvgUrl(path) {
   const effectivePath = isIllegalSvgPath(path) ? DEFAULT_SNAKE_HEAD : path;
-  return svgUrlFromName("images/snake/head", effectivePath);
+  return svgUrlFromName("/snakes/heads", effectivePath);
 }
 
 function getSnakeTailSvgUrl(path) {
   const effectivePath = isIllegalSvgPath(path) ? DEFAULT_SNAKE_TAIL : path;
-  return svgUrlFromName("images/snake/tail", effectivePath);
+  return svgUrlFromName("/snakes/tails", effectivePath);
 }
 
 async function prepareFrame(frame) {
