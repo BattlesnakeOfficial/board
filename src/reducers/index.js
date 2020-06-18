@@ -13,6 +13,9 @@ export default (state = {}, action) => {
     case "PAUSE_GAME":
       return { ...state, paused: true };
     case "GAME_OVER":
+      windowPostMessage({
+        action: action.type,
+      });
       return { ...state, paused: true };
     case "RESUME_GAME":
       return { ...state, paused: false };
