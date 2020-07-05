@@ -9,7 +9,8 @@ import {
   setGameOptions,
   stepForwardFrame,
   stepBackwardFrame,
-  highlightSnake
+  highlightSnake,
+  gameNotFound
 } from "../actions";
 
 const options = parseQueryString(window.location.search);
@@ -18,6 +19,7 @@ const mapStateToProps = state => {
   return {
     options: options,
     grid: state.grid,
+    gameNotFound: state.gameNotFound,
     paused: state.paused,
     currentFrame: state.currentFrame,
     frames: state.frames,
@@ -28,6 +30,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
   setGameOptions: options => dispatch(setGameOptions(options)),
+  gameNotFound: options => dispatch(gameNotFound()),
   fetchFrames: () => dispatch(fetchFrames()),
   toggleTheme: () => dispatch(toggleTheme()),
   reloadGame: () => dispatch(reloadGame()),
@@ -37,7 +40,4 @@ const mapDispatchToProps = dispatch => ({
   highlightSnake: snakeId => dispatch(highlightSnake(snakeId))
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Game);
+export default connect(mapStateToProps, mapDispatchToProps)(Game);

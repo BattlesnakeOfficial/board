@@ -7,8 +7,12 @@ const DEFAULT_SNAKE_HEAD = "default";
 const DEFAULT_SNAKE_TAIL = "default";
 
 async function get(url, query) {
-  const fetchResult = await fetch(url + makeQueryString(query));
-  return fetchResult.json();
+  const response = await fetch(url + makeQueryString(query));
+  if (response.status === 200) {
+    return response.json();
+  } else {
+    throw new Error(response.statusText);
+  }
 }
 
 export function delay(millis) {
@@ -29,7 +33,7 @@ export function getReadableCauseOfDeath(death) {
     case "wall-collision":
       return "Moved out of bounds";
     case "team-eliminated":
-      return "Team was eliminated"
+      return "Team was eliminated";
     default:
       return death.cause;
   }
