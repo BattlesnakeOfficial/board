@@ -13,6 +13,7 @@ const initialState = {
   grid: [],
   frames: [],
   paused: true,
+  gameNotFound: false,
   highlightedSnake: null,
   theme: themes.light
 };

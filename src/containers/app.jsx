@@ -18,6 +18,7 @@ const mapStateToProps = state => {
   return {
     options: options,
     grid: state.grid,
+    gameNotFound: state.gameNotFound,
     paused: state.paused,
     currentFrame: state.currentFrame,
     frames: state.frames,
@@ -37,7 +38,4 @@ const mapDispatchToProps = dispatch => ({
   highlightSnake: snakeId => dispatch(highlightSnake(snakeId))
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Game);
+export default connect(mapStateToProps, mapDispatchToProps)(Game);

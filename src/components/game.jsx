@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 
 import BlankState from "./blank-state";
 import LoadingIndicator from "./loading-indicator";
+import GameNotFound from "./game-not-found";
 import Board from "./board";
 import Scoreboard from "./scoreboard";
 import MediaControls from "./mediaControls";
@@ -122,13 +123,15 @@ class Game extends React.Component {
   }
 
   render() {
-    const { currentFrame } = this.props;
-
     if (this.invalidArgs) {
       return <BlankState />;
     }
 
-    if (currentFrame) {
+    if (this.props.gameNotFound) {
+      return <GameNotFound />;
+    }
+
+    if (this.props.currentFrame) {
       return this.renderGame();
     }
 

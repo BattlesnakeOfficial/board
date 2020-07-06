@@ -18,6 +18,10 @@ export const gameOver = () => ({
   type: "GAME_OVER"
 });
 
+export const gameNotFound = () => ({
+  type: "GAME_NOT_FOUND"
+});
+
 export const requestFrames = () => ({
   type: "REQUEST_FRAMES"
 });
@@ -57,17 +61,21 @@ export const fetchFrames = () => {
 
     dispatch(requestFrames());
 
-    await streamAllFrames(engineUrl, gameId, (game, frame) => {
-      // Workaround for bug where turn exluded on turn 0
-      frame.Turn = frame.Turn || 0;
-      dispatch(receiveFrame(game, frame));
+    try {
+      await streamAllFrames(engineUrl, gameId, (game, frame) => {
+        // Workaround for bug where turn exluded on turn 0
+        frame.Turn = frame.Turn || 0;
+        dispatch(receiveFrame(game, frame));
 
-      // Workaround to render the first frame into the board
-      if (frame.Turn === 0) {
-        const frame = getState().frames[0];
-        dispatch(setCurrentFrame(frame));
-      }
-    });
+        // Workaround to render the first frame into the board
+        if (frame.Turn === 0) {
+          const frame = getState().frames[0];
+          dispatch(setCurrentFrame(frame));
+        }
+      });
+    } catch (e) {
+      return dispatch(gameNotFound());
+    }
 
     if (autoplay) {
       const frame = getState().frames[0];
