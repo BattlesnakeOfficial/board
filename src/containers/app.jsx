@@ -9,8 +9,7 @@ import {
   setGameOptions,
   stepForwardFrame,
   stepBackwardFrame,
-  highlightSnake,
-  gameNotFound
+  highlightSnake
 } from "../actions";
 
 const options = parseQueryString(window.location.search);
@@ -30,7 +29,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
   setGameOptions: options => dispatch(setGameOptions(options)),
-  gameNotFound: options => dispatch(gameNotFound()),
   fetchFrames: () => dispatch(fetchFrames()),
   toggleTheme: () => dispatch(toggleTheme()),
   reloadGame: () => dispatch(reloadGame()),

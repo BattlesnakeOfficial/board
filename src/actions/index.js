@@ -74,7 +74,7 @@ export const fetchFrames = () => {
         }
       });
     } catch (e) {
-      dispatch(gameNotFound());
+      return dispatch(gameNotFound());
     }
 
     if (autoplay) {

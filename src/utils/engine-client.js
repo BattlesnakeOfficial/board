@@ -9,9 +9,12 @@ const DEFAULT_SNAKE_TAIL = "default";
 async function get(url, query) {
   const response = await fetch(url + makeQueryString(query));
   if (response.status === 200) {
-    return response.json();
+    return Promise.resolve(response.json());
   } else {
-    throw new Error(response.statusText);
+    return Promise.resolve(response.json()).then(responseJson => {
+      console.error(responseJson.error);
+      return Promise.reject(responseJson.error);
+    });
   }
 }
 

@@ -105,10 +105,6 @@ const ScoreboardWrapper = styled("div")`
 
 class Game extends React.Component {
   componentDidMount() {
-    if (this.props.gameNotFound) {
-      this.gameNotFound = true;
-    }
-
     const { options } = this.props;
 
     if (options.boardTheme) {
@@ -131,7 +127,7 @@ class Game extends React.Component {
       return <BlankState />;
     }
 
-    if (this.gameNotFound) {
+    if (this.props.gameNotFound) {
       return <GameNotFound />;
     }
 
