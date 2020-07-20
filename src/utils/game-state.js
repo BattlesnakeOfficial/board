@@ -35,24 +35,6 @@ export function sanitizeFrame(frame) {
 function formatSnakes(snakes) {
   var newSnakes = snakes.map(formatSnake);
 
-  // Colorize snake teams
-  const uniqueTeams = getUniqueTeams(newSnakes);
-  if (uniqueTeams.length > 0) {
-    var teamColors = [
-      "#e80978", // primary pink
-      "#3e338f", // primary purple
-      "#732e89",
-      "#e37cb2",
-      "#09e8e8",
-      "#e84109",
-      "#79e809",
-      "#e8b009",
-    ]
-    newSnakes.forEach(function (snake, index) {
-      newSnakes[index].color = teamColors[uniqueTeams.indexOf(snake.team) % teamColors.length]
-    });
-  }
-
   // Populate eliminatedBy names
   newSnakes.forEach(function (snake, index) {
     if (snake.death && snake.death.eliminatedBy.length > 0) {
