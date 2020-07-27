@@ -148,6 +148,7 @@ class Game extends React.Component {
             <Board
               snakes={currentFrame.snakes}
               food={currentFrame.food}
+              obstacles={currentFrame.obstacles}
               columns={this.props.grid.width}
               rows={this.props.grid.height}
               highlightedSnake={this.props.highlightedSnake}

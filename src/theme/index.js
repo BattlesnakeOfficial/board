@@ -7,6 +7,7 @@ export const colors = {
   gridCellBackground: "#f1f1f1",
   gridCellBackgroundDark: "#D6D5EA",
   food: "#ff5c75",
+  obstacle: "#000000",
 
   // Scoreboard
   healthBar: "#0f0",
