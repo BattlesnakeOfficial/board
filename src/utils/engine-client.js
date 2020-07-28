@@ -30,7 +30,7 @@ export function getReadableCauseOfDeath(death) {
     case "snake-self-collision":
       return "Collided with itself";
     case "starvation":
-      return "Out of Health";
+      return "Out of health";
     case "head-collision":
       return `Lost head-to-head with ${death.eliminatedBy}`;
     case "wall-collision":
