@@ -380,6 +380,7 @@ class Grid extends React.Component {
   renderGrid() {
     const unsortedSnakes = this.props.snakes || [];
     const food = this.props.food || [];
+    const hazards = this.props.hazards || [];
 
     // Make alive snakes render on top of dead snakes
     const sortedSnakes = sortAliveSnakesOnTop(
@@ -447,6 +448,20 @@ class Grid extends React.Component {
             shapeRendering="optimizeQuality"
           />
         ))}
+
+        {hazards.map((o, hazardIndex) => (
+          <rect
+            key={"hazard" + hazardIndex}
+            x={toGridSpace(o.x)}
+            y={toGridSpace(o.y)}
+            width={CELL_SIZE}
+            height={CELL_SIZE}
+            fill={colors.hazard}
+            fillOpacity={colors.hazardOpacity}
+            shapeRendering="optimizeSpeed"
+          />
+        ))}
+
       </svg>
     );
   }
