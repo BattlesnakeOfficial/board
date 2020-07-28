@@ -391,6 +391,10 @@ class Grid extends React.Component {
     const viewBoxWidth = toGridSpace(this.props.columns);
     const viewBoxHeight = toGridSpace(this.props.rows);
 
+    const sine = (new Date().getTime() / 500.0) % 2
+    const pulse = 0.05 * Math.sin(Math.PI * sine);
+    const hazardOpacity = parseFloat(colors.hazardOpacity) + pulse;
+
     return (
       <svg
         width={this.props.maxWidth}
@@ -457,7 +461,7 @@ class Grid extends React.Component {
             width={CELL_SIZE}
             height={CELL_SIZE}
             fill={colors.hazard}
-            fillOpacity={colors.hazardOpacity}
+            fillOpacity={hazardOpacity}
             shapeRendering="optimizeSpeed"
           />
         ))}
