@@ -451,7 +451,7 @@ class Grid extends React.Component {
 
         {hazards.map((o, hazardIndex) => (
           <rect
-            key={"obstacle" + hazardIndex}
+            key={"hazard" + hazardIndex}
             x={toGridSpace(o.x)}
             y={toGridSpace(o.y)}
             width={CELL_SIZE}
