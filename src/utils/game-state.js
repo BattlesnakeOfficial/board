@@ -13,6 +13,7 @@ export function formatFrame(frame) {
     turn: frame.Turn,
     snakes: snakes,
     food: formatPositions(frame.Food),
+    hazards: formatPositions(frame.Hazards),
     gameOver: isLastFrameOfGame(frame)
   };
 }
