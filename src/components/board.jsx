@@ -10,7 +10,7 @@ class Board extends React.Component {
         <Grid
           snakes={this.props.snakes}
           food={this.props.food}
-          obstacles={this.props.obstacles}
+          hazards={this.props.hazards}
           columns={this.props.columns}
           rows={this.props.rows}
           highlightedSnake={this.props.highlightedSnake}
@@ -19,6 +19,7 @@ class Board extends React.Component {
           maxHeight={BOARD_SIZE}
           x={0}
           y={0}
+          turn={this.props.turn}
         />
       </svg>
     );
