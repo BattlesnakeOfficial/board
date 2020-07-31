@@ -25,9 +25,11 @@ export function sanitizeFrame(frame) {
   // nullify some fields
   for (const i in sanitizedFrame.snakes) {
     const snake = sanitizedFrame.snakes[i];
-    snake.headSvg = null;
-    snake.tailSvg = null;
-    snake._id = null;
+    snake.id = snake._id
+    delete snake._id
+
+    delete snake.headSvg
+    delete snake.tailSvg
   }
 
   return sanitizedFrame;
