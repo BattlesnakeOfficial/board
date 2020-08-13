@@ -4,6 +4,8 @@ import { colors, themes } from "../theme";
 const HIGHLIGHT_DIM = 0.15;
 const DEAD_OPACITY = 0.1;
 const OVERLAP_OPACITY = 0.3;
+const SNAKE_ON_SNAKE_OPACITY = 0.8;
+const FULL_OPACITY = 1.0;
 
 const CELL_SIZE = 20;
 const CELL_SPACING = 4;
@@ -146,6 +148,27 @@ function getOpacity(snake, highlightedSnake) {
   return snake.isDead ? DEAD_OPACITY : 1;
 }
 
+function getPartOpacity(part) {
+  if (part.shadeForOverlap) {
+    return SNAKE_ON_SNAKE_OPACITY;
+  }
+  else if (part.isOverlapped) {
+    return OVERLAP_OPACITY;
+  }
+  else {
+    return FULL_OPACITY;
+  }
+}
+
+function getPartColor(snake, part) {
+  if (part.shadeForOverlap) {
+    return colors.overlapSnake;
+  }
+  else {
+    return snake.color;
+  }
+}
+
 function range(size) {
   const result = [];
   for (let i = 0; i < size; i++) {
@@ -259,6 +282,8 @@ class Grid extends React.Component {
     const box = snake.headSvg.viewBox.baseVal;
     const transform = getHeadTransform(part.direction, box);
     const viewBoxStr = `${box.x} ${box.y} ${box.width} ${box.height}`;
+    let color = getPartColor(snake, part);
+    let opacity = getPartOpacity(part);
 
     return (
       <g key={"part" + snakeIndex + ",head"}>
@@ -268,7 +293,8 @@ class Grid extends React.Component {
           y={y}
           width={CELL_SIZE}
           height={CELL_SIZE}
-          fill={snake.color}
+          fill={color}
+          opacity={opacity}
           shapeRendering="optimizeSpeed"
         >
           <g
@@ -283,7 +309,8 @@ class Grid extends React.Component {
             y={getHeadFillerYOffset(part)}
             width={getFillerWidth(part)}
             height={getFillerHeight(part)}
-            fill={snake.color}
+            fill={color}
+            opacity={opacity}
             shapeRendering="optimizeSpeed"
           />
         )}
@@ -292,6 +319,9 @@ class Grid extends React.Component {
   }
 
   renderMiddlePart(snake, snakeIndex, part, partIndex) {
+    let color = getPartColor(snake, part);
+    let opacity = getPartOpacity(part);
+
     return (
       <rect
         key={`part${snakeIndex},${part.x},${part.y}`}
@@ -299,8 +329,8 @@ class Grid extends React.Component {
         y={getPartYOffset(part)}
         width={getPartWidth(part)}
         height={getPartHeight(part)}
-        fill={snake.color}
-        {...(part.isOverlapped ? { opacity: OVERLAP_OPACITY } : {})}
+        fill={color}
+        opacity={opacity}
         shapeRendering="optimizeSpeed"
       />
     );
@@ -309,6 +339,8 @@ class Grid extends React.Component {
   renderCornerPart(snake, snakeIndex, part, partIndex) {
     let viewBox, transform;
     let path = "M0,20 h60 a60,60 0 0 1 60,60 v60 h-100 v-20 h-20 z";
+    let color = getPartColor(snake, part);
+    let opacity = getPartOpacity(part);
 
     viewBox = "0 0 140 140";
 
@@ -340,9 +372,9 @@ class Grid extends React.Component {
         y={getCornerPartYOffset(part, cornerType)}
         width={CELL_SIZE + 2 * CELL_SPACING}
         height={CELL_SIZE + 2 * CELL_SPACING}
-        fill={snake.color}
+        fill={color}
+        opacity={opacity}
         viewBox={viewBox}
-        {...(part.isOverlapped ? { opacity: OVERLAP_OPACITY } : {})}
         shapeRendering="optimizeSpeed"
       >
         <path d={path} transform={transform} />
@@ -356,6 +388,8 @@ class Grid extends React.Component {
     const box = snake.tailSvg.viewBox.baseVal;
     const transform = getTailTransform(part.direction, box);
     const viewBoxStr = `${box.x} ${box.y} ${box.width} ${box.height}`;
+    let color = getPartColor(snake, part);
+    let opacity = getPartOpacity(part);
 
     return (
       <svg
@@ -365,8 +399,8 @@ class Grid extends React.Component {
         y={y}
         width={CELL_SIZE}
         height={CELL_SIZE}
-        fill={snake.color}
-        {...(part.isOverlapped ? { opacity: OVERLAP_OPACITY } : {})}
+        fill={color}
+        opacity={opacity}
         shapeRendering="optimizeSpeed"
       >
         <g
@@ -387,6 +421,35 @@ class Grid extends React.Component {
       unsortedSnakes,
       this.props.highlightedSnake
     );
+
+    if (!this.props.highlightedSnake) {
+      // track all of the grid cells that will have a snake part drawn in them.  Successive snake parts 
+      // drawn in the same cell need to be flagged so they render differently and layer properly
+      let renderedSnakeParts = Array(this.props.rows);
+      for (let i = 0; i < renderedSnakeParts.length; i++) {
+        renderedSnakeParts[i] = Array(this.props.columns);
+        for (let j = 0; j < this.props.columns; j++) {
+          renderedSnakeParts[i][j] = false;
+        }
+      }
+
+      for (let i = 0; i < sortedSnakes.length; i++) {
+        let snake = sortedSnakes[i];
+        if (!snake.isDead) {
+          for (let x = 0; x < snake.body.length; x++) {
+            let part = snake.body[x];
+            if (!isOverlappedByTail(snake, part)) {
+              if (renderedSnakeParts[part.y][part.x]) {
+                part.shadeForOverlap = true;
+              }
+              else {
+                renderedSnakeParts[part.y][part.x] = true;
+              }
+            }
+          }
+        }
+      }
+    }
 
     const viewBoxWidth = toGridSpace(this.props.columns);
     const viewBoxHeight = toGridSpace(this.props.rows);

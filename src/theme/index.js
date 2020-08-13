@@ -9,6 +9,7 @@ export const colors = {
   food: "#ff5c75",
   hazard: "#000000",
   hazardOpacity: "0.4",
+  overlapSnake: "#AAAAAA",
 
   // Scoreboard
   healthBar: "#0f0",
