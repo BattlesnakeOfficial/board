@@ -425,25 +425,27 @@ class Grid extends React.Component {
     if (!this.props.highlightedSnake) {
       // track all of the grid cells that will have a snake part drawn in them.  Successive snake parts 
       // drawn in the same cell need to be flagged so they render differently and layer properly
-      let renderedSnakeParts = Array(this.props.rows);
-      for (let i = 0; i < renderedSnakeParts.length; i++) {
-        renderedSnakeParts[i] = Array(this.props.columns);
+      let gridCellsWithSnakeParts = Array(this.props.rows);
+      for (let i = 0; i < gridCellsWithSnakeParts.length; i++) {
+        gridCellsWithSnakeParts[i] = Array(this.props.columns);
         for (let j = 0; j < this.props.columns; j++) {
-          renderedSnakeParts[i][j] = false;
+          gridCellsWithSnakeParts[i][j] = false;
         }
       }
 
+      // Go through each snake, in the order they will be drawn and mark the cells they will occupy.   
+      // flag parts that would be drawn in cells that are already claimed
       for (let i = 0; i < sortedSnakes.length; i++) {
         let snake = sortedSnakes[i];
         if (!snake.isDead) {
           for (let x = 0; x < snake.body.length; x++) {
             let part = snake.body[x];
             if (!isOverlappedByTail(snake, part)) {
-              if (renderedSnakeParts[part.y][part.x]) {
+              if (gridCellsWithSnakeParts[part.y][part.x]) {
                 part.shadeForOverlap = true;
               }
               else {
-                renderedSnakeParts[part.y][part.x] = true;
+                gridCellsWithSnakeParts[part.y][part.x] = true;
               }
             }
           }
