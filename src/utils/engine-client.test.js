@@ -83,8 +83,8 @@ function singleSnakeData() {
   return {
     "http://localhost/games/123": gameResponse,
     "ws://localhost/socket/123": framesResponse,
-    "images/snake/head/regular.svg": svgText,
-    "images/snake/tail/regular.svg": svgText
+    "images/snake/head/default.svg": svgText,
+    "images/snake/tail/default.svg": svgText
   };
 }
 
@@ -99,8 +99,8 @@ function multiSnakeData() {
         URL: "http://localhost:5000",
         Health: 1,
         Body: [{ X: 3, Y: 3 }, { X: 3, Y: 4 }, { X: 3, Y: 5 }],
-        Head: "regular",
-        Tail: "regular"
+        Head: "default",
+        Tail: "default"
       },
       {
         ID: "qwer",

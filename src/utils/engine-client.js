@@ -35,8 +35,8 @@ export function getReadableCauseOfDeath(death) {
       return `Lost head-to-head with ${death.eliminatedBy}`;
     case "wall-collision":
       return "Moved out of bounds";
-    case "team-eliminated":
-      return "Team was eliminated";
+    case "squad-eliminated":
+      return "Squad was eliminated";
     default:
       return death.cause;
   }

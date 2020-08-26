@@ -167,7 +167,7 @@ it("should not break on case sensitivity for head and tail types", () => {
         Name: "snake 1",
         URL: "http://snake1",
         Health: 100,
-        HeadType: "rEgUlAr",
+        HeadType: "dEfaUlT",
         TailType: "BOLT",
         Color: "red",
         Body: [{ X: 4, Y: 4 }, { X: 4, Y: 4 }, { X: 4, Y: 4 }]
@@ -195,7 +195,7 @@ it("should not break on case sensitivity for head and tail types", () => {
       { x: 4, y: 4, direction: "up", type: "tail", isOverlapped: true }
     ],
     isDead: false,
-    head: "regular",
+    head: "default",
     tail: "bolt",
     headSvg: undefined,
     tailSvg: undefined
