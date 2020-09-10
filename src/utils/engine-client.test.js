@@ -59,7 +59,7 @@ function singleSnakeData() {
         URL: "http://localhost:5000",
         Health: 0,
         Body: [{ X: 3, Y: 4 }, { X: 3, Y: 5 }, { X: 3, Y: 6 }],
-        Death: { Cause: "starvation", Turn: 1 }
+        Death: { Cause: "out-of-health", Turn: 1 }
       }
     ]
   };
@@ -124,7 +124,7 @@ function multiSnakeData() {
         URL: "http://localhost:5000",
         Health: 0,
         Body: [{ X: 3, Y: 4 }, { X: 3, Y: 5 }, { X: 3, Y: 6 }],
-        Death: { Cause: "starvation", Turn: 1 }
+        Death: { Cause: "out-of-health", Turn: 1 }
       },
       {
         ID: "qwer",

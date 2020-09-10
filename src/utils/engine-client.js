@@ -29,7 +29,9 @@ export function getReadableCauseOfDeath(death) {
       return `Ran into ${death.eliminatedBy}'s body`;
     case "snake-self-collision":
       return "Collided with itself";
-    case "starvation":
+    case "starvation":  // DEPRECATED, REMOVE ME
+      return "Out of health";
+    case "out-of-health":
       return "Out of health";
     case "head-collision":
       return `Lost head-to-head with ${death.eliminatedBy}`;
