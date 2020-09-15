@@ -12,7 +12,8 @@
     "react-redux": "6.0.1",
     "react-scripts": "2.1.8",
     "redux": "4.0.1",
-    "redux-thunk": "2.3.0"
+    "redux-thunk": "2.3.0",
+    "yargs-parser": "^13.1.2"
   },
   "devDependencies": {
     "eslint-plugin-prettier": "3.1.2",
