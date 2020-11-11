@@ -69,7 +69,8 @@ function formatSnake(snake) {
     tail: snake.TailType && snake.TailType.toLowerCase(),
     headSvg: snake.HeadSvg,
     tailSvg: snake.TailSvg,
-    squad: snake.Squad
+    squad: snake.Squad,
+    author: snake.Author,
   };
 }
 

@@ -13,10 +13,11 @@ const AvatarWrapper = styled("div")`
   @media (min-width: ${breakpoints.lg}) {
     margin-bottom: 1rem;
   }
+
+  opacity: ${props => props.isEliminated ? "0.5" : "1.0"};
 `;
 
 const NameWrapper = styled("div")({
-  paddingBottom: "1rem",
   display: "flex",
   flexDirection: "row"
 });
@@ -26,19 +27,31 @@ const Name = styled("span")(({ theme }) => ({
   textShadow: theme === themes.dark ? "0 1px 2px rgba(0,0,0,0.90)" : null
 }));
 
-const Latency = styled("span")(({ theme }) => ({
-  fontSize: "1rem",
+
+const Length = styled("span")(({ theme }) => ({
   marginLeft: "auto",
-  paddingTop: "0.65rem",
   textShadow: theme === themes.dark ? "0 1px 2px rgba(0,0,0,0.90)" : null
 }));
 
-const Length = styled("span")(({ theme }) => ({
-  marginLeft: "5px",
+const AuthorWrapper = styled("div")({
+  fontSize: "1rem",
+  display: "flex",
+  flexDirection: "row"
+});
+
+const Author = styled("span")(({ theme }) => ({
+  display: "block",
+  textShadow: theme === themes.dark ? "0 1px 2px rgba(0,0,0,0.90)" : null
+}));
+
+const Latency = styled("span")(({ theme, latency }) => ({
+  color: latency == "0" ? "red" : "inherit",
+  marginLeft: "auto",
   textShadow: theme === themes.dark ? "0 1px 2px rgba(0,0,0,0.90)" : null
 }));
 
 const HealthBarWrapper = styled("div")({
+  marginTop: "1rem",
   width: "100%",
   height: "1.8rem",
   background: colors.healthBarBackground,
@@ -53,23 +66,27 @@ const HealthBar = styled("div")(({ color }) => ({
 }));
 
 const CauseOfDeath = styled("div")(({ theme }) => ({
+  marginTop: "1rem",
   width: "100%",
   height: "1.8rem",
   padding: ".2rem 0",
   fontSize: "1.5rem",
   lineHeight: "1.3rem",
-  color: theme === themes.dark ? colors.lightText : colors.darkText
+  color: theme === themes.dark ? colors.lightText : colors.darkText,
 }));
 
 class Avatar extends React.Component {
   render() {
     return (
-      <AvatarWrapper>
+      <AvatarWrapper isEliminated={this.props.snake.death ? true : false}>
         <NameWrapper>
           <Name>{this.props.snake.name}</Name>
-          <Latency>{this.props.snake.latency}</Latency>
           <Length>{this.props.snake.body.length}</Length>
         </NameWrapper>
+        <AuthorWrapper>
+          <Author>by {this.props.snake.author}</Author>
+          <Latency latency={this.props.snake.latency}>{this.props.snake.latency} ms</Latency>
+        </AuthorWrapper>
 
         {this.props.snake.death ? (
           <CauseOfDeath theme={this.props.theme}>

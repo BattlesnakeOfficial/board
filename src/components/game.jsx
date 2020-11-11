@@ -69,7 +69,7 @@ const LogoWrapper = styled("div")`
 
 const TurnCount = styled("div")`
   font-size: 1.8rem;
-  font-family: "Permanent Marker", cursive;
+  font-weight: 600;
   color: ${({ theme }) =>
     theme === themes.dark ? colors.lightText : colors.darkText};
 
@@ -176,7 +176,7 @@ class Game extends React.Component {
                   </LogoWrapper>
                 )}
                 <TurnCount theme={this.props.theme}>
-                  Turn: <TurnCountValue>{currentFrame.turn}</TurnCountValue>
+                  Turn <TurnCountValue>{currentFrame.turn}</TurnCountValue>
                 </TurnCount>
               </HeaderWrapper>
               <Scoreboard
