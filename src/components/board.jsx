@@ -10,6 +10,7 @@ class Board extends React.Component {
         <Grid
           snakes={this.props.snakes}
           food={this.props.food}
+          foodImage={this.props.foodImage}
           hazards={this.props.hazards}
           columns={this.props.columns}
           rows={this.props.rows}

@@ -423,7 +423,7 @@ class Grid extends React.Component {
     );
 
     if (!this.props.highlightedSnake) {
-      // track all of the grid cells that will have a snake part drawn in them.  Successive snake parts 
+      // track all of the grid cells that will have a snake part drawn in them.  Successive snake parts
       // drawn in the same cell need to be flagged so they render differently and layer properly
       let gridCellsWithSnakeParts = Array(this.props.rows);
       for (let i = 0; i < gridCellsWithSnakeParts.length; i++) {
@@ -433,7 +433,7 @@ class Grid extends React.Component {
         }
       }
 
-      // Go through each snake, in the order they will be drawn and mark the cells they will occupy.   
+      // Go through each snake, in the order they will be drawn and mark the cells they will occupy.
       // flag parts that would be drawn in cells that are already claimed
       for (let i = 0; i < sortedSnakes.length; i++) {
         let snake = sortedSnakes[i];
@@ -507,16 +507,30 @@ class Grid extends React.Component {
           );
         })}
 
-        {food.map((f, foodIndex) => (
-          <circle
-            key={"food" + foodIndex}
-            cx={toGridSpace(f.x) + CELL_SIZE / 2}
-            cy={toGridSpace(f.y) + CELL_SIZE / 2}
-            r={FOOD_SIZE}
-            fill={colors.food}
-            shapeRendering="optimizeQuality"
-          />
-        ))}
+        {food.map((f, foodIndex) => {
+          if (this.props.foodImage) {
+            return (
+              <image
+                key={"food" + foodIndex}
+                x={toGridSpace(f.x)}
+                y={toGridSpace(f.y)}
+                width={CELL_SIZE}
+                height={CELL_SIZE}
+                href={this.props.foodImage} />
+            );
+          } else {
+            return (
+              <circle
+                key={"food" + foodIndex}
+                cx={toGridSpace(f.x) + CELL_SIZE / 2}
+                cy={toGridSpace(f.y) + CELL_SIZE / 2}
+                r={FOOD_SIZE}
+                fill={colors.food}
+                shapeRendering="optimizeQuality"
+              />
+            );
+          }
+        })}
 
         {hazards.map((o, hazardIndex) => (
           <rect

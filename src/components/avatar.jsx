@@ -45,7 +45,7 @@ const Author = styled("span")(({ theme }) => ({
 }));
 
 const Latency = styled("span")(({ theme, latency }) => ({
-  color: latency == "0" ? "red" : "inherit",
+  color: latency === "0" ? "red" : "inherit",
   marginLeft: "auto",
   textShadow: theme === themes.dark ? "0 1px 2px rgba(0,0,0,0.90)" : null
 }));
