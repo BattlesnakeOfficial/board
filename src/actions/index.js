@@ -71,16 +71,15 @@ export const fetchFrames = () => {
         if (frame.Turn === 0) {
           const frame = getState().frames[0];
           dispatch(setCurrentFrame(frame));
+
+          if (autoplay) {
+            dispatch(resumeGame());
+            dispatch(playFromFrame(frame));
+          }
         }
       });
     } catch (e) {
       return dispatch(gameNotFound());
-    }
-
-    if (autoplay) {
-      const frame = getState().frames[0];
-      dispatch(resumeGame());
-      dispatch(playFromFrame(frame));
     }
 
     // Only navigate to the specified frame if it is within the
