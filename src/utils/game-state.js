@@ -71,6 +71,7 @@ function formatSnake(snake) {
     tailSvg: snake.TailSvg,
     squad: snake.Squad,
     author: snake.Author,
+    shout: snake.Shout,
   };
 }
 
