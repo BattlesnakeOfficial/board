@@ -169,7 +169,7 @@ function getDirection(a, b) {
     return "right";
   } else if (b.X < a.X) {
     return "left";
-  } else if (a.Y < b.Y) {
+  } else if (a.Y > b.Y) {
     return "down";
   }
   return "up";

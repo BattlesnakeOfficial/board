@@ -14,8 +14,16 @@ const END_OVERLAP = 0.1;
 
 const DIRECTIONS_CW = ["up", "right", "down", "left"];
 
-function toGridSpace(slot) {
+// let GRID_COLUMNS = 0;  Unused for now.
+let GRID_ROWS = 0;
+
+function toGridSpaceX(slot) {
   return (CELL_SIZE + CELL_SPACING) * slot + CELL_SPACING;
+}
+
+function toGridSpaceY(slot) {
+  // Y-Axis in board space is inverted, positive goes up
+  return (CELL_SIZE + CELL_SPACING) * (GRID_ROWS - 1 - slot) + CELL_SPACING;
 }
 
 function getPartWidth(part) {
@@ -34,31 +42,31 @@ function getPartHeight(part) {
 
 function getPartXOffset(part) {
   const xBias = part.direction === "left" || part.direction === "right" ? -CELL_SPACING : 0;
-  return toGridSpace(part.x) + xBias;
+  return toGridSpaceX(part.x) + xBias;
 }
 
 function getPartYOffset(part) {
   const yBias = part.direction === "up" || part.direction === "down" ? -CELL_SPACING : 0;
-  return toGridSpace(part.y) + yBias;
+  return toGridSpaceY(part.y) + yBias;
 }
 
 function getCornerPartXOffset(part, type) {
-  return toGridSpace(part.x) - CELL_SPACING;
+  return toGridSpaceX(part.x) - CELL_SPACING;
 }
 
 function getCornerPartYOffset(part, type) {
-  return toGridSpace(part.y) - CELL_SPACING;
+  return toGridSpaceY(part.y) - CELL_SPACING;
 }
 
 function getTailXOffset(part) {
   // apply slight offset to avoid ugly white line in between parts (works most of the time)
   switch (part.direction) {
     case "left":
-      return toGridSpace(part.x) - END_OVERLAP;
+      return toGridSpaceX(part.x) - END_OVERLAP;
     case "right":
-      return toGridSpace(part.x) + END_OVERLAP;
+      return toGridSpaceX(part.x) + END_OVERLAP;
     default:
-      return toGridSpace(part.x);
+      return toGridSpaceX(part.x);
   }
 }
 
@@ -66,11 +74,11 @@ function getTailYOffset(part) {
   // apply slight offset to avoid ugly white line in between parts (works most of the time)
   switch (part.direction) {
     case "up":
-      return toGridSpace(part.y) - END_OVERLAP;
+      return toGridSpaceY(part.y) - END_OVERLAP;
     case "down":
-      return toGridSpace(part.y) + END_OVERLAP;
+      return toGridSpaceY(part.y) + END_OVERLAP;
     default:
-      return toGridSpace(part.y);
+      return toGridSpaceY(part.y);
   }
 }
 
@@ -78,11 +86,11 @@ function getHeadXOffset(part) {
   // apply slight offset to avoid ugly white line in between parts (works most of the time)
   switch (part.direction) {
     case "left":
-      return toGridSpace(part.x) + END_OVERLAP;
+      return toGridSpaceX(part.x) + END_OVERLAP;
     case "right":
-      return toGridSpace(part.x) - END_OVERLAP;
+      return toGridSpaceX(part.x) - END_OVERLAP;
     default:
-      return toGridSpace(part.x);
+      return toGridSpaceX(part.x);
   }
 }
 
@@ -90,11 +98,11 @@ function getHeadYOffset(part) {
   // apply slight offset to avoid ugly white line in between parts (works most of the time)
   switch (part.direction) {
     case "up":
-      return toGridSpace(part.y) + END_OVERLAP;
+      return toGridSpaceY(part.y) + END_OVERLAP;
     case "down":
-      return toGridSpace(part.y) - END_OVERLAP;
+      return toGridSpaceY(part.y) - END_OVERLAP;
     default:
-      return toGridSpace(part.y);
+      return toGridSpaceY(part.y);
   }
 }
 
@@ -102,11 +110,11 @@ function getHeadFillerXOffset(part) {
   // apply slight offset to avoid ugly white line in between parts (works most of the time)
   switch (part.direction) {
     case "left":
-      return toGridSpace(part.x + 1) - CELL_SPACING - END_OVERLAP;
+      return toGridSpaceX(part.x + 1) - CELL_SPACING - END_OVERLAP;
     case "right":
-      return toGridSpace(part.x) - CELL_SPACING - END_OVERLAP;
+      return toGridSpaceX(part.x) - CELL_SPACING - END_OVERLAP;
     default:
-      return toGridSpace(part.x);
+      return toGridSpaceX(part.x);
   }
 }
 
@@ -114,11 +122,11 @@ function getHeadFillerYOffset(part) {
   // apply slight offset to avoid ugly white line in between parts (works most of the time)
   switch (part.direction) {
     case "up":
-      return toGridSpace(part.y + 1) - CELL_SPACING - END_OVERLAP;
+      return toGridSpaceY(part.y - 1) - CELL_SPACING - END_OVERLAP;
     case "down":
-      return toGridSpace(part.y) - CELL_SPACING - END_OVERLAP;
+      return toGridSpaceY(part.y) - CELL_SPACING - END_OVERLAP;
     default:
-      return toGridSpace(part.y);
+      return toGridSpaceY(part.y);
   }
 }
 
@@ -412,6 +420,9 @@ class Grid extends React.Component {
   }
 
   renderGrid() {
+    // GRID_COLUMNS = this.props.columns;
+    GRID_ROWS = this.props.rows;
+
     const unsortedSnakes = this.props.snakes || [];
     const food = this.props.food || [];
     const hazards = this.props.hazards || [];
@@ -453,8 +464,8 @@ class Grid extends React.Component {
       }
     }
 
-    const viewBoxWidth = toGridSpace(this.props.columns);
-    const viewBoxHeight = toGridSpace(this.props.rows);
+    const viewBoxWidth = (CELL_SIZE + CELL_SPACING) * this.props.columns + CELL_SPACING;
+    const viewBoxHeight = (CELL_SIZE + CELL_SPACING) * this.props.rows + CELL_SPACING;
 
     const sine = (new Date().getTime() / 500.0) % 2
     const pulse = 0.05 * Math.sin(Math.PI * sine);
@@ -472,8 +483,8 @@ class Grid extends React.Component {
           range(this.props.columns).map((_, col) => (
             <rect
               key={"cell" + row + "," + col}
-              x={toGridSpace(col)}
-              y={toGridSpace(row)}
+              x={toGridSpaceX(col)}
+              y={toGridSpaceY(row)}
               width={CELL_SIZE}
               height={CELL_SIZE}
               fill={
@@ -512,8 +523,8 @@ class Grid extends React.Component {
             return (
               <image
                 key={"food" + foodIndex}
-                x={toGridSpace(f.x)}
-                y={toGridSpace(f.y)}
+                x={toGridSpaceX(f.x)}
+                y={toGridSpaceY(f.y)}
                 width={CELL_SIZE}
                 height={CELL_SIZE}
                 href={this.props.foodImage} />
@@ -522,8 +533,8 @@ class Grid extends React.Component {
             return (
               <circle
                 key={"food" + foodIndex}
-                cx={toGridSpace(f.x) + CELL_SIZE / 2}
-                cy={toGridSpace(f.y) + CELL_SIZE / 2}
+                cx={toGridSpaceX(f.x) + CELL_SIZE / 2}
+                cy={toGridSpaceY(f.y) + CELL_SIZE / 2}
                 r={FOOD_SIZE}
                 fill={colors.food}
                 shapeRendering="optimizeQuality"
@@ -535,8 +546,8 @@ class Grid extends React.Component {
         {hazards.map((o, hazardIndex) => (
           <rect
             key={"hazard" + hazardIndex}
-            x={toGridSpace(o.x)}
-            y={toGridSpace(o.y)}
+            x={toGridSpaceX(o.x)}
+            y={toGridSpaceY(o.y)}
             width={CELL_SIZE}
             height={CELL_SIZE}
             fill={colors.hazard}
