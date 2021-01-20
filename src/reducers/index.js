@@ -32,6 +32,7 @@ export default (state = {}, action) => {
       const frame = formatFrame(action.frame);
       return {
         ...state,
+        ruleset: action.game.Game.Ruleset,
         grid: {
           height: action.game.Game.Height,
           width: action.game.Game.Width

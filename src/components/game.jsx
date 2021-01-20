@@ -103,6 +103,14 @@ const ScoreboardWrapper = styled("div")`
   }
 `;
 
+const Ruleset = styled("p")`
+  width: 100%;
+  font-size: 1.2rem;
+  text-align: center;
+  color: #aaa;
+  text-transform: capitalize;
+`;
+
 class Game extends React.Component {
   componentDidMount() {
     const { options } = this.props;
@@ -187,6 +195,7 @@ class Game extends React.Component {
                 highlightSnake={this.props.highlightSnake}
                 theme={this.props.theme}
               />
+              <Ruleset>Game Ruleset: {this.props.ruleset.name}</Ruleset>
             </ScoreboardWrapper>
           )}
         </GameBoardWrapper>
