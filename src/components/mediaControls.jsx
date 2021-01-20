@@ -10,14 +10,6 @@ const MediaControlsWrapper = styled("div")`
   width: 100%;
 `;
 
-const TurnCount = styled("div")(({ theme }) => ({
-  display: "flex",
-  color: theme === themes.dark ? "#eee" : "#333",
-  justifyContent: "center",
-  marginBottom: "2rem",
-  fontSize: "1.4rem"
-}));
-
 const KeyboardShortcutsWrapper = styled("div")({
   position: "relative",
   marginLeft: "1rem"
@@ -182,30 +174,39 @@ class MediaControls extends React.Component {
 
     return (
       <MediaControlsWrapper hide={hideControls}>
-        <TurnCount theme={theme}>Turn: {currentFrame.turn}</TurnCount>
         <ButtonWrapper>
-          <Button onClick={this.toggleTheme} theme={theme}>
-            Toggle Theme
+          <Button
+            onClick={this.handleBackward}
+            disabled={currentFrame.turn === 0 || !paused}
+            theme={theme}
+          >
+            <span className="material-icons icon-image-preview">
+              skip_previous
+            </span>
+          </Button>
+          <Button onClick={this.handlePlayPause} theme={theme}>
+            <span className="material-icons icon-image-preview">
+              {paused ? "play_arrow" : "pause"}
+            </span>
+          </Button>
+          <Button onClick={this.handleForward} disabled={!paused} theme={theme}>
+            <span className="material-icons icon-image-preview">
+              skip_next
+            </span>
           </Button>
           <Button
             onClick={this.handleReload}
             disabled={currentFrame.turn === 0 || !paused}
             theme={theme}
           >
-            Reload
+            <span className="material-icons icon-image-preview">
+              refresh
+            </span>
           </Button>
-          <Button onClick={this.handlePlayPause} theme={theme}>
-            {paused ? "Play" : "Pause"}
-          </Button>
-          <Button
-            onClick={this.handleBackward}
-            disabled={currentFrame.turn === 0 || !paused}
-            theme={theme}
-          >
-            Backward
-          </Button>
-          <Button onClick={this.handleForward} disabled={!paused} theme={theme}>
-            Forward
+          <Button onClick={this.toggleTheme} theme={theme}>
+            <span className="material-icons icon-image-preview">
+              brightness_medium
+            </span>
           </Button>
           <KeyboardEventHandler
             handleKeys={Object.values(this.keyboardCodeMap)}
