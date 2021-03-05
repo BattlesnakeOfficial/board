@@ -41,12 +41,14 @@ function getPartHeight(part) {
 }
 
 function getPartXOffset(part) {
-  const xBias = part.direction === "left" || part.direction === "right" ? -CELL_SPACING : 0;
+  const xBias =
+    part.direction === "left" || part.direction === "right" ? -CELL_SPACING : 0;
   return toGridSpaceX(part.x) + xBias;
 }
 
 function getPartYOffset(part) {
-  const yBias = part.direction === "up" || part.direction === "down" ? -CELL_SPACING : 0;
+  const yBias =
+    part.direction === "up" || part.direction === "down" ? -CELL_SPACING : 0;
   return toGridSpaceY(part.y) + yBias;
 }
 
@@ -159,11 +161,9 @@ function getOpacity(snake, highlightedSnake) {
 function getPartOpacity(part) {
   if (part.shadeForOverlap) {
     return SNAKE_ON_SNAKE_OPACITY;
-  }
-  else if (part.isOverlapped) {
+  } else if (part.isOverlapped) {
     return OVERLAP_OPACITY;
-  }
-  else {
+  } else {
     return FULL_OPACITY;
   }
 }
@@ -171,8 +171,7 @@ function getPartOpacity(part) {
 function getPartColor(snake, part) {
   if (part.shadeForOverlap) {
     return colors.overlapSnake;
-  }
-  else {
+  } else {
     return snake.color;
   }
 }
@@ -454,8 +453,7 @@ class Grid extends React.Component {
             if (!isOverlappedByTail(snake, part)) {
               if (gridCellsWithSnakeParts[part.y][part.x]) {
                 part.shadeForOverlap = true;
-              }
-              else {
+              } else {
                 gridCellsWithSnakeParts[part.y][part.x] = true;
               }
             }
@@ -464,10 +462,12 @@ class Grid extends React.Component {
       }
     }
 
-    const viewBoxWidth = (CELL_SIZE + CELL_SPACING) * this.props.columns + CELL_SPACING;
-    const viewBoxHeight = (CELL_SIZE + CELL_SPACING) * this.props.rows + CELL_SPACING;
+    const viewBoxWidth =
+      (CELL_SIZE + CELL_SPACING) * this.props.columns + CELL_SPACING;
+    const viewBoxHeight =
+      (CELL_SIZE + CELL_SPACING) * this.props.rows + CELL_SPACING;
 
-    const sine = (new Date().getTime() / 500.0) % 2
+    const sine = (new Date().getTime() / 500.0) % 2;
     const pulse = 0.05 * Math.sin(Math.PI * sine);
     const hazardOpacity = parseFloat(colors.hazardOpacity) + pulse;
 
@@ -527,7 +527,8 @@ class Grid extends React.Component {
                 y={toGridSpaceY(f.y)}
                 width={CELL_SIZE}
                 height={CELL_SIZE}
-                href={this.props.foodImage} />
+                href={this.props.foodImage}
+              />
             );
           } else {
             return (
@@ -555,7 +556,6 @@ class Grid extends React.Component {
             shapeRendering="optimizeSpeed"
           />
         ))}
-
       </svg>
     );
   }

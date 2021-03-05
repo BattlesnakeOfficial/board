@@ -25,11 +25,11 @@ export function sanitizeFrame(frame) {
   // nullify some fields
   for (const i in sanitizedFrame.snakes) {
     const snake = sanitizedFrame.snakes[i];
-    snake.id = snake._id
-    delete snake._id
+    snake.id = snake._id;
+    delete snake._id;
 
-    delete snake.headSvg
-    delete snake.tailSvg
+    delete snake.headSvg;
+    delete snake.tailSvg;
   }
 
   return sanitizedFrame;
@@ -39,7 +39,7 @@ function formatSnakes(snakes) {
   var newSnakes = snakes.map(formatSnake);
 
   // Populate eliminatedBy names
-  newSnakes.forEach(function (snake, index) {
+  newSnakes.forEach(function(snake, index) {
     if (snake.death && snake.death.eliminatedBy.length > 0) {
       for (const i in newSnakes) {
         if (newSnakes[i]._id === snake.death.eliminatedBy) {
@@ -48,7 +48,7 @@ function formatSnakes(snakes) {
         }
       }
     }
-  })
+  });
 
   return newSnakes;
 }
@@ -71,7 +71,7 @@ function formatSnake(snake) {
     tailSvg: snake.TailSvg,
     squad: snake.Squad,
     author: snake.Author,
-    shout: snake.Shout,
+    shout: snake.Shout
   };
 }
 
@@ -212,9 +212,15 @@ function oneLeft(snakes) {
 
 function getUniqueSquads(snakes) {
   return snakes
-    .map(function (snake) { return snake.squad; })
-    .filter(function (value) { return (typeof value !== "undefined" && value !== "") })
-    .filter(function (value, index, self) { return self.indexOf(value) === index })
+    .map(function(snake) {
+      return snake.squad;
+    })
+    .filter(function(value) {
+      return typeof value !== "undefined" && value !== "";
+    })
+    .filter(function(value, index, self) {
+      return self.indexOf(value) === index;
+    })
     .sort();
 }
 

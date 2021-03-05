@@ -30,7 +30,7 @@ export function getReadableCauseOfDeath(death) {
       return `Ran into ${death.eliminatedBy}'s body`;
     case "snake-self-collision":
       return "Collided with itself";
-    case "starvation":  // DEPRECATED, REMOVE ME
+    case "starvation": // DEPRECATED, REMOVE ME
       return "Out of health";
     case "out-of-health":
       return "Out of health";
@@ -93,7 +93,8 @@ function isIllegalSvgPath(nameOrPath) {
 
 function svgUrlFromName(base, relative) {
   //appending the app version allows for cache busting on deploy
-  return join("https://media.battlesnake.com", base, relative) + ".svg?board_version=" + version;
+  const extension = ".svg?board_version=" + version;
+  return join("https://media.battlesnake.com", base, relative) + extension;
 }
 
 function getSnakeHeadSvgUrl(path) {
