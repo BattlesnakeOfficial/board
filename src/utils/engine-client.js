@@ -2,6 +2,7 @@ import { streamAll } from "../io/websocket";
 import { makeQueryString, httpToWsProtocol, join } from "./url";
 import { loadSvgs, getSvg, svgExists } from "./inline-svg";
 import { isLastFrameOfGame } from "./game-state";
+import { version } from "../../package.json";
 
 const DEFAULT_SNAKE_HEAD = "default";
 const DEFAULT_SNAKE_TAIL = "default";
@@ -91,7 +92,8 @@ function isIllegalSvgPath(nameOrPath) {
 }
 
 function svgUrlFromName(base, relative) {
-  return join("https://media.battlesnake.com", base, relative) + ".svg";
+  //appending the app version allows for cache busting on deploy
+  return join("https://media.battlesnake.com", base, relative) + ".svg?board_version=" + version;
 }
 
 function getSnakeHeadSvgUrl(path) {
