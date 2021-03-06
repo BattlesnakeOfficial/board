@@ -2,6 +2,7 @@ import { streamAll } from "../io/websocket";
 import { makeQueryString, httpToWsProtocol, join } from "./url";
 import { loadSvgs, getSvg, svgExists } from "./inline-svg";
 import { isLastFrameOfGame } from "./game-state";
+import { version } from "../../package.json";
 
 const DEFAULT_SNAKE_HEAD = "default";
 const DEFAULT_SNAKE_TAIL = "default";
@@ -29,7 +30,7 @@ export function getReadableCauseOfDeath(death) {
       return `Ran into ${death.eliminatedBy}'s body`;
     case "snake-self-collision":
       return "Collided with itself";
-    case "starvation":  // DEPRECATED, REMOVE ME
+    case "starvation": // DEPRECATED, REMOVE ME
       return "Out of health";
     case "out-of-health":
       return "Out of health";
@@ -91,7 +92,9 @@ function isIllegalSvgPath(nameOrPath) {
 }
 
 function svgUrlFromName(base, relative) {
-  return join("https://media.battlesnake.com", base, relative) + ".svg";
+  //appending the app version allows for cache busting on deploy
+  const extension = ".svg?board_version=" + version;
+  return join("https://media.battlesnake.com", base, relative) + extension;
 }
 
 function getSnakeHeadSvgUrl(path) {

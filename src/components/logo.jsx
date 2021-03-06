@@ -141,12 +141,12 @@ const SVGLogo = props => {
 const StyledLogo = styled(SVGLogo)`
   > path {
     fill: ${({ color, theme }) => {
-    return !color
-      ? theme === themes.dark
-        ? colors.white
-        : colors.purple
-      : color;
-  }};
+      return !color
+        ? theme === themes.dark
+          ? colors.white
+          : colors.purple
+        : color;
+    }};
   }
 `;
 

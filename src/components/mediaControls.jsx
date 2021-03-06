@@ -190,18 +190,14 @@ class MediaControls extends React.Component {
             </span>
           </Button>
           <Button onClick={this.handleForward} disabled={!paused} theme={theme}>
-            <span className="material-icons icon-image-preview">
-              skip_next
-            </span>
+            <span className="material-icons icon-image-preview">skip_next</span>
           </Button>
           <Button
             onClick={this.handleReload}
             disabled={currentFrame.turn === 0 || !paused}
             theme={theme}
           >
-            <span className="material-icons icon-image-preview">
-              refresh
-            </span>
+            <span className="material-icons icon-image-preview">refresh</span>
           </Button>
           <Button onClick={this.toggleTheme} theme={theme}>
             <span className="material-icons icon-image-preview">

@@ -60,11 +60,17 @@ export async function svgExists(path) {
     return false;
   }
   //not cached yet
-  const response = await fetch(path);
-  const svgText = await response.text();
-  const exists = svgText.startsWith('<svg');
-  if (!exists) {
-    doesntExist[path] = true;
+  try {
+    const response = await fetch(path);
+    const svgText = await response.text();
+    const exists = svgText.startsWith("<svg");
+    if (!exists) {
+      doesntExist[path] = true;
+    }
+    return exists;
+  } catch (e) {
+    //Most likely a CORS issue for a specific svg
+    console.warn(e, path, "Fallback to default");
+    return false;
   }
-  return exists;
 }
