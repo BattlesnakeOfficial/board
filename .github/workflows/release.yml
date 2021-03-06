@@ -16,7 +16,7 @@ jobs:
       run: echo ::set-output name=repository::${GITHUB_REPOSITORY,,}
     - name: Get Release Version
       id: get-version
-      run: echo ::set-output name=version::${GITHUB_REF#refs/tags/}
+      run: echo ::set-output name=version::${{ github.event.release.tag_name }}
     - name: Checkout
       uses: actions/checkout@v2
     - name: Configure AWS credentials
