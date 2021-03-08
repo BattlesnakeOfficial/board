@@ -1,5 +1,8 @@
 FROM node:10.19-alpine AS build
 
+ARG APP_VERSION
+ENV APP_VERSION=$APP_VERSION
+
 COPY . .
 RUN npm ci
 RUN npm run build
