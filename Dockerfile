@@ -1,9 +1,7 @@
 FROM node:10.19-alpine AS build
 
-ARG IMAGE_TAG
-RUN echo "Look at args ${IMAGE_TAG}"
-ENV BEEP=$IMAGE_TAG
-RUN echo "Look at env ${BEEP}"
+ARG APP_VERSION
+ENV REACT_APP_VERSION=$APP_VERSION
 
 COPY . .
 RUN npm ci

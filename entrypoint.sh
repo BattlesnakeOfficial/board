@@ -44,18 +44,18 @@ http {
     }
 
     location /static/ {
-      # if (\$http_x_forwarded_proto != "https") {
-      #   return 301 https://\$host\$request_uri;
-      # }
+      if (\$http_x_forwarded_proto != "https") {
+        return 301 https://\$host\$request_uri;
+      }
 
       expires   max;
       try_files \$uri =404;
     }
 
     location / {
-      # if (\$http_x_forwarded_proto != "https") {
-      #   return 301 https://\$host\$request_uri;
-      # }
+      if (\$http_x_forwarded_proto != "https") {
+        return 301 https://\$host\$request_uri;
+      }
 
       expires   -1;
       try_files \$uri /index.html;
