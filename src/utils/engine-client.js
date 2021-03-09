@@ -5,7 +5,8 @@ import { isLastFrameOfGame } from "./game-state";
 
 const DEFAULT_SNAKE_HEAD = "default";
 const DEFAULT_SNAKE_TAIL = "default";
-const APP_VERSION = process.env.APP_VERSION;
+const BEEP = process.env.BEEP;
+console.log(process.env);
 
 async function get(url, query) {
   const response = await fetch(url + makeQueryString(query));
@@ -93,7 +94,10 @@ function isIllegalSvgPath(nameOrPath) {
 
 function svgUrlFromName(base, relative) {
   //appending the image tag of this version allows for cache busting on deploy
-  const extension = ".svg?boardVersion=" + APP_VERSION;
+  console.log("Am I crazy?");
+  console.log(BEEP);
+  console.log(typeof BEEP);
+  const extension = ".svg?boardVersion=" + BEEP;
   return join("https://media.battlesnake.com", base, relative) + extension;
 }
 
