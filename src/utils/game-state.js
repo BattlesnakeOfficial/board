@@ -1,6 +1,6 @@
 import cloneDeep from "lodash.clonedeep";
 
-const DEFAULT_HEAD_DIRECTION = "up";
+const DEFAULT_HEAD_DIRECTION = "right";
 
 const TYPE_HEAD = "head";
 const TYPE_TAIL = "tail";
