@@ -1,6 +1,6 @@
 import cloneDeep from "lodash.clonedeep";
 
-const DEFAULT_HEAD_DIRECTION = "right";
+const DEFAULT_DIRECTION = "right";
 
 const TYPE_HEAD = "head";
 const TYPE_TAIL = "tail";
@@ -86,12 +86,6 @@ function formatDeath(death) {
   };
 }
 
-function headDirection(snake) {
-  return snake.Body.length > 1
-    ? getDirection(snake.Body[1], snake.Body[0])
-    : DEFAULT_HEAD_DIRECTION;
-}
-
 function shouldRenderPart(snake, partIndex) {
   const headIndex = 0;
   const tailIndex = snake.Body.length - 1;
@@ -149,7 +143,7 @@ function formatPosition(pos) {
 function formatDirection(type, snake, part, partIndex) {
   let direction;
   if (type === "head") {
-    direction = headDirection(snake);
+    direction = getDirection(snake.Body[1], snake.Body[0]);
   } else {
     // handle special case where parts overlap
     var prevPart;
@@ -167,12 +161,14 @@ function formatDirection(type, snake, part, partIndex) {
 function getDirection(a, b) {
   if (a.X < b.X) {
     return "right";
-  } else if (b.X < a.X) {
+  } else if (a.X > b.X) {
     return "left";
   } else if (a.Y > b.Y) {
     return "down";
+  } else if (a.Y < b.Y) {
+    return "up";
   }
-  return "up";
+  return DEFAULT_DIRECTION;
 }
 
 function getType(snake, partIndex) {
