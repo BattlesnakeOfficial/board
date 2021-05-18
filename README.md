@@ -51,3 +51,7 @@ If you click on the board you can use:
 
 ESLint and Prettier are setup in this project so you may want to install
 compatible plugins in your editor.
+
+### Feedback
+
+* **Do you have an issue or suggestions for this repository?** Head over to our [Feedback Repository](https://play.battlesnake.com/feedback) today and let us know!
