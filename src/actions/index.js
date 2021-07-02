@@ -2,7 +2,12 @@ import { delay, getFrameByTurn, streamAllFrames } from "../utils/engine-client";
 import { themes } from "../theme";
 
 // Sort of a hack, until we have persisted playback options
-const DEFAULT_FPS = localStorage.getItem("frameRate") || 20;
+let DEFAULT_FPS = 10;
+try {
+  DEFAULT_FPS = localStorage.getItem("frameRate") || 10;
+} catch (err) {
+  console.log("unable to load localStorage");
+}
 
 export const setGameOptions = gameOptions => ({
   type: "SET_GAME_OPTIONS",
