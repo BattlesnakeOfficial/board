@@ -217,11 +217,11 @@ function getTailTransform(direction, viewBox) {
   const halfY = viewBox.height / 2;
   switch (direction) {
     case "right":
-      return `rotate(180 ${halfX} ${halfY})`;
+      return `scale(-1,1) translate(-100,0)`;
     case "down":
-      return `rotate(-90 ${halfX} ${halfY})`;
+      return `scale(-1,1) translate(-100,0) rotate(-90 ${halfX} ${halfY})`;
     case "up":
-      return `rotate(90 ${halfX} ${halfY})`;
+      return `scale(-1,1) translate(-100,0) rotate(90 ${halfX} ${halfY})`;
     default:
       return "";
   }
