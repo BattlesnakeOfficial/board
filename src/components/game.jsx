@@ -35,8 +35,7 @@ const BoardTitle = styled("div")(({ theme }) => ({
   fontSize: "2.5rem",
   fontWeight: "600",
   textAlign: "center",
-  color: theme === themes.dark ? colors.lightText : colors.darkText,
-  letterSpacing: ".3rem"
+  color: theme === themes.dark ? colors.lightText : colors.darkText
 }));
 
 const HeaderWrapper = styled("div")`
