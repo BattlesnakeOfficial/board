@@ -32,8 +32,8 @@ const GameBoardWrapper = styled("div")({
 const BoardTitle = styled("div")(({ theme }) => ({
   paddingLeft: "2rem",
   paddingTop: "1rem",
-  fontSize: "3.5rem",
-  fontFamily: "'Permanent Marker', cursive",
+  fontSize: "2.5rem",
+  fontWeight: "600",
   textAlign: "center",
   color: theme === themes.dark ? colors.lightText : colors.darkText,
   letterSpacing: ".3rem"
