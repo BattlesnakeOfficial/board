@@ -468,8 +468,7 @@ class Grid extends React.Component {
       (CELL_SIZE + CELL_SPACING) * this.props.rows + CELL_SPACING;
 
     const sine = (new Date().getTime() / 500.0) % 2;
-    const pulse = 0.05 * Math.sin(Math.PI * sine);
-    const hazardOpacity = parseFloat(colors.hazardOpacity) + pulse;
+    const hazardOpacity = parseFloat(colors.hazardOpacity);
 
     return (
       <svg
