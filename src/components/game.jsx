@@ -31,9 +31,10 @@ const GameBoardWrapper = styled("div")({
 });
 
 const BoardTitle = styled("div")(({ theme }) => ({
-  fontSize: "2.5rem",
+  fontSize: "2rem",
   fontWeight: "600",
   textAlign: "center",
+  textTransform: "uppercase",
   color: theme === themes.dark ? colors.lightText : colors.darkText
 }));
 
@@ -64,8 +65,9 @@ const LogoWrapper = styled("div")`
 `;
 
 const TurnCount = styled("div")`
-  font-size: 1.8rem;
+  font-size: 2rem;
   font-weight: 600;
+  text-transform: uppercase;
   color: ${({ theme }) =>
     theme === themes.dark ? colors.lightText : colors.darkText};
 
@@ -92,7 +94,7 @@ const BoardWrapper = styled("div")`
 const ScoreboardWrapper = styled("div")`
   display: none;
   width: 40vw;
-  margin: 0 2rem;
+  padding: 0 2rem;
 
   @media (min-width: ${breakpoints.md}) {
     display: ${({ hide }) => (hide ? "none" : "block")};
@@ -192,7 +194,7 @@ class Game extends React.Component {
                 highlightSnake={this.props.highlightSnake}
                 theme={this.props.theme}
               />
-              <Ruleset>Game Ruleset: {this.props.ruleset.name}</Ruleset>
+              <Ruleset>Rules: {this.props.ruleset.name}</Ruleset>
             </ScoreboardWrapper>
           )}
         </GameBoardWrapper>
