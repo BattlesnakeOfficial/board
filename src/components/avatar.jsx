@@ -28,6 +28,7 @@ const Length = styled("span")(({ theme }) => ({
 
 const AuthorWrapper = styled("div")({
   fontSize: "1rem",
+  fontWeight: "400",
   display: "flex",
   flexDirection: "row"
 });
