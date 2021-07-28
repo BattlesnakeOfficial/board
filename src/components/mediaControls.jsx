@@ -6,29 +6,13 @@ import { themes, breakpoints } from "../theme";
 
 const MediaControlsWrapper = styled("div")`
   display: ${({ hide }) => (hide ? "none" : "block")};
-  margin-top: 1rem;
+  margin-top: 0.5rem;
   width: 100%;
 `;
 
 const KeyboardShortcutsWrapper = styled("div")({
-  position: "relative",
-  marginLeft: "1rem"
+  position: "relative"
 });
-
-const ShortcutsPaneTrigger = styled("div")`
-  margin: 0;
-  padding: 1rem;
-  height: 3rem;
-  width: 3rem;
-  background: #dfdfdf;
-  border-radius: 50%;
-  line-height: 0.5;
-  text-align: center;
-
-  &:hover {
-    cursor: pointer;
-  }
-`;
 
 const ShortcutsPane = styled("div")`
   position: absolute;
@@ -59,8 +43,7 @@ const ShortcutsPane = styled("div")`
 const ButtonWrapper = styled("div")({
   display: "flex",
   justifyContent: "center",
-  width: "100%",
-  marginBottom: "2rem"
+  width: "100%"
 });
 
 const Button = styled("button")`
@@ -209,9 +192,9 @@ class MediaControls extends React.Component {
             onKeyEvent={this.handleKeyEvent}
           />
           <KeyboardShortcutsWrapper>
-            <ShortcutsPaneTrigger onClick={this.handleShortcutPaneShowToggle}>
-              ?
-            </ShortcutsPaneTrigger>
+            <Button onClick={this.handleShortcutPaneShowToggle} theme={theme}>
+              <span className="material-icons icon-image-preview">help</span>
+            </Button>
             {!this.state.paneHidden && (
               <ShortcutsPane>
                 <h4>Keyboard shortcuts</h4>

@@ -30,7 +30,6 @@ const orderSnakes = snakes => {
 
 const Wrapper = styled("div")`
   display: none;
-  padding-right: 2rem;
   color: ${({ theme }) =>
     theme === themes.dark ? colors.lightText : colors.darkText};
   font-weight: 600;
@@ -48,14 +47,14 @@ const Wrapper = styled("div")`
 `;
 
 const AvatarWrapper = styled("div")`
+  padding: 0.75rem;
   transition: background-color 0.2s, box-shadow 0.2s;
-  box-shadow: ${props =>
-    props.highlighted ? `0 0 0 1px ${colors.lightText}` : null};
-
+  border: 2px solid ${props => (props.highlighted ? "#888" : "transparent")};
   &:hover {
     background-color: ${props =>
       props.theme === themes.dark ? colors.purple : colors.light};
     cursor: pointer;
+    border-color: #888;
   }
 `;
 

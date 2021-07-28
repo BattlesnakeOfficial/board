@@ -26,12 +26,11 @@ const GameBoardWrapper = styled("div")({
   display: "flex",
   justifyContent: "space-between",
   width: "100%",
-  height: "100%"
+  height: "100%",
+  padding: "10px"
 });
 
 const BoardTitle = styled("div")(({ theme }) => ({
-  paddingLeft: "2rem",
-  paddingTop: "1rem",
   fontSize: "2.5rem",
   fontWeight: "600",
   textAlign: "center",
@@ -42,9 +41,7 @@ const HeaderWrapper = styled("div")`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  padding-right: 1rem;
+  margin: 0.5rem 0;
   text-align: center;
 
   @media (min-width: ${breakpoints.xxl}) {
@@ -78,7 +75,7 @@ const TurnCount = styled("div")`
 `;
 const TurnCountValue = styled("span")`
   display: inline-block;
-  width: 8rem;
+  width: 6rem;
 `;
 
 const BoardWrapper = styled("div")`
@@ -95,7 +92,7 @@ const BoardWrapper = styled("div")`
 const ScoreboardWrapper = styled("div")`
   display: none;
   width: 40vw;
-  margin-left: 2rem;
+  margin: 0 2rem;
 
   @media (min-width: ${breakpoints.md}) {
     display: ${({ hide }) => (hide ? "none" : "block")};
@@ -103,6 +100,7 @@ const ScoreboardWrapper = styled("div")`
 `;
 
 const Ruleset = styled("p")`
+  margin: 0.25rem;
   width: 100%;
   font-size: 1.2rem;
   text-align: center;
