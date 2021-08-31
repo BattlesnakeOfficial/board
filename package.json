@@ -13,7 +13,6 @@
     "react-dom": "16.8.4",
     "react-keyboard-event-handler": "1.4.1",
     "react-redux": "6.0.1",
-    "react-scripts": "4.0.0",
     "redux": "4.0.1",
     "redux-thunk": "2.3.0",
     "serialize-javascript": "^3.1.0",
@@ -23,7 +22,8 @@
     "eslint-plugin-prettier": "3.1.2",
     "husky": "4.2.3",
     "lint-staged": "10.0.8",
-    "prettier": "1.19.1"
+    "prettier": "1.19.1",
+    "react-scripts": "4.0.3"
   },
   "scripts": {
     "start": "react-scripts start",
