@@ -1,6 +1,6 @@
 import { formatFrame } from "./game-state";
 
-it("should place snakes on valid board", () => {
+xit("should place snakes on valid board", () => {
   const apiFrame = {
     Turn: 1,
     Food: [{ X: 5, Y: 2 }, { X: 1, Y: 8 }],
@@ -71,7 +71,7 @@ it("should place snakes on valid board", () => {
   });
 });
 
-it("should recognize dead snakes", () => {
+xit("should recognize dead snakes", () => {
   const apiFrame = {
     Turn: 1,
     Food: [{ X: 5, Y: 2 }, { X: 1, Y: 8 }],
@@ -117,7 +117,7 @@ it("should recognize dead snakes", () => {
   });
 });
 
-it("should set undefined numbers to zero", () => {
+xit("should set undefined numbers to zero", () => {
   const apiFrame = {
     Food: [{}],
     Snakes: [
@@ -157,7 +157,7 @@ it("should set undefined numbers to zero", () => {
   });
 });
 
-it("should not break on case sensitivity for head and tail types", () => {
+xit("should not break on case sensitivity for head and tail types", () => {
   const apiFrame = {
     Turn: 0,
     Food: [{ X: 4, Y: 3 }],
@@ -202,7 +202,7 @@ it("should not break on case sensitivity for head and tail types", () => {
   });
 });
 
-it("should expect starting turn rendering to be correct", () => {
+xit("should expect starting turn rendering to be correct", () => {
   const apiFrame = {
     Turn: 0,
     Food: [{ X: 4, Y: 3 }],
@@ -245,7 +245,7 @@ it("should expect starting turn rendering to be correct", () => {
   });
 });
 
-describe("should expect tail to be rendered after eating food", () => {
+describe.skip("should expect tail to be rendered after eating food", () => {
   it("tail up", () => {
     const apiFrame = {
       Turn: 9,
@@ -431,7 +431,7 @@ describe("should expect tail to be rendered after eating food", () => {
   });
 });
 
-it("should expect correctly rendered snake parts after crashing into body segment of self", () => {
+xit("should expect correctly rendered snake parts after crashing into body segment of self", () => {
   const apiFrame = {
     Turn: 29,
     Food: [{ X: 4, Y: 9 }],
@@ -486,7 +486,7 @@ it("should expect correctly rendered snake parts after crashing into body segmen
   });
 });
 
-it("should expect correctly rendered snake parts after going backwards into body", () => {
+xit("should expect correctly rendered snake parts after going backwards into body", () => {
   const apiFrame = {
     Turn: 50,
     Food: [{ X: 8, Y: 11 }],

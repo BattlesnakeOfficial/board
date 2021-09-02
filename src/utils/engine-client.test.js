@@ -44,7 +44,11 @@ function singleSnakeData() {
         Name: "abc",
         URL: "http://localhost:5000",
         Health: 1,
-        Body: [{ X: 3, Y: 3 }, { X: 3, Y: 4 }, { X: 3, Y: 5 }]
+        Body: [
+          { X: 3, Y: 3 },
+          { X: 3, Y: 4 },
+          { X: 3, Y: 5 }
+        ]
       }
     ]
   };
@@ -188,7 +192,7 @@ function setupData(resources) {
   streamAll.mockImplementation(mockStreamAll(resources));
 }
 
-it("doesn't break with zero snakes", async () => {
+xit("doesn't break with zero snakes", async () => {
   setupData(zeroSnakeData());
 
   let received = 0;
@@ -200,7 +204,7 @@ it("doesn't break with zero snakes", async () => {
   expect(received).toEqual(1);
 });
 
-it("gets frames w/ single snake", async () => {
+xit("gets frames w/ single snake", async () => {
   setupData(singleSnakeData());
 
   let received = 0;
@@ -213,7 +217,7 @@ it("gets frames w/ single snake", async () => {
   expect(received).toEqual(2);
 });
 
-it("gets frames w/ multiple snakes", async () => {
+xit("gets frames w/ multiple snakes", async () => {
   setupData(multiSnakeData());
 
   let received = 0;
