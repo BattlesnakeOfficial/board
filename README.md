@@ -1,6 +1,7 @@
 # Battlesnake Board
+The board project is used to display Battlesnake games, both during live streams and competitions, as well as on [play.battlesnake.com](https://play.battlesnake.com/). It's built using React, HTML Canvas, and SVGs.
 
-[![Build Status](https://travis-ci.com/battlesnakeio/board.svg?branch=master)](https://travis-ci.com/battlesnakeio/board)
+This project follows most React conventions and tools described in the react docs: [create-react-app.dev/docs](https://create-react-app.dev/docs/getting-started)
 
 ## Development
 
@@ -18,6 +19,13 @@ npm run build
 ## Running a game
 
 The game board requires a few parameters to work, including a `game` ID and an `engine` URL to query. Loading the index page with no params will throw an error or spin indefinitely.
+
+## Running tests
+
+React will run tests locally in watch mode. More info: https://create-react-app.dev/docs/running-tests/#command-line-interface
+```shell
+npm test
+```
 
 ## Board parameters
 
@@ -49,8 +57,9 @@ If you click on the board you can use:
 
 ## Linting and formatting
 
-ESLint and Prettier are setup in this project so you may want to install
-compatible plugins in your editor.
+ESLint and Prettier are set up in this project, so you may want to install compatible plugins in your editor.
+
+More info on setting up in popular editors here: [create-react-app.dev/docs/setting-up-your-editor](https://create-react-app.dev/docs/setting-up-your-editor#displaying-lint-output-in-the-editor)
 
 ### Feedback
 

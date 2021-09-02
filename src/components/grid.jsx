@@ -467,7 +467,6 @@ class Grid extends React.Component {
     const viewBoxHeight =
       (CELL_SIZE + CELL_SPACING) * this.props.rows + CELL_SPACING;
 
-    const sine = (new Date().getTime() / 500.0) % 2;
     const hazardOpacity = parseFloat(colors.hazardOpacity);
 
     return (

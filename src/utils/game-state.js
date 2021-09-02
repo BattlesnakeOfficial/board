@@ -36,21 +36,26 @@ export function sanitizeFrame(frame) {
 }
 
 function formatSnakes(snakes) {
-  var newSnakes = snakes.map(formatSnake);
+  if (snakes) {
+    let newSnakes = snakes.map(formatSnake);
 
-  // Populate eliminatedBy names
-  newSnakes.forEach(function(snake, index) {
-    if (snake.death && snake.death.eliminatedBy.length > 0) {
-      for (const i in newSnakes) {
-        if (newSnakes[i]._id === snake.death.eliminatedBy) {
-          newSnakes[index].death.eliminatedBy = newSnakes[i].name;
-          break;
+    // Populate eliminatedBy names
+    newSnakes.forEach(function(snake, index) {
+      if (
+        snake.death &&
+        snake.death.eliminatedBy &&
+        snake.death.eliminatedBy.length > 0
+      ) {
+        for (const i in newSnakes) {
+          if (newSnakes[i]._id === snake.death.eliminatedBy) {
+            newSnakes[index].death.eliminatedBy = newSnakes[i].name;
+            break;
+          }
         }
       }
-    }
-  });
-
-  return newSnakes;
+    });
+    return newSnakes;
+  }
 }
 
 function formatSnake(snake) {
@@ -130,7 +135,9 @@ function formatSnakePart(snake, partIndex) {
 }
 
 function formatPositions(positions) {
-  return positions.map(formatPosition);
+  if (positions) {
+    return positions.map(formatPosition);
+  }
 }
 
 function formatPosition(pos) {
@@ -159,15 +166,18 @@ function formatDirection(type, snake, part, partIndex) {
 }
 
 function getDirection(a, b) {
-  if (a.X < b.X) {
-    return "right";
-  } else if (a.X > b.X) {
-    return "left";
-  } else if (a.Y > b.Y) {
-    return "down";
-  } else if (a.Y < b.Y) {
-    return "up";
+  if (a && b) {
+    if (a.X < b.X) {
+      return "right";
+    } else if (a.X > b.X) {
+      return "left";
+    } else if (a.Y > b.Y) {
+      return "down";
+    } else if (a.Y < b.Y) {
+      return "up";
+    }
   }
+
   return DEFAULT_DIRECTION;
 }
 

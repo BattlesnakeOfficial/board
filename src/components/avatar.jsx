@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { breakpoints, colors, themes } from "../theme";
+import { colors, themes } from "../theme";
 import { getReadableCauseOfDeath } from "../utils/engine-client";
 
 const AvatarWrapper = styled("div")`

@@ -1,6 +1,6 @@
 import { formatFrame, sanitizeFrame } from "../utils/game-state";
 
-export default (state = {}, action) => {
+const reducers = (state = {}, action) => {
   switch (action.type) {
     case "SET_THEME":
       return { ...state, theme: action.theme };
@@ -67,3 +67,5 @@ function windowPostMessage(data) {
     console.error(e);
   }
 }
+
+export default reducers;
