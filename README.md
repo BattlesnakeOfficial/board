@@ -20,6 +20,13 @@ npm run build
 
 The game board requires a few parameters to work, including a `game` ID and an `engine` URL to query. Loading the index page with no params will throw an error or spin indefinitely.
 
+## Running tests
+
+React will run tests locally in watch mode. More info: https://create-react-app.dev/docs/running-tests/#command-line-interface
+```shell
+npm test
+```
+
 ## Board parameters
 
 #### Required
