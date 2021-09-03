@@ -4,28 +4,33 @@ on: [push, pull_request]
 # for testing purposes. Will focus on main branch after thia workflow is integrated
 
 jobs:
+  build:
 
-  install:
-    name: Install packages
     runs-on: ubuntu-latest
+
     steps:
-      - name: checkout latest source
+      - name: Checkout latest source
         uses: actions/checkout@v2
 
-      - name: Cache dependencies
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: npm-${{ hashFiles('package-lock.json') }}
-          restore-keys: npm-
+      - name: Install package dependencies
+        run: npm ci
 
-      - name: npm ci
-        run: npm ci --ignore-scripts
+      - name: Build react app (board)
+        run: npm run build
+
+      - name: Save build artifacts
+        uses: actions/upload-artifact@main
+        with:
+          name: board artifacts
+          path: public/
 
   lint:
     name: Lint & Format (eslint)
-    needs: install
+    needs: build
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout latest source
+        uses: actions/checkout@v2
+
       - name: Lint
         run: npm run lint
