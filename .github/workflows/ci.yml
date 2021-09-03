@@ -15,7 +15,7 @@ jobs:
           path: ~/.npm
           key: npm-${{ hashFiles('package-lock.json') }}
           restore-keys: npm-
-      - run: npm ci
+      - run: npm install
 
   build:
     needs: install
@@ -24,6 +24,9 @@ jobs:
     steps:
       - name: Checkout latest source
         uses: actions/checkout@v2
+
+      #- name: Install package dependencies
+      #  run: npm ci
 
       - name: Build react app (board)
         run: npm run build
