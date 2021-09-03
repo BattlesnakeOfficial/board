@@ -4,16 +4,20 @@ on: [push, pull_request]
 # for testing purposes. Will focus on main branch after thia workflow is integrated
 
 jobs:
-  build:
+  install:
+    name: Install packages
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: npm ci
 
+  build:
+    needs: install
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout latest source
         uses: actions/checkout@v2
-
-      - name: Install package dependencies
-        run: npm ci
 
       - name: Build react app (board)
         run: npm run build
@@ -23,14 +27,3 @@ jobs:
         with:
           name: board artifacts
           path: public/
-
-  lint:
-    name: Lint & Format (eslint)
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout latest source
-        uses: actions/checkout@v2
-
-      - name: Lint
-        run: npm run lint
