@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: checkout latest source
         uses: actions/checkout@v2
-      -name: npm ci
+      - name: npm ci
         run: npm ci
 
   lint:
