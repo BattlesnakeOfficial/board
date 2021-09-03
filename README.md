@@ -1,5 +1,5 @@
 # Battlesnake Board FORK
-![CI Build Status](https://github.com/originalwebgurl/board/actions/workflows/ci.yml/badge.svg)  ![Release Build Status](https://github.com/BattlesnakeOfficial/board/actions/workflows/release.yml/badge.svg)
+![CI Build Status](https://github.com/BattlesnakeOfficial/board/actions/workflows/ci.yml/badge.svg)  ![Release Build Status](https://github.com/BattlesnakeOfficial/board/actions/workflows/release.yml/badge.svg)
 
 The board project is used to display Battlesnake games, both during live streams and competitions, as well as on [play.battlesnake.com](https://play.battlesnake.com/). It's built using React, HTML Canvas, and SVGs.
 
