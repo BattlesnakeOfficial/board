@@ -62,7 +62,11 @@ function singleSnakeData() {
         Name: "abc",
         URL: "http://localhost:5000",
         Health: 0,
-        Body: [{ X: 3, Y: 4 }, { X: 3, Y: 5 }, { X: 3, Y: 6 }],
+        Body: [
+          { X: 3, Y: 4 },
+          { X: 3, Y: 5 },
+          { X: 3, Y: 6 }
+        ],
         Death: { Cause: "out-of-health", Turn: 1 }
       }
     ]
@@ -102,7 +106,11 @@ function multiSnakeData() {
         Name: "abc",
         URL: "http://localhost:5000",
         Health: 1,
-        Body: [{ X: 3, Y: 3 }, { X: 3, Y: 4 }, { X: 3, Y: 5 }],
+        Body: [
+          { X: 3, Y: 3 },
+          { X: 3, Y: 4 },
+          { X: 3, Y: 5 }
+        ],
         Head: "default",
         Tail: "default"
       },
@@ -111,7 +119,11 @@ function multiSnakeData() {
         Name: "qwer",
         URL: "http://localhost:5000",
         Health: 10,
-        Body: [{ X: 6, Y: 3 }, { X: 6, Y: 4 }, { X: 6, Y: 5 }],
+        Body: [
+          { X: 6, Y: 3 },
+          { X: 6, Y: 4 },
+          { X: 6, Y: 5 }
+        ],
         Head: "http://illegal/head.svg",
         Tail: "http://illegal/tail.svg"
       }
@@ -127,7 +139,11 @@ function multiSnakeData() {
         Name: "abc",
         URL: "http://localhost:5000",
         Health: 0,
-        Body: [{ X: 3, Y: 4 }, { X: 3, Y: 5 }, { X: 3, Y: 6 }],
+        Body: [
+          { X: 3, Y: 4 },
+          { X: 3, Y: 5 },
+          { X: 3, Y: 6 }
+        ],
         Death: { Cause: "out-of-health", Turn: 1 }
       },
       {
@@ -135,7 +151,11 @@ function multiSnakeData() {
         Name: "qwer",
         URL: "http://localhost:5000",
         Health: 9,
-        Body: [{ X: 6, Y: 4 }, { X: 6, Y: 5 }, { X: 6, Y: 6 }]
+        Body: [
+          { X: 6, Y: 4 },
+          { X: 6, Y: 5 },
+          { X: 6, Y: 6 }
+        ]
       }
     ]
   };

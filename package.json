@@ -30,7 +30,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "lint": "eslint ./src",
+    "lint:fix": "eslint --fix ./src"
   },
   "lint-staged": {
     "*.{js,json,css,md}": [

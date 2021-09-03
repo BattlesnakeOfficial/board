@@ -1,0 +1,58 @@
+name: Continuous Integration
+
+on: [push, pull_request]
+# for testing purposes. Will focus on main branch after thia workflow is integrated
+
+jobs:
+
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout latest source
+        uses: actions/checkout@v2
+
+      - name: Install package dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+        env:
+          CI: true
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout latest source
+        uses: actions/checkout@v2
+
+      - name: Install package dependencies
+        run: npm ci
+
+      - name: Build react app (board)
+        run: npm run build
+        env:
+          CI: true
+
+      - name: Save build artifacts
+        uses: actions/upload-artifact@main
+        with:
+          name: board artifacts
+          path: public/
+
+  test:
+    runs-on: ubuntu-latest
+    #needs: [lint, build]
+
+    steps:
+      - name: Checkout latest source
+        uses: actions/checkout@v2
+
+      - name: Install package dependencies
+        run: npm ci
+
+      - name: Test
+        run: npm test
+        env:
+          CI: true

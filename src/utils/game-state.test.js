@@ -3,7 +3,10 @@ import { formatFrame } from "./game-state";
 xit("should place snakes on valid board", () => {
   const apiFrame = {
     Turn: 1,
-    Food: [{ X: 5, Y: 2 }, { X: 1, Y: 8 }],
+    Food: [
+      { X: 5, Y: 2 },
+      { X: 1, Y: 8 }
+    ],
     Snakes: [
       {
         ID: "snake1",
@@ -11,7 +14,11 @@ xit("should place snakes on valid board", () => {
         URL: "http://snake1",
         Health: 80,
         Color: "red",
-        Body: [{ X: 0, Y: 0 }, { X: 0, Y: 1 }, { X: 0, Y: 2 }]
+        Body: [
+          { X: 0, Y: 0 },
+          { X: 0, Y: 1 },
+          { X: 0, Y: 2 }
+        ]
       },
       {
         ID: "snake2",
@@ -19,7 +26,12 @@ xit("should place snakes on valid board", () => {
         URL: "http://snake2",
         Health: 70,
         Color: "green",
-        Body: [{ X: 5, Y: 3 }, { X: 6, Y: 3 }, { X: 6, Y: 4 }, { X: 7, Y: 4 }]
+        Body: [
+          { X: 5, Y: 3 },
+          { X: 6, Y: 3 },
+          { X: 6, Y: 4 },
+          { X: 7, Y: 4 }
+        ]
       }
     ]
   };
@@ -74,7 +86,10 @@ xit("should place snakes on valid board", () => {
 xit("should recognize dead snakes", () => {
   const apiFrame = {
     Turn: 1,
-    Food: [{ X: 5, Y: 2 }, { X: 1, Y: 8 }],
+    Food: [
+      { X: 5, Y: 2 },
+      { X: 1, Y: 8 }
+    ],
     Snakes: [
       {
         ID: "snake1",
@@ -83,7 +98,11 @@ xit("should recognize dead snakes", () => {
         Health: 80,
         Color: "red",
         Death: { Cause: "asdf", Turn: 3 },
-        Body: [{ X: 1, Y: 1 }, { X: 0, Y: 1 }, { X: 0, Y: 0 }]
+        Body: [
+          { X: 1, Y: 1 },
+          { X: 0, Y: 1 },
+          { X: 0, Y: 0 }
+        ]
       }
     ]
   };
@@ -170,7 +189,11 @@ xit("should not break on case sensitivity for head and tail types", () => {
         HeadType: "dEfaUlT",
         TailType: "BOLT",
         Color: "red",
-        Body: [{ X: 4, Y: 4 }, { X: 4, Y: 4 }, { X: 4, Y: 4 }]
+        Body: [
+          { X: 4, Y: 4 },
+          { X: 4, Y: 4 },
+          { X: 4, Y: 4 }
+        ]
       }
     ]
   };
@@ -213,7 +236,11 @@ xit("should expect starting turn rendering to be correct", () => {
         URL: "http://snake1",
         Health: 100,
         Color: "red",
-        Body: [{ X: 4, Y: 4 }, { X: 4, Y: 4 }, { X: 4, Y: 4 }]
+        Body: [
+          { X: 4, Y: 4 },
+          { X: 4, Y: 4 },
+          { X: 4, Y: 4 }
+        ]
       }
     ]
   };
@@ -257,7 +284,12 @@ describe.skip("should expect tail to be rendered after eating food", () => {
           URL: "http://snake1",
           Health: 80,
           Color: "red",
-          Body: [{ X: 4, Y: 4 }, { X: 4, Y: 5 }, { X: 4, Y: 6 }, { X: 4, Y: 6 }]
+          Body: [
+            { X: 4, Y: 4 },
+            { X: 4, Y: 5 },
+            { X: 4, Y: 6 },
+            { X: 4, Y: 6 }
+          ]
         }
       ]
     };
@@ -354,7 +386,11 @@ describe.skip("should expect tail to be rendered after eating food", () => {
           URL: "http://snake1",
           Health: 99,
           Color: "red",
-          Body: [{ X: 6, Y: 4 }, { X: 7, Y: 4 }, { X: 7, Y: 4 }]
+          Body: [
+            { X: 6, Y: 4 },
+            { X: 7, Y: 4 },
+            { X: 7, Y: 4 }
+          ]
         }
       ]
     };
@@ -397,7 +433,12 @@ describe.skip("should expect tail to be rendered after eating food", () => {
           URL: "http://snake1",
           Health: 100,
           Color: "red",
-          Body: [{ X: 6, Y: 5 }, { X: 6, Y: 4 }, { X: 6, Y: 4 }, { X: 6, Y: 4 }]
+          Body: [
+            { X: 6, Y: 5 },
+            { X: 6, Y: 4 },
+            { X: 6, Y: 4 },
+            { X: 6, Y: 4 }
+          ]
         }
       ]
     };
