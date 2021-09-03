@@ -30,6 +30,8 @@ jobs:
 
       - name: Build react app (board)
         run: npm run build
+        env:
+          CI: true
 
       - name: Save build artifacts
         uses: actions/upload-artifact@main
