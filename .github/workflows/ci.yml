@@ -40,3 +40,19 @@ jobs:
         with:
           name: board artifacts
           path: public/
+
+  test:
+    runs-on: ubuntu-latest
+    #needs: [lint, build]
+
+    steps:
+      - name: Checkout latest source
+        uses: actions/checkout@v2
+
+      - name: Install package dependencies
+        run: npm ci
+
+      - name: Test
+        run: npm test
+        env:
+          CI: true
