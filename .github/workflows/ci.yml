@@ -11,6 +11,8 @@ jobs:
     steps:
       - name: checkout latest source
         uses: actions/checkout@v2
+        with:
+          persist-credentials: false
       - name: npm ci
         run: npm ci
 
