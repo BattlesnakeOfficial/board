@@ -5,8 +5,22 @@ on: [push, pull_request]
 
 jobs:
 
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout latest source
+        uses: actions/checkout@v2
+
+      - name: Install package dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+        env:
+          CI: true
+
   build:
-    # needs: install
     runs-on: ubuntu-latest
 
     steps:
