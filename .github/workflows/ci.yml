@@ -11,10 +11,16 @@ jobs:
     steps:
       - name: checkout latest source
         uses: actions/checkout@v2
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
         with:
-          persist-credentials: false
+          path: ~/.npm
+          key: npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: npm-
+
       - name: npm ci
-        run: npm ci
+        run: npm ci --ignore-scripts
 
   lint:
     name: Lint & Format (eslint)
