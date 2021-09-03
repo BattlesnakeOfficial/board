@@ -1,4 +1,4 @@
-# Battlesnake Board
+# Battlesnake Board FORK
 The board project is used to display Battlesnake games, both during live streams and competitions, as well as on [play.battlesnake.com](https://play.battlesnake.com/). It's built using React, HTML Canvas, and SVGs.
 
 This project follows most React conventions and tools described in the react docs: [create-react-app.dev/docs](https://create-react-app.dev/docs/getting-started)

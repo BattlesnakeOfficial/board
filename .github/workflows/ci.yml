@@ -1,0 +1,59 @@
+name: Continuous Integration
+
+on: [push, pull_request]
+# for testing purposes. Will focus on main branch after thia workflow is integrated
+
+jobs:
+
+  install:
+    name: Install packages
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        run: npm ci
+
+  build:
+    name: Build react app (board)
+    needs: install
+    runs-on: ubuntu-latest
+
+    steps:
+      - run: npm run build
+      - uses: actions/upload-artifact@main
+        with:
+          name: board artifacts
+          path: public/
+
+  lint:
+    name: Lint & Format (eslint)
+    needs: install
+    runs-on: ubuntu-latest
+    steps:
+      - name: Lint
+        run: npm run lint
+
+  test:
+    name: Tests
+    needs: build
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, windows-latest ]
+        node-version: [ 14.x, 16.x ]
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/download-artifact@main
+        with:
+          name: board artifacts
+          path: public
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - name: npm test
+        run: npm test
+        env:
+          CI: true
