@@ -1,7 +1,12 @@
 {
   "extends": "react-app",
-  "plugins": ["prettier"],
+  "plugins": [
+    "@emotion",
+    "prettier"
+  ],
   "rules": {
-    "prettier/prettier": "error"
+    "prettier/prettier": "error",
+    "@emotion/jsx-import": "error",
+    "@emotion/pkg-renaming": "error"
   }
 }
