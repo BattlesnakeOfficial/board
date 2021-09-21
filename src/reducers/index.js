@@ -17,7 +17,6 @@ const reducers = (state = {}, action) => {
     case types.PAUSE_GAME:
       return { ...state, paused: true };
     case types.GAME_OVER:
-      console.log("GAME_OVER", action);
       windowPostMessage({
         action: action.type,
         endEvent: action.endEvent
@@ -26,14 +25,11 @@ const reducers = (state = {}, action) => {
     case types.RESUME_GAME:
       return { ...state, paused: false };
     case types.SET_CURRENT_FRAME:
-      console.log("SET_CURRENT_FRAME", action);
       windowPostMessage({
         action: action.type,
         frame: sanitizeFrame(action.frame)
       });
       return { ...state, currentFrame: action.frame };
-    case types.SET_LAST_FRAME:
-      return { ...state, frames: [...state.frames, action.frame] };
     case types.RECEIVE_FRAME:
       const frame = formatFrame(action.frame);
       return {
@@ -46,7 +42,11 @@ const reducers = (state = {}, action) => {
         frames: [...state.frames, frame] // Be smart: this consumes A LOT of memory...
       };
     case types.RECEIVE_EVENT_END:
-      return { ...state, endEvent: action.endEvent };
+      return {
+        ...state,
+        endEvent: action.endEvent,
+        frames: [...state.frames, action.frame]
+      };
     case types.REQUEST_FRAMES:
       return { ...state };
     case types.FETCH_FRAMES:

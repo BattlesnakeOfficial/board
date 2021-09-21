@@ -38,19 +38,15 @@ export const receiveFrame = (game, frame) => ({
   frame
 });
 
-export const receiveEventEnd = (game, event) => ({
+export const receiveEventEnd = (game, endEvent, frame) => ({
   type: types.RECEIVE_EVENT_END,
   game,
-  endEvent: event
+  endEvent,
+  frame
 });
 
 export const setCurrentFrame = frame => ({
   type: types.SET_CURRENT_FRAME,
-  frame
-});
-
-export const setLastFrame = frame => ({
-  type: types.SET_LAST_FRAME,
   frame
 });
 
@@ -97,11 +93,10 @@ export const fetchFrames = () => {
             }
           }
         } else if (eventType === "game_end") {
-          dispatch(receiveEventEnd(game, eventData));
           const numFrames = getState().frames.length;
           const frame = getState().frames[numFrames - 1];
           frame.gameOver = true;
-          dispatch(setLastFrame(frame));
+          dispatch(receiveEventEnd(game, eventData, frame));
         }
       });
     } catch (e) {
