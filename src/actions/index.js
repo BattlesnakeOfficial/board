@@ -100,7 +100,7 @@ export const fetchFrames = () => {
           dispatch(receiveEventEnd(game, eventData));
           const numFrames = getState().frames.length;
           const frame = getState().frames[numFrames - 1];
-          frame.isLastFrame = true;
+          frame.gameOver = true;
           dispatch(setLastFrame(frame));
         }
       });

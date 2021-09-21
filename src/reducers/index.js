@@ -17,6 +17,7 @@ const reducers = (state = {}, action) => {
     case types.PAUSE_GAME:
       return { ...state, paused: true };
     case types.GAME_OVER:
+      console.log("GAME_OVER", action);
       windowPostMessage({
         action: action.type,
         endEvent: action.endEvent
@@ -25,6 +26,7 @@ const reducers = (state = {}, action) => {
     case types.RESUME_GAME:
       return { ...state, paused: false };
     case types.SET_CURRENT_FRAME:
+      console.log("SET_CURRENT_FRAME", action);
       windowPostMessage({
         action: action.type,
         frame: sanitizeFrame(action.frame)
