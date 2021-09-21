@@ -11,6 +11,7 @@ const initialState = {
   options: null,
   grid: [],
   frames: [],
+  endEvent: {},
   paused: true,
   gameNotFound: false,
   highlightedSnake: null,

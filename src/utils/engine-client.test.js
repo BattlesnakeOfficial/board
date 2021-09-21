@@ -1,4 +1,4 @@
-import { streamAllFrames } from "./engine-client";
+import { streamAllEvents } from "./engine-client";
 import { streamAll } from "../io/websocket";
 
 jest.mock("../io/websocket", () => {
@@ -216,7 +216,7 @@ xit("doesn't break with zero snakes", async () => {
   setupData(zeroSnakeData());
 
   let received = 0;
-  await streamAllFrames("http://localhost", "123", (game, frame) => {
+  await streamAllEvents("http://localhost", "123", (game, frame) => {
     received++;
     expect(frame.Snakes).toHaveLength(0);
   });
@@ -228,7 +228,7 @@ xit("gets frames w/ single snake", async () => {
   setupData(singleSnakeData());
 
   let received = 0;
-  await streamAllFrames("http://localhost", "123", (game, frame) => {
+  await streamAllEvents("http://localhost", "123", (game, frame) => {
     received++;
     expect(game.Game.ID).toEqual("123");
     expect(frame.Snakes).toHaveLength(1);
@@ -241,7 +241,7 @@ xit("gets frames w/ multiple snakes", async () => {
   setupData(multiSnakeData());
 
   let received = 0;
-  await streamAllFrames("http://localhost", "123", (game, frame) => {
+  await streamAllEvents("http://localhost", "123", (game, frame) => {
     received++;
     expect(game.Game.ID).toEqual("123");
     expect(frame.Snakes).toHaveLength(2);

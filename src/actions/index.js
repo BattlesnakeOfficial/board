@@ -1,4 +1,4 @@
-import { delay, getFrameByTurn, streamAllFrames } from "../utils/engine-client";
+import { delay, getFrameByTurn, streamAllEvents } from "../utils/engine-client";
 import { themes } from "../theme";
 import * as types from "./action-types";
 
@@ -38,6 +38,12 @@ export const receiveFrame = (game, frame) => ({
   frame
 });
 
+export const receiveEventEnd = (game, event) => ({
+  type: types.RECEIVE_EVENT_END,
+  game,
+  endEvent: event
+});
+
 export const setCurrentFrame = frame => ({
   type: types.SET_CURRENT_FRAME,
   frame
@@ -68,20 +74,25 @@ export const fetchFrames = () => {
     dispatch(requestFrames());
 
     try {
-      await streamAllFrames(engineUrl, gameId, (game, frame) => {
-        // Workaround for bug where turn exluded on turn 0
-        frame.Turn = frame.Turn || 0;
-        dispatch(receiveFrame(game, frame));
+      await streamAllEvents(engineUrl, gameId, (game, eventType, eventData) => {
+        if (eventType === "frame") {
+          const frame = eventData;
+          // Workaround for bug where turn exluded on turn 0
+          frame.Turn = frame.Turn || 0;
+          dispatch(receiveFrame(game, frame));
 
-        // Workaround to render the first frame into the board
-        if (frame.Turn === 0) {
-          const frame = getState().frames[0];
-          dispatch(setCurrentFrame(frame));
+          // Workaround to render the first frame into the board
+          if (frame.Turn === 0) {
+            const frame = getState().frames[0];
+            dispatch(setCurrentFrame(frame));
 
-          if (autoplay) {
-            dispatch(resumeGame());
-            dispatch(playFromFrame(frame));
+            if (autoplay) {
+              dispatch(resumeGame());
+              dispatch(playFromFrame(frame));
+            }
           }
+        } else if (eventType === "game_end") {
+          dispatch(receiveEventEnd(game, eventData));
         }
       });
     } catch (e) {
