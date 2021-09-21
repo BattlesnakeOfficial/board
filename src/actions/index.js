@@ -49,6 +49,11 @@ export const setCurrentFrame = frame => ({
   frame
 });
 
+export const setLastFrame = frame => ({
+  type: types.SET_LAST_FRAME,
+  frame
+});
+
 export const pauseGame = () => ({
   type: types.PAUSE_GAME
 });
@@ -93,6 +98,10 @@ export const fetchFrames = () => {
           }
         } else if (eventType === "game_end") {
           dispatch(receiveEventEnd(game, eventData));
+          const numFrames = getState().frames.length;
+          const frame = getState().frames[numFrames - 1];
+          frame.isLastFrame = true;
+          dispatch(setLastFrame(frame));
         }
       });
     } catch (e) {

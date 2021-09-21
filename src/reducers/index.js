@@ -30,6 +30,8 @@ const reducers = (state = {}, action) => {
         frame: sanitizeFrame(action.frame)
       });
       return { ...state, currentFrame: action.frame };
+    case types.SET_LAST_FRAME:
+      return { ...state, frames: [...state.frames, action.frame] };
     case types.RECEIVE_FRAME:
       const frame = formatFrame(action.frame);
       return {

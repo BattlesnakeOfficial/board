@@ -211,42 +211,43 @@ function cleanFrame(frame) {
   }
 }
 
-function oneLeft(snakes) {
-  const alive = snakes.filter(s => !s.death);
-  return alive.length <= 1;
-}
-
-function getUniqueSquads(snakes) {
-  return snakes
-    .map(function(snake) {
-      return snake.squad;
-    })
-    .filter(function(value) {
-      return typeof value !== "undefined" && value !== "";
-    })
-    .filter(function(value, index, self) {
-      return self.indexOf(value) === index;
-    })
-    .sort();
-}
+// function oneLeft(snakes) {
+//   const alive = snakes.filter(s => !s.death);
+//   return alive.length <= 1;
+// }
+//
+// function getUniqueSquads(snakes) {
+//   return snakes
+//     .map(function(snake) {
+//       return snake.squad;
+//     })
+//     .filter(function(value) {
+//       return typeof value !== "undefined" && value !== "";
+//     })
+//     .filter(function(value, index, self) {
+//       return self.indexOf(value) === index;
+//     })
+//     .sort();
+// }
 
 export function isLastFrameOfGame(frame) {
-  const snakes = formatSnakes(frame.Snakes);
-  const aliveSnakes = snakes.filter(s => !s.death);
-
-  if (snakes.length === 0) {
-    return true;
-  }
-
-  const remainingSquads = getUniqueSquads(aliveSnakes);
-  if (remainingSquads.length > 0) {
-    // Squad game, we're done if one squad is left.
-    return remainingSquads.length === 1;
-  }
-
-  if (snakes.length === 1) {
-    return !!snakes[0].death;
-  }
-
-  return oneLeft(snakes);
+  return frame.isLastFrame;
+  // const snakes = formatSnakes(frame.Snakes);
+  // const aliveSnakes = snakes.filter(s => !s.death);
+  //
+  // if (snakes.length === 0) {
+  //   return true;
+  // }
+  //
+  // const remainingSquads = getUniqueSquads(aliveSnakes);
+  // if (remainingSquads.length > 0) {
+  //   // Squad game, we're done if one squad is left.
+  //   return remainingSquads.length === 1;
+  // }
+  //
+  // if (snakes.length === 1) {
+  //   return !!snakes[0].death;
+  // }
+  //
+  // return oneLeft(snakes);
 }
