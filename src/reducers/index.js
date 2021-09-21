@@ -1,34 +1,35 @@
 import { formatFrame, sanitizeFrame } from "../utils/game-state";
+import * as types from "../actions/action-types";
 
 const reducers = (state = {}, action) => {
   switch (action.type) {
-    case "SET_THEME":
+    case types.SET_THEME:
       return { ...state, theme: action.theme };
-    case "SET_GAME_OPTIONS":
+    case types.SET_GAME_OPTIONS:
       action.gameOptions.autoplay =
         action.gameOptions.autoplay && action.gameOptions.autoplay === "true";
       action.gameOptions.turn = parseInt(action.gameOptions.turn) || 0;
       action.gameOptions.loop =
         action.gameOptions.loop && action.gameOptions.loop === "true";
       return { ...state, gameOptions: action.gameOptions };
-    case "GAME_NOT_FOUND":
+    case types.GAME_NOT_FOUND:
       return { ...state, gameNotFound: true };
-    case "PAUSE_GAME":
+    case types.PAUSE_GAME:
       return { ...state, paused: true };
-    case "GAME_OVER":
+    case types.GAME_OVER:
       windowPostMessage({
         action: action.type
       });
       return { ...state, paused: true };
-    case "RESUME_GAME":
+    case types.RESUME_GAME:
       return { ...state, paused: false };
-    case "SET_CURRENT_FRAME":
+    case types.SET_CURRENT_FRAME:
       windowPostMessage({
         action: action.type,
         frame: sanitizeFrame(action.frame)
       });
       return { ...state, currentFrame: action.frame };
-    case "RECEIVE_FRAME":
+    case types.RECEIVE_FRAME:
       const frame = formatFrame(action.frame);
       return {
         ...state,
@@ -39,11 +40,11 @@ const reducers = (state = {}, action) => {
         },
         frames: [...state.frames, frame] // Be smart: this consumes A LOT of memory...
       };
-    case "REQUEST_FRAMES":
+    case types.REQUEST_FRAMES:
       return { ...state };
-    case "FETCH_FRAMES":
+    case types.FETCH_FRAMES:
       return { ...state };
-    case "HIGHLIGHT_SNAKE":
+    case types.HIGHLIGHT_SNAKE:
       windowPostMessage({
         action: action.type,
         id: action.snakeId,

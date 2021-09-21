@@ -1,7 +1,6 @@
 import { streamAll } from "../io/websocket";
 import { makeQueryString, httpToWsProtocol, join } from "./url";
 import { loadSvgs, getSvg, svgExists } from "./inline-svg";
-import { isLastFrameOfGame } from "./game-state";
 
 const DEFAULT_SNAKE_HEAD = "default";
 const DEFAULT_SNAKE_TAIL = "default";
@@ -120,16 +119,20 @@ export async function streamAllFrames(baseUrl, gameId, receiveFrame) {
   const game = await fetchGameInfo(baseUrl, gameId);
 
   let chain = Promise.resolve();
-  function onFrame(frame) {
-    chain = chain.then(async () => {
-      await prepareFrame(frame);
-      return receiveFrame(game, frame);
-    });
-    return isLastFrameOfGame(frame);
+  function onEngineEvent(engineEvent) {
+    if (engineEvent.Type && engineEvent.Type === "frame") {
+      const frame = engineEvent.Data || engineEvent;
+
+      chain = chain.then(async () => {
+        await prepareFrame(frame);
+        return receiveFrame(game, frame);
+      });
+    }
+    return engineEvent.Type && engineEvent.Type === "game_end";
   }
 
-  const wsUrl = join(httpToWsProtocol(baseUrl), `socket/${gameId}`);
-  await streamAll(wsUrl, onFrame);
+  const wsUrl = join(httpToWsProtocol(baseUrl), `games/${gameId}/events`);
+  await streamAll(wsUrl, onEngineEvent);
   await chain;
 }
 
