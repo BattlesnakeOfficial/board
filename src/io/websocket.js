@@ -11,10 +11,11 @@ export function streamAll(url, receive) {
     const ws = new ReconnectingWebsocket(url);
     ws.addEventListener("message", e => {
       const obj = JSON.parse(e.data);
-      if (turns[obj.Turn]) {
+      const eventData = obj.Data;
+      if (turns[eventData.Turn]) {
         return;
       }
-      turns[obj.Turn] = true;
+      turns[eventData.Turn] = true;
 
       done = receive(obj);
       if (done) {
