@@ -18,7 +18,8 @@ const reducers = (state = {}, action) => {
       return { ...state, paused: true };
     case types.GAME_OVER:
       windowPostMessage({
-        action: action.type
+        action: action.type,
+        endEvent: action.endEvent
       });
       return { ...state, paused: true };
     case types.RESUME_GAME:
@@ -39,6 +40,12 @@ const reducers = (state = {}, action) => {
           width: action.game.Game.Width
         },
         frames: [...state.frames, frame] // Be smart: this consumes A LOT of memory...
+      };
+    case types.RECEIVE_EVENT_END:
+      return {
+        ...state,
+        endEvent: action.endEvent,
+        frames: [...state.frames, action.frame]
       };
     case types.REQUEST_FRAMES:
       return { ...state };

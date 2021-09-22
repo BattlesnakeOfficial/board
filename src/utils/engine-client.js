@@ -115,17 +115,19 @@ export function fetchGameInfo(baseUrl, gameId) {
   return get(url);
 }
 
-export async function streamAllFrames(baseUrl, gameId, receiveFrame) {
+export async function streamAllEvents(baseUrl, gameId, receiveEvent) {
   const game = await fetchGameInfo(baseUrl, gameId);
 
   let chain = Promise.resolve();
   function onEngineEvent(engineEvent) {
-    if (engineEvent.Type && engineEvent.Type === "frame") {
-      const frame = engineEvent.Data || engineEvent;
+    if (engineEvent.Type) {
+      const eventData = engineEvent.Data || engineEvent;
 
       chain = chain.then(async () => {
-        await prepareFrame(frame);
-        return receiveFrame(game, frame);
+        if (engineEvent.Type === "frame") {
+          await prepareFrame(eventData);
+        }
+        return receiveEvent(game, engineEvent.Type, eventData);
       });
     }
     return engineEvent.Type && engineEvent.Type === "game_end";
