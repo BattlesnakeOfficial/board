@@ -3,9 +3,9 @@
     font-size: 1rem;
     display: flex;
     align-items: center;
-    justify-content: end;
 }
 
 .material-icons {
     font-size: 1.25rem;
+    margin-right: 0.25rem;
 }

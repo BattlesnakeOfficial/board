@@ -46,14 +46,6 @@ const Latency = styled("span")(({ theme, latency }) => ({
   display: latency === "" ? "none" : "block"
 }));
 
-// // @todo move this into it's own component file
-// const ErrorMessage = styled("span")(({ theme, message }) => ({
-//   color: "red",
-//   marginLeft: "auto",
-//   textShadow: theme === themes.dark ? "0 1px 2px rgba(0,0,0,0.90)" : null,
-//   display: "block"
-// }));
-
 const HealthBarWrapper = styled("div")({
   marginTop: "0.2rem",
   width: "100%",
@@ -105,10 +97,6 @@ class Avatar extends React.Component {
           </HealthBarWrapper>
         )}
         <ErrorMessage code={5} message="Lorem ooooooopsum error" />
-        {/*<ErrorMessage message={{ code: 100, text: "Lorem oopsum error" }}>*/}
-        {/*  <span className="material-icons">error</span>*/}
-        {/*  <span>Lorem oopsum error</span>*/}
-        {/*</ErrorMessage>*/}
       </AvatarWrapper>
     );
   }
