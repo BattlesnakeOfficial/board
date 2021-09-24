@@ -7,14 +7,21 @@ const errorColor = {
 };
 
 function getIcon(code) {
-  return "error";
+  return code ? "error" : "";
 }
 
-const ErrorMessage = ({ code, message }) => (
-  <div className="error-message" style={errorColor}>
-    <span className="material-icons">{getIcon(code)}</span>
-    <span>{message}</span>
-  </div>
-);
+const ErrorMessage = props => {
+  const [code, message] = props.error.toString().split(":");
+
+  if (!Number(code)) {
+    return "";
+  }
+  return (
+    <div className="error-message" style={errorColor}>
+      <span className="material-icons">{getIcon(code)}</span>
+      <span>{message}</span>
+    </div>
+  );
+};
 
 export default ErrorMessage;

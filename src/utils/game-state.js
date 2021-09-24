@@ -67,6 +67,7 @@ function formatSnake(snake) {
     effectiveSpace: renderedParts.length,
     health: snake.Health,
     latency: snake.Latency,
+    error: snake.Error,
     isDead: !!snake.Death,
     death: formatDeath(snake.Death),
     head: snake.HeadType && snake.HeadType.toLowerCase(),

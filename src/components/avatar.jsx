@@ -96,7 +96,7 @@ class Avatar extends React.Component {
             />
           </HealthBarWrapper>
         )}
-        <ErrorMessage code={5} message="Lorem ooooooopsum error" />
+        <ErrorMessage error={this.props.snake.error} />
       </AvatarWrapper>
     );
   }
