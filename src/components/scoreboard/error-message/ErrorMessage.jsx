@@ -11,7 +11,11 @@ function getIcon(code) {
 }
 
 const ErrorMessage = props => {
-  const [code, message] = props.error.toString().split(":");
+  let code, message;
+
+  if (props.error) {
+    [code, message] = props.error.toString().split(":");
+  }
 
   if (!Number(code)) {
     return "";
