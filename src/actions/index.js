@@ -1,5 +1,6 @@
-import { delay, getFrameByTurn, streamAllFrames } from "../utils/engine-client";
+import { delay, getFrameByTurn, streamAllEvents } from "../utils/engine-client";
 import { themes } from "../theme";
+import * as types from "./action-types";
 
 // Sort of a hack, until we have persisted playback options
 let DEFAULT_FPS = 10;
@@ -10,48 +11,55 @@ try {
 }
 
 export const setGameOptions = gameOptions => ({
-  type: "SET_GAME_OPTIONS",
+  type: types.SET_GAME_OPTIONS,
   gameOptions
 });
 
 export const setTheme = theme => ({
-  type: "SET_THEME",
+  type: types.SET_THEME,
   theme
 });
 
 export const gameOver = () => ({
-  type: "GAME_OVER"
+  type: types.GAME_OVER
 });
 
 export const gameNotFound = () => ({
-  type: "GAME_NOT_FOUND"
+  type: types.GAME_NOT_FOUND
 });
 
 export const requestFrames = () => ({
-  type: "REQUEST_FRAMES"
+  type: types.REQUEST_FRAMES
 });
 
 export const receiveFrame = (game, frame) => ({
-  type: "RECEIVE_FRAME",
+  type: types.RECEIVE_FRAME,
   game,
   frame
 });
 
+export const receiveEventEnd = (game, endEvent, frame) => ({
+  type: types.RECEIVE_EVENT_END,
+  game,
+  endEvent,
+  frame
+});
+
 export const setCurrentFrame = frame => ({
-  type: "SET_CURRENT_FRAME",
+  type: types.SET_CURRENT_FRAME,
   frame
 });
 
 export const pauseGame = () => ({
-  type: "PAUSE_GAME"
+  type: types.PAUSE_GAME
 });
 
 export const resumeGame = () => ({
-  type: "RESUME_GAME"
+  type: types.RESUME_GAME
 });
 
 export const highlightSnake = snakeId => ({
-  type: "HIGHLIGHT_SNAKE",
+  type: types.HIGHLIGHT_SNAKE,
   snakeId
 });
 
@@ -67,20 +75,28 @@ export const fetchFrames = () => {
     dispatch(requestFrames());
 
     try {
-      await streamAllFrames(engineUrl, gameId, (game, frame) => {
-        // Workaround for bug where turn exluded on turn 0
-        frame.Turn = frame.Turn || 0;
-        dispatch(receiveFrame(game, frame));
+      await streamAllEvents(engineUrl, gameId, (game, eventType, eventData) => {
+        if (eventType === "frame") {
+          const frame = eventData;
+          // Workaround for bug where turn exluded on turn 0
+          frame.Turn = frame.Turn || 0;
+          dispatch(receiveFrame(game, frame));
 
-        // Workaround to render the first frame into the board
-        if (frame.Turn === 0) {
-          const frame = getState().frames[0];
-          dispatch(setCurrentFrame(frame));
+          // Workaround to render the first frame into the board
+          if (frame.Turn === 0) {
+            const frame = getState().frames[0];
+            dispatch(setCurrentFrame(frame));
 
-          if (autoplay) {
-            dispatch(resumeGame());
-            dispatch(playFromFrame(frame));
+            if (autoplay) {
+              dispatch(resumeGame());
+              dispatch(playFromFrame(frame));
+            }
           }
+        } else if (eventType === "game_end") {
+          const numFrames = getState().frames.length;
+          const frame = getState().frames[numFrames - 1];
+          frame.gameOver = true;
+          dispatch(receiveEventEnd(game, eventData, frame));
         }
       });
     } catch (e) {
