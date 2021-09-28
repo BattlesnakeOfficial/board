@@ -8,18 +8,14 @@ export default {
   argTypes: { clickHandler: { action: "clicked" } }
 };
 
-// const onClickHandler = errorCode => {
-//   console.log("Toggle status display for ", errorCode);
-// };
-
 const Template = args => <StatusIndicator {...args} />;
 
 export const DisplayError = Template.bind({});
 DisplayError.args = {
-  code: 1
+  errorMessage: "1:Lorem oopsum"
 };
 
 export const NoError = Template.bind({});
 NoError.args = {
-  code: 0
+  errorMessage: ""
 };

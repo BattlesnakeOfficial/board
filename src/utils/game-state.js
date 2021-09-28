@@ -68,6 +68,7 @@ function formatSnake(snake) {
     health: snake.Health,
     latency: snake.Latency,
     error: snake.Error,
+    timing: snake.TimingMicros,
     isDead: !!snake.Death,
     death: formatDeath(snake.Death),
     head: snake.HeadType && snake.HeadType.toLowerCase(),

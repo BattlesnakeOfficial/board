@@ -4,6 +4,9 @@ import { colors, themes } from "../theme";
 import { getReadableCauseOfDeath } from "../utils/engine-client";
 import ErrorMessage from "./scoreboard/error-message/ErrorMessage";
 
+import "./scoreboard/avatar/Avatar.css";
+import StatusIndicator from "./scoreboard/status-indicator/StatusIndicator";
+
 const AvatarWrapper = styled("div")`
   width: 100%;
   white-space: nowrap;
@@ -11,11 +14,6 @@ const AvatarWrapper = styled("div")`
 
   opacity: ${props => (props.isEliminated ? "0.5" : "1.0")};
 `;
-
-const NameWrapper = styled("div")({
-  display: "flex",
-  flexDirection: "row"
-});
 
 const Name = styled("span")(({ theme }) => ({
   display: "block",
@@ -69,15 +67,27 @@ const CauseOfDeath = styled("div")(({ theme }) => ({
 }));
 
 class Avatar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showError: false
+    };
+
+    this.toggleErrorMessage = this.toggleErrorMessage.bind(this);
+  }
   render() {
     return (
       <AvatarWrapper isEliminated={this.props.snake.death ? true : false}>
-        <NameWrapper>
+        <div className="row">
           <Name>{this.props.snake.name}</Name>
           <Length>{this.props.snake.body.length}</Length>
-        </NameWrapper>
+        </div>
         <AuthorWrapper>
           <Author>by {this.props.snake.author}</Author>
+          <StatusIndicator
+            errorMessage={this.props.snake.error}
+            clickHandler={e => this.toggleErrorMessage(e)}
+          />
           <Latency latency={this.props.snake.latency}>
             {this.props.snake.latency} ms
           </Latency>
@@ -96,9 +106,19 @@ class Avatar extends React.Component {
             />
           </HealthBarWrapper>
         )}
-        <ErrorMessage error={this.props.snake.error} />
+        <ErrorMessage
+          error={this.state.showError ? this.props.snake.error : ""}
+        />
       </AvatarWrapper>
     );
+  }
+
+  toggleErrorMessage(e) {
+    if (e.target !== e.currentTarget) {
+      this.setState({
+        showError: !this.state.showError
+      });
+    }
   }
 }
 
