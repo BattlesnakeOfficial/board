@@ -18,6 +18,3 @@ export const NoError = Template.bind({});
 NoError.args = {
   error: ""
 };
-
-export const DisplayTimings = Template.bind({});
-DisplayTimings.args = {};
