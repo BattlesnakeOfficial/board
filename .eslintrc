@@ -8,5 +8,15 @@
     "prettier/prettier": "error",
     "@emotion/jsx-import": "error",
     "@emotion/pkg-renaming": "error"
-  }
+  },
+  "overrides": [
+    {
+      "files": [
+        "*.stories.*"
+      ],
+      "rules": {
+        "import/no-anonymous-default-export": "off"
+      }
+    }
+  ]
 }
