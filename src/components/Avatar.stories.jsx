@@ -82,7 +82,7 @@ timingsSnake.timing = {
   Latency: 503520,
   TLS: 0
 };
-// export const TimingsSnake = Template.bind({});
-// TimingsSnake.args = {
-//   snake: timingsSnake
-// };
+export const TimingsSnake = Template.bind({});
+TimingsSnake.args = {
+  snake: timingsSnake
+};
