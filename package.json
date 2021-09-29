@@ -41,7 +41,7 @@
     "lint": "eslint ./src",
     "lint:fix": "eslint --fix ./src",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook",
+    "build-storybook": "build-storybook -o ./storybook-static -s public",
     "build-storybook-ci": "build-storybook -o ./docs -s public"
   },
   "lint-staged": {

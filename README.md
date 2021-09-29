@@ -63,6 +63,14 @@ ESLint and Prettier are set up in this project, so you may want to install compa
 
 More info on setting up in popular editors here: [create-react-app.dev/docs/setting-up-your-editor](https://create-react-app.dev/docs/setting-up-your-editor#displaying-lint-output-in-the-editor)
 
-### Feedback
+## Board UI Docs
+
+We use [Storybook.js](https://storybook.js.org/) to document and test the board components. 
+
+You can view and interact with board components here https://battlesnakeofficial.github.io/board/
+
+While developing a component you can run a local copy of storybook with the command `npm run storybook` to view and test it
+
+## Feedback
 
 * **Do you have an issue or suggestions for this repository?** Head over to our [Feedback Repository](https://play.battlesnake.com/feedback) today and let us know!
