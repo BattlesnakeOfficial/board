@@ -35,6 +35,7 @@ const AuthorWrapper = styled("div")({
 
 const Author = styled("span")(({ theme }) => ({
   display: "block",
+  flexGrow: 1,
   textShadow: theme === themes.dark ? "0 1px 2px rgba(0,0,0,0.90)" : null
 }));
 
