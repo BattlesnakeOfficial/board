@@ -3,7 +3,9 @@ import { colors } from "../../../theme";
 
 const style = {
   color: colors.danger,
-  cursor: "pointer"
+  cursor: "pointer",
+  margin: 0,
+  padding: 0
 };
 
 function getIcon(code) {
