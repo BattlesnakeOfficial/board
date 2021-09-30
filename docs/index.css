@@ -258,3 +258,9 @@ body {
     opacity: 1;
   }
 }
+
+/*icons*/
+.material-icons-inline {
+  font-size: 1.25rem;
+  margin-right: 0.25rem;
+}
