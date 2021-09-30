@@ -22,7 +22,9 @@ const ErrorMessage = props => {
   }
   return (
     <div className="error-message" style={errorColor}>
-      <span className="material-icons">{getIcon(code)}</span>
+      <span className="material-icons material-icons-inline">
+        {getIcon(code)}
+      </span>
       <span>{message}</span>
     </div>
   );
