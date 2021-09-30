@@ -21,7 +21,9 @@ const StatusIndicator = ({ errorMessage = "", clickHandler = () => {} }) => {
   }
   return (
     <div style={style} onClick={clickHandler}>
-      <span className="material-icons">{getIcon(code)}</span>
+      <span className="material-icons material-icons-inline">
+        {getIcon(code)}
+      </span>
     </div>
   );
 };
