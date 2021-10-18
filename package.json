@@ -6,11 +6,10 @@
     "@emotion/react": "11.4.1",
     "@emotion/styled": "11.3.0",
     "lodash.clonedeep": "4.5.0",
-    "react": "^16.14.0",
-    "react-dom": "^16.14.0",
-    "react-keyboard-event-handler": "^1.5.4",
-    "react-redux": "6.0.1",
-    "redux": "4.0.1",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-keyboard-event-handler": "1.5.4",
+    "react-redux": "7.2.5",
     "redux-thunk": "2.3.0"
   },
   "devDependencies": {
@@ -22,7 +21,6 @@
     "@storybook/preset-create-react-app": "^3.2.0",
     "@storybook/react": "^6.3.8",
     "eslint-plugin-prettier": "3.1.2",
-    "husky": "4.2.3",
     "lint-staged": "10.0.8",
     "prettier": "1.19.1",
     "react-scripts": "4.0.3"
