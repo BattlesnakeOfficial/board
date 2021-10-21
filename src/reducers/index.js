@@ -1,7 +1,19 @@
 import { formatFrame, sanitizeFrame } from "../utils/game-state";
 import * as types from "../actions/action-types";
+import { themes } from "../theme";
 
-const reducers = (state = {}, action) => {
+const initialState = {
+  options: null,
+  grid: [],
+  frames: [],
+  endEvent: {},
+  paused: true,
+  gameNotFound: false,
+  highlightedSnake: null,
+  theme: themes.light
+};
+
+const reducers = (state = initialState, action) => {
   switch (action.type) {
     case types.SET_THEME:
       return { ...state, theme: action.theme };

@@ -1,6 +1,6 @@
 import { Route, Switch } from "react-router-dom";
-import GamePage from "../components/game/GamePage";
-import SettingsPage from "../components/settings/SettingsPage";
+import GamePage from "./components/game/GamePage";
+import SettingsPage from "./components/settings/SettingsPage";
 
 const App = () => {
   return (
