@@ -1,8 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import rootReducer from "../reducers";
+import settingsReducer from "../components/settings/settings-slice";
 
 const store = configureStore({
-  reducer: rootReducer,
+  reducer: {
+    game: rootReducer,
+    settings: settingsReducer
+  },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       immutableCheck: false,
