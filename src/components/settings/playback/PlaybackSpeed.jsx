@@ -4,7 +4,13 @@ import "./PlaybackSpeed.css";
 
 const PlaybackSpeed = props => {
   return (
-    <Slider min={1} max={20} step={1} defaultValue={props.default || 20}>
+    <Slider
+      min={1}
+      max={20}
+      step={1}
+      defaultValue={props.default}
+      onChange={props.onChange}
+    >
       <SliderMarker value={6}>
         <span className="title">Slow</span>
       </SliderMarker>
