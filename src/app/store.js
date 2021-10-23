@@ -1,6 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
 import rootReducer from "../reducers";
-import settingsReducer from "../components/settings/settings-slice";
+import settingsReducer, {
+  settingsStoreListener
+} from "../components/settings/settings-slice";
 
 const store = configureStore({
   reducer: {
@@ -12,6 +14,10 @@ const store = configureStore({
       immutableCheck: false,
       serializableCheck: false
     })
+});
+
+store.subscribe(() => {
+  settingsStoreListener(store.getState());
 });
 
 export default store;

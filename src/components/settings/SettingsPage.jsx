@@ -1,28 +1,37 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { currentTheme } from "./settings-slice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  currentPlaybackSpeed,
+  currentTheme,
+  playbackSpeedUpdated,
+  themeSelected
+} from "./settings-slice";
 import PlaybackSpeed from "./playback/PlaybackSpeed";
-import { useLocalStorage } from "../../app/local-storage";
 
 const SettingsPage = () => {
   const theme = useSelector(currentTheme);
-  // const dispatch = useDispatch();
-  // const [selectedTheme, setSelectedTheme] = useState();
-
-  const [playbackSpeed, setPlaybackSpeed] = useLocalStorage(
-    10,
-    "playbackSpeed"
-  );
+  const playbackSpeed = useSelector(currentPlaybackSpeed);
+  const dispatch = useDispatch();
 
   return (
     <section>
       <h2>Board Settings</h2>
       <div>
-        <PlaybackSpeed default={playbackSpeed} onChange={setPlaybackSpeed} />
+        <PlaybackSpeed
+          default={playbackSpeed}
+          onChange={value => dispatch(playbackSpeedUpdated(value))}
+        />
       </div>
       <div>
         <span>
-          <strong>Current theme:</strong> {theme}
+          <strong
+            onClick={() =>
+              dispatch(themeSelected(theme === "light" ? "dark" : "light"))
+            }
+          >
+            Current theme:
+          </strong>{" "}
+          {theme}
         </span>
       </div>
     </section>
