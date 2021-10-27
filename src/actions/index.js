@@ -70,7 +70,7 @@ export const fetchFrames = () => {
       engine: engineUrl,
       game: gameId,
       turn
-    } = getState().gameOptions;
+    } = getState().game.gameOptions;
 
     dispatch(requestFrames());
 
@@ -84,7 +84,7 @@ export const fetchFrames = () => {
 
           // Workaround to render the first frame into the board
           if (frame.Turn === 0) {
-            const frame = getState().frames[0];
+            const frame = getState().game.frames[0];
             dispatch(setCurrentFrame(frame));
 
             if (autoplay) {
@@ -93,8 +93,8 @@ export const fetchFrames = () => {
             }
           }
         } else if (eventType === "game_end") {
-          const numFrames = getState().frames.length;
-          const frame = getState().frames[numFrames - 1];
+          const numFrames = getState().game.frames.length;
+          const frame = getState().game.frames[numFrames - 1];
           frame.gameOver = true;
           dispatch(receiveEventEnd(game, eventData, frame));
         }
@@ -105,8 +105,8 @@ export const fetchFrames = () => {
 
     // Only navigate to the specified frame if it is within the
     // amount of frames available in the game
-    if (turn && turn <= getState().frames.length) {
-      const frame = getState().frames[turn];
+    if (turn && turn <= getState().game.frames.length) {
+      const frame = getState().game.frames[turn];
       dispatch(setCurrentFrame(frame));
     }
   };
@@ -114,8 +114,8 @@ export const fetchFrames = () => {
 
 export const playFromFrame = frame => {
   return async (dispatch, getState) => {
-    const { frameRate } = getState().gameOptions;
-    const frames = getState().frames.slice(); // Don't modify in place
+    const { frameRate } = getState().game.gameOptions;
+    const frames = getState().game.frames.slice(); // Don't modify in place
     const frameIndex = frames.indexOf(frame);
     const slicedFrames = frames.slice(frameIndex);
 
@@ -123,15 +123,15 @@ export const playFromFrame = frame => {
     const delayMillis = 1000 / ceiledFps;
 
     for (const frame of slicedFrames) {
-      if (getState().paused) return;
+      if (getState().game.paused) return;
       dispatch(setCurrentFrame(frame));
       await delay(delayMillis);
     }
 
     const lastFrame = slicedFrames[slicedFrames.length - 1];
     if (lastFrame.gameOver) {
-      if (!getState().paused) {
-        if (getState().gameOptions.loop) {
+      if (!getState().game.paused) {
+        if (getState().game.gameOptions.loop) {
           const frame = getFrameByTurn(frames, 0);
           dispatch(playFromFrame(frame));
         } else {
@@ -146,7 +146,7 @@ export const playFromFrame = frame => {
 
 export const reloadGame = () => {
   return async (dispatch, getState) => {
-    const { frames, paused } = getState();
+    const { frames, paused } = getState().game;
     if (paused) {
       const frame = getFrameByTurn(frames, 0);
       dispatch(setCurrentFrame(frame));
@@ -156,7 +156,7 @@ export const reloadGame = () => {
 
 export const toggleGamePause = () => {
   return async (dispatch, getState) => {
-    const { currentFrame, paused } = getState();
+    const { currentFrame, paused } = getState().game;
 
     if (paused) {
       dispatch(resumeGame());
@@ -169,7 +169,7 @@ export const toggleGamePause = () => {
 
 export const toggleTheme = themeToSet => {
   return async (dispatch, getState) => {
-    const { theme } = getState();
+    const { theme } = getState().game;
     dispatch(
       setTheme(themeToSet || theme === themes.dark ? themes.light : themes.dark)
     );
@@ -178,7 +178,7 @@ export const toggleTheme = themeToSet => {
 
 export const stepForwardFrame = () => {
   return async (dispatch, getState) => {
-    const { currentFrame, frames } = getState();
+    const { currentFrame, frames } = getState().game;
     const nextFrame = currentFrame.turn + 1;
     const stepToFrame = getFrameByTurn(frames, nextFrame);
     if (stepToFrame) {
@@ -189,7 +189,7 @@ export const stepForwardFrame = () => {
 
 export const stepBackwardFrame = () => {
   return async (dispatch, getState) => {
-    const { currentFrame, frames } = getState();
+    const { currentFrame, frames } = getState().game;
     const prevFrame = currentFrame.turn - 1;
     const stepToFrame = getFrameByTurn(frames, prevFrame);
     if (stepToFrame) {

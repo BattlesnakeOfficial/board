@@ -7,6 +7,15 @@ This project follows most React conventions and tools described in the react doc
 
 ## Development
 
+### Configure
+Create a `.env.local` file at the root of the project to set the host variable. `localhost` is the default but will not work with the CORS policy for snake part svg files. `127.0.0.1` is whitelisted for CORS.
+
+```shell
+# File: /.env.local
+HOST=127.0.0.1
+```
+
+### Install & Run
 ```shell
 npm i
 npm start
@@ -36,7 +45,7 @@ npm test
 - `game` - the id of the game to fetch frames for.
 
 ```text
-http://localhost:3000/?engine=[ENGINE_URL]&game=[GAME_ID]
+http://127.0.0.1:3000/?engine=[ENGINE_URL]&game=[GAME_ID]
 ```
 
 #### Optional

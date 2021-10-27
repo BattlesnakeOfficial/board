@@ -25,7 +25,6 @@ export const { playbackSpeedUpdated, themeSelected } = settingsSlice.actions;
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state: RootState) => state.counter.value)`
 export const selectCount = (state) => state.counter.value;*/
-// export const { requestFrames, fetchFrames } = state => state; // state.frames ???
 export const currentPlaybackSpeed = state => state.settings.playbackSpeed;
 export const currentTheme = state => state.settings.theme;
 
@@ -37,7 +36,7 @@ function getLocalSetting(key) {
 
 function setLocalSetting(key, value) {
   if (window.localStorage) {
-    window.localStorage.setItem(key, JSON.stringify(value));
+    window.localStorage.setItem(key, value);
   }
 }
 
