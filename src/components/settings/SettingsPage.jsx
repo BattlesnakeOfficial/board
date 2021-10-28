@@ -7,8 +7,10 @@ import {
 } from "./settings-slice";
 import PlaybackSpeed from "./playback/PlaybackSpeed";
 import "./SettingsPage.module.css";
+import { useHistory } from "react-router-dom";
 
 const SettingsPage = () => {
+  const history = useHistory();
   const theme = useSelector(currentTheme);
   const playbackSpeed = useSelector(currentFrameRate);
   const dispatch = useDispatch();
@@ -23,18 +25,9 @@ const SettingsPage = () => {
             onChange={value => dispatch(frameRateUpdated(value))}
           />
         </div>
-        {/*<div>*/}
-        {/*  <span>*/}
-        {/*    <strong*/}
-        {/*      onClick={() =>*/}
-        {/*        dispatch(themeSelected(theme === "light" ? "dark" : "light"))*/}
-        {/*      }*/}
-        {/*    >*/}
-        {/*      Current theme:*/}
-        {/*    </strong>{" "}*/}
-        {/*    {theme}*/}
-        {/*  </span>*/}
-        {/*</div>*/}
+        <div>
+          <button onClick={() => history.push("/")}>Save & Return</button>
+        </div>
       </section>
     </main>
   );
