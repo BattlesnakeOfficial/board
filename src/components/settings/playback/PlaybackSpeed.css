@@ -1,6 +1,0 @@
-[data-reach-slider-marker][data-state="at-value"] span.title,
-[data-reach-slider-marker][data-state="under-value"] span.title,
-[data-reach-slider-marker][data-state="over-value"] span.title {
-    line-height: 4rem;
-    cursor: pointer;
-}

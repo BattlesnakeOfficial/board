@@ -22,11 +22,11 @@ const SettingsPage = () => {
         <div>
           <PlaybackSpeed
             default={playbackSpeed}
-            onChange={value => dispatch(frameRateUpdated(value))}
+            onChange={e => dispatch(frameRateUpdated(e.target.value))}
           />
         </div>
         <div>
-          <button onClick={() => history.push("/")}>Save & Return</button>
+          <button onClick={() => history.goBack()}>Save & Return</button>
         </div>
       </section>
     </main>
