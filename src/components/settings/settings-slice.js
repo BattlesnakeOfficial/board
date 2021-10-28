@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  playbackSpeed: Number(getLocalSetting("playbackSpeed")) || 20,
+  frameRate: Number(getLocalSetting("frameRate")) || 20,
   theme: getLocalSetting("theme") || "light"
 };
 
@@ -9,8 +9,8 @@ export const settingsSlice = createSlice({
   name: "settings",
   initialState,
   reducers: {
-    playbackSpeedUpdated(state, action) {
-      state.playbackSpeed = action.payload;
+    frameRateUpdated(state, action) {
+      state.frameRate = action.payload;
     },
     themeSelected(state, action) {
       state.theme = action.payload;
@@ -19,13 +19,13 @@ export const settingsSlice = createSlice({
 });
 
 // toolkit generates the actions for us
-export const { playbackSpeedUpdated, themeSelected } = settingsSlice.actions;
+export const { frameRateUpdated, themeSelected } = settingsSlice.actions;
 
 /*// The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state: RootState) => state.counter.value)`
 export const selectCount = (state) => state.counter.value;*/
-export const currentPlaybackSpeed = state => state.settings.playbackSpeed;
+export const currentFrameRate = state => state.settings.frameRate;
 export const currentTheme = state => state.settings.theme;
 
 function getLocalSetting(key) {
@@ -41,8 +41,8 @@ function setLocalSetting(key, value) {
 }
 
 export function settingsStoreListener(state) {
-  if (state.settings.playbackSpeed !== getLocalSetting("playbackSpeed")) {
-    setLocalSetting("playbackSpeed", state.settings.playbackSpeed);
+  if (state.settings.frameRate !== getLocalSetting("frameRate")) {
+    setLocalSetting("frameRate", state.settings.frameRate);
   }
 
   if (state.settings.theme !== getLocalSetting("theme")) {

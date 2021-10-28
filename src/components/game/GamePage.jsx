@@ -17,7 +17,7 @@ const options = parseQueryString(window.location.search);
 const mapStateToProps = state => {
   const gameState = state.game;
   return {
-    options: options,
+    options: { ...options, ...window.localStorage },
     ruleset: gameState.ruleset,
     grid: gameState.grid,
     gameNotFound: gameState.gameNotFound,

@@ -5,12 +5,12 @@ import "./App.css";
 
 const App = () => {
   return (
-    <main className="light">
-      <Switch>
-        <Route path="/settings" component={SettingsPage} />
-        <Route component={GamePage} />
-      </Switch>
-    </main>
+    // <main className="light">
+    <Switch>
+      <Route path="/settings" component={SettingsPage} />
+      <Route component={GamePage} />
+    </Switch>
+    // </main>
   );
 };
 
