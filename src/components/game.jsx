@@ -9,26 +9,7 @@ import Scoreboard from "./scoreboard";
 import MediaControls from "./mediaControls";
 import Logo from "./logo";
 import { breakpoints, colors, themes } from "../theme";
-
-const PageWrapper = styled("div")`
-  position: relative;
-  height: 100%;
-  width: 100%;
-  background: ${({ theme }) =>
-    theme === themes.dark ? colors.purple : "transparent"};
-  background: ${({ theme }) =>
-    theme === themes.dark
-      ? `linear-gradient(30deg,hsl(280, 94%, 16%) 30%,hsl(269,99%,30%) 100%)`
-      : "transparent"};
-`;
-
-const GameBoardWrapper = styled("div")({
-  display: "flex",
-  justifyContent: "space-between",
-  width: "100%",
-  height: "100%",
-  padding: "10px"
-});
+import styles from "./game/GamePage.module.css";
 
 const BoardTitle = styled("div")(({ theme }) => ({
   fontSize: "2rem",
@@ -148,8 +129,8 @@ class Game extends React.Component {
   renderGame() {
     const { currentFrame, options } = this.props;
     return (
-      <PageWrapper theme={this.props.theme}>
-        <GameBoardWrapper>
+      <main className={this.props.theme}>
+        <section className={styles.game}>
           <BoardWrapper hideScoreboard={this.hideScoreboard}>
             <BoardTitle theme={this.props.theme}>{this.title}</BoardTitle>
             <Board
@@ -197,8 +178,8 @@ class Game extends React.Component {
               <Ruleset>Rules: {this.props.ruleset.name}</Ruleset>
             </ScoreboardWrapper>
           )}
-        </GameBoardWrapper>
-      </PageWrapper>
+        </section>
+      </main>
     );
   }
 }

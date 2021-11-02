@@ -15,16 +15,17 @@ import {
 const options = parseQueryString(window.location.search);
 
 const mapStateToProps = state => {
+  const gameState = state.game;
   return {
-    options: options,
-    ruleset: state.ruleset,
-    grid: state.grid,
-    gameNotFound: state.gameNotFound,
-    paused: state.paused,
-    currentFrame: state.currentFrame,
-    frames: state.frames,
-    highlightedSnake: state.highlightedSnake,
-    theme: state.theme
+    options: { ...window.localStorage, ...options },
+    ruleset: gameState.ruleset,
+    grid: gameState.grid,
+    gameNotFound: gameState.gameNotFound,
+    paused: gameState.paused,
+    currentFrame: gameState.currentFrame,
+    frames: gameState.frames,
+    highlightedSnake: gameState.highlightedSnake,
+    theme: gameState.theme
   };
 };
 

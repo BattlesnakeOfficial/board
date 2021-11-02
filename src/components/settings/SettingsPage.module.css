@@ -1,0 +1,7 @@
+section {
+    padding: 10px 10rem;
+}
+
+section > div {
+    margin: 1rem 0;
+}
