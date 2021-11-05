@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  frameRate: Number(getLocalSetting("frameRate")) || 20,
+  frameRate: Number(getLocalSetting("frameRate")) || 10,
   theme: getLocalSetting("theme") || "light"
 };
 
