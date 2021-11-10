@@ -11,13 +11,22 @@ import {
   stepBackwardFrame,
   highlightSnake
 } from "../../actions";
+import { storageAvailable } from "../../app/storage";
 
 const options = parseQueryString(window.location.search);
+let storedSettings = {};
+if (storageAvailable("localStorage")) {
+  storedSettings = window.localStorage;
+} else {
+  console.info(
+    "Please enable localStorage for an improved experience that allows you to persist board settings."
+  );
+}
 
 const mapStateToProps = state => {
   const gameState = state.game;
   return {
-    options: { ...window.localStorage, ...options },
+    options: { ...storedSettings, ...options },
     ruleset: gameState.ruleset,
     grid: gameState.grid,
     gameNotFound: gameState.gameNotFound,

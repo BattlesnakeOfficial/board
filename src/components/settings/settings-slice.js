@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { storageAvailable } from "../../app/storage";
 
 const initialState = {
   frameRate: Number(getLocalSetting("frameRate")) || 10,
@@ -29,13 +30,13 @@ export const currentFrameRate = state => state.settings.frameRate;
 export const currentTheme = state => state.settings.theme;
 
 function getLocalSetting(key) {
-  if (window.localStorage) {
+  if (storageAvailable("localStorage")) {
     return window.localStorage.getItem(key);
   }
 }
 
 function setLocalSetting(key, value) {
-  if (window.localStorage) {
+  if (storageAvailable("localStorage")) {
     window.localStorage.setItem(key, value);
   }
 }
