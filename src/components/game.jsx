@@ -95,6 +95,8 @@ class Game extends React.Component {
   componentDidMount() {
     const { options } = this.props;
 
+    this.props.togglePlayButtons("show");
+
     if (options.boardTheme) {
       this.props.toggleTheme(options.boardTheme);
     }

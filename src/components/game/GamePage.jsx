@@ -9,7 +9,8 @@ import {
   setGameOptions,
   stepForwardFrame,
   stepBackwardFrame,
-  highlightSnake
+  highlightSnake,
+  togglePlayButtons
 } from "../../actions";
 import { storageAvailable } from "../../app/storage";
 
@@ -46,7 +47,8 @@ const mapDispatchToProps = dispatch => ({
   toggleGamePause: paused => dispatch(toggleGamePause(paused)),
   stepForwardFrame: () => dispatch(stepForwardFrame()),
   stepBackwardFrame: () => dispatch(stepBackwardFrame()),
-  highlightSnake: snakeId => dispatch(highlightSnake(snakeId))
+  highlightSnake: snakeId => dispatch(highlightSnake(snakeId)),
+  togglePlayButtons: showHide => dispatch(togglePlayButtons(showHide))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);
