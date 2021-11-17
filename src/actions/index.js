@@ -199,6 +199,6 @@ export const stepBackwardFrame = () => {
 };
 
 export const togglePlayButtons = showHide => ({
-  type: types.TOGGLE_ACTION_BUTTONS,
+  type: types.TOGGLE_SETTINGS_VIEW,
   showHide
 });
