@@ -8,12 +8,15 @@ import {
 import PlaybackSpeed from "./playback/PlaybackSpeed";
 import "./SettingsPage.module.css";
 import { useHistory } from "react-router-dom";
+import { togglePlayButtons } from "../../actions";
 
 const SettingsPage = () => {
   const history = useHistory();
   const theme = useSelector(currentTheme);
   const playbackSpeed = useSelector(currentFrameRate);
   const dispatch = useDispatch();
+
+  dispatch(togglePlayButtons("hide"));
 
   return (
     <main className={theme}>

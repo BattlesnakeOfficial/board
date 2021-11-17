@@ -72,6 +72,12 @@ const reducers = (state = initialState, action) => {
           : null
       });
       return { ...state, highlightedSnake: action.snakeId };
+    case types.TOGGLE_SETTINGS_VIEW:
+      windowPostMessage({
+        action: action.type,
+        value: action.showHide
+      });
+      return { ...state };
     default:
       return { ...state };
   }

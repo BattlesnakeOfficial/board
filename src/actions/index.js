@@ -197,3 +197,8 @@ export const stepBackwardFrame = () => {
     }
   };
 };
+
+export const togglePlayButtons = showHide => ({
+  type: types.TOGGLE_SETTINGS_VIEW,
+  showHide
+});
