@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   currentFrameRate,
   currentTheme,
-  frameRateUpdated
+  frameRateUpdated,
+  themeSelected
 } from "./settings-slice";
 import PlaybackSpeed from "./playback/PlaybackSpeed";
 import "./SettingsPage.module.css";
@@ -28,8 +29,24 @@ const SettingsPage = () => {
             onChange={e => dispatch(frameRateUpdated(e.target.value))}
           />
         </div>
+        <div onChange={e => dispatch(themeSelected(e.target.value))}>
+          <input
+            type="radio"
+            value="light"
+            name="theme"
+            checked={theme === "light"}
+          />{" "}
+          Light
+          <input
+            type="radio"
+            value="dark"
+            name="theme"
+            checked={theme === "dark"}
+          />{" "}
+          Dark
+        </div>
         <div>
-          <button onClick={() => history.goBack()}>Save & Return</button>
+          <button onClick={() => history.goBack()}>Return to Game</button>
         </div>
       </section>
     </main>

@@ -42,7 +42,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
   setGameOptions: options => dispatch(setGameOptions(options)),
   fetchFrames: () => dispatch(fetchFrames()),
-  toggleTheme: () => dispatch(toggleTheme()),
+  toggleTheme: theme => dispatch(toggleTheme(theme)),
   reloadGame: () => dispatch(reloadGame()),
   toggleGamePause: paused => dispatch(toggleGamePause(paused)),
   stepForwardFrame: () => dispatch(stepForwardFrame()),

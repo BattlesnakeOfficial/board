@@ -1,5 +1,4 @@
 import { delay, getFrameByTurn, streamAllEvents } from "../utils/engine-client";
-import { themes } from "../theme";
 import * as types from "./action-types";
 
 // Sort of a hack, until we have persisted playback options
@@ -168,11 +167,8 @@ export const toggleGamePause = () => {
 };
 
 export const toggleTheme = themeToSet => {
-  return async (dispatch, getState) => {
-    const { theme } = getState().game;
-    dispatch(
-      setTheme(themeToSet || theme === themes.dark ? themes.light : themes.dark)
-    );
+  return async dispatch => {
+    dispatch(setTheme(themeToSet));
   };
 };
 
