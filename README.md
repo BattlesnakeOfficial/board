@@ -64,7 +64,8 @@ If you click on the board you can use:
 
 - arrow keys to go forwards and backwards through frames.
 - space bar to pause / un-pause the game.
-- r to reset the game to frame 0.
+- `r` to reset the game to frame 0.
+- `,` to update board settings
 
 ## Linting and formatting
 
