@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   currentFrameRate,
@@ -17,7 +17,9 @@ const SettingsPage = () => {
   const playbackSpeed = useSelector(currentFrameRate);
   const dispatch = useDispatch();
 
-  dispatch(togglePlayButtons("hide"));
+  useEffect(() => {
+    dispatch(togglePlayButtons("hide"));
+  });
 
   return (
     <main className={theme}>
@@ -29,12 +31,13 @@ const SettingsPage = () => {
             onChange={e => dispatch(frameRateUpdated(e.target.value))}
           />
         </div>
-        <div onChange={e => dispatch(themeSelected(e.target.value))}>
+        <div>
           <input
             type="radio"
             value="light"
             name="theme"
             checked={theme === "light"}
+            onChange={e => dispatch(themeSelected(e.target.value))}
           />{" "}
           Light
           <input
@@ -42,6 +45,7 @@ const SettingsPage = () => {
             value="dark"
             name="theme"
             checked={theme === "dark"}
+            onChange={e => dispatch(themeSelected(e.target.value))}
           />{" "}
           Dark
         </div>
