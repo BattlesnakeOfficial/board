@@ -9,7 +9,7 @@ import {
 import PlaybackSpeed from "./playback/PlaybackSpeed";
 import "./SettingsPage.module.css";
 import { useHistory } from "react-router-dom";
-import { togglePlayButtons } from "../../actions";
+import { togglePlayButtons, themeChanged } from "../../actions";
 
 const SettingsPage = () => {
   const history = useHistory();
@@ -37,7 +37,10 @@ const SettingsPage = () => {
             value="light"
             name="theme"
             checked={theme === "light"}
-            onChange={e => dispatch(themeSelected(e.target.value))}
+            onChange={e =>
+              dispatch(themeSelected(e.target.value)) &&
+              dispatch(themeChanged(e.target.value))
+            }
           />{" "}
           Light
           <input
@@ -45,7 +48,10 @@ const SettingsPage = () => {
             value="dark"
             name="theme"
             checked={theme === "dark"}
-            onChange={e => dispatch(themeSelected(e.target.value))}
+            onChange={e =>
+              dispatch(themeSelected(e.target.value)) &&
+              dispatch(themeChanged(e.target.value))
+            }
           />{" "}
           Dark
         </div>
