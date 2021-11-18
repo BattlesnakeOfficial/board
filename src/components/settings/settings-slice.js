@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { storageAvailable } from "../../app/storage";
+import {
+  getLocalSetting,
+  rehydrateLocalSettings,
+  setLocalSetting
+} from "../../app/storage";
 
-const initialState = {
-  frameRate: Number(getLocalSetting("frameRate")) || 10,
-  theme: getLocalSetting("theme") || "light",
-  autoplay: getLocalSetting("autoplay") || true
-};
+const initialState = rehydrateLocalSettings();
 
 export const settingsSlice = createSlice({
   name: "settings",
@@ -36,18 +36,6 @@ export const {
 export const currentFrameRate = state => state.settings.frameRate;
 export const currentTheme = state => state.settings.theme;
 export const currentAutoplay = state => state.settings.autoplay;
-
-function getLocalSetting(key) {
-  if (storageAvailable("localStorage")) {
-    return window.localStorage.getItem(key);
-  }
-}
-
-function setLocalSetting(key, value) {
-  if (storageAvailable("localStorage")) {
-    window.localStorage.setItem(key, value);
-  }
-}
 
 export function settingsStoreListener(state) {
   if (state.settings.frameRate !== getLocalSetting("frameRate")) {

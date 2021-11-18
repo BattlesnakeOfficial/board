@@ -9,6 +9,7 @@ const store = configureStore({
     game: rootReducer,
     settings: settingsReducer
   },
+  // preloadedState: rehydrateStore,
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       immutableCheck: false,
