@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  autoPlayUpdated,
+  currentAutoplay,
   currentFrameRate,
   currentTheme,
   frameRateUpdated,
@@ -15,6 +17,7 @@ const SettingsPage = () => {
   const history = useHistory();
   const theme = useSelector(currentTheme);
   const playbackSpeed = useSelector(currentFrameRate);
+  const autoplay = useSelector(currentAutoplay);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -41,7 +44,7 @@ const SettingsPage = () => {
               dispatch(themeSelected(e.target.value)) &&
               dispatch(themeChanged(e.target.value))
             }
-          />{" "}
+          />
           Light
           <input
             type="radio"
@@ -52,8 +55,17 @@ const SettingsPage = () => {
               dispatch(themeSelected(e.target.value)) &&
               dispatch(themeChanged(e.target.value))
             }
-          />{" "}
+          />
           Dark
+        </div>
+        <div>
+          <input
+            type="checkbox"
+            name="autoplay"
+            checked={autoplay}
+            onChange={e => dispatch(autoPlayUpdated(e.target.checked))}
+          />
+          Autoplay
         </div>
         <div>
           <button onClick={() => history.goBack()}>Return to Game</button>
