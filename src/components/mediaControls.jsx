@@ -1,9 +1,8 @@
 import React from "react";
 import styled from "@emotion/styled";
 import KeyboardEventHandler from "react-keyboard-event-handler";
-
+import { withRouter } from "react-router";
 import { themes, breakpoints } from "../theme";
-import { Link } from "react-router-dom";
 
 const MediaControlsWrapper = styled("div")`
   display: ${({ hide }) => (hide ? "none" : "block")};
@@ -86,7 +85,8 @@ class MediaControls extends React.Component {
       KeyR: "r",
       ArrowLeft: "left",
       ArrowRight: "right",
-      Space: "space"
+      Space: "space",
+      Settings: ","
     };
   }
 
@@ -123,6 +123,10 @@ class MediaControls extends React.Component {
     this.props.stepForwardFrame();
   };
 
+  handleSettings = () => {
+    this.props.history.push("/settings");
+  };
+
   handleShortcutPaneShowToggle = () => {
     this.setState({
       paneHidden: !this.state.paneHidden
@@ -142,6 +146,9 @@ class MediaControls extends React.Component {
         break;
       case "space":
         this.handlePlayPause();
+        break;
+      case ",":
+        this.handleSettings();
         break;
       default:
         break;
@@ -178,14 +185,9 @@ class MediaControls extends React.Component {
           >
             <span className="material-icons icon-image-preview">refresh</span>
           </Button>
-          <Link to="/settings">
-            <span
-              className="material-icons icon-image-preview"
-              style={{ color: theme === themes.dark ? "#eee" : "#333" }}
-            >
-              settings
-            </span>
-          </Link>
+          <Button onClick={this.handleSettings} theme={theme}>
+            <span className="material-icons icon-image-preview">settings</span>
+          </Button>
           <KeyboardEventHandler
             handleKeys={Object.values(this.keyboardCodeMap)}
             onKeyEvent={this.handleKeyEvent}
@@ -212,4 +214,4 @@ class MediaControls extends React.Component {
   }
 }
 
-export default MediaControls;
+export default withRouter(MediaControls);
