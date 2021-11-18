@@ -97,8 +97,8 @@ class Game extends React.Component {
 
     this.props.togglePlayButtons("show");
 
-    if (options.boardTheme) {
-      this.props.toggleTheme(options.boardTheme);
+    if (options.theme) {
+      this.props.toggleTheme(options.theme);
     }
 
     if (options.game && options.engine) {
@@ -149,7 +149,6 @@ class Game extends React.Component {
             <MediaControls
               currentFrame={currentFrame}
               hideControls={options.hideMediaControls === "true"}
-              toggleTheme={this.props.toggleTheme}
               reloadGame={this.props.reloadGame}
               toggleGamePause={this.props.toggleGamePause}
               stepBackwardFrame={this.props.stepBackwardFrame}

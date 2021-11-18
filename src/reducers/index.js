@@ -78,6 +78,12 @@ const reducers = (state = initialState, action) => {
         value: action.showHide
       });
       return { ...state };
+    case types.THEME_CHANGED:
+      windowPostMessage({
+        action: action.type,
+        value: action.theme
+      });
+      return { ...state };
     default:
       return { ...state };
   }

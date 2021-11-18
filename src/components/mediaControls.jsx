@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import KeyboardEventHandler from "react-keyboard-event-handler";
-
+import { withRouter } from "react-router";
 import { themes, breakpoints } from "../theme";
 
 const MediaControlsWrapper = styled("div")`
@@ -55,7 +55,6 @@ const Button = styled("button")`
   font-size: 1.4rem;
   border: none;
   text-decoration: none;
-  text-align: center;
   cursor: pointer;
   transition: background 250ms ease-in-out, transform 150ms ease;
   -webkit-appearance: none;
@@ -86,7 +85,8 @@ class MediaControls extends React.Component {
       KeyR: "r",
       ArrowLeft: "left",
       ArrowRight: "right",
-      Space: "space"
+      Space: "space",
+      Settings: ","
     };
   }
 
@@ -107,10 +107,6 @@ class MediaControls extends React.Component {
     this.handleKeyEvent(this.keyboardCodeMap[code]);
   };
 
-  toggleTheme = () => {
-    this.props.toggleTheme();
-  };
-
   handleReload = () => {
     this.props.reloadGame();
   };
@@ -125,6 +121,10 @@ class MediaControls extends React.Component {
 
   handleForward = () => {
     this.props.stepForwardFrame();
+  };
+
+  handleSettings = () => {
+    this.props.history.push("/settings");
   };
 
   handleShortcutPaneShowToggle = () => {
@@ -146,6 +146,9 @@ class MediaControls extends React.Component {
         break;
       case "space":
         this.handlePlayPause();
+        break;
+      case ",":
+        this.handleSettings();
         break;
       default:
         break;
@@ -182,10 +185,8 @@ class MediaControls extends React.Component {
           >
             <span className="material-icons icon-image-preview">refresh</span>
           </Button>
-          <Button onClick={this.toggleTheme} theme={theme}>
-            <span className="material-icons icon-image-preview">
-              brightness_medium
-            </span>
+          <Button onClick={this.handleSettings} theme={theme}>
+            <span className="material-icons icon-image-preview">settings</span>
           </Button>
           <KeyboardEventHandler
             handleKeys={Object.values(this.keyboardCodeMap)}
@@ -213,4 +214,4 @@ class MediaControls extends React.Component {
   }
 }
 
-export default MediaControls;
+export default withRouter(MediaControls);
