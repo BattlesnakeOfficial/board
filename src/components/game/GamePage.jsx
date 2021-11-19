@@ -33,7 +33,7 @@ const mapStateToProps = state => {
   const settings = state.settings;
 
   return {
-    options: { ...storedSettings, ...options },
+    options: { ...storedSettings, ...settings, ...options },
     ruleset: gameState.ruleset,
     grid: gameState.grid,
     gameNotFound: gameState.gameNotFound,
