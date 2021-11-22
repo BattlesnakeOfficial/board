@@ -12,12 +12,16 @@ import {
   highlightSnake,
   togglePlayButtons
 } from "../../actions";
-import { storageAvailable } from "../../app/storage";
+import { rehydrateLocalSettings, storageAvailable } from "../../app/storage";
 
 const options = parseQueryString(window.location.search);
+if (typeof options.autoplay !== "undefined") {
+  options.autoplay = options.autoplay === "true";
+}
+
 let storedSettings = {};
 if (storageAvailable("localStorage")) {
-  storedSettings = window.localStorage;
+  storedSettings = rehydrateLocalSettings();
 } else {
   console.info(
     "Please enable localStorage for an improved experience that allows you to persist board settings."
@@ -26,8 +30,10 @@ if (storageAvailable("localStorage")) {
 
 const mapStateToProps = state => {
   const gameState = state.game;
+  const settings = state.settings;
+
   return {
-    options: { ...storedSettings, ...options },
+    options: { ...storedSettings, ...settings, ...options },
     ruleset: gameState.ruleset,
     grid: gameState.grid,
     gameNotFound: gameState.gameNotFound,
@@ -35,7 +41,7 @@ const mapStateToProps = state => {
     currentFrame: gameState.currentFrame,
     frames: gameState.frames,
     highlightedSnake: gameState.highlightedSnake,
-    theme: gameState.theme
+    theme: settings.theme
   };
 };
 

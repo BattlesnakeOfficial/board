@@ -18,8 +18,6 @@ const reducers = (state = initialState, action) => {
     case types.SET_THEME:
       return { ...state, theme: action.theme };
     case types.SET_GAME_OPTIONS:
-      action.gameOptions.autoplay =
-        action.gameOptions.autoplay && action.gameOptions.autoplay === "true";
       action.gameOptions.turn = parseInt(action.gameOptions.turn) || 0;
       action.gameOptions.loop =
         action.gameOptions.loop && action.gameOptions.loop === "true";

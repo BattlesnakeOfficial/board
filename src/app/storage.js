@@ -24,3 +24,31 @@ export function storageAvailable(type) {
     );
   }
 }
+
+export function getLocalSetting(key) {
+  if (storageAvailable("localStorage")) {
+    return window.localStorage.getItem(key);
+  }
+}
+
+export function setLocalSetting(key, value) {
+  if (storageAvailable("localStorage")) {
+    window.localStorage.setItem(key, value);
+  }
+}
+
+export function rehydrateLocalSettings() {
+  let checkAutoplay = getLocalSetting("autoplay");
+
+  if (typeof checkAutoplay === "undefined") {
+    checkAutoplay = true; // default to true
+  } else {
+    checkAutoplay = checkAutoplay === "true";
+  }
+
+  return {
+    frameRate: Number(getLocalSetting("frameRate")) || 10,
+    theme: getLocalSetting("theme") || "light",
+    autoplay: checkAutoplay
+  };
+}
