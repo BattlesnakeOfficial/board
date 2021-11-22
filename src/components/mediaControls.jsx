@@ -104,7 +104,7 @@ class MediaControls extends React.Component {
 
   handleParentKeyboardEvent = e => {
     const { code } = e.data;
-    this.handleKeyEvent(this.keyboardCodeMap[code]);
+    this.handleKeyEvent(this.keyboardCodeMap[code], e);
   };
 
   handleReload = () => {
@@ -133,7 +133,8 @@ class MediaControls extends React.Component {
     });
   };
 
-  handleKeyEvent = key => {
+  handleKeyEvent = (key, e) => {
+    e.preventDefault();
     switch (key) {
       case "r":
         this.handleReload();
