@@ -24,6 +24,10 @@ const SettingsPage = () => {
     dispatch(togglePlayButtons("hide"));
   });
 
+  function dispatchSpeedChange(fps) {
+    dispatch(frameRateUpdated(fps));
+  }
+
   return (
     <main className={theme}>
       <section>
@@ -31,7 +35,7 @@ const SettingsPage = () => {
         <div>
           <PlaybackSpeed
             default={playbackSpeed}
-            onChange={e => dispatch(frameRateUpdated(e.target.value))}
+            onChange={dispatchSpeedChange}
           />
         </div>
         <div>
