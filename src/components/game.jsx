@@ -155,6 +155,7 @@ class Game extends React.Component {
               stepForwardFrame={this.props.stepForwardFrame}
               paused={this.props.paused}
               theme={this.props.theme}
+              persistAvailable={options.persistAvailable}
             />
           </BoardWrapper>
           {!this.hideScoreboard && (

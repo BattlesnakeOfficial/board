@@ -1,7 +1,26 @@
 section {
     padding: 10px 10rem;
+    width: 80%;
 }
 
 section > div {
-    margin: 1rem 0;
+    margin: 2rem 0;
+}
+
+@media only screen and (min-width: 769px) {
+    section > div {
+        width: 80%;
+        margin: 3rem auto;
+    }
+}
+
+h2 {
+    border-bottom: 2px solid #cccccc;
+    padding-bottom: 0.5rem;
+    color: #736cc7;
+}
+
+.info {
+    font-size: 1.25rem;
+    color: #6a6c6e;
 }

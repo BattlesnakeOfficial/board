@@ -32,13 +32,16 @@ const SettingsPage = () => {
     <main className={theme}>
       <section>
         <h2>Board Settings</h2>
-        <div>
+        <fieldset>
+          <legend>Playback Speed</legend>
+          <div className="info">Adjust the playback speed of your games</div>
           <PlaybackSpeed
             default={playbackSpeed}
             onChange={dispatchSpeedChange}
           />
-        </div>
-        <div>
+        </fieldset>
+        <fieldset>
+          <legend>Theme</legend>
           <input
             type="radio"
             value="light"
@@ -61,8 +64,8 @@ const SettingsPage = () => {
             }
           />
           Dark
-        </div>
-        <div>
+        </fieldset>
+        <fieldset>
           <input
             type="checkbox"
             name="autoplay"
@@ -70,7 +73,7 @@ const SettingsPage = () => {
             onChange={e => dispatch(autoPlayUpdated(e.target.checked))}
           />
           Autoplay
-        </div>
+        </fieldset>
         <div>
           <button onClick={() => history.goBack()}>Return to Game</button>
         </div>

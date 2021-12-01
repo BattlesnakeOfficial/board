@@ -124,7 +124,9 @@ class MediaControls extends React.Component {
   };
 
   handleSettings = () => {
-    this.props.history.push("/settings");
+    if (this.props.persistAvailable) {
+      this.props.history.push("/settings");
+    }
   };
 
   handleShortcutPaneShowToggle = () => {
@@ -157,7 +159,17 @@ class MediaControls extends React.Component {
   };
 
   renderControls() {
-    const { currentFrame, hideControls, paused, theme } = this.props;
+    const {
+      currentFrame,
+      hideControls,
+      paused,
+      theme,
+      persistAvailable
+    } = this.props;
+
+    const settingsInfo = persistAvailable
+      ? "Update board settings"
+      : "Enable localStorage to view and update board settings";
 
     return (
       <MediaControlsWrapper hide={hideControls}>
@@ -186,8 +198,17 @@ class MediaControls extends React.Component {
           >
             <span className="material-icons icon-image-preview">refresh</span>
           </Button>
-          <Button onClick={this.handleSettings} theme={theme}>
-            <span className="material-icons icon-image-preview">settings</span>
+          <Button
+            onClick={this.handleSettings}
+            disabled={!persistAvailable}
+            theme={theme}
+          >
+            <span
+              className="material-icons icon-image-preview"
+              title={settingsInfo}
+            >
+              settings
+            </span>
           </Button>
           <KeyboardEventHandler
             handleKeys={Object.values(this.keyboardCodeMap)}
@@ -205,6 +226,7 @@ class MediaControls extends React.Component {
                   <li>Play/Pause = space</li>
                   <li>Backward = left arrow</li>
                   <li>Forward = right arrow</li>
+                  <li>Settings = comma</li>
                 </ul>
               </ShortcutsPane>
             )}
