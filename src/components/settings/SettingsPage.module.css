@@ -1,17 +1,31 @@
 section {
-    padding: 10px 10rem;
-    width: 80%;
+    padding: 10px 1rem;
+    width: 100%;
 }
 
-section > div {
+section > fieldset {
+    border: 0;
     margin: 2rem 0;
 }
 
+/* larger screens */
 @media only screen and (min-width: 769px) {
-    section > div {
+    section {
+        padding: 10px 10rem;
         width: 80%;
-        margin: 3rem auto;
     }
+
+    section > fieldset {
+        width: 80%;
+        margin: 2rem auto;
+    }
+}
+
+legend {
+    font-weight: 600;
+    color: #615e7c;
+    font-size: 1.75rem;
+    padding: 0;
 }
 
 h2 {
@@ -20,7 +34,116 @@ h2 {
     color: #736cc7;
 }
 
+h3 {
+    color: #f53b88;
+    margin: 3rem auto;
+    text-align: center;
+}
+
 .info {
-    font-size: 1.25rem;
+    font-size: 1.4rem;
     color: #6a6c6e;
+}
+
+.inputContainer {
+    margin: 1.2rem;
+}
+
+.centered {
+    text-align: center;
+}
+
+/* Custom inputs */
+button {
+    padding: 2rem 4rem;
+    font-size: 1.5rem;
+    color: white;
+    background-color: #f53b88;
+    opacity: 1;
+    transition: opacity .2s;
+    text-transform: uppercase;
+    border: 0;
+}
+
+button:hover {
+    opacity: 0.7;
+}
+
+label {
+    display: block;
+    position: relative;
+    padding-left: 25px;
+    padding-top: 2px;
+    margin-bottom: 1.5rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+/* Hide the browser's default checkbox/radio indicator */
+label input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark,
+.radio {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #c3c2ce;
+    opacity: 1;
+    transition: opacity .2s;
+}
+
+.radio {
+    border-radius: 50%;
+}
+
+label:hover input ~ .checkmark,
+label:hover input ~ .radio {
+    opacity: 0.7;
+}
+
+label input:checked ~ .checkmark,
+label input:checked ~ .radio {
+    background-color: #f53b88;
+}
+
+/* Checkmark / radio indicator hidden when not checked */
+.checkmark:after,
+.radio:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark / radio indicator when checked */
+label input:checked ~ .checkmark:after,
+label input:checked ~ .radio:after {
+    display: block;
+}
+
+/* Custom checkmark indicator */
+label .checkmark:after {
+    left: 6px;
+    width: 8px;
+    height: 16px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+}
+
+/* Custom radio indicator */
+label .radio:after {
+    top: 7px;
+    left: 7px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: white;
 }

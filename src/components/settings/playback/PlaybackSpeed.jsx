@@ -35,7 +35,7 @@ function defaultValueHandler(value) {
 
 const PlaybackSpeed = props => {
   return (
-    <div className="input-container">
+    <>
       <input
         type="range"
         min={SLIDER_SLOW}
@@ -48,7 +48,7 @@ const PlaybackSpeed = props => {
         <span>Medium</span>
         <span>Fast</span>
       </div>
-    </div>
+    </>
   );
 };
 

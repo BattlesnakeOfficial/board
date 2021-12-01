@@ -9,7 +9,7 @@ import {
   themeSelected
 } from "./settings-slice";
 import PlaybackSpeed from "./playback/PlaybackSpeed";
-import "./SettingsPage.module.css";
+import styles from "./SettingsPage.module.css";
 import { useHistory } from "react-router-dom";
 import { togglePlayButtons, themeChanged } from "../../actions";
 
@@ -32,51 +32,77 @@ const SettingsPage = () => {
     <main className={theme}>
       <section>
         <h2>Board Settings</h2>
+        <h3>
+          Configure board settings for all your games to persist in
+          localStorage.
+        </h3>
         <fieldset>
           <legend>Playback Speed</legend>
-          <div className="info">Adjust the playback speed of your games</div>
-          <PlaybackSpeed
-            default={playbackSpeed}
-            onChange={dispatchSpeedChange}
-          />
+          <div className={styles.info}>
+            Adjust the playback speed of your games
+          </div>
+          <div className={styles.inputContainer}>
+            <PlaybackSpeed
+              default={playbackSpeed}
+              onChange={dispatchSpeedChange}
+            />
+          </div>
         </fieldset>
         <fieldset>
           <legend>Theme</legend>
-          <input
-            type="radio"
-            value="light"
-            name="theme"
-            checked={theme === "light"}
-            onChange={e =>
-              dispatch(themeSelected(e.target.value)) &&
-              dispatch(themeChanged(e.target.value))
-            }
-          />
-          Light
-          <input
-            type="radio"
-            value="dark"
-            name="theme"
-            checked={theme === "dark"}
-            onChange={e =>
-              dispatch(themeSelected(e.target.value)) &&
-              dispatch(themeChanged(e.target.value))
-            }
-          />
-          Dark
+          <div className={styles.info}>Change your board theme colors</div>
+          <div className={styles.inputContainer}>
+            <label>
+              <input
+                type="radio"
+                value="light"
+                name="theme"
+                checked={theme === "light"}
+                onChange={e =>
+                  dispatch(themeSelected(e.target.value)) &&
+                  dispatch(themeChanged(e.target.value))
+                }
+              />
+              <span className={styles.radio} />
+              Light
+            </label>
+            <label>
+              <input
+                type="radio"
+                value="dark"
+                name="theme"
+                checked={theme === "dark"}
+                onChange={e =>
+                  dispatch(themeSelected(e.target.value)) &&
+                  dispatch(themeChanged(e.target.value))
+                }
+              />
+              <span className={styles.radio} />
+              Projector
+            </label>
+          </div>
         </fieldset>
         <fieldset>
-          <input
-            type="checkbox"
-            name="autoplay"
-            checked={autoplay}
-            onChange={e => dispatch(autoPlayUpdated(e.target.checked))}
-          />
-          Autoplay
+          <legend>Autoplay</legend>
+          <div className={styles.info}>
+            All games will start playing as soon as the board loads
+          </div>
+          <div className={styles.inputContainer}>
+            <label>
+              <input
+                type="checkbox"
+                name="autoplay"
+                checked={autoplay}
+                onChange={e => dispatch(autoPlayUpdated(e.target.checked))}
+              />
+              <span className={styles.checkmark} />
+              {autoplay ? "On" : "Off"}
+            </label>
+          </div>
         </fieldset>
-        <div>
+        <fieldset className={styles.centered}>
           <button onClick={() => history.goBack()}>Return to Game</button>
-        </div>
+        </fieldset>
       </section>
     </main>
   );
