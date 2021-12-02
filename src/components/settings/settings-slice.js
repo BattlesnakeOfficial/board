@@ -1,11 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {
-  getLocalSetting,
-  rehydrateLocalSettings,
-  setLocalSetting
-} from "../../app/storage";
+import { getLocalSetting, setLocalSetting } from "../../app/storage";
+import { themes } from "../../theme";
 
-const initialState = rehydrateLocalSettings();
+const initialState = {
+  frameRate: 20,
+  theme: themes.light,
+  autoplay: false,
+  persistAvailable: false
+};
 
 export const settingsSlice = createSlice({
   name: "settings",

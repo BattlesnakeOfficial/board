@@ -131,10 +131,10 @@ class Game extends React.Component {
   renderGame() {
     const { currentFrame, options } = this.props;
     return (
-      <main className={this.props.theme}>
+      <main className={options.theme}>
         <section className={styles.game}>
           <BoardWrapper hideScoreboard={this.hideScoreboard}>
-            <BoardTitle theme={this.props.theme}>{this.title}</BoardTitle>
+            <BoardTitle theme={options.theme}>{this.title}</BoardTitle>
             <Board
               snakes={currentFrame.snakes}
               food={currentFrame.food}
@@ -143,7 +143,7 @@ class Game extends React.Component {
               columns={this.props.grid.width}
               rows={this.props.grid.height}
               highlightedSnake={this.props.highlightedSnake}
-              theme={this.props.theme}
+              theme={options.theme}
               turn={currentFrame.turn}
             />
             <MediaControls
@@ -154,7 +154,8 @@ class Game extends React.Component {
               stepBackwardFrame={this.props.stepBackwardFrame}
               stepForwardFrame={this.props.stepForwardFrame}
               paused={this.props.paused}
-              theme={this.props.theme}
+              theme={options.theme}
+              persistAvailable={options.persistAvailable}
             />
           </BoardWrapper>
           {!this.hideScoreboard && (
@@ -162,10 +163,10 @@ class Game extends React.Component {
               <HeaderWrapper>
                 {!this.hideLogo && (
                   <LogoWrapper>
-                    <Logo theme={this.props.theme} />
+                    <Logo theme={options.theme} />
                   </LogoWrapper>
                 )}
-                <TurnCount theme={this.props.theme}>
+                <TurnCount theme={options.theme}>
                   Turn <TurnCountValue>{currentFrame.turn}</TurnCountValue>
                 </TurnCount>
               </HeaderWrapper>
@@ -174,7 +175,7 @@ class Game extends React.Component {
                 snakes={currentFrame.snakes}
                 food={currentFrame.food}
                 highlightSnake={this.props.highlightSnake}
-                theme={this.props.theme}
+                theme={options.theme}
               />
               <Ruleset>Rules: {this.props.ruleset.name}</Ruleset>
             </ScoreboardWrapper>

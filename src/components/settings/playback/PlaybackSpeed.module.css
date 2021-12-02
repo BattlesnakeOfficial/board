@@ -10,12 +10,12 @@ input[type="range"] {
     height: 15px;
     background: #c3c2ce;
     outline: none;
-    opacity: 0.7;
+    opacity: 1;
     transition: opacity .2s;
 }
 
 input[type="range"]:hover {
-    opacity: 1;
+    opacity: 0.7;
 }
 
 /* THUMB - todo add postcss-input-range to npm script OR use sass to create mixins */

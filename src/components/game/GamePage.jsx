@@ -12,20 +12,10 @@ import {
   highlightSnake,
   togglePlayButtons
 } from "../../actions";
-import { rehydrateLocalSettings, storageAvailable } from "../../app/storage";
 
 const options = parseQueryString(window.location.search);
 if (typeof options.autoplay !== "undefined") {
   options.autoplay = options.autoplay === "true";
-}
-
-let storedSettings = {};
-if (storageAvailable("localStorage")) {
-  storedSettings = rehydrateLocalSettings();
-} else {
-  console.info(
-    "Please enable localStorage for an improved experience that allows you to persist board settings."
-  );
 }
 
 const mapStateToProps = state => {
@@ -33,7 +23,7 @@ const mapStateToProps = state => {
   const settings = state.settings;
 
   return {
-    options: { ...storedSettings, ...settings, ...options },
+    options: { ...settings, ...options },
     ruleset: gameState.ruleset,
     grid: gameState.grid,
     gameNotFound: gameState.gameNotFound,
