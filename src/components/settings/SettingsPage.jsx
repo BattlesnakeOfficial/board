@@ -47,7 +47,7 @@ const SettingsPage = () => {
         <fieldset>
           <legend>Theme</legend>
           <div className={styles.info}>Change your game theme colors</div>
-          <div className={styles.inputContainer}>
+          <div className={styles.inputContainer && styles.row}>
             <label>
               <input
                 type="radio"

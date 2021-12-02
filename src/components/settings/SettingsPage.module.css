@@ -1,34 +1,21 @@
 main {
-    padding: 0 2rem;
+    padding: 0 0.5rem;
 }
 
 section {
-    padding: 10px 1rem;
     width: 100%;
 }
 
 section > fieldset {
     border: 0;
-    margin: 2rem 0;
-}
-
-/* larger screens */
-@media only screen and (min-width: 769px) {
-    /*section {*/
-    /*    padding: 10px 10rem;*/
-    /*    width: 80%;*/
-    /*}*/
-
-    section > fieldset {
-        width: 80%;
-        margin: 2rem auto;
-    }
+    margin: 0;
+    padding: 0.25rem 1rem;
 }
 
 legend {
     font-weight: 600;
     color: #615e7c;
-    font-size: 1.75rem;
+    font-size: 1.5rem;
     padding: 0;
 }
 
@@ -36,6 +23,7 @@ h2 {
     border-bottom: 2px solid #cccccc;
     padding-bottom: 0.5rem;
     color: #736cc7;
+    font-size: 1.85rem;
 }
 
 h3 {
@@ -47,14 +35,59 @@ h3 {
 .info {
     font-size: 1.4rem;
     color: #6a6c6e;
+    display: none;
 }
 
 .inputContainer {
-    margin: 1.2rem;
+    margin: 0.25rem;
+}
+
+.row {
+    display: flex;
+    justify-content: space-evenly;
 }
 
 .centered {
     text-align: center;
+}
+
+/* larger screens */
+@media only screen and (min-width: 768px) {
+    main {
+        padding: 0 2rem;
+    }
+
+    section {
+        padding: 10px 1rem;
+    }
+
+    section > fieldset {
+        width: 80%;
+        margin: 2rem auto;
+        padding: 0;
+    }
+
+    legend {
+        font-size: 1.75rem;
+    }
+
+    h2 {
+        font-size: 2.5rem;
+    }
+
+    .info {
+        display: block;
+        margin-top: 0.25rem;
+    }
+
+    .inputContainer {
+        margin: 1.2rem;
+    }
+
+    .row {
+        flex-direction: column;
+        padding-top: 1rem;
+    }
 }
 
 /* Custom inputs */
