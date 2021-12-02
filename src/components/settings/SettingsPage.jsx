@@ -31,11 +31,7 @@ const SettingsPage = () => {
   return (
     <main className={theme}>
       <section>
-        <h2>Board Settings</h2>
-        <h3>
-          Configure board settings for all your games to persist in
-          localStorage.
-        </h3>
+        <h2>Playback Settings</h2>
         <fieldset>
           <legend>Playback Speed</legend>
           <div className={styles.info}>
@@ -50,7 +46,7 @@ const SettingsPage = () => {
         </fieldset>
         <fieldset>
           <legend>Theme</legend>
-          <div className={styles.info}>Change your board theme colors</div>
+          <div className={styles.info}>Change your game theme colors</div>
           <div className={styles.inputContainer}>
             <label>
               <input
@@ -85,7 +81,7 @@ const SettingsPage = () => {
         <fieldset>
           <legend>Autoplay</legend>
           <div className={styles.info}>
-            All games will start playing as soon as the board loads
+            All games will start playing as soon as the game loads
           </div>
           <div className={styles.inputContainer}>
             <label>
