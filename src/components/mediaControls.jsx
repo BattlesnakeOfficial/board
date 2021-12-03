@@ -168,8 +168,8 @@ class MediaControls extends React.Component {
     } = this.props;
 
     const settingsInfo = persistAvailable
-      ? "Update board settings"
-      : "Enable localStorage to view and update board settings";
+      ? "Configure playback settings"
+      : "Enable localStorage to configure playback settings";
 
     return (
       <MediaControlsWrapper hide={hideControls}>
