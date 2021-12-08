@@ -29,7 +29,7 @@ const SettingsPage = () => {
   }
 
   return (
-    <main className={theme}>
+    <main>
       <section>
         <h2>Playback Settings</h2>
         <fieldset>
