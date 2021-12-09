@@ -1,12 +1,12 @@
 import style from "./PlaybackSpeed.module.css";
 
-const SLIDER_SLOW = 1;
-const SLIDER_MEDIUM = 2;
-const SLIDER_FAST = 3;
+export const SLIDER_SLOW = 1;
+export const SLIDER_MEDIUM = 2;
+export const SLIDER_FAST = 3;
 
-const SPEED_SLOW = 6;
-const SPEED_MEDIUM = 10;
-const SPEED_FAST = 20;
+export const SPEED_SLOW = 6; // new 3
+export const SPEED_MEDIUM = 10; // new 6
+export const SPEED_FAST = 20;
 
 function valueChanged(e, changeHandler) {
   let fps = SPEED_FAST;
