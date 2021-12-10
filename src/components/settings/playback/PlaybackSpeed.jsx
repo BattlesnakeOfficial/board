@@ -10,7 +10,7 @@ export const SPEED_MEDIUM = DEFAULT_FRAMERATE;
 export const SPEED_FAST = 20;
 
 const speedRanges = {
-  SPEED_SLOW: { min: 0, max: 5 },
+  SPEED_SLOW: { min: 1, max: 5 },
   SPEED_MEDIUM: { min: 6, max: 12 },
   SPEED_FAST: { min: 13, max: 20 }
 };
