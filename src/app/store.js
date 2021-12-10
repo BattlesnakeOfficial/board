@@ -3,6 +3,7 @@ import rootReducer from "../reducers";
 import settingsReducer, {
   settingsStoreListener
 } from "../components/settings/settings-slice";
+import { initialSettings } from "../components/settings/defaults";
 import { themes } from "../theme";
 import { rehydrateLocalSettings, storageAvailable } from "./storage";
 
@@ -18,12 +19,7 @@ function rehydrateInitialState() {
       highlightedSnake: null,
       theme: themes.light
     },
-    settings: {
-      frameRate: 20,
-      theme: "light",
-      autoplay: false,
-      persistAvailable: false
-    }
+    settings: initialSettings
   };
 
   if (storageAvailable("localStorage")) {

@@ -1,17 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getLocalSetting, setLocalSetting } from "../../app/storage";
-import { themes } from "../../theme";
-
-const initialState = {
-  frameRate: 20,
-  theme: themes.light,
-  autoplay: false,
-  persistAvailable: false
-};
+import { initialSettings } from "./defaults";
 
 export const settingsSlice = createSlice({
   name: "settings",
-  initialState,
+  initialSettings,
   reducers: {
     frameRateUpdated(state, action) {
       state.frameRate = action.payload;

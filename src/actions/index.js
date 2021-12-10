@@ -1,13 +1,14 @@
 import { delay, getFrameByTurn, streamAllEvents } from "../utils/engine-client";
 import * as types from "./action-types";
+import { DEFAULT_FRAMERATE } from "../components/settings/defaults";
 
-// Sort of a hack, until we have persisted playback options
-let DEFAULT_FPS = 10;
-try {
-  DEFAULT_FPS = localStorage.getItem("frameRate") || 10;
-} catch (err) {
-  console.log("unable to load localStorage");
-}
+// // Sort of a hack, until we have persisted playback options
+// let DEFAULT_FPS = 6;
+// try {
+//   DEFAULT_FPS = localStorage.getItem("frameRate") || DEFAULT_FPS;
+// } catch (err) {
+//   console.log("unable to load localStorage");
+// }
 
 export const setGameOptions = gameOptions => ({
   type: types.SET_GAME_OPTIONS,
@@ -118,7 +119,7 @@ export const playFromFrame = frame => {
     const frameIndex = frames.indexOf(frame);
     const slicedFrames = frames.slice(frameIndex);
 
-    const ceiledFps = Math.ceil(frameRate || DEFAULT_FPS);
+    const ceiledFps = Math.ceil(frameRate || DEFAULT_FRAMERATE);
     const delayMillis = 1000 / ceiledFps;
 
     for (const frame of slicedFrames) {

@@ -51,7 +51,7 @@ http://127.0.0.1:3000/?engine=[ENGINE_URL]&game=[GAME_ID]
 #### Optional
 - `autoplay` - start game playback immediately. Values true / false. Defaults to false.
 - `boardTheme` - the theme of the board. Values dark / light. Defaults to light.
-- `frameRate` - the maximum frame rate used for playback. Takes an integer value equal to FPS. Defaults to 10 FPS.
+- `frameRate` - the maximum frame rate used for playback. Takes an integer value equal to FPS. Defaults to 6 FPS. (medium speed)
 - `hideScoreboard` - remove the scoreboard for embedding cool games. Values true false. Defaults to false.
 - `hideMediaControls` - remove the controls for embedding cool games. Values true / false. Defaults to false.
 - `loop` - restart playback immediately once game completes. Values true / false. Defaults to false.

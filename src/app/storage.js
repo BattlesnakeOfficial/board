@@ -1,3 +1,8 @@
+import {
+  DEFAULT_FRAMERATE,
+  initialSettings
+} from "../components/settings/defaults";
+
 export function storageAvailable(type) {
   let storage;
   try {
@@ -41,14 +46,14 @@ export function rehydrateLocalSettings() {
   let checkAutoplay = getLocalSetting("autoplay");
 
   if (typeof checkAutoplay === "undefined") {
-    checkAutoplay = true; // default to true
+    checkAutoplay = initialSettings.autoplay;
   } else {
     checkAutoplay = checkAutoplay === "true";
   }
 
   return {
-    frameRate: Number(getLocalSetting("frameRate")) || 10,
-    theme: getLocalSetting("theme") || "light",
+    frameRate: Number(getLocalSetting("frameRate")) || DEFAULT_FRAMERATE,
+    theme: getLocalSetting("theme") || initialSettings.theme,
     autoplay: checkAutoplay
   };
 }
