@@ -1,10 +1,13 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 
 import PlaybackSpeed, {
   SLIDER_FAST,
   SLIDER_MEDIUM,
-  SLIDER_SLOW
+  SLIDER_SLOW,
+  SPEED_FAST,
+  SPEED_MEDIUM,
+  SPEED_SLOW
 } from "./PlaybackSpeed";
 
 describe("renders with or without a default speed", () => {
@@ -58,4 +61,25 @@ describe("renders the correct speed", () => {
 
     expect(speedSlider).toHaveValue(String(expected));
   });
+});
+
+describe("sends the correct framerate to callback when slider value changes", () => {
+  test.each([
+    [SPEED_FAST, SLIDER_SLOW, SPEED_SLOW],
+    [SPEED_SLOW, SLIDER_MEDIUM, SPEED_MEDIUM],
+    [SPEED_MEDIUM, SLIDER_FAST, SPEED_FAST]
+  ])(
+    "currentFramerate: %i, selectedSpeed: %i, framerate: %i",
+    (currentFramerate, sliderSpeed, fps) => {
+      const speedChangedCallback = jest.fn();
+      const { getByRole } = render(
+        <PlaybackSpeed
+          default={currentFramerate}
+          onChange={speedChangedCallback}
+        />
+      );
+      fireEvent.change(getByRole("slider"), { target: { value: sliderSpeed } });
+      expect(speedChangedCallback).toHaveBeenCalledWith(fps);
+    }
+  );
 });

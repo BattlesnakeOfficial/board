@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getLocalSetting, setLocalSetting } from "../../app/storage";
-import { initialSettings } from "./defaults";
+import { initialSettings as initialState } from "./defaults";
 
 export const settingsSlice = createSlice({
   name: "settings",
-  initialSettings,
+  initialState,
   reducers: {
     frameRateUpdated(state, action) {
       state.frameRate = action.payload;
