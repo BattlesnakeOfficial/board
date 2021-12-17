@@ -4,8 +4,8 @@ import settingsReducer, {
   settingsStoreListener
 } from "../components/settings/settings-slice";
 import { initialSettings } from "../components/settings/defaults";
-import { themes } from "../theme";
 import { rehydrateLocalSettings, storageAvailable } from "./storage";
+import gameStatusReducer from "../components/game/game-status-slice";
 
 function rehydrateInitialState() {
   let initialState = {
@@ -15,11 +15,11 @@ function rehydrateInitialState() {
       frames: [],
       endEvent: {},
       paused: true,
-      gameNotFound: false,
-      highlightedSnake: null,
-      theme: themes.light
+      gameNotFound: false, // @todo error
+      highlightedSnake: null
     },
-    settings: initialSettings
+    settings: initialSettings,
+    status: {}
   };
 
   if (storageAvailable("localStorage")) {
@@ -37,7 +37,8 @@ function rehydrateInitialState() {
 const store = configureStore({
   reducer: {
     game: rootReducer,
-    settings: settingsReducer
+    settings: settingsReducer,
+    status: gameStatusReducer
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

@@ -7,11 +7,6 @@ export const setGameOptions = gameOptions => ({
   gameOptions
 });
 
-export const setTheme = theme => ({
-  type: types.SET_THEME,
-  theme
-});
-
 export const gameOver = () => ({
   type: types.GAME_OVER
 });
@@ -159,12 +154,6 @@ export const toggleGamePause = () => {
   };
 };
 
-export const toggleTheme = themeToSet => {
-  return async dispatch => {
-    dispatch(setTheme(themeToSet));
-  };
-};
-
 export const stepForwardFrame = () => {
   return async (dispatch, getState) => {
     const { currentFrame, frames } = getState().game;
@@ -190,9 +179,4 @@ export const stepBackwardFrame = () => {
 export const togglePlayButtons = showHide => ({
   type: types.TOGGLE_SETTINGS_VIEW,
   showHide
-});
-
-export const themeChanged = theme => ({
-  type: types.THEME_CHANGED,
-  theme
 });

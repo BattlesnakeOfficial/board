@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getLocalSetting, setLocalSetting } from "../../app/storage";
 import { initialSettings as initialState } from "./defaults";
+import { windowPostMessage } from "../../io/window-post-message";
 
 export const settingsSlice = createSlice({
   name: "settings",
@@ -10,7 +11,15 @@ export const settingsSlice = createSlice({
       state.frameRate = action.payload;
     },
     themeSelected(state, action) {
+      const lastTheme = state.theme;
       state.theme = action.payload;
+
+      if (lastTheme !== state.theme) {
+        windowPostMessage({
+          action: action.type,
+          theme: state.theme
+        });
+      }
     },
     autoPlayUpdated(state, action) {
       state.autoplay = action.payload;

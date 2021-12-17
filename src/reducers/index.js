@@ -1,6 +1,6 @@
 import { formatFrame, sanitizeFrame } from "../utils/game-state";
 import * as types from "../actions/action-types";
-import { themes } from "../theme";
+import { windowPostMessage } from "../io/window-post-message";
 
 const initialState = {
   options: null,
@@ -8,15 +8,12 @@ const initialState = {
   frames: [],
   endEvent: {},
   paused: true,
-  gameNotFound: false,
-  highlightedSnake: null,
-  theme: themes.light
+  gameNotFound: false, //@todo error
+  highlightedSnake: null
 };
 
 const reducers = (state = initialState, action) => {
   switch (action.type) {
-    case types.SET_THEME:
-      return { ...state, theme: action.theme };
     case types.SET_GAME_OPTIONS:
       action.gameOptions.turn = parseInt(action.gameOptions.turn) || 0;
       action.gameOptions.loop =
@@ -76,26 +73,9 @@ const reducers = (state = initialState, action) => {
         value: action.showHide
       });
       return { ...state };
-    case types.THEME_CHANGED:
-      windowPostMessage({
-        action: action.type,
-        value: action.theme
-      });
-      return { ...state };
     default:
       return { ...state };
   }
 };
-
-function windowPostMessage(data) {
-  if (!window.parent) {
-    return;
-  }
-  try {
-    window.parent.postMessage(data, "*");
-  } catch (e) {
-    console.error(e);
-  }
-}
 
 export default reducers;

@@ -1,5 +1,4 @@
 export const SET_GAME_OPTIONS = "SET_GAME_OPTIONS";
-export const SET_THEME = "SET_THEME";
 export const GAME_OVER = "GAME_OVER";
 export const GAME_NOT_FOUND = "GAME_NOT_FOUND";
 export const FETCH_FRAMES = "FETCH_FRAMES";
@@ -11,4 +10,3 @@ export const RESUME_GAME = "RESUME_GAME";
 export const HIGHLIGHT_SNAKE = "HIGHLIGHT_SNAKE";
 export const RECEIVE_EVENT_END = "RECEIVE_EVENT_END";
 export const TOGGLE_SETTINGS_VIEW = "TOGGLE_SETTINGS_VIEW";
-export const THEME_CHANGED = "THEME_CHANGED";

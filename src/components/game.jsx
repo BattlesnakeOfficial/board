@@ -96,10 +96,6 @@ class Game extends React.Component {
 
     this.props.togglePlayButtons("show");
 
-    if (options.theme) {
-      this.props.toggleTheme(options.theme);
-    }
-
     if (options.game && options.engine) {
       this.hideLogo = options.hideLogo === "true";
       this.hideScoreboard = options.hideScoreboard === "true";

@@ -11,7 +11,7 @@ import {
 import PlaybackSpeed from "./playback/PlaybackSpeed";
 import styles from "./SettingsPage.module.css";
 import { useNavigate } from "react-router-dom";
-import { togglePlayButtons, themeChanged } from "../../actions";
+import { togglePlayButtons } from "../../actions";
 
 const SettingsPage = () => {
   const navigate = useNavigate();
@@ -54,10 +54,7 @@ const SettingsPage = () => {
                 value="light"
                 name="theme"
                 checked={theme === "light"}
-                onChange={e =>
-                  dispatch(themeSelected(e.target.value)) &&
-                  dispatch(themeChanged(e.target.value))
-                }
+                onChange={e => dispatch(themeSelected(e.target.value))}
               />
               <span className={styles.radio} />
               Light
@@ -68,10 +65,7 @@ const SettingsPage = () => {
                 value="dark"
                 name="theme"
                 checked={theme === "dark"}
-                onChange={e =>
-                  dispatch(themeSelected(e.target.value)) &&
-                  dispatch(themeChanged(e.target.value))
-                }
+                onChange={e => dispatch(themeSelected(e.target.value))}
               />
               <span className={styles.radio} />
               Projector
