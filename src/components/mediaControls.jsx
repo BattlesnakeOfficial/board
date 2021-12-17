@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
 import KeyboardEventHandler from "react-keyboard-event-handler";
-import { withRouter } from "react-router";
 import { themes, breakpoints } from "../theme";
 
 const MediaControlsWrapper = styled("div")`
@@ -123,6 +122,7 @@ class MediaControls extends React.Component {
     this.props.stepForwardFrame();
   };
 
+  // @todo can't use router hooks in a class - refactor to functional component
   handleSettings = () => {
     if (this.props.persistAvailable) {
       this.props.history.push("/settings");
@@ -237,4 +237,4 @@ class MediaControls extends React.Component {
   }
 }
 
-export default withRouter(MediaControls);
+export default MediaControls;
