@@ -10,11 +10,11 @@ import {
 } from "./settings-slice";
 import PlaybackSpeed from "./playback/PlaybackSpeed";
 import styles from "./SettingsPage.module.css";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { togglePlayButtons, themeChanged } from "../../actions";
 
 const SettingsPage = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const theme = useSelector(currentTheme);
   const playbackSpeed = useSelector(currentFrameRate);
   const autoplay = useSelector(currentAutoplay);
@@ -97,7 +97,7 @@ const SettingsPage = () => {
           </div>
         </fieldset>
         <fieldset className={styles.centered}>
-          <button onClick={() => history.goBack()}>Return to Game</button>
+          <button onClick={() => navigate("/")}>Return to Game</button>
         </fieldset>
       </section>
     </main>
