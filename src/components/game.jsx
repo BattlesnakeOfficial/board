@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 
-import BlankState from "./blank-state";
+import ErrorPage from "../app/ErrorPage";
 import LoadingIndicator from "./loading-indicator";
 import GameNotFound from "./game-not-found";
 import Board from "./board";
@@ -114,7 +114,7 @@ class Game extends React.Component {
 
   render() {
     if (this.invalidArgs) {
-      return <BlankState />;
+      return <ErrorPage invalidArgs={this.invalidArgs} />;
     }
 
     if (this.props.gameNotFound) {
