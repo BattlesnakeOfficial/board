@@ -20,16 +20,17 @@ if (typeof options.autoplay !== "undefined") {
 const mapStateToProps = state => {
   const gameState = state.game;
   const settings = state.settings;
+  const status = state.status;
 
   return {
     options: { ...settings, ...options },
     ruleset: gameState.ruleset,
     grid: gameState.grid,
-    gameNotFound: gameState.gameNotFound,
     paused: gameState.paused,
     currentFrame: gameState.currentFrame,
     frames: gameState.frames,
-    highlightedSnake: gameState.highlightedSnake
+    highlightedSnake: gameState.highlightedSnake,
+    status: status
   };
 };
 

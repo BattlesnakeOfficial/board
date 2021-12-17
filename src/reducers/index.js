@@ -8,7 +8,6 @@ const initialState = {
   frames: [],
   endEvent: {},
   paused: true,
-  gameNotFound: false, //@todo error
   highlightedSnake: null
 };
 
@@ -19,8 +18,6 @@ const reducers = (state = initialState, action) => {
       action.gameOptions.loop =
         action.gameOptions.loop && action.gameOptions.loop === "true";
       return { ...state, gameOptions: action.gameOptions };
-    case types.GAME_NOT_FOUND:
-      return { ...state, gameNotFound: true };
     case types.PAUSE_GAME:
       return { ...state, paused: true };
     case types.GAME_OVER:

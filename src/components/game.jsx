@@ -9,6 +9,7 @@ import MediaControls from "./mediaControls";
 import Logo from "./logo";
 import { breakpoints, colors, themes } from "../theme";
 import styles from "./game/GamePage.module.css";
+import { GAME_STATUS_ERROR } from "./game/game-status-slice";
 
 const BoardTitle = styled("div")(({ theme }) => ({
   fontSize: "2rem",
@@ -108,14 +109,14 @@ class Game extends React.Component {
   }
 
   render() {
+    const { status } = this.props;
+
     if (this.invalidArgs) {
       return <ErrorPage invalidArgs={this.invalidArgs} />;
     }
 
-    if (this.props.gameNotFound) {
-      return (
-        <ErrorPage message="Game no longer available, sorry! Please check console log to verify game id." />
-      );
+    if (status.status === GAME_STATUS_ERROR) {
+      return <ErrorPage message={status.error} />;
     }
 
     if (this.props.currentFrame) {

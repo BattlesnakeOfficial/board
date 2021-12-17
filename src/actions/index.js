@@ -1,6 +1,7 @@
 import { delay, getFrameByTurn, streamAllEvents } from "../utils/engine-client";
 import * as types from "./action-types";
 import { DEFAULT_FRAMERATE } from "../components/settings/defaults";
+import { setError } from "../components/game/game-status-slice";
 
 export const setGameOptions = gameOptions => ({
   type: types.SET_GAME_OPTIONS,
@@ -9,10 +10,6 @@ export const setGameOptions = gameOptions => ({
 
 export const gameOver = () => ({
   type: types.GAME_OVER
-});
-
-export const gameNotFound = () => ({
-  type: types.GAME_NOT_FOUND
 });
 
 export const requestFrames = () => ({
@@ -87,7 +84,11 @@ export const fetchFrames = () => {
         }
       });
     } catch (e) {
-      return dispatch(gameNotFound());
+      return dispatch(
+        setError(
+          "Game no longer available, sorry! Please check console log to verify game id."
+        )
+      );
     }
 
     // Only navigate to the specified frame if it is within the
