@@ -3,7 +3,6 @@ import styled from "@emotion/styled";
 
 import ErrorPage from "../app/ErrorPage";
 import LoadingIndicator from "./loading-indicator";
-import GameNotFound from "./game-not-found";
 import Board from "./board";
 import Scoreboard from "./scoreboard";
 import MediaControls from "./mediaControls";
@@ -118,7 +117,9 @@ class Game extends React.Component {
     }
 
     if (this.props.gameNotFound) {
-      return <GameNotFound />;
+      return (
+        <ErrorPage message="Game no longer available, sorry! Please check console log to verify game id." />
+      );
     }
 
     if (this.props.currentFrame) {
