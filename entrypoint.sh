@@ -1,8 +1,5 @@
 #!/bin/sh
 
-# This APP_VERSION is set dyanamically at run time, and is not the same as in release.yaml which sets it on the build
-APP_VERSION=${APP_VERSION:-undefined}
-
 cat > /etc/nginx/nginx.conf <<EOF
 events {
   worker_connections 1024;
