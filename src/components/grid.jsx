@@ -132,6 +132,30 @@ function getHeadFillerYOffset(part) {
   }
 }
 
+function getTailFillerXOffset(part) {
+  // apply slight offset to avoid ugly white line in between parts (works most of the time)
+  switch (part.direction) {
+    case "right":
+      return toGridSpaceX(part.x + 1) - CELL_SPACING - END_OVERLAP;
+    case "left":
+      return toGridSpaceX(part.x) - CELL_SPACING - END_OVERLAP;
+    default:
+      return toGridSpaceX(part.x);
+  }
+}
+
+function getTailFillerYOffset(part) {
+  // apply slight offset to avoid ugly white line in between parts (works most of the time)
+  switch (part.direction) {
+    case "down":
+      return toGridSpaceY(part.y - 1) - CELL_SPACING - END_OVERLAP;
+    case "up":
+      return toGridSpaceY(part.y) - CELL_SPACING - END_OVERLAP;
+    default:
+      return toGridSpaceY(part.y);
+  }
+}
+
 function getFillerWidth(part) {
   return part.direction === "left" || part.direction === "right"
     ? CELL_SPACING + 2 * END_OVERLAP
@@ -399,22 +423,35 @@ class Grid extends React.Component {
     let opacity = getPartOpacity(part);
 
     return (
-      <svg
-        key={"part" + snakeIndex + ",tail"}
-        viewBox={viewBoxStr}
-        x={x}
-        y={y}
-        width={CELL_SIZE}
-        height={CELL_SIZE}
-        fill={color}
-        opacity={opacity}
-        shapeRendering="optimizeSpeed"
-      >
-        <g
-          transform={transform}
-          dangerouslySetInnerHTML={{ __html: snake.tailSvg.innerHTML }}
-        />
-      </svg>
+      <g key={"part" + snakeIndex + ",tail"}>
+        <svg
+          viewBox={viewBoxStr}
+          x={x}
+          y={y}
+          width={CELL_SIZE}
+          height={CELL_SIZE}
+          fill={color}
+          opacity={opacity}
+          shapeRendering="optimizeSpeed"
+        >
+          <g
+            transform={transform}
+            dangerouslySetInnerHTML={{ __html: snake.tailSvg.innerHTML }}
+          />
+        </svg>
+        {snake.effectiveSpace > 1 && (
+          // only add filler if the snake is effectively longer than one tile
+          <rect
+            x={getTailFillerXOffset(part)}
+            y={getTailFillerYOffset(part)}
+            width={getFillerWidth(part)}
+            height={getFillerHeight(part)}
+            fill={color}
+            opacity={opacity}
+            shapeRendering="optimizeSpeed"
+          />
+        )}
+      </g>
     );
   }
 

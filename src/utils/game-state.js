@@ -168,17 +168,27 @@ function formatDirection(type, snake, part, partIndex) {
 
 function getDirection(a, b) {
   if (a && b) {
-    if (a.X < b.X) {
+    // Handle cases where b is one move after a
+    if (a.X + 1 === b.X) {
       return "right";
-    } else if (a.X > b.X) {
+    } else if (a.X - 1 === b.X) {
       return "left";
-    } else if (a.Y > b.Y) {
-      return "down";
-    } else if (a.Y < b.Y) {
+    } else if (a.Y + 1 === b.Y) {
       return "up";
+    } else if (a.Y - 1 === b.Y) {
+      return "down";
+    }
+    // Handle wrapped cases (we can anchor against one part being on 0 axis)
+    if (a.X > b.X && b.X === 0) {
+      return "right";
+    } else if (a.X < b.X && a.X === 0) {
+      return "left";
+    } else if (a.Y > b.Y && b.Y === 0) {
+      return "up";
+    } else if (a.Y < b.Y && a.Y === 0) {
+      return "down";
     }
   }
-
   return DEFAULT_DIRECTION;
 }
 
