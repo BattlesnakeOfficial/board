@@ -54,6 +54,9 @@ export function rehydrateLocalSettings() {
   return {
     frameRate: Number(getLocalSetting("frameRate")) || DEFAULT_FRAMERATE,
     theme: getLocalSetting("theme") || initialSettings.theme,
+    showFrameScrubber:
+      parseInt(getLocalSetting("showFrameScrubber")) ||
+      initialSettings.showFrameScrubber,
     autoplay: checkAutoplay
   };
 }

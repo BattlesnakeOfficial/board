@@ -19,6 +19,9 @@ const options = parseQueryString(window.location.search);
 if (typeof options.autoplay !== "undefined") {
   options.autoplay = options.autoplay === "true";
 }
+if (typeof options.showFrameScrubber !== "undefined") {
+  options.showFrameScrubber = options.showFrameScrubber === "true";
+}
 
 const mapStateToProps = state => {
   const gameState = state.game;

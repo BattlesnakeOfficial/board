@@ -104,7 +104,7 @@ class Game extends React.Component {
     if (options.game && options.engine) {
       this.hideLogo = options.hideLogo === "true";
       this.hideScoreboard = options.hideScoreboard === "true";
-      this.showFrameScrubber = options.showFrameScrubber === "true";
+      this.showFrameScrubber = options.showFrameScrubber;
       this.title = options.title && decodeURIComponent(options.title);
       this.props.setGameOptions(options);
       this.props.fetchFrames();

@@ -5,8 +5,10 @@ import {
   currentAutoplay,
   currentFrameRate,
   currentTheme,
+  currentShowFrameScrubber,
   frameRateUpdated,
-  themeSelected
+  themeSelected,
+  showFrameScrubberUpdated
 } from "./settings-slice";
 import PlaybackSpeed from "./playback/PlaybackSpeed";
 import styles from "./SettingsPage.module.css";
@@ -18,6 +20,7 @@ const SettingsPage = () => {
   const theme = useSelector(currentTheme);
   const playbackSpeed = useSelector(currentFrameRate);
   const autoplay = useSelector(currentAutoplay);
+  const showFrameScrubber = useSelector(currentShowFrameScrubber);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -93,6 +96,27 @@ const SettingsPage = () => {
               />
               <span className={styles.checkmark} />
               {autoplay ? "On" : "Off"}
+            </label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>EXPERIMENTAL: Show Frame Scrubber</legend>
+          <div className={styles.info}>
+            Under the Game Board, a scrubber will show the current frame and
+            allow quickly jumping to a specific frame
+          </div>
+          <div className={styles.inputContainer}>
+            <label>
+              <input
+                type="checkbox"
+                name="showFrameScrubber"
+                checked={showFrameScrubber}
+                onChange={e =>
+                  dispatch(showFrameScrubberUpdated(e.target.checked))
+                }
+              />
+              <span className={styles.checkmark} />
+              {showFrameScrubber ? "On" : "Off"}
             </label>
           </div>
         </fieldset>

@@ -6,5 +6,6 @@ export const initialSettings = {
   frameRate: DEFAULT_FRAMERATE,
   theme: themes.light,
   autoplay: false,
+  showFrameScrubber: false,
   persistAvailable: false
 };
