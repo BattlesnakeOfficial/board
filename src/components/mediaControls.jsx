@@ -128,6 +128,14 @@ class MediaControls extends React.Component {
     this.props.stepForwardFrame();
   };
 
+  handleScrubMouseDown = () => {
+    this.props.pauseGame();
+  };
+
+  handleScrubbing = event => {
+    this.props.stepToTurn(parseInt(event.target.value));
+  };
+
   handleSettings = () => {
     if (this.props.persistAvailable) {
       this.props.history.push("/settings");
@@ -172,10 +180,8 @@ class MediaControls extends React.Component {
             min="0"
             max={this.props.maxTurn}
             value={this.props.currentFrame.turn}
-            onMouseDown={() => this.props.pauseGame()}
-            onChange={event => {
-              this.props.stepToTurn(parseInt(event.target.value));
-            }}
+            onMouseDown={this.handleScrubMouseDown}
+            onChange={this.handleScrubbing}
           />
         </ButtonWrapper>
       )
