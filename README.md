@@ -54,7 +54,7 @@ http://127.0.0.1:3000/?engine=[ENGINE_URL]&game=[GAME_ID]
 - `frameRate` - the maximum frame rate used for playback. Takes an integer value equal to FPS. Defaults to 6 FPS. (medium speed)
 - `hideScoreboard` - remove the scoreboard for embedding cool games. Values true false. Defaults to false.
 - `hideMediaControls` - remove the controls for embedding cool games. Values true / false. Defaults to false.
-- `showScrubbing` - should show the scrubbable range. Values true / false. Defaults to false.
+- `showFrameScrubber` - should show the scrubbable range. Values true / false. Defaults to false.
 - `loop` - restart playback immediately once game completes. Values true / false. Defaults to false.
 - `title` - show a title string on the game board. Takes a string. Defaults to empty string.
 - `turn` - load game to a specific turn. Takes an integer. Defaults to 0.

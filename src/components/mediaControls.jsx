@@ -173,7 +173,7 @@ class MediaControls extends React.Component {
 
   renderScrubbing() {
     return (
-      this.props.showScrubbing && (
+      this.props.showFrameScrubber && (
         <ButtonWrapper>
           <Scrubber
             type="range"
