@@ -231,6 +231,17 @@ class MediaControls extends React.Component {
               </ShortcutsPane>
             )}
           </KeyboardShortcutsWrapper>
+
+          <input
+            type="range"
+            min="0"
+            max={this.props.frames[this.props.frames.length - 1].turn}
+            value={this.props.currentFrame.turn}
+            onMouseDown={() => this.props.pauseGame()}
+            onChange={event => {
+              this.props.stepToTurn(parseInt(event.target.value));
+            }}
+          />
         </ButtonWrapper>
       </MediaControlsWrapper>
     );

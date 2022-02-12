@@ -9,7 +9,9 @@ import {
   setGameOptions,
   stepForwardFrame,
   stepBackwardFrame,
+  stepToTurn,
   highlightSnake,
+  pauseGameAction,
   togglePlayButtons
 } from "../../actions";
 
@@ -41,8 +43,10 @@ const mapDispatchToProps = dispatch => ({
   toggleTheme: theme => dispatch(toggleTheme(theme)),
   reloadGame: () => dispatch(reloadGame()),
   toggleGamePause: paused => dispatch(toggleGamePause(paused)),
+  pauseGame: () => dispatch(pauseGameAction()),
   stepForwardFrame: () => dispatch(stepForwardFrame()),
   stepBackwardFrame: () => dispatch(stepBackwardFrame()),
+  stepToTurn: i => dispatch(stepToTurn(i)),
   highlightSnake: snakeId => dispatch(highlightSnake(snakeId)),
   togglePlayButtons: showHide => dispatch(togglePlayButtons(showHide))
 });

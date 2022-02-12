@@ -34,6 +34,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
+    "lint": "eslint --ext .js --ext .jsx src",
+    "lint:fix": "eslint --ext .js --ext .jsx src --fix",
     "eject": "react-scripts eject",
     "precommit": "lint-staged",
     "lint": "eslint ./src",

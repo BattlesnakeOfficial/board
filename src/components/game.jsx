@@ -153,9 +153,12 @@ class Game extends React.Component {
               toggleGamePause={this.props.toggleGamePause}
               stepBackwardFrame={this.props.stepBackwardFrame}
               stepForwardFrame={this.props.stepForwardFrame}
+              stepToTurn={this.props.stepToTurn}
+              pauseGame={this.props.pauseGame}
               paused={this.props.paused}
               theme={options.theme}
               persistAvailable={options.persistAvailable}
+              frames={this.props.frames}
             />
           </BoardWrapper>
           {!this.hideScoreboard && (

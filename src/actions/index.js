@@ -92,6 +92,7 @@ export const fetchFrames = () => {
         }
       });
     } catch (e) {
+      console.log("ERROR", e);
       return dispatch(gameNotFound());
     }
 
@@ -159,6 +160,12 @@ export const toggleGamePause = () => {
   };
 };
 
+export const pauseGameAction = () => {
+  return async dispatch => {
+    dispatch(pauseGame());
+  };
+};
+
 export const toggleTheme = themeToSet => {
   return async dispatch => {
     dispatch(setTheme(themeToSet));
@@ -196,3 +203,14 @@ export const themeChanged = theme => ({
   type: types.THEME_CHANGED,
   theme
 });
+
+export const stepToTurn = turn => {
+  return async (dispatch, getState) => {
+    const { frames } = getState().game;
+
+    const stepToFrame = getFrameByTurn(frames, turn);
+    if (stepToFrame) {
+      dispatch(setCurrentFrame(stepToFrame));
+    }
+  };
+};
