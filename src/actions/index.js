@@ -92,7 +92,6 @@ export const fetchFrames = () => {
         }
       });
     } catch (e) {
-      console.log("ERROR", e);
       return dispatch(gameNotFound());
     }
 
@@ -194,16 +193,6 @@ export const stepBackwardFrame = () => {
   };
 };
 
-export const togglePlayButtons = showHide => ({
-  type: types.TOGGLE_SETTINGS_VIEW,
-  showHide
-});
-
-export const themeChanged = theme => ({
-  type: types.THEME_CHANGED,
-  theme
-});
-
 export const stepToTurn = turn => {
   return async (dispatch, getState) => {
     const { frames } = getState().game;
@@ -214,3 +203,13 @@ export const stepToTurn = turn => {
     }
   };
 };
+
+export const togglePlayButtons = showHide => ({
+  type: types.TOGGLE_SETTINGS_VIEW,
+  showHide
+});
+
+export const themeChanged = theme => ({
+  type: types.THEME_CHANGED,
+  theme
+});

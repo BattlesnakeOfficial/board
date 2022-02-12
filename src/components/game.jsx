@@ -158,7 +158,7 @@ class Game extends React.Component {
               paused={this.props.paused}
               theme={options.theme}
               persistAvailable={options.persistAvailable}
-              frames={this.props.frames}
+              maxTurn={this.props.frames[this.props.frames.length - 1].turn}
             />
           </BoardWrapper>
           {!this.hideScoreboard && (

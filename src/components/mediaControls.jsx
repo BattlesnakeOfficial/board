@@ -182,7 +182,7 @@ class MediaControls extends React.Component {
           <Scrubber
             type="range"
             min="0"
-            max={this.props.frames[this.props.frames.length - 1].turn}
+            max={this.props.maxTurn}
             value={this.props.currentFrame.turn}
             onMouseDown={() => this.props.pauseGame()}
             onChange={event => {
