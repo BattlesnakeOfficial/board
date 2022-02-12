@@ -163,6 +163,25 @@ class MediaControls extends React.Component {
     }
   };
 
+  renderScrubbing() {
+    return (
+      this.props.showScrubbing && (
+        <ButtonWrapper>
+          <Scrubber
+            type="range"
+            min="0"
+            max={this.props.maxTurn}
+            value={this.props.currentFrame.turn}
+            onMouseDown={() => this.props.pauseGame()}
+            onChange={event => {
+              this.props.stepToTurn(parseInt(event.target.value));
+            }}
+          />
+        </ButtonWrapper>
+      )
+    );
+  }
+
   renderControls() {
     const {
       currentFrame,
@@ -178,18 +197,7 @@ class MediaControls extends React.Component {
 
     return (
       <MediaControlsWrapper hide={hideControls}>
-        <ButtonWrapper>
-          <Scrubber
-            type="range"
-            min="0"
-            max={this.props.maxTurn}
-            value={this.props.currentFrame.turn}
-            onMouseDown={() => this.props.pauseGame()}
-            onChange={event => {
-              this.props.stepToTurn(parseInt(event.target.value));
-            }}
-          />
-        </ButtonWrapper>
+        {this.renderScrubbing()}
         <ButtonWrapper>
           <Button
             onClick={this.handleBackward}
