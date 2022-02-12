@@ -13,7 +13,7 @@ function rehydrateInitialState() {
       options: null,
       grid: [],
       frames: [],
-      endEvent: {},
+      endEvent: null,
       paused: true,
       gameNotFound: false,
       highlightedSnake: null,

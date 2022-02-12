@@ -160,7 +160,7 @@ class Game extends React.Component {
               theme={options.theme}
               persistAvailable={options.persistAvailable}
               maxTurn={this.props.frames[this.props.frames.length - 1].turn}
-              showScrubbing={this.showScrubbing}
+              showScrubbing={this.props.hasAllFrames && this.showScrubbing}
             />
           </BoardWrapper>
           {!this.hideScoreboard && (
