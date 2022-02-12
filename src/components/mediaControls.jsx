@@ -74,6 +74,11 @@ const Button = styled("button")`
   }
 `;
 
+const Scrubber = styled("input")`
+  width: 100%;
+  max-width: 60rem;
+`;
+
 class MediaControls extends React.Component {
   state = {
     paneHidden: true
@@ -174,6 +179,18 @@ class MediaControls extends React.Component {
     return (
       <MediaControlsWrapper hide={hideControls}>
         <ButtonWrapper>
+          <Scrubber
+            type="range"
+            min="0"
+            max={this.props.frames[this.props.frames.length - 1].turn}
+            value={this.props.currentFrame.turn}
+            onMouseDown={() => this.props.pauseGame()}
+            onChange={event => {
+              this.props.stepToTurn(parseInt(event.target.value));
+            }}
+          />
+        </ButtonWrapper>
+        <ButtonWrapper>
           <Button
             onClick={this.handleBackward}
             disabled={currentFrame.turn === 0 || !paused}
@@ -231,17 +248,6 @@ class MediaControls extends React.Component {
               </ShortcutsPane>
             )}
           </KeyboardShortcutsWrapper>
-
-          <input
-            type="range"
-            min="0"
-            max={this.props.frames[this.props.frames.length - 1].turn}
-            value={this.props.currentFrame.turn}
-            onMouseDown={() => this.props.pauseGame()}
-            onChange={event => {
-              this.props.stepToTurn(parseInt(event.target.value));
-            }}
-          />
         </ButtonWrapper>
       </MediaControlsWrapper>
     );
