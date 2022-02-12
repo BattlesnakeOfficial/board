@@ -160,8 +160,12 @@ export const toggleGamePause = () => {
 };
 
 export const pauseGameAction = () => {
-  return async dispatch => {
-    dispatch(pauseGame());
+  return async (dispatch, getState) => {
+    const { paused } = getState().game;
+
+    if (!paused) {
+      dispatch(pauseGame());
+    }
   };
 };
 
