@@ -178,7 +178,7 @@ class MediaControls extends React.Component {
   };
 
   renderScrubbing() {
-    const value = this.props.hasAllFrames ? this.props.currentTurn : 0;
+    const value = this.props.hasAllFrames ? this.props.currentFrame.turn : 0;
     const max = this.props.hasAllFrames ? this.props.maxTurn : 0;
 
     return (
