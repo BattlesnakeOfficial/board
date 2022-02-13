@@ -178,7 +178,8 @@ class MediaControls extends React.Component {
   };
 
   renderScrubbing() {
-    let max = this.props.hasAllFrames ? this.props.maxTurn : 0;
+    const value = this.props.hasAllFrames ? this.props.currentTurn : 0;
+    const max = this.props.hasAllFrames ? this.props.maxTurn : 0;
 
     return (
       this.props.showFrameScrubber && (
@@ -187,7 +188,7 @@ class MediaControls extends React.Component {
             type="range"
             min="0"
             max={max}
-            value={this.props.currentFrame.turn}
+            value={value}
             onMouseDown={this.handleScrubMouseDown}
             onChange={this.handleScrubbing}
             disabled={!this.props.hasAllFrames}
