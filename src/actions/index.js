@@ -42,7 +42,7 @@ export const setCurrentFrame = frame => ({
   frame
 });
 
-export const receivePauseGame = () => ({
+export const pauseGame = () => ({
   type: types.PAUSE_GAME
 });
 
@@ -154,17 +154,17 @@ export const toggleGamePause = () => {
       dispatch(resumeGame());
       dispatch(playFromFrame(currentFrame));
     } else {
-      dispatch(receivePauseGame());
+      dispatch(pauseGame());
     }
   };
 };
 
-export const pauseGame = () => {
+export const pauseGameAction = () => {
   return async (dispatch, getState) => {
     const { paused } = getState().game;
 
     if (!paused) {
-      dispatch(receivePauseGame());
+      dispatch(pauseGame());
     }
   };
 };
