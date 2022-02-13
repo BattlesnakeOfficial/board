@@ -181,17 +181,19 @@ class MediaControls extends React.Component {
     let max = this.props.hasAllFrames ? this.props.maxTurn : 0;
 
     return (
-      <ButtonWrapper>
-        <Scrubber
-          type="range"
-          min="0"
-          max={max}
-          value={this.props.currentFrame.turn}
-          onMouseDown={this.handleScrubMouseDown}
-          onChange={this.handleScrubbing}
-          disabled={!this.props.hasAllFrames}
-        />
-      </ButtonWrapper>
+      this.props.showFrameScrubber && (
+        <ButtonWrapper>
+          <Scrubber
+            type="range"
+            min="0"
+            max={max}
+            value={this.props.currentFrame.turn}
+            onMouseDown={this.handleScrubMouseDown}
+            onChange={this.handleScrubbing}
+            disabled={!this.props.hasAllFrames}
+          />
+        </ButtonWrapper>
+      )
     );
   }
 
