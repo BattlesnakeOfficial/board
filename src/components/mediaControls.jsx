@@ -77,6 +77,12 @@ const Button = styled("button")`
 const Scrubber = styled("input")`
   width: 100%;
   max-width: 60rem;
+
+  &:disabled,
+  &:disabled:hover {
+    opacity: 0.2;
+    cursor: not-allowed;
+  }
 `;
 
 class MediaControls extends React.Component {
@@ -172,19 +178,20 @@ class MediaControls extends React.Component {
   };
 
   renderScrubbing() {
+    let max = this.props.hasAllFrames ? this.props.maxTurn : 0;
+
     return (
-      this.props.showFrameScrubber && (
-        <ButtonWrapper>
-          <Scrubber
-            type="range"
-            min="0"
-            max={this.props.maxTurn}
-            value={this.props.currentFrame.turn}
-            onMouseDown={this.handleScrubMouseDown}
-            onChange={this.handleScrubbing}
-          />
-        </ButtonWrapper>
-      )
+      <ButtonWrapper>
+        <Scrubber
+          type="range"
+          min="0"
+          max={max}
+          value={this.props.currentFrame.turn}
+          onMouseDown={this.handleScrubMouseDown}
+          onChange={this.handleScrubbing}
+          disabled={!this.props.hasAllFrames}
+        />
+      </ButtonWrapper>
     );
   }
 
