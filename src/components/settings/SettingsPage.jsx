@@ -100,10 +100,16 @@ const SettingsPage = () => {
           </div>
         </fieldset>
         <fieldset>
-          <legend>EXPERIMENTAL: Show Frame Scrubber</legend>
+          <legend>Frame Scrubber [EXPERIMENTAL]</legend>
           <div className={styles.info}>
-            Under the Game Board, a scrubber will show the current frame and
-            allow quickly jumping to a specific frame
+            Display progress bar that shows current frame and allows quickly
+            jumping to specific frames. &nbsp;
+            <a
+              href="https://github.com/BattlesnakeOfficial/feedback/discussions/171"
+              target="_blank"
+            >
+              Let us know what you think!
+            </a>
           </div>
           <div className={styles.inputContainer}>
             <label>
