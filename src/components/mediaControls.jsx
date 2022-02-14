@@ -72,6 +72,10 @@ const Button = styled("button")`
     color: #ccc;
     cursor: not-allowed;
   }
+
+  @media (max-width: ${breakpoints.sm}) {
+    padding: 2rem 2rem;
+  }
 `;
 
 const Scrubber = styled("input")`
