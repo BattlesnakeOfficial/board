@@ -107,6 +107,7 @@ const SettingsPage = () => {
             <a
               href="https://github.com/BattlesnakeOfficial/feedback/discussions/171"
               target="_blank"
+              rel="noreferrer"
             >
               Let us know what you think!
             </a>
