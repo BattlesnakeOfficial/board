@@ -6,7 +6,7 @@ import { themes, breakpoints } from "../theme";
 
 const MediaControlsWrapper = styled("div")`
   display: ${({ hide }) => (hide ? "none" : "block")};
-  margin-top: 0.5rem;
+  margin-top: 1rem;
   width: 100%;
 `;
 
