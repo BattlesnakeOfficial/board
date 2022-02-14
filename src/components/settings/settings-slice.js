@@ -14,6 +14,9 @@ export const settingsSlice = createSlice({
     },
     autoPlayUpdated(state, action) {
       state.autoplay = action.payload;
+    },
+    showFrameScrubberUpdated(state, action) {
+      state.showFrameScrubber = action.payload;
     }
   }
 });
@@ -22,7 +25,8 @@ export const settingsSlice = createSlice({
 export const {
   frameRateUpdated,
   themeSelected,
-  autoPlayUpdated
+  autoPlayUpdated,
+  showFrameScrubberUpdated
 } = settingsSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
@@ -31,6 +35,8 @@ export const {
 export const currentFrameRate = state => state.settings.frameRate;
 export const currentTheme = state => state.settings.theme;
 export const currentAutoplay = state => state.settings.autoplay;
+export const currentShowFrameScrubber = state =>
+  state.settings.showFrameScrubber;
 
 export function settingsStoreListener(state) {
   if (state.settings.frameRate !== getLocalSetting("frameRate")) {
@@ -43,6 +49,12 @@ export function settingsStoreListener(state) {
 
   if (state.settings.autoplay !== getLocalSetting("autoplay")) {
     setLocalSetting("autoplay", state.settings.autoplay);
+  }
+
+  if (
+    state.settings.showFrameScrubber !== getLocalSetting("showFrameScrubber")
+  ) {
+    setLocalSetting("showFrameScrubber", state.settings.showFrameScrubber);
   }
 }
 

@@ -159,6 +159,16 @@ export const toggleGamePause = () => {
   };
 };
 
+export const pauseGameAction = () => {
+  return async (dispatch, getState) => {
+    const { paused } = getState().game;
+
+    if (!paused) {
+      dispatch(pauseGame());
+    }
+  };
+};
+
 export const toggleTheme = themeToSet => {
   return async dispatch => {
     dispatch(setTheme(themeToSet));
@@ -181,6 +191,17 @@ export const stepBackwardFrame = () => {
     const { currentFrame, frames } = getState().game;
     const prevFrame = currentFrame.turn - 1;
     const stepToFrame = getFrameByTurn(frames, prevFrame);
+    if (stepToFrame) {
+      dispatch(setCurrentFrame(stepToFrame));
+    }
+  };
+};
+
+export const stepToTurn = turn => {
+  return async (dispatch, getState) => {
+    const { frames } = getState().game;
+
+    const stepToFrame = getFrameByTurn(frames, turn);
     if (stepToFrame) {
       dispatch(setCurrentFrame(stepToFrame));
     }

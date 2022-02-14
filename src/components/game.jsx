@@ -104,6 +104,7 @@ class Game extends React.Component {
     if (options.game && options.engine) {
       this.hideLogo = options.hideLogo === "true";
       this.hideScoreboard = options.hideScoreboard === "true";
+      this.showFrameScrubber = options.showFrameScrubber;
       this.title = options.title && decodeURIComponent(options.title);
       this.props.setGameOptions(options);
       this.props.fetchFrames();
@@ -153,9 +154,14 @@ class Game extends React.Component {
               toggleGamePause={this.props.toggleGamePause}
               stepBackwardFrame={this.props.stepBackwardFrame}
               stepForwardFrame={this.props.stepForwardFrame}
+              stepToTurn={this.props.stepToTurn}
+              pauseGame={this.props.pauseGame}
               paused={this.props.paused}
               theme={options.theme}
               persistAvailable={options.persistAvailable}
+              maxTurn={this.props.frames[this.props.frames.length - 1].turn}
+              showFrameScrubber={this.showFrameScrubber}
+              hasAllFrames={this.props.hasAllFrames}
             />
           </BoardWrapper>
           {!this.hideScoreboard && (

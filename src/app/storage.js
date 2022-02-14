@@ -44,6 +44,7 @@ export function setLocalSetting(key, value) {
 
 export function rehydrateLocalSettings() {
   let checkAutoplay = getLocalSetting("autoplay");
+  let checkShowFrameScrubber = getLocalSetting("showFrameScrubber");
 
   if (typeof checkAutoplay === "undefined") {
     checkAutoplay = initialSettings.autoplay;
@@ -51,9 +52,16 @@ export function rehydrateLocalSettings() {
     checkAutoplay = checkAutoplay === "true";
   }
 
+  if (typeof checkShowFrameScrubber === "undefined") {
+    checkShowFrameScrubber = initialSettings.showFrameScrubber;
+  } else {
+    checkShowFrameScrubber = checkShowFrameScrubber === "true";
+  }
+
   return {
     frameRate: Number(getLocalSetting("frameRate")) || DEFAULT_FRAMERATE,
     theme: getLocalSetting("theme") || initialSettings.theme,
+    showFrameScrubber: checkShowFrameScrubber,
     autoplay: checkAutoplay
   };
 }

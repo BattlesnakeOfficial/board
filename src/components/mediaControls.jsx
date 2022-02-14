@@ -74,6 +74,17 @@ const Button = styled("button")`
   }
 `;
 
+const Scrubber = styled("input")`
+  width: 100%;
+  max-width: 60rem;
+
+  &:disabled,
+  &:disabled:hover {
+    opacity: 0.2;
+    cursor: not-allowed;
+  }
+`;
+
 class MediaControls extends React.Component {
   state = {
     paneHidden: true
@@ -123,6 +134,14 @@ class MediaControls extends React.Component {
     this.props.stepForwardFrame();
   };
 
+  handleScrubMouseDown = () => {
+    this.props.pauseGame();
+  };
+
+  handleScrubbing = event => {
+    this.props.stepToTurn(parseInt(event.target.value));
+  };
+
   handleSettings = () => {
     if (this.props.persistAvailable) {
       this.props.history.push("/settings");
@@ -158,6 +177,27 @@ class MediaControls extends React.Component {
     }
   };
 
+  renderScrubbing() {
+    const value = this.props.hasAllFrames ? this.props.currentFrame.turn : 0;
+    const max = this.props.hasAllFrames ? this.props.maxTurn : 0;
+
+    return (
+      this.props.showFrameScrubber && (
+        <ButtonWrapper>
+          <Scrubber
+            type="range"
+            min="0"
+            max={max}
+            value={value}
+            onMouseDown={this.handleScrubMouseDown}
+            onChange={this.handleScrubbing}
+            disabled={!this.props.hasAllFrames}
+          />
+        </ButtonWrapper>
+      )
+    );
+  }
+
   renderControls() {
     const {
       currentFrame,
@@ -173,6 +213,7 @@ class MediaControls extends React.Component {
 
     return (
       <MediaControlsWrapper hide={hideControls}>
+        {this.renderScrubbing()}
         <ButtonWrapper>
           <Button
             onClick={this.handleBackward}

@@ -9,13 +9,18 @@ import {
   setGameOptions,
   stepForwardFrame,
   stepBackwardFrame,
+  stepToTurn,
   highlightSnake,
+  pauseGameAction,
   togglePlayButtons
 } from "../../actions";
 
 const options = parseQueryString(window.location.search);
 if (typeof options.autoplay !== "undefined") {
   options.autoplay = options.autoplay === "true";
+}
+if (typeof options.showFrameScrubber !== "undefined") {
+  options.showFrameScrubber = options.showFrameScrubber === "true";
 }
 
 const mapStateToProps = state => {
@@ -31,7 +36,8 @@ const mapStateToProps = state => {
     currentFrame: gameState.currentFrame,
     frames: gameState.frames,
     highlightedSnake: gameState.highlightedSnake,
-    theme: settings.theme
+    theme: settings.theme,
+    hasAllFrames: !!gameState.endEvent
   };
 };
 
@@ -41,8 +47,10 @@ const mapDispatchToProps = dispatch => ({
   toggleTheme: theme => dispatch(toggleTheme(theme)),
   reloadGame: () => dispatch(reloadGame()),
   toggleGamePause: paused => dispatch(toggleGamePause(paused)),
+  pauseGame: () => dispatch(pauseGameAction()),
   stepForwardFrame: () => dispatch(stepForwardFrame()),
   stepBackwardFrame: () => dispatch(stepBackwardFrame()),
+  stepToTurn: i => dispatch(stepToTurn(i)),
   highlightSnake: snakeId => dispatch(highlightSnake(snakeId)),
   togglePlayButtons: showHide => dispatch(togglePlayButtons(showHide))
 });
