@@ -91,6 +91,7 @@ class Scoreboard extends React.Component {
                   snake={snake}
                   key={"avatar" + i}
                   theme={this.props.theme}
+                  highlighted={highlightedSnake === snake._id}
                 />
               </AvatarWrapper>
             ))

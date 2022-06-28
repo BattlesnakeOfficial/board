@@ -12,7 +12,7 @@ function getIcon(code) {
   return "error";
 }
 
-const StatusIndicator = ({ errorMessage, clickHandler }) => {
+const StatusIndicator = ({ errorMessage }) => {
   if (errorMessage === "") {
     return "";
   }
@@ -21,7 +21,7 @@ const StatusIndicator = ({ errorMessage, clickHandler }) => {
   const [code] = errorMessage.toString().split(":");
 
   return (
-    <div style={style} onClick={clickHandler}>
+    <div style={style}>
       <span className="material-icons material-icons-inline">
         {getIcon(code)}
       </span>
