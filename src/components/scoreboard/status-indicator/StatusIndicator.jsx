@@ -9,16 +9,17 @@ const style = {
 };
 
 function getIcon(code) {
-  return code ? "error" : "warning";
+  return "error";
 }
 
-const StatusIndicator = ({ errorMessage = "", clickHandler = () => {} }) => {
+const StatusIndicator = ({ errorMessage, clickHandler }) => {
+  if (errorMessage === "") {
+    return "";
+  }
+
   // until we can refactor Avatar and not pass the whole error object
   const [code] = errorMessage.toString().split(":");
 
-  if (!Number(code)) {
-    return "";
-  }
   return (
     <div style={style} onClick={clickHandler}>
       <span className="material-icons material-icons-inline">

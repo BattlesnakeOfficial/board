@@ -7,19 +7,18 @@ const errorColor = {
 };
 
 function getIcon(code) {
-  return code ? "error" : "";
+  return "error";
 }
 
 const ErrorMessage = props => {
   let code, message;
 
-  if (props.error) {
-    [code, message] = props.error.toString().split(":");
-  }
-
-  if (!Number(code)) {
+  if (props.error === "") {
     return "";
   }
+
+  [code, message] = props.error.toString().split(":");
+
   return (
     <div className="error-message" style={errorColor}>
       <span className="material-icons material-icons-inline">
