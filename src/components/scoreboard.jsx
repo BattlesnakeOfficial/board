@@ -49,12 +49,17 @@ const Wrapper = styled("div")`
 const AvatarWrapper = styled("div")`
   padding: 0.75rem;
   transition: background-color 0.2s, box-shadow 0.2s;
-  border: 2px solid ${props => (props.highlighted ? "#888" : "transparent")};
+  border: 2px solid
+    ${props =>
+      props.highlighted ? colors.avatarHighlightedBorder : "transparent"};
   &:hover {
     background-color: ${props =>
       props.theme === themes.dark ? colors.purple : colors.light};
     cursor: pointer;
-    border-color: #888;
+    border-color: ${props =>
+      props.highlighted
+        ? colors.avatarHighlightedBorder
+        : colors.avatarHoverBorder};
   }
 `;
 
@@ -91,6 +96,7 @@ class Scoreboard extends React.Component {
                   snake={snake}
                   key={"avatar" + i}
                   theme={this.props.theme}
+                  highlighted={highlightedSnake === snake._id}
                 />
               </AvatarWrapper>
             ))

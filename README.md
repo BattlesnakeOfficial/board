@@ -8,7 +8,10 @@ This project follows most React conventions and tools described in the react doc
 ## Development
 
 ### Configure
-Create a `.env.local` file at the root of the project to set the host variable. `localhost` is the default but will not work with the CORS policy for snake part svg files. `127.0.0.1` is whitelisted for CORS.
+
+This project requires Node 10.19. The dependencies may fail to install on newer versions.
+
+Create a `.env.local` file at the root of the project to set the host that the local board URL serves from. `localhost` is the default but will not work with the CORS policy for snake part svg files. `127.0.0.1` is whitelisted for CORS.
 
 ```shell
 # File: /.env.local
@@ -17,9 +20,14 @@ HOST=127.0.0.1
 
 ### Install & Run
 ```shell
-npm i
+# Installs dependencies from package-lock.json
+npm ci
+
+# Starts a server on http://127.0.0.1:3000 and opens it in your default browser
 npm start
 ```
+
+**NOTE**: The SVG assets have a CORS policy that only allows specific hostnames. If you change the local port used by the server, the board might not work.
 
 ## Production
 

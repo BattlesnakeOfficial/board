@@ -74,8 +74,6 @@ class Avatar extends React.Component {
     this.state = {
       showError: false
     };
-
-    this.toggleErrorMessage = this.toggleErrorMessage.bind(this);
   }
   render() {
     return (
@@ -86,10 +84,7 @@ class Avatar extends React.Component {
         </div>
         <AuthorWrapper>
           <Author>by {this.props.snake.author}</Author>
-          <StatusIndicator
-            errorMessage={this.props.snake.error}
-            clickHandler={e => this.toggleErrorMessage(e)}
-          />
+          <StatusIndicator errorMessage={this.props.snake.error} />
           <Latency latency={this.props.snake.latency}>
             {this.props.snake.latency} ms
           </Latency>
@@ -109,18 +104,10 @@ class Avatar extends React.Component {
           </HealthBarWrapper>
         )}
         <ErrorMessage
-          error={this.state.showError ? this.props.snake.error : ""}
+          error={this.props.highlighted ? this.props.snake.error : ""}
         />
       </AvatarWrapper>
     );
-  }
-
-  toggleErrorMessage(e) {
-    if (e.target !== e.currentTarget) {
-      this.setState({
-        showError: !this.state.showError
-      });
-    }
   }
 }
 
