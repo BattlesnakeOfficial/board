@@ -1,7 +1,6 @@
 name: Publish Storybook Docs
-on:
-  push:
-    paths: ["src/**"]
+on: [push, pull_request]
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -26,6 +25,7 @@ jobs:
           npm run build-storybook-ci
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.5
+        if: ${{ github.ref == 'refs/heads/main' }}
         with:
           branch: docs # The branch the action should deploy to.
           folder: docs # The folder that the build-storybook script generates files.
