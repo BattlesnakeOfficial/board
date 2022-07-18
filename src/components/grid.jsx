@@ -326,7 +326,7 @@ class Grid extends React.Component {
           height={CELL_SIZE}
           fill={color}
           opacity={opacity}
-          shapeRendering="optimizeSpeed"
+          shapeRendering="auto"
         >
           <g
             transform={transform}
@@ -342,7 +342,7 @@ class Grid extends React.Component {
             height={getFillerHeight(part)}
             fill={color}
             opacity={opacity}
-            shapeRendering="optimizeSpeed"
+            shapeRendering="auto"
           />
         )}
       </g>
@@ -362,7 +362,7 @@ class Grid extends React.Component {
         height={getPartHeight(part)}
         fill={color}
         opacity={opacity}
-        shapeRendering="optimizeSpeed"
+        shapeRendering="auto"
       />
     );
   }
@@ -406,7 +406,7 @@ class Grid extends React.Component {
         fill={color}
         opacity={opacity}
         viewBox={viewBox}
-        shapeRendering="optimizeSpeed"
+        shapeRendering="auto"
       >
         <path d={path} transform={transform} />
       </svg>
@@ -432,7 +432,7 @@ class Grid extends React.Component {
           height={CELL_SIZE}
           fill={color}
           opacity={opacity}
-          shapeRendering="optimizeSpeed"
+          shapeRendering="auto"
         >
           <g
             transform={transform}
@@ -448,7 +448,7 @@ class Grid extends React.Component {
             height={getFillerHeight(part)}
             fill={color}
             opacity={opacity}
-            shapeRendering="optimizeSpeed"
+            shapeRendering="auto"
           />
         )}
       </g>
@@ -508,6 +508,7 @@ class Grid extends React.Component {
 
     return (
       <svg
+        className="grid"
         width={this.props.maxWidth}
         height={this.props.maxHeight}
         x={this.props.x}
@@ -527,7 +528,7 @@ class Grid extends React.Component {
                   ? colors.gridCellBackgroundDark
                   : colors.gridCellBackground
               }
-              shapeRendering="optimizeSpeed"
+              shapeRendering="auto"
             />
           ))
         )}
@@ -536,6 +537,7 @@ class Grid extends React.Component {
           return (
             <g
               key={`snake${snakeIndex}`}
+              className="snake"
               opacity={getOpacity(snake, this.props.highlightedSnake)}
             >
               {[...snake.body]
@@ -553,6 +555,19 @@ class Grid extends React.Component {
           );
         })}
 
+        {hazards.map((o, hazardIndex) => (
+          <rect
+            key={"hazard" + hazardIndex}
+            x={toGridSpaceX(o.x)}
+            y={toGridSpaceY(o.y)}
+            width={CELL_SIZE}
+            height={CELL_SIZE}
+            fill={colors.hazard}
+            fillOpacity={hazardOpacity}
+            shapeRendering="auto"
+          />
+        ))}
+
         {food.map((f, foodIndex) => {
           if (this.props.foodImage) {
             return (
@@ -569,6 +584,7 @@ class Grid extends React.Component {
             return (
               <circle
                 key={"food" + foodIndex}
+                className="food"
                 cx={toGridSpaceX(f.x) + CELL_SIZE / 2}
                 cy={toGridSpaceY(f.y) + CELL_SIZE / 2}
                 r={FOOD_SIZE}
@@ -578,19 +594,6 @@ class Grid extends React.Component {
             );
           }
         })}
-
-        {hazards.map((o, hazardIndex) => (
-          <rect
-            key={"hazard" + hazardIndex}
-            x={toGridSpaceX(o.x)}
-            y={toGridSpaceY(o.y)}
-            width={CELL_SIZE}
-            height={CELL_SIZE}
-            fill={colors.hazard}
-            fillOpacity={hazardOpacity}
-            shapeRendering="optimizeSpeed"
-          />
-        ))}
       </svg>
     );
   }
