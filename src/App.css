@@ -13,10 +13,12 @@ main.dark {
 }
 
 main svg.grid .snake {
-    filter: drop-shadow(.1em .1em .05em #444);
+    /* filter: drop-shadow(.1em .1em .05em #444); */
+    filter: drop-shadow(.1em .1em .05em rgba(0, 0, 0, 0.3));
 
 }
 
 main svg.grid .food {
-    filter: drop-shadow(.1em .1em .05em #444);
+    /* filter: drop-shadow(.1em .1em .05em #444); */
+    filter: drop-shadow(.1em .1em .05em rgba(0, 0, 0, 0.3));
 }
