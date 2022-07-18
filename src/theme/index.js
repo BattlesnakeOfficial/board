@@ -8,7 +8,7 @@ export const colors = {
   gridCellBackgroundDark: "#D6D5EA",
   food: "#ff5c75",
   hazard: "#000000",
-  hazardOpacity: "0.4",
+  hazardOpacity: "0.3",
   overlapSnake: "#AAAAAA",
 
   // Scoreboard

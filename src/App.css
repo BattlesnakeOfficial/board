@@ -11,3 +11,14 @@ main.light {
 main.dark {
     background: linear-gradient(30deg,hsl(280, 94%, 16%) 30%,hsl(269,99%,30%) 100%);
 }
+
+main svg.grid .snake {
+    /* filter: drop-shadow(.1em .1em .05em #444); */
+    filter: drop-shadow(.1em .1em .05em rgba(0, 0, 0, 0.3));
+
+}
+
+main svg.grid .food {
+    /* filter: drop-shadow(.1em .1em .05em #444); */
+    filter: drop-shadow(.1em .1em .05em rgba(0, 0, 0, 0.3));
+}
