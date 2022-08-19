@@ -32,7 +32,7 @@ export function getReadableCauseOfDeath(death) {
     case "out-of-health":
       return "Out of health";
     case "hazard":
-      return "Moved into a hazard";
+      return "Eliminated by hazard";
     case "head-collision":
       return `Lost head-to-head with ${death.eliminatedBy}`;
     case "wall-collision":
