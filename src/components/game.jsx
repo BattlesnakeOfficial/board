@@ -101,15 +101,19 @@ class Game extends React.Component {
       this.props.toggleTheme(options.theme);
     }
 
-    if (options.game && options.engine) {
-      this.hideLogo = options.hideLogo === "true";
-      this.hideScoreboard = options.hideScoreboard === "true";
-      this.showFrameScrubber = options.showFrameScrubber;
-      this.title = options.title && decodeURIComponent(options.title);
-      this.props.setGameOptions(options);
-      this.props.fetchFrames();
-    } else {
+    if (!(options.game && options.engine)) {
       this.invalidArgs = true;
+      return;
+    }
+
+    this.hideLogo = options.hideLogo === "true";
+    this.hideScoreboard = options.hideScoreboard === "true";
+    this.showFrameScrubber = options.showFrameScrubber;
+    this.title = options.title && decodeURIComponent(options.title);
+    this.props.setGameOptions(options);
+
+    if (this.props.frames.length === 0) {
+      this.props.fetchFrames();
     }
   }
 
