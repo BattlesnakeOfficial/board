@@ -13,7 +13,7 @@ import {
 import PlaybackSpeed from "./playback/PlaybackSpeed";
 import styles from "./SettingsPage.module.css";
 import { useHistory } from "react-router-dom";
-import { togglePlayButtons, themeChanged } from "../../actions";
+import { togglePlayButtons, pauseGame, themeChanged } from "../../actions";
 
 const SettingsPage = () => {
   const history = useHistory();
@@ -25,6 +25,7 @@ const SettingsPage = () => {
 
   useEffect(() => {
     dispatch(togglePlayButtons("hide"));
+    dispatch(pauseGame());
   });
 
   function dispatchSpeedChange(fps) {
