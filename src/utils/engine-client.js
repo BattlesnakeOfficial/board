@@ -4,7 +4,8 @@ import { loadSvgs, getSvg, svgExists } from "./inline-svg";
 
 const DEFAULT_SNAKE_HEAD = "default";
 const DEFAULT_SNAKE_TAIL = "default";
-const APP_VERSION = process.env.REACT_APP_VERSION;
+const APP_VERSION =
+  typeof process == "object" ? process.env.REACT_APP_VERSION : "dev";
 
 async function get(url, query) {
   const response = await fetch(url + makeQueryString(query));

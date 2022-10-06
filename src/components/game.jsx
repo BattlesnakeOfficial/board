@@ -101,6 +101,14 @@ class Game extends React.Component {
       this.props.toggleTheme(options.theme);
     }
 
+    if (this.props.game) {
+      options.game = this.props.game;
+    }
+
+    if (this.props.engine) {
+      options.engine = this.props.engine;
+    }
+
     if (!(options.game && options.engine)) {
       this.invalidArgs = true;
       return;

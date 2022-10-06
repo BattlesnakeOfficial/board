@@ -1,14 +1,22 @@
-import { Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "./app/store";
 import GamePage from "./components/game/GamePage";
 import SettingsPage from "./components/settings/SettingsPage";
 import "./App.css";
 
-const App = () => {
+const App = props => {
   return (
-    <Switch>
-      <Route path="/settings" component={SettingsPage} />
-      <Route component={GamePage} />
-    </Switch>
+    <Provider store={store}>
+      <Router>
+        <Switch>
+          <Route path="/settings" component={SettingsPage} />
+          <Route>
+            <GamePage engine={props.engine} game={props.game} />
+          </Route>
+        </Switch>
+      </Router>
+    </Provider>
   );
 };
 

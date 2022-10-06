@@ -102,7 +102,7 @@
   } else {
     global.ReconnectingWebSocket = factory();
   }
-})(this, function() {
+})(this || window, function() {
   if (!("WebSocket" in window)) {
     return;
   }
@@ -395,3 +395,5 @@
 
   return ReconnectingWebSocket;
 });
+
+export default ReconnectingWebSocket;
