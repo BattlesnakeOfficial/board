@@ -16,18 +16,18 @@
   "devDependencies": {
     "@emotion/eslint-plugin": "^11.2.0",
     "@storybook/addon-actions": "^6.3.12",
-    "@storybook/addon-essentials": "^6.3.12",
+    "@storybook/addon-essentials": "^6.5.13",
     "@storybook/addon-links": "^6.3.12",
     "@storybook/node-logger": "^6.3.12",
     "@storybook/preset-create-react-app": "^3.2.0",
-    "@storybook/react": "^6.3.12",
+    "@storybook/react": "^6.5.13",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "eslint-plugin-prettier": "3.1.2",
     "lint-staged": "10.0.8",
     "prettier": "1.19.1",
-    "react-scripts": "4.0.3",
+    "react-scripts": "5.0.1",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
