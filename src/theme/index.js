@@ -22,7 +22,7 @@ export const colors = {
 
   // Misc
   lightText: "#efefef",
-  darkText: "#222",
+  darkText: "#424242",
 
   // Colour names (from theme)
   blue: "#007bff",

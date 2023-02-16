@@ -36,7 +36,7 @@ const mapStateToProps = state => {
     currentFrame: gameState.currentFrame,
     frames: gameState.frames,
     highlightedSnake: gameState.highlightedSnake,
-    theme: settings.theme,
+    theme: options.boardTheme || settings.theme,
     hasAllFrames: !!gameState.endEvent
   };
 };
