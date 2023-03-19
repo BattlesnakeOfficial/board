@@ -8,7 +8,9 @@ import {
   currentShowFrameScrubber,
   frameRateUpdated,
   themeSelected,
-  showFrameScrubberUpdated
+  showFrameScrubberUpdated,
+  currentShowCoordinateLabels,
+  showCoordinateLabelsUpdated
 } from "./settings-slice";
 import PlaybackSpeed from "./playback/PlaybackSpeed";
 import styles from "./SettingsPage.module.css";
@@ -21,6 +23,7 @@ const SettingsPage = () => {
   const playbackSpeed = useSelector(currentFrameRate);
   const autoplay = useSelector(currentAutoplay);
   const showFrameScrubber = useSelector(currentShowFrameScrubber);
+  const showCoordinateLabels = useSelector(currentShowCoordinateLabels);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -125,6 +128,34 @@ const SettingsPage = () => {
               />
               <span className={styles.checkmark} />
               {showFrameScrubber ? "On" : "Off"}
+            </label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Show Coordinate Labels [EXPERIMENTAL]</legend>
+          <div className={styles.info}>
+            Adds coordinate labels to the game board. &nbsp; These go from 0 to
+            the width/height of the board to make it easier to debug games
+            <a
+              href="https://github.com/orgs/BattlesnakeOfficial/discussions/231"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Let us know what you think!
+            </a>
+          </div>
+          <div className={styles.inputContainer}>
+            <label>
+              <input
+                type="checkbox"
+                name="showCoordinateLabels"
+                checked={showCoordinateLabels}
+                onChange={e =>
+                  dispatch(showCoordinateLabelsUpdated(e.target.checked))
+                }
+              />
+              <span className={styles.checkmark} />
+              {showCoordinateLabels ? "On" : "Off"}
             </label>
           </div>
         </fieldset>
