@@ -7,5 +7,6 @@ export const initialSettings = {
   theme: themes.light,
   autoplay: false,
   showFrameScrubber: false,
-  persistAvailable: false
+  persistAvailable: false,
+  showCoordinateLabels: false
 };

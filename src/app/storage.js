@@ -46,6 +46,8 @@ export function rehydrateLocalSettings() {
   let checkAutoplay = getLocalSetting("autoplay");
   let checkShowFrameScrubber = getLocalSetting("showFrameScrubber");
 
+  let showCoordinateLabels = getLocalSetting("showCoordinateLabels");
+
   if (typeof checkAutoplay === "undefined") {
     checkAutoplay = initialSettings.autoplay;
   } else {
@@ -58,10 +60,17 @@ export function rehydrateLocalSettings() {
     checkShowFrameScrubber = checkShowFrameScrubber === "true";
   }
 
+  if (typeof showCoordinateLabels === "undefined") {
+    showCoordinateLabels = initialSettings.showCoordinateLabels;
+  } else {
+    showCoordinateLabels = showCoordinateLabels === "true";
+  }
+
   return {
     frameRate: Number(getLocalSetting("frameRate")) || DEFAULT_FRAMERATE,
     theme: getLocalSetting("theme") || initialSettings.theme,
     showFrameScrubber: checkShowFrameScrubber,
-    autoplay: checkAutoplay
+    autoplay: checkAutoplay,
+    showCoordinateLabels: showCoordinateLabels
   };
 }

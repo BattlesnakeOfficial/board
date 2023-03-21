@@ -455,6 +455,43 @@ class Grid extends React.Component {
     );
   }
 
+  renderLabel(row, col, label) {
+    return (
+      <foreignObject
+        key={"label" + row + col}
+        x={toGridSpaceX(col)}
+        y={toGridSpaceY(row)}
+        width={CELL_SIZE}
+        height={CELL_SIZE}
+      >
+        <div
+          style={{
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            opacity: 0.5
+          }}
+        >
+          <div style={{ fontSize: "80%" }}>{label}</div>
+        </div>
+      </foreignObject>
+    );
+  }
+
+  renderLabels() {
+    return (
+      <>
+        {range(this.props.rows).map((_, row) => this.renderLabel(row, -1, row))}
+
+        {range(this.props.columns).map((_, col) =>
+          this.renderLabel(-1, col, col)
+        )}
+      </>
+    );
+  }
+
   renderGrid() {
     // GRID_COLUMNS = this.props.columns;
     GRID_ROWS = this.props.rows;
@@ -506,6 +543,8 @@ class Grid extends React.Component {
 
     const hazardOpacity = parseFloat(colors.hazardOpacity);
 
+    const overflow = this.props.showCoordinateLabels ? "visible" : "hidden";
+
     return (
       <svg
         className="grid"
@@ -514,7 +553,9 @@ class Grid extends React.Component {
         x={this.props.x}
         y={this.props.y}
         viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}
+        overflow={overflow}
       >
+        {this.props.showCoordinateLabels && this.renderLabels()}
         {range(this.props.rows).map((_, row) =>
           range(this.props.columns).map((_, col) => (
             <rect
@@ -532,7 +573,6 @@ class Grid extends React.Component {
             />
           ))
         )}
-
         {sortedSnakes.map((snake, snakeIndex) => {
           return (
             <g
@@ -554,7 +594,6 @@ class Grid extends React.Component {
             </g>
           );
         })}
-
         {hazards.map((o, hazardIndex) => (
           <rect
             key={"hazard" + hazardIndex}
@@ -567,7 +606,6 @@ class Grid extends React.Component {
             shapeRendering="auto"
           />
         ))}
-
         {food.map((f, foodIndex) => {
           if (this.props.foodImage) {
             return (

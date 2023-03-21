@@ -150,6 +150,7 @@ class Game extends React.Component {
               highlightedSnake={this.props.highlightedSnake}
               theme={options.theme}
               turn={currentFrame.turn}
+              showCoordinateLabels={options.showCoordinateLabels}
             />
             <MediaControls
               currentFrame={currentFrame}

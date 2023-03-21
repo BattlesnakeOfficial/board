@@ -17,6 +17,9 @@ export const settingsSlice = createSlice({
     },
     showFrameScrubberUpdated(state, action) {
       state.showFrameScrubber = action.payload;
+    },
+    showCoordinateLabelsUpdated(state, action) {
+      state.showCoordinateLabels = action.payload;
     }
   }
 });
@@ -26,7 +29,8 @@ export const {
   frameRateUpdated,
   themeSelected,
   autoPlayUpdated,
-  showFrameScrubberUpdated
+  showFrameScrubberUpdated,
+  showCoordinateLabelsUpdated
 } = settingsSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
@@ -37,6 +41,8 @@ export const currentTheme = state => state.settings.theme;
 export const currentAutoplay = state => state.settings.autoplay;
 export const currentShowFrameScrubber = state =>
   state.settings.showFrameScrubber;
+export const currentShowCoordinateLabels = state =>
+  state.settings.showCoordinateLabels;
 
 export function settingsStoreListener(state) {
   if (state.settings.frameRate !== getLocalSetting("frameRate")) {
@@ -55,6 +61,16 @@ export function settingsStoreListener(state) {
     state.settings.showFrameScrubber !== getLocalSetting("showFrameScrubber")
   ) {
     setLocalSetting("showFrameScrubber", state.settings.showFrameScrubber);
+  }
+
+  if (
+    state.settings.showCoordinateLabels !==
+    getLocalSetting("showCoordinateLabels")
+  ) {
+    setLocalSetting(
+      "showCoordinateLabels",
+      state.settings.showCoordinateLabels
+    );
   }
 }
 
