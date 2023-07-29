@@ -1,16 +1,11 @@
 name: Release
 
-# on:
-#   release:
-#     types: [published]
-#     branches: [main]
 on:
-  push:  # Branch pushes only, not tags
-    branches:
-      - '**'
+  release:
+    types: [published]
+    branches: [main]
 
 jobs:
-
   deploy:
     name: Deploy to Netlify
     runs-on: ubuntu-latest
