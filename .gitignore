@@ -1,29 +1,22 @@
-# See https://help.github.com/ignore-files/ for more about ignoring files.
-
-# dependencies
-/node_modules
-
-# testing
-/coverage
-/storybook-static
-
-# production
-/build
-
-# misc
+# General
 .DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-.nvmrc
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# development
-.cmd
-.devcontainer
-.idea
 .vscode
+
+# Node
+node_modules
+
+# SvelteKit
+.output
+.svelte-kit
+/build
+/package
+
+.env
+.env.*
+!.env.example
+
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+
+# Temp, remove me.
+.demo

@@ -1,68 +1,51 @@
 {
-  "name": "battlesnake-board",
-  "version": "1.2.1",
-  "private": true,
-  "dependencies": {
-    "@emotion/react": "11.4.1",
-    "@emotion/styled": "11.3.0",
-    "@reduxjs/toolkit": "^1.6.2",
-    "lodash.clonedeep": "4.5.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-keyboard-event-handler": "1.5.4",
-    "react-redux": "7.2.5",
-    "react-router-dom": "^5.3.0"
-  },
-  "devDependencies": {
-    "@emotion/eslint-plugin": "^11.2.0",
-    "@storybook/addon-actions": "^6.3.12",
-    "@storybook/addon-essentials": "^6.3.12",
-    "@storybook/addon-links": "^6.3.12",
-    "@storybook/node-logger": "^6.3.12",
-    "@storybook/preset-create-react-app": "^3.2.0",
-    "@storybook/react": "^6.3.12",
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^11.2.7",
-    "@testing-library/user-event": "^12.8.3",
-    "eslint-plugin-prettier": "3.1.2",
-    "lint-staged": "10.0.8",
-    "prettier": "1.19.1",
-    "react-scripts": "4.0.3",
-    "web-vitals": "^1.1.2"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "lint": "eslint ./src --ext .js,.jsx",
-    "lint:fix": "eslint --fix ./src --ext .js,.jsx",
-    "eject": "react-scripts eject",
-    "precommit": "lint-staged",
-    "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -o ./storybook-static -s public",
-    "build-storybook-ci": "build-storybook -o ./docs -s public"
-  },
-  "lint-staged": {
-    "*.{js,json,css,md}": [
-      "prettier --write",
-      "git add"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "prettier": {
-    "semi": true,
-    "trailingComma": "none",
-    "singleQuote": false
-  }
+	"name": "board",
+	"author": "BattlesnakeOfficial (https://play.battlesnake.com)",
+	"version": "0.0.1",
+	"scripts": {
+		"dev": "vite dev --host 0.0.0.0",
+		"build": "vite build",
+		"preview": "vite preview",
+		"test": "npm run test:integration && npm run test:unit",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+		"lint": "prettier --plugin-search-dir . --check . && eslint .",
+		"format": "prettier --plugin-search-dir . --write .",
+		"test:integration": "playwright test",
+		"test:unit": "vitest"
+	},
+	"devDependencies": {
+		"@fontsource/fira-mono": "^4.5.10",
+		"@iconify-json/heroicons": "^1.1.11",
+		"@iconify-json/heroicons-solid": "^1.1.7",
+		"@neoconfetti/svelte": "^1.0.0",
+		"@playwright/test": "^1.28.1",
+		"@sveltejs/adapter-auto": "^2.0.0",
+		"@sveltejs/adapter-netlify": "^2.0.8",
+		"@sveltejs/kit": "^1.20.4",
+		"@tailwindcss/forms": "^0.5.4",
+		"@types/cookie": "^0.5.1",
+		"@types/mousetrap": "^1.6.11",
+		"@typescript-eslint/eslint-plugin": "^5.45.0",
+		"@typescript-eslint/parser": "^5.45.0",
+		"autoprefixer": "^10.4.14",
+		"eslint": "^8.28.0",
+		"eslint-config-prettier": "^8.5.0",
+		"eslint-plugin-svelte": "^2.30.0",
+		"mousetrap": "^1.6.5",
+		"postcss": "^8.4.24",
+		"prettier": "^2.8.0",
+		"prettier-plugin-svelte": "^2.10.1",
+		"reconnecting-websocket": "^4.4.0",
+		"svelte": "^4.0.0",
+		"svelte-check": "^3.4.3",
+		"tailwindcss": "^3.3.2",
+		"tippy.js": "^6.3.7",
+		"tslib": "^2.4.1",
+		"typescript": "^5.0.0",
+		"unplugin-icons": "^0.16.5",
+		"vite": "^4.3.6",
+		"vitest": "^0.32.2"
+	},
+	"type": "module"
 }

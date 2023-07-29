@@ -1,102 +1,60 @@
-# Battlesnake Board
+# Battlesnake Game Board
 
 ![CI Build Status](https://github.com/BattlesnakeOfficial/board/actions/workflows/ci.yml/badge.svg)  ![Release Build Status](https://github.com/BattlesnakeOfficial/board/actions/workflows/release.yml/badge.svg)
 
-The board project is used to display Battlesnake games, both during live streams and competitions, as well as on [play.battlesnake.com](https://play.battlesnake.com/). It's built using React, HTML Canvas, and SVGs.
+The board project is used to display Battlesnake games on [play.battlesnake.com](https://play.battlesnake.com/), as well as live streams and competitions. It's built using SvelteKit to produce animated SVGs visualizations.
 
-This project follows most React conventions and tools described in the react docs: [create-react-app.dev/docs](https://create-react-app.dev/docs/getting-started)
 
 ## Development
 
-### Configure
+This project uses a standard SvelteKit development setup.
 
-This project requires Node 10.19. The dependencies may fail to install on newer versions.
+Running dev server locally:
 
-Create a `.env.local` file at the root of the project to set the host that the local board URL serves from. `localhost` is the default but will not work with the CORS policy for snake part svg files.
-`127.0.0.1:3000` is whitelisted for CORS.
+```sh
+npm install
 
-```shell
-# File: /.env.local
-HOST=127.0.0.1
+npm run dev
+
+open https://127.0.0.1:5173
 ```
 
-### Install & Run
+This repo also includes a [devcontainer.json](.devcontainer/devcontainer.json) and can be easily run inside a [GitHub Codespace](https://github.com/features/codespaces) or Docker container using [VS Code devcontainers](https://code.visualstudio.com/docs/devcontainers/containers).
 
-```shell
-# Installs dependencies from package-lock.json
-npm ci
 
-# Starts a server on http://127.0.0.1:3000 and opens it in your default browser
-npm start
-```
+## Required Parameters
 
-**NOTE**: The SVG assets have a CORS policy that only allows specific hostnames. If you change the local port used by the server, the board might not work.
+A valid `game` ID is required to be passed as a URL parameter.
 
-## Production
+For example:
+`http://127.0.0.1/?game=ASDF-1234-QWER-6789`.
 
-```shell
-npm run build
-```
 
-## Running a game
+## Settings
 
-The game board requires a few parameters to work, including a `game` ID and an `engine` URL to query. Loading the index page with no params will throw an error or spin indefinitely.
+All playback settings can be set using URL parameters. Some settings are also configurable via UI and stored in local storage.
 
-## Running tests
+Settings provided as URL params will override values stored in local storage. See [src/lib/settings/stores.ts](src/lib/settings/stores.ts) for more details.
 
-React will run tests locally in watch mode. More info: <https://create-react-app.dev/docs/running-tests/#command-line-interface>
+### Persisted Settings
 
-```shell
-npm test
-```
+These values are configurable in the game board UI and persisted in local storage.
 
-## Board parameters
+- `autoplay: boolean` -  Start playback as soon as game is loaded. Defaults to false.
+- `fps: number` - Playback speed, defined in 'frames per second'. Defaults to 6.
+- `showCoords: boolean` - Display coordinates on game board. Defaults to false.
 
-#### Required
+### Other Settings
 
-- `engine` - the Battlesnake engine to request frames from.
-- `game` - the id of the game to fetch frames for.
+These values can be set with URL parameters and are not persisted between games.
 
-```text
-http://127.0.0.1:3000/?engine=[ENGINE_URL]&game=[GAME_ID]
-```
+- `engine: string` - Stream game data from an alternate game engine.
+- `loop: boolean` - Loops playback when game is finished. Defaults to false.
+- `showControls: boolean` - Displays playback controls under the game board. Defaults to true.
+- `showScoreboard: boolean` - Displays scoreboard to right of game board. Defaults to true.
+- `title: string` - Display a title above the board. Defaults to empty string.
+- `turn: int` - Start playback on a specific turn. Defaults to 0.
 
-#### Optional
+## Tests & Linting
 
-- `autoplay` - start game playback immediately. Values true / false. Defaults to false.
-- `boardTheme` - the theme of the board. Values dark / light. Defaults to light.
-- `frameRate` - the maximum frame rate used for playback. Takes an integer value equal to FPS. Defaults to 6 FPS. (medium speed)
-- `hideLogo` - hides battlesnake logo. Values true / false. Defaults to true.
-- `hideMediaControls` - remove the controls for embedding cool games. Values true / false. Defaults to false.
-- `hideScoreboard` - remove the scoreboard for embedding cool games. Values true false. Defaults to false.
-- `loop` - restart playback immediately once game completes. Values true / false. Defaults to false.
-- `showFrameScrubber` - should show the scrubbable range. Values true / false. Defaults to false.
-- `title` - show a title string on the game board. Takes a string. Defaults to empty string.
-- `turn` - load game to a specific turn. Takes an integer. Defaults to 0.
-
-## Keyboard Shortcuts
-
-If you click on the board you can use:
-
-- arrow keys to go forwards and backwards through frames.
-- space bar to pause / un-pause the game.
-- `r` to reset the game to frame 0.
-- `,` to update board playback settings
-
-## Linting and formatting
-
-ESLint and Prettier are set up in this project, so you may want to install compatible plugins in your editor.
-
-More info on setting up in popular editors here: [create-react-app.dev/docs/setting-up-your-editor](https://create-react-app.dev/docs/setting-up-your-editor#displaying-lint-output-in-the-editor)
-
-## Board UI Docs
-
-We use [Storybook.js](https://storybook.js.org/) to document and test the board components.
-
-You can view and interact with board components here <https://battlesnakeofficial.github.io/board/>
-
-While developing a component you can run a local copy of storybook with the command `npm run storybook` to view and test it
-
-## Feedback
-
-- **Do you have an issue or suggestions for this repository?** Head over to our [Feedback Repository](https://play.battlesnake.com/feedback) today and let us know!
+eslint and playwright are setup but not currently enforced.
