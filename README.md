@@ -9,17 +9,21 @@ The board project is used to display Battlesnake games on [play.battlesnake.com]
 
 This project uses a standard SvelteKit development setup.
 
-Running dev server locally:
+**Devcontainer**
+
+This repo is setup to run in a [GitHub Codespace](https://github.com/features/codespaces) or [VSCode Devcontainer](https://code.visualstudio.com/docs/devcontainers/containers). See [devcontainer.json](.devcontainer/devcontainer.json) for details.
+
+
+**Local Development**
+
+You can also use these commands to launch a local dev server.
 
 ```sh
 npm install
-
 npm run dev
-
 open https://127.0.0.1:5173
 ```
 
-This repo also includes a [devcontainer.json](.devcontainer/devcontainer.json) and can be easily run inside a [GitHub Codespace](https://github.com/features/codespaces) or Docker container using [VS Code devcontainers](https://code.visualstudio.com/docs/devcontainers/containers).
 
 
 ## Required Parameters
