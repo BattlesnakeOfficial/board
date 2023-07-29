@@ -1,0 +1,19 @@
+name: Release
+
+# on:
+#   release:
+#     types: [published]
+#     branches: [main]
+on:
+  push:  # Branch pushes only, not tags
+    branches:
+      - '**'
+
+jobs:
+
+  deploy:
+    name: Deploy to Netlify
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - run: npm install -g netlify-cli
