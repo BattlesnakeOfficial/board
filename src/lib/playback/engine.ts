@@ -10,14 +10,9 @@ let loadedFrames = new Set();
 
 // Converts http://foo to ws://foo or https://foo to wss://foo
 export function httpToWsProtocol(url: string) {
-    const wsURL = url.slice();
-
-    // https:// --> wss://
-    wsURL.replace(/^https?:\/\//i, "wss://");
-    // http:// --> ws://
-    wsURL.replace(/^http?:\/\//i, "ws://");
-
-    return wsURL;
+    return url
+        .replace(/^https:\/\//i, "wss://")  // https:// --> wss://
+        .replace(/^http:\/\//i, "ws://");   // http:// --> ws://
 }
 
 
