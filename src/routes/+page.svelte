@@ -50,14 +50,13 @@
 	use:keybind={{ keys: [','], f: navigateToSettings }}
 />
 
-<TooltipTemplateHotkeys id="hotkeysTooltip" />
-<TooltipTemplateSettings id="settingsTooltip" settings={data.settings} />
-
 {#if $playbackError}
 	<div class="h-screen flex items-center justify-center">
 		<p class="p-4 text-red-500 text-lg text-center">{$playbackError}</p>
 	</div>
 {:else if $playbackState}
+	<TooltipTemplateHotkeys id={helpTooltipOptions.templateId} />
+	<TooltipTemplateSettings id={settingsTooltipOptions.templateId} settings={data.settings} />
 	<div class="h-screen w-full max-w-screen-xl mx-auto flex flex-col md:flex-row">
 		<div class="flex flex-col grow">
 			{#if data.settings.title}
