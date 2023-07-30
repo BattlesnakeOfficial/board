@@ -71,7 +71,7 @@
 	<TooltipTemplateHotkeys id={helpTooltipOptions.templateId} />
 	<TooltipTemplateSettings id={settingsTooltipOptions.templateId} settings={data.settings} />
 	<div class="h-screen w-full max-w-screen-xl mx-auto py-4 flex flex-col md:flex-row">
-		<div class="flex flex-col grow">
+		<div class="flex flex-col grow mt-4 md:mt-0">
 			{#if data.settings.title}
 				<h1 class="text-center font-bold text-lg">{data.settings.title}</h1>
 			{/if}
