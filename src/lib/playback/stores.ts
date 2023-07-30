@@ -10,14 +10,22 @@ import { type Frame, PlaybackMode, type PlaybackState } from './types';
 const AUTOPLAY_DELAY_MS = 250;
 const LOOP_DELAY_MS = 1500;
 
-const frames: Frame[] = [];
-const writableState = writable<PlaybackState | null>(null);
-
+let frames: Frame[] = [];
 let currentFrameIndex = 0;
 let settings: Settings = getDefaultSettings();
 
+const writableState = writable<PlaybackState | null>(null);
 export const playbackError = writable<string | null>(null);
 
+
+const reset = () => {
+    frames = [];
+    currentFrameIndex = 0;
+    settings = getDefaultSettings();
+
+    writableState.set(null);
+    playbackError.set(null);
+}
 
 const setCurrentFrame = (index: number) => {
     const clampedIndex = Math.min(Math.max(index, 0), frames.length - 1);
@@ -150,7 +158,8 @@ function createPlaybackState() {
         load: (fetchFunc: typeof fetch, s: Settings) => {
             settings = { ...s }
             fetchGame(fetchFunc, s.game, s.engine, frames, onFrameLoad, onEngineError);
-        }
+        },
+        reset,
     }
 }
 

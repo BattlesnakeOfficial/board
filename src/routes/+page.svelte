@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
+	import { beforeNavigate, goto } from '$app/navigation';
 
 	import { keybind } from '$lib/actions/keybind';
 	import { tooltip } from '$lib/actions/tooltip';
@@ -15,12 +15,7 @@
 	import IconHelp from '~icons/heroicons/question-mark-circle';
 
 	import type { PageData } from './$types';
-
 	export let data: PageData;
-
-	function navigateToSettings() {
-		goto('/settings');
-	}
 
 	const helpTooltipOptions = {
 		templateId: 'hotkeysTooltip',
@@ -37,6 +32,15 @@
 			placement: 'top-end'
 		}
 	};
+
+	beforeNavigate(async ({}) => {
+		playbackState.controls.pause();
+		playbackState.reset();
+	});
+
+	function navigateToSettings() {
+		goto('/settings');
+	}
 </script>
 
 <svelte:window
@@ -50,7 +54,16 @@
 	use:keybind={{ keys: [','], f: navigateToSettings }}
 />
 
-{#if $playbackError}
+{#if data.settingError}
+	<div class="h-screen flex flex-col items-center justify-center">
+		<p class="p-4 font-bold text-lg text-center">
+			To display a game you need to specify a game ID in the URL.
+		</p>
+		<p class="italic">
+			{`https://board.battlesnake.com?game=<GAME_ID>`}
+		</p>
+	</div>
+{:else if $playbackError}
 	<div class="h-screen flex items-center justify-center">
 		<p class="p-4 text-red-500 text-lg text-center">{$playbackError}</p>
 	</div>
