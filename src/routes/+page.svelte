@@ -2,7 +2,7 @@
 	import { goto } from '$app/navigation';
 
 	import { keybind } from '$lib/actions/keybind';
-	import { tippy } from '$lib/actions/tippy';
+	import { tooltip } from '$lib/actions/tooltip';
 	import { playbackError, playbackState } from '$lib/playback/stores';
 
 	import Gameboard from '$lib/components/Gameboard.svelte';
@@ -50,6 +50,9 @@
 	use:keybind={{ keys: [','], f: navigateToSettings }}
 />
 
+<TooltipTemplateHotkeys id="hotkeysTooltip" />
+<TooltipTemplateSettings id="settingsTooltip" settings={data.settings} />
+
 {#if $playbackError}
 	<div class="h-screen flex items-center justify-center">
 		<p class="p-4 text-red-500 text-lg text-center">{$playbackError}</p>
@@ -63,11 +66,11 @@
 			<Gameboard showCoordinates={data.settings.showCoords} />
 			{#if data.settings.showControls}
 				<div class="flex justify-evenly text-xl py-2 px-6">
-					<div use:tippy={helpTooltipOptions}>
+					<div use:tooltip={helpTooltipOptions}>
 						<IconHelp />
 					</div>
 					<PlaybackControls />
-					<div use:tippy={settingsTooltipOptions}>
+					<div use:tooltip={settingsTooltipOptions}>
 						<a href="/settings">
 							<IconCog />
 						</a>
@@ -86,6 +89,3 @@
 		<p class="p-4 text-lg text-center">Loading game...</p>
 	</div>
 {/if}
-
-<TooltipTemplateHotkeys id="hotkeysTooltip" />
-<TooltipTemplateSettings id="settingsTooltip" settings={data.settings} />
