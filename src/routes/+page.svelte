@@ -70,10 +70,10 @@
 {:else if $playbackState}
 	<TooltipTemplateHotkeys id={helpTooltipOptions.templateId} />
 	<TooltipTemplateSettings id={settingsTooltipOptions.templateId} settings={data.settings} />
-	<div class="h-screen w-full max-w-screen-xl mx-auto flex flex-col md:flex-row">
+	<div class="h-screen w-full max-w-screen-xl mx-auto py-4 flex flex-col md:flex-row">
 		<div class="flex flex-col grow">
 			{#if data.settings.title}
-				<h1 class="text-center font-bold text-2xl pt-2">{data.settings.title}</h1>
+				<h1 class="text-center font-bold text-lg">{data.settings.title}</h1>
 			{/if}
 			<Gameboard showCoordinates={data.settings.showCoords} />
 			{#if data.settings.showControls}
@@ -91,7 +91,7 @@
 			{/if}
 		</div>
 		{#if data.settings.showScoreboard}
-			<div class="basis-full md:basis-2/5 order-first md:order-last py-4 px-2 md:pl-0">
+			<div class="basis-full md:basis-2/5 order-first md:order-last px-2 md:pl-0">
 				<Scoreboard />
 			</div>
 		{/if}
