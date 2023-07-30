@@ -8,16 +8,28 @@ type FrameCallback = (frame: Frame) => void;
 let ws: WebSocket;
 let loadedFrames = new Set();
 
+// Converts http://foo to ws://foo or https://foo to wss://foo
+export function httpToWsProtocol(url: string) {
+    const wsURL = url.slice();
 
-export function fetchGame(fetchFunc: typeof fetch, gameID: string, engineHost: string, frames: Frame[], onFrameLoad: FrameCallback, onError: (message: string) => void) {
+    // https:// --> wss://
+    wsURL.replace(/^https?:\/\//i, "wss://");
+    // http:// --> ws://
+    wsURL.replace(/^http?:\/\//i, "ws://");
+
+    return wsURL;
+}
+
+
+export function fetchGame(fetchFunc: typeof fetch, gameID: string, engineURL: string, frames: Frame[], onFrameLoad: FrameCallback, onError: (message: string) => void) {
     console.debug(`[playback] loading game ${gameID}`);
 
     // Reset
     if (ws) ws.close();
     loadedFrames = new Set();
 
-    const gameInfoUrl = `https://${engineHost}/games/${gameID}`;
-    const gameEventsUrl = `wss://${engineHost}/games/${gameID}/events`;
+    const gameInfoUrl = `${engineURL}/games/${gameID}`;
+    const gameEventsUrl = `${httpToWsProtocol(engineURL)}/games/${gameID}/events`;
 
     fetchFunc(gameInfoUrl)
         .then(async (response) => {
