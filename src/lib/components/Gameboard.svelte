@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { playbackState } from '$lib/playback/stores';
+	import { playbackState, darkMode } from '$lib/playback/stores';
 	import { highlightedSnakeID } from '$lib/highlight';
 	import type { SvgCalcParams } from '$lib/svg';
 
@@ -38,7 +38,7 @@
 </script>
 
 {#if $playbackState}
-	<svg class="gameboard flex-shrink" viewBox="0 0 {svgWidth} {svgHeight}">
+	<svg class={$darkMode ? 'gameboard dark-mode flex-shrink' : 'gameboard flex-shrink'} viewBox="0 0 {svgWidth} {svgHeight}">
 		<!-- Grid -->
 		<SvgGrid
 			gridWidth={$playbackState.frame.width}
