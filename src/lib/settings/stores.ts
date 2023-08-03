@@ -14,6 +14,7 @@ import { fromLocalStorage, toLocalStorage, getBoolFromURL, getIntFromURL, getStr
 // Keys for load from URL and local storage
 enum Setting {
     AUTOPLAY = 'autoplay',
+    DARK_MODE = 'darkMode',
     ENGINE = 'engine',
     FPS = 'fps',
     GAME = 'game',
@@ -27,6 +28,7 @@ enum Setting {
 
 export type Settings = {
     autoplay: boolean,
+    darkMode: boolean,
     engine: string,
     fps: number,
     game: string,
@@ -41,6 +43,7 @@ export type Settings = {
 export function getDefaultSettings(): Settings {
     return {
         autoplay: false,
+        darkMode: false,
         engine: 'https://engine.battlesnake.com',
         fps: 6,
         game: '',
@@ -73,6 +76,11 @@ showCoords.subscribe((value: boolean) => {
     toLocalStorage(Setting.SHOW_COORDS, value);
 });
 
+export const darkMode = writable<boolean>(fromLocalStorage(Setting.DARK_MODE, getDefaultSettings().darkMode));
+darkMode.subscribe((value: boolean) => {
+    toLocalStorage(Setting.DARK_MODE, value);
+});
+
 
 // Load settings, with option to override via URL params
 export function loadSettingsWithURLOverrides(url: URL): Settings {
@@ -84,6 +92,7 @@ export function loadSettingsWithURLOverrides(url: URL): Settings {
         autoplay: getBoolFromURL(url, Setting.AUTOPLAY, get(autoplay)),
         fps: getIntFromURL(url, Setting.FPS, get(fps)),
         showCoords: getBoolFromURL(url, Setting.SHOW_COORDS, get(showCoords)),
+        darkMode: getBoolFromURL(url, Setting.DARK_MODE, get(darkMode)),
         // URL param controlled
         engine: getStringFromURL(url, Setting.ENGINE, defaults.engine),
         game: getStringFromURL(url, Setting.GAME, defaults.game),
