@@ -1,6 +1,7 @@
 import { get, writable } from "svelte/store"
 
 import { fromLocalStorage, toLocalStorage, getBoolFromURL, getIntFromURL, getStringFromURL } from "./helpers";
+import { setTheme } from "$lib/theme";
 
 
 // Each setting receives it's value using the following algorithm:
@@ -12,7 +13,7 @@ import { fromLocalStorage, toLocalStorage, getBoolFromURL, getIntFromURL, getStr
 
 
 // Keys for load from URL and local storage
-enum Setting {
+export enum Setting {
     AUTOPLAY = 'autoplay',
     ENGINE = 'engine',
     FPS = 'fps',
@@ -26,7 +27,7 @@ enum Setting {
     TURN = 'turn'
 }
 
-enum Theme {
+export enum Theme {
     DARK = 'dark',
     LIGHT = 'light',
     SYSTEM = 'system',
@@ -86,6 +87,7 @@ showCoords.subscribe((value: boolean) => {
 export const theme = writable<Theme>(fromLocalStorage(Setting.THEME, getDefaultSettings().theme));
 theme.subscribe((value: Theme) => {
     toLocalStorage(Setting.THEME, value);
+    setTheme(value);
 })
 
 
