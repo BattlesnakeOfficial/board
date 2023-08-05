@@ -7,6 +7,7 @@
 	} from '$lib/svg';
 
 	const CELL_COLOR = '#f1f1f1';
+	const COORDS_COLOR = '#888888';
 
 	export let gridWidth: number;
 	export let gridHeight: number;
@@ -31,6 +32,7 @@
 				class="coordinate"
 				text-anchor="middle"
 				font-size="4px"
+				fill={COORDS_COLOR}
 				transform="translate(0, 2)"
 				{...svgCalcCellLabelBottom(svgCalcParams, { x: x, y: 0 })}
 			>
@@ -42,6 +44,7 @@
 				class="coordinate"
 				text-anchor="middle"
 				font-size="4px"
+				fill={COORDS_COLOR}
 				transform="translate(0, 2)"
 				{...svgCalcCellLabelLeft(svgCalcParams, { x: 0, y: y })}
 			>

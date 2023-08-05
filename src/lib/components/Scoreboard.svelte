@@ -82,7 +82,7 @@
 				{#if snake.elimination}
 					<p>{eliminationToString(snake.elimination)}</p>
 				{:else}
-					<div class="text-outline w-full h-full bg-gray-200 rounded-full">
+					<div class="text-outline w-full h-full rounded-full bg-neutral-200 dark:bg-neutral-800">
 						<div
 							class="transition-all h-full rounded-full text-white ps-2"
 							style="background: {snake.color}; width: {snake.health}%"
