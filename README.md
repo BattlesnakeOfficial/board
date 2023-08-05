@@ -47,6 +47,7 @@ These values are configurable in the game board UI and persisted in local storag
 - `autoplay: boolean` -  Start playback as soon as game is loaded. Defaults to false.
 - `fps: number` - Playback speed, defined in 'frames per second'. Defaults to 6.
 - `showCoords: boolean` - Display coordinates on game board. Defaults to false.
+- `theme: string` - Display theme. Defaults to 'system'.
 
 ### Other Settings
 

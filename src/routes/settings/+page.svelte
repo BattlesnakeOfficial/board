@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { autoplay, fps, showCoords } from '$lib/settings/stores';
+	import { autoplay, fps, showCoords, theme } from '$lib/settings/stores';
 
 	const playbackSpeedOptions = [
 		{ value: 2, text: 'Slow' },
@@ -18,6 +18,17 @@
 
 	<div class="mb-4">
 		<label class="block">
+			<p class="font-bold">Theme</p>
+			<select class="w-full" bind:value={$theme}>
+				<option value={'system'}>Use System Preference</option>
+				<option value={'light'}>Light</option>
+				<option value={'dark'}>Dark</option>
+			</select>
+		</label>
+	</div>
+
+	<div class="mb-4">
+		<label class="block">
 			<p class="font-bold">Playback Speed</p>
 			<select class="w-full" bind:value={$fps}>
 				{#each playbackSpeedOptions as option}
@@ -26,16 +37,6 @@
 			</select>
 		</label>
 	</div>
-
-	<!-- <div class="mb-4">
-		<label class="block">
-			<p class="font-bold">Theme</p>
-			<select class="w-full">
-				<option>Dark</option>
-				<option>Light</option>
-			</select>
-		</label>
-	</div> -->
 
 	<div class="mb-4">
 		<label class="inline-flex items-center">

@@ -14,5 +14,7 @@
 		<p class="text-right">{settings.fps}</p>
 		<p>showCoords:</p>
 		<p class="text-right">{settings.showCoords}</p>
+		<p>theme:</p>
+		<p class="text-right">{settings.theme}</p>
 	</div>
 </template>

@@ -21,8 +21,15 @@ enum Setting {
     SHOW_CONTROLS = 'showControls',
     SHOW_COORDS = 'showCoords',
     SHOW_SCOREBOARD = 'showScoreboard',
+    THEME = 'theme',
     TITLE = 'title',
     TURN = 'turn'
+}
+
+enum Theme {
+    DARK = 'dark',
+    LIGHT = 'light',
+    SYSTEM = 'system',
 }
 
 export type Settings = {
@@ -34,6 +41,7 @@ export type Settings = {
     showControls: boolean,
     showCoords: boolean,
     showScoreboard: boolean,
+    theme: Theme,
     title: string,
     turn: number
 }
@@ -48,6 +56,7 @@ export function getDefaultSettings(): Settings {
         showControls: true,
         showCoords: false,
         showScoreboard: true,
+        theme: Theme.SYSTEM,
         title: '',
         turn: 0
     }
@@ -73,6 +82,12 @@ showCoords.subscribe((value: boolean) => {
     toLocalStorage(Setting.SHOW_COORDS, value);
 });
 
+// Theme
+export const theme = writable<Theme>(fromLocalStorage(Setting.THEME, getDefaultSettings().theme));
+theme.subscribe((value: Theme) => {
+    toLocalStorage(Setting.THEME, value);
+})
+
 
 // Load settings, with option to override via URL params
 export function loadSettingsWithURLOverrides(url: URL): Settings {
@@ -84,6 +99,7 @@ export function loadSettingsWithURLOverrides(url: URL): Settings {
         autoplay: getBoolFromURL(url, Setting.AUTOPLAY, get(autoplay)),
         fps: getIntFromURL(url, Setting.FPS, get(fps)),
         showCoords: getBoolFromURL(url, Setting.SHOW_COORDS, get(showCoords)),
+        theme: getStringFromURL(url, Setting.THEME, get(theme)) as Theme,
         // URL param controlled
         engine: getStringFromURL(url, Setting.ENGINE, defaults.engine),
         game: getStringFromURL(url, Setting.GAME, defaults.game),
