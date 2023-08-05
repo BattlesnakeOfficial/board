@@ -63,7 +63,7 @@
 
 	{#each sortedSnakes as snake}
 		<div
-			class="p-2 cursor-pointer rounded-sm border-solid border-2 border-transparent hover:border-gray-500 hover:bg-gray-100"
+			class="p-2 cursor-pointer rounded-sm border-solid border-2 border-transparent hover:border-neutral-500 hover:bg-neutral-200 dark:hover:bg-neutral-800"
 			class:eliminated={snake.isEliminated}
 			class:highlighted={snake.id == $highlightedSnakeID}
 			on:click={() => highlightSnake(snake.id)}
@@ -101,9 +101,12 @@
 		text-shadow: 0 0 2px black, 0 0 2px black, 0 0 2px black, 0 0 2px black;
 	}
 	.eliminated {
-		@apply text-gray-500;
+		@apply text-neutral-500;
 	}
 	.highlighted {
-		@apply border-pink-500 bg-gray-100;
+		@apply border-pink-500 bg-neutral-200;
+	}
+	:global(html.dark .highlighted) {
+		@apply bg-neutral-800;
 	}
 </style>
