@@ -15,14 +15,14 @@
 {#if $playbackState}
 	<div>
 		<button
-			class="mx-2 disabled:text-gray-300"
+			class="mx-2 disabled:text-neutral-400"
 			on:click={playbackState.controls.firstFrame}
 			disabled={disableDuringPlayback}
 		>
 			<IconFirst />
 		</button>
 		<button
-			class="mx-2 disabled:text-gray-300"
+			class="mx-2 disabled:text-neutral-400"
 			on:click={playbackState.controls.prevFrame}
 			disabled={disableDuringPlayback}
 		>
@@ -38,14 +38,14 @@
 			</button>
 		{/if}
 		<button
-			class="mx-2 disabled:text-gray-300"
+			class="mx-2 disabled:text-neutral-400"
 			on:click={playbackState.controls.nextFrame}
 			disabled={disableDuringPlayback}
 		>
 			<IconNext />
 		</button>
 		<button
-			class="mx-2 disabled:text-gray-300"
+			class="mx-2 disabled:text-neutral-400"
 			on:click={playbackState.controls.lastFrame}
 			disabled={disableDuringPlayback}
 		>
