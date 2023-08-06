@@ -49,15 +49,15 @@
 	];
 </script>
 
-<div class="flex flex-col align-center m-4 text-center w-full">
+<div class="m-4 w-full">
 	{#each configs as config}
-		<div class="mb-16">
+		<div class="flex flex-col w-full mb-16">
 			<p class="text-xl font-bold text-center">{config.title}</p>
-			<p class="text-center text-blue-500 mb-2">
+			<p class="text-sm text-center text-blue-500 mb-2">
 				<a href={config.url}>{config.url}</a>
 			</p>
 			<div
-				class="rounded-sm border-2 border-solid border-pink-500 m-auto"
+				class="rounded-sm border-2 border-solid border-pink-500 mx-auto"
 				style:width={config.width}
 				style:aspect-ratio={config.aspectRatio}
 				style:max-height={'720px'}

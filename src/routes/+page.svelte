@@ -70,8 +70,8 @@
 {:else if $playbackState}
 	<TooltipTemplateHotkeys id={helpTooltipOptions.templateId} />
 	<TooltipTemplateSettings id={settingsTooltipOptions.templateId} settings={data.settings} />
-	<div class="h-screen w-full max-w-screen-xl mx-auto py-4 flex flex-col md:flex-row">
-		<div class="flex flex-col grow mt-4 md:mt-0">
+	<div class="h-screen w-full max-w-screen-xl mx-auto flex flex-col md:flex-row">
+		<div class="flex flex-col grow">
 			{#if data.settings.title}
 				<h1 class="text-center font-bold text-lg">{data.settings.title}</h1>
 			{/if}
@@ -91,7 +91,7 @@
 			{/if}
 		</div>
 		{#if data.settings.showScoreboard}
-			<div class="basis-full md:basis-2/5 order-first md:order-last px-2 md:pl-0">
+			<div class="basis-full md:basis-2/5 order-first md:order-last p-2 md:pl-0">
 				<Scoreboard />
 			</div>
 		{/if}
