@@ -8,7 +8,7 @@
 
 html {
     font-family: 'Poppins', sans-serif;
-    @apply bg-neutral-50 text-neutral-950;
+    @apply bg-white text-neutral-700;
 }
 
 html.dark,
@@ -16,5 +16,6 @@ html.dark select,
 html.dark input[type=checkbox],
 html.dark input[type=checkbox]:hover,
 html.dark input[type=checkbox]:focus {
-    @apply bg-neutral-950 text-neutral-50;
+    @apply text-white;
+    background-color: #0f0b19;
 }
