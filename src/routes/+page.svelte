@@ -91,7 +91,7 @@
 			{/if}
 		</div>
 		{#if data.settings.showScoreboard}
-			<div class="basis-full md:basis-2/5 order-first md:order-last p-2 md:pl-0">
+			<div class="basis-full md:basis-2/5 order-first md:order-last">
 				<Scoreboard />
 			</div>
 		{/if}
