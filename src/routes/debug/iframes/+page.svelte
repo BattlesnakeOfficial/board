@@ -2,6 +2,7 @@
 	import { page } from '$app/stores';
 
 	let gameId = $page.url.searchParams.get('game');
+	let gameTitle = $page.url.searchParams.get('title') || '';
 
 	const configs = [
 		{
@@ -9,42 +10,42 @@
 			url: 'https://play.battlesnake.com/leaderboards',
 			width: '300px',
 			aspectRatio: '1 / 1',
-			src: `/?game=${gameId}&showControls=false&showScoreboard=false&autoplay=true&fps=10`
+			src: `/?game=${gameId}&title=${gameTitle}&showControls=false&showScoreboard=false&autoplay=true&fps=10`
 		},
 		{
 			title: 'SM Screen Size (1x1)',
 			url: `https://play.battlesnake.com/game/${gameId}`,
 			width: '640px',
 			aspectRatio: '1 / 1',
-			src: `/?game=${gameId}&autoplay=true&fps=10`
+			src: `/?game=${gameId}&title=${gameTitle}&autoplay=true&fps=10`
 		},
 		{
 			title: 'MD Screen Size (1x1)',
 			url: `https://play.battlesnake.com/game/${gameId}`,
 			width: '768px',
 			aspectRatio: '1 / 1',
-			src: `/?game=${gameId}&autoplay=true&fps=10`
+			src: `/?game=${gameId}&title=${gameTitle}&autoplay=true&fps=10`
 		},
 		{
 			title: 'LG Screen Size (16x9)',
 			url: `https://play.battlesnake.com/game/${gameId}`,
 			width: '1024px',
 			aspectRatio: '16 / 9',
-			src: `/?game=${gameId}&autoplay=true&fps=10`
+			src: `/?game=${gameId}&title=${gameTitle}&autoplay=true&fps=10`
 		},
 		{
 			title: 'XL Screen Size (16x9)',
 			url: `https://play.battlesnake.com/game/${gameId}`,
 			width: '1280px',
 			aspectRatio: '16 / 9',
-			src: `/?game=${gameId}&autoplay=true&fps=10`
+			src: `/?game=${gameId}&title=${gameTitle}&autoplay=true&fps=10`
 		},
 		{
 			title: 'Full Width (16x9)',
 			url: `https://play.battlesnake.com/game/${gameId}`,
 			width: '100%',
 			aspectRatio: '16 / 9',
-			src: `/?game=${gameId}&autoplay=true&fps=10`
+			src: `/?game=${gameId}&title=${gameTitle}&autoplay=true&fps=10`
 		}
 	];
 </script>

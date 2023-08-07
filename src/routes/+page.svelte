@@ -73,7 +73,7 @@
 	<div class="h-screen w-full max-w-screen-xl mx-auto flex flex-col md:flex-row">
 		<div class="flex flex-col grow">
 			{#if data.settings.title}
-				<h1 class="text-center font-bold text-lg">{data.settings.title}</h1>
+				<h1 class="text-center font-bold pt-2 text-lg">{data.settings.title}</h1>
 			{/if}
 			<Gameboard showCoordinates={data.settings.showCoords} />
 			{#if data.settings.showControls}
@@ -91,7 +91,7 @@
 			{/if}
 		</div>
 		{#if data.settings.showScoreboard}
-			<div class="basis-full md:basis-2/5 order-first md:order-last">
+			<div class="basis-full md:basis-[45%] order-first p-2 md:order-last">
 				<Scoreboard />
 			</div>
 		{/if}
