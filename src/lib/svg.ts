@@ -1,5 +1,6 @@
-import type { Point } from '$lib/stores/game';
+import type { Point } from '$lib/playback/types';
 
+// Parameters used when drawing the gameboard svg
 export type SvgCalcParams = {
     cellSize: number,
     cellSizeHalf: number,
@@ -9,40 +10,61 @@ export type SvgCalcParams = {
     width: number
 }
 
-export function svgCalcCellCenter(params: SvgCalcParams, p: Point): number[] {
-    const [x, y] = svgCalcCellTopLeft(params, p);
-    return [x + params.cellSizeHalf, y + params.cellSizeHalf];
+// Declare a new type to make it more obvious when translating board space to svg space
+export type SvgPoint = {
+    x: number,
+    y: number
 }
 
-export function svgCalcCellTopLeft(params: SvgCalcParams, p: Point): number[] {
-    return [
-        params.gridBorder + p.x * (params.cellSize + params.cellSpacing),
-        params.height - (params.gridBorder + p.y * (params.cellSize + params.cellSpacing) + params.cellSize)
-    ]
+export type SvgCircleProps = {
+    cx: number,
+    cy: number
 }
 
-export function svgCalcCellCircle(params: SvgCalcParams, p: Point) {
-    const [x, y] = svgCalcCellCenter(params, p);
-    return { cx: x, cy: y }
+export type SvgRectProps = {
+    x: number,
+    y: number,
+    width: number,
+    height: number
 }
 
-export function svgCalcCellRect(params: SvgCalcParams, p: Point) {
-    const [x, y] = svgCalcCellTopLeft(params, p);
-    return { x: x, y: y, width: params.cellSize, height: params.cellSize };
-}
-
-export function svgCalcCellLabelBottom(params: SvgCalcParams, p: Point) {
-    const [cx, cy] = svgCalcCellCenter(params, p)
+export function svgCalcCellCenter(params: SvgCalcParams, p: Point): SvgPoint {
+    const topLeft = svgCalcCellTopLeft(params, p);
     return {
-        x: cx,
-        y: cy + params.cellSizeHalf + params.gridBorder / 2
+        x: topLeft.x + params.cellSizeHalf,
+        y: topLeft.y + params.cellSizeHalf
     }
 }
 
-export function svgCalcCellLabelLeft(params: SvgCalcParams, p: Point) {
-    const [cx, cy] = svgCalcCellCenter(params, p);
+export function svgCalcCellTopLeft(params: SvgCalcParams, p: Point): SvgPoint {
     return {
-        x: cx - params.cellSizeHalf - params.gridBorder / 2,
-        y: cy
+        x: params.gridBorder + p.x * (params.cellSize + params.cellSpacing),
+        y: params.height - (params.gridBorder + p.y * (params.cellSize + params.cellSpacing) + params.cellSize)
+    }
+}
+
+export function svgCalcCellCircle(params: SvgCalcParams, p: Point): SvgCircleProps {
+    const center = svgCalcCellCenter(params, p);
+    return { cx: center.x, cy: center.y }
+}
+
+export function svgCalcCellRect(params: SvgCalcParams, p: Point): SvgRectProps {
+    const topLeft = svgCalcCellTopLeft(params, p);
+    return { x: topLeft.x, y: topLeft.y, width: params.cellSize, height: params.cellSize };
+}
+
+export function svgCalcCellLabelBottom(params: SvgCalcParams, p: Point): SvgPoint {
+    const center = svgCalcCellCenter(params, p)
+    return {
+        x: center.x,
+        y: center.y + params.cellSizeHalf + params.gridBorder / 2
+    }
+}
+
+export function svgCalcCellLabelLeft(params: SvgCalcParams, p: Point): SvgPoint {
+    const center = svgCalcCellCenter(params, p);
+    return {
+        x: center.x - params.cellSizeHalf - params.gridBorder / 2,
+        y: center.y
     }
 }

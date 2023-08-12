@@ -104,8 +104,8 @@
 
 		// Get the center point of each body square we're going to render
 		const bodyCenterPoints = body.map((p) => {
-			const [cx, cy] = svgCalcCellCenter(svgCalcParams, p);
-			return { cx: cx, cy: cy, x: p.x, y: p.y };
+			const center = svgCalcCellCenter(svgCalcParams, p);
+			return { cx: center.x, cy: center.y, x: p.x, y: p.y };
 		});
 
 		// If we're drawing *any* body, we want to extend the first and last points
@@ -147,56 +147,56 @@
 			strokeLinecap = 'butt'; // lol.
 
 			if (head.x != tail.x || head.y != tail.y) {
-				const [cx, cy] = svgCalcCellCenter(svgCalcParams, head);
+				const svgCenter = svgCalcCellCenter(svgCalcParams, head);
 				if (head.x > tail.x) {
 					bodyCenterPoints.push({
-						cx: cx - svgCalcParams.cellSizeHalf + OVERLAP,
-						cy: cy,
+						cx: svgCenter.x - svgCalcParams.cellSizeHalf + OVERLAP,
+						cy: svgCenter.y,
 						x: 0,
 						y: 0
 					});
 					bodyCenterPoints.push({
-						cx: cx - svgCalcParams.cellSizeHalf - svgCalcParams.cellSpacing - OVERLAP,
-						cy: cy,
+						cx: svgCenter.x - svgCalcParams.cellSizeHalf - svgCalcParams.cellSpacing - OVERLAP,
+						cy: svgCenter.y,
 						x: 0,
 						y: 0
 					});
 				} else if (head.x < tail.x) {
 					bodyCenterPoints.push({
-						cx: cx + svgCalcParams.cellSizeHalf - OVERLAP,
-						cy: cy,
+						cx: svgCenter.x + svgCalcParams.cellSizeHalf - OVERLAP,
+						cy: svgCenter.y,
 						x: 0,
 						y: 0
 					});
 					bodyCenterPoints.push({
-						cx: cx + svgCalcParams.cellSizeHalf + svgCalcParams.cellSpacing + OVERLAP,
-						cy: cy,
+						cx: svgCenter.x + svgCalcParams.cellSizeHalf + svgCalcParams.cellSpacing + OVERLAP,
+						cy: svgCenter.y,
 						x: 0,
 						y: 0
 					});
 				} else if (head.y > tail.y) {
 					bodyCenterPoints.push({
-						cx: cx,
-						cy: cy + svgCalcParams.cellSizeHalf - OVERLAP,
+						cx: svgCenter.x,
+						cy: svgCenter.y + svgCalcParams.cellSizeHalf - OVERLAP,
 						x: 0,
 						y: 0
 					});
 					bodyCenterPoints.push({
-						cx: cx,
-						cy: cy + svgCalcParams.cellSizeHalf + svgCalcParams.cellSpacing + OVERLAP,
+						cx: svgCenter.x,
+						cy: svgCenter.y + svgCalcParams.cellSizeHalf + svgCalcParams.cellSpacing + OVERLAP,
 						x: 0,
 						y: 0
 					});
 				} else if (head.y < tail.y) {
 					bodyCenterPoints.push({
-						cx: cx,
-						cy: cy - svgCalcParams.cellSizeHalf + OVERLAP,
+						cx: svgCenter.x,
+						cy: svgCenter.y - svgCalcParams.cellSizeHalf + OVERLAP,
 						x: 0,
 						y: 0
 					});
 					bodyCenterPoints.push({
-						cx: cx,
-						cy: cy - svgCalcParams.cellSizeHalf - svgCalcParams.cellSpacing - OVERLAP,
+						cx: svgCenter.x,
+						cy: svgCenter.y - svgCalcParams.cellSizeHalf - svgCalcParams.cellSpacing - OVERLAP,
 						x: 0,
 						y: 0
 					});
