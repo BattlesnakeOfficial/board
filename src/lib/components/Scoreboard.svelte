@@ -28,19 +28,19 @@
 		// See https://github.com/BattlesnakeOfficial/rules/blob/master/standard.go
 		switch (elimination.cause) {
 			case 'snake-collision':
-				return `Collided with body of ${snakeIdToName(elimination.by)} on turn ${elimination.turn}`;
+				return `Collided with body of ${snakeIdToName(elimination.by)} on Turn ${elimination.turn}`;
 			case 'snake-self-collision':
-				return `Collided with itself on turn ${elimination.turn}`;
+				return `Collided with itself on Turn ${elimination.turn}`;
 			case 'out-of-health':
-				return `Ran out of health on turn ${elimination.turn}`;
+				return `Ran out of health on Turn ${elimination.turn}`;
 			case 'hazard':
-				return `Eliminated by hazard on turn ${elimination.turn}`;
+				return `Eliminated by hazard on Turn ${elimination.turn}`;
 			case 'head-collision':
-				return `Lost head-to-head with ${snakeIdToName(elimination.by)} on turn ${
+				return `Lost head-to-head with ${snakeIdToName(elimination.by)} on Turn ${
 					elimination.turn
 				}`;
 			case 'wall-collision':
-				return `Moved out of bounds on turn ${elimination.turn}`;
+				return `Moved out of bounds on Turn ${elimination.turn}`;
 			default:
 				return elimination.cause;
 		}

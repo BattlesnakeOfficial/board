@@ -18,3 +18,9 @@
 	fill={FOOD_COLOR}
 	{...svgCalcCellCircle(svgCalcParams, point)}
 />
+
+<style>
+	.food {
+		filter: drop-shadow(0.1em 0.1em 0.05em rgba(0, 0, 0, 0.3));
+	}
+</style>

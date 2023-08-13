@@ -52,7 +52,7 @@
 			<!-- Draw non-highlighted snakes under the highlighted one -->
 			{#each $playbackState.frame.snakes as snake}
 				{#if snake.id !== $highlightedSnakeID}
-					<SvgSnake {snake} {svgCalcParams} displayClass="eliminated" />
+					<SvgSnake {snake} {svgCalcParams} opacity={0.1} />
 				{/if}
 			{/each}
 			{#each $playbackState.frame.snakes as snake}
@@ -64,7 +64,7 @@
 			<!-- Draw eliminated snakes under the alive ones -->
 			{#each $playbackState.frame.snakes as snake}
 				{#if snake.isEliminated}
-					<SvgSnake {snake} {svgCalcParams} displayClass="eliminated" />
+					<SvgSnake {snake} {svgCalcParams} opacity={0.1} />
 				{/if}
 			{/each}
 			{#each $playbackState.frame.snakes as snake}
@@ -85,13 +85,3 @@
 		{/each}
 	</svg>
 {/if}
-
-<style>
-	:global(svg.gameboard .food, svg.gameboard .snake) {
-		filter: drop-shadow(0.1em 0.1em 0.05em rgba(0, 0, 0, 0.3));
-	}
-
-	:global(svg.gameboard .snake.eliminated) {
-		opacity: 0.1;
-	}
-</style>
