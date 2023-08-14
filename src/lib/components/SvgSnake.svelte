@@ -16,9 +16,3 @@
 	<SvgSnakeBody {svgCalcParams} {snake} />
 	<SvgSnakeHead {svgCalcParams} {snake} />
 </g>
-
-<style>
-	.snake {
-		filter: drop-shadow(0.1em 0.1em 0.05em rgba(0, 0, 0, 0.3));
-	}
-</style>

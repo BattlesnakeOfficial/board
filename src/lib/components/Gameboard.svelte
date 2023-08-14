@@ -85,3 +85,10 @@
 		{/each}
 	</svg>
 {/if}
+
+<style>
+	/* Add a minimal drop shadow to food and snakes */
+	:global(svg.gameboard .food, svg.gameboard .snake) {
+		filter: drop-shadow(0.1em 0.1em 0.05em rgba(0, 0, 0, 0.3));
+	}
+</style>

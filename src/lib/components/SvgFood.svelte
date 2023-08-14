@@ -6,21 +6,8 @@
 	export let point: Point;
 	export let svgCalcParams: SvgCalcParams;
 
-	const FOOD_COLOR = '#ff5c75';
-
-	$: FOOD_RADIUS = (svgCalcParams.cellSize / 3.25).toFixed(2);
+	$: circleProps = svgCalcCellCircle(svgCalcParams, point);
+	$: foodRadius = (svgCalcParams.cellSize / 3.25).toFixed(2);
 </script>
 
-<circle
-	id={`food-${key}`}
-	class="food"
-	r={FOOD_RADIUS}
-	fill={FOOD_COLOR}
-	{...svgCalcCellCircle(svgCalcParams, point)}
-/>
-
-<style>
-	.food {
-		filter: drop-shadow(0.1em 0.1em 0.05em rgba(0, 0, 0, 0.3));
-	}
-</style>
+<circle id={`food-${key}`} class="food fill-rose-500" r={foodRadius} {...circleProps} />

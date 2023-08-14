@@ -6,9 +6,6 @@
 		svgCalcCellLabelLeft
 	} from '$lib/svg';
 
-	const CELL_COLOR = '#f1f1f1';
-	const COORDS_COLOR = '#888888';
-
 	export let gridWidth: number;
 	export let gridHeight: number;
 	export let showLabels: boolean;
@@ -20,8 +17,7 @@
 		{#each { length: gridHeight } as _, y}
 			<rect
 				id={`grid-${x}-${y}`}
-				class="grid"
-				fill={CELL_COLOR}
+				class="grid fill-[#f1f1f1] dark:fill-[#393939]"
 				{...svgCalcCellRect(svgCalcParams, { x, y })}
 			/>
 		{/each}
@@ -29,10 +25,8 @@
 	{#if showLabels}
 		{#each { length: gridHeight } as _, x}
 			<text
-				class="coordinate"
+				class="coordinate-label text-[0.35rem] fill-neutral-500"
 				text-anchor="middle"
-				font-size="4px"
-				fill={COORDS_COLOR}
 				transform="translate(0, 2)"
 				{...svgCalcCellLabelBottom(svgCalcParams, { x: x, y: 0 })}
 			>
@@ -41,10 +35,8 @@
 		{/each}
 		{#each { length: gridHeight } as _, y}
 			<text
-				class="coordinate"
+				class="coordinate-label text-[0.35rem] fill-neutral-500"
 				text-anchor="middle"
-				font-size="4px"
-				fill={COORDS_COLOR}
 				transform="translate(0, 2)"
 				{...svgCalcCellLabelLeft(svgCalcParams, { x: 0, y: y })}
 			>
