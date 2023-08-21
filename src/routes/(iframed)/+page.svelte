@@ -14,7 +14,7 @@
 	import IconCog from '~icons/heroicons/cog-8-tooth';
 	import IconHelp from '~icons/heroicons/question-mark-circle';
 
-	import type { PageData } from './$types';
+	import type { PageData } from '../$types';
 	export let data: PageData;
 
 	const helpTooltipOptions = {
@@ -54,50 +54,48 @@
 	use:keybind={{ keys: [','], f: navigateToSettings }}
 />
 
-{#if data.settingError}
-	<div class="h-screen flex flex-col items-center justify-center">
+<div class="h-full w-full flex flex-col items-center justify-center">
+	{#if data.settingError}
 		<p class="p-4 font-bold text-lg text-center">
-			To display a game you need to specify a game ID in the URL.
+			To display a game you need to specify the ID in the URL.
 		</p>
 		<p class="italic">
 			{`https://board.battlesnake.com?game=<GAME_ID>`}
 		</p>
-	</div>
-{:else if $playbackError}
-	<div class="h-screen flex items-center justify-center">
-		<p class="p-4 text-red-500 text-lg text-center">{$playbackError}</p>
-	</div>
-{:else if $playbackState}
-	<TooltipTemplateHotkeys id={helpTooltipOptions.templateId} />
-	<TooltipTemplateSettings id={settingsTooltipOptions.templateId} settings={data.settings} />
-	<div class="h-screen w-full max-w-screen-xl mx-auto flex flex-col md:flex-row">
-		<div class="flex flex-col grow">
-			{#if data.settings.title}
-				<h1 class="text-center font-bold pt-2 text-lg">{data.settings.title}</h1>
-			{/if}
-			<Gameboard showCoordinates={data.settings.showCoords} />
-			{#if data.settings.showControls}
-				<div class="flex justify-evenly text-xl py-2 px-6">
-					<div use:tooltip={helpTooltipOptions}>
-						<IconHelp />
+	{:else if $playbackError}
+		<p class="p-4 font-bold text-lg text-center text-red-500">
+			{$playbackError}
+		</p>
+	{:else if $playbackState}
+		<TooltipTemplateHotkeys id={helpTooltipOptions.templateId} />
+		<TooltipTemplateSettings id={settingsTooltipOptions.templateId} settings={data.settings} />
+		<div class="w-full h-full flex flex-col md:flex-row">
+			<div class="flex flex-col grow">
+				{#if data.settings.title}
+					<h1 class="text-center font-bold pt-2 text-lg">{data.settings.title}</h1>
+				{/if}
+				<Gameboard showCoordinates={data.settings.showCoords} />
+				{#if data.settings.showControls}
+					<div class="flex justify-evenly text-xl py-2 px-6">
+						<div use:tooltip={helpTooltipOptions}>
+							<IconHelp />
+						</div>
+						<PlaybackControls />
+						<div use:tooltip={settingsTooltipOptions}>
+							<a href="/settings">
+								<IconCog />
+							</a>
+						</div>
 					</div>
-					<PlaybackControls />
-					<div use:tooltip={settingsTooltipOptions}>
-						<a href="/settings">
-							<IconCog />
-						</a>
-					</div>
+				{/if}
+			</div>
+			{#if data.settings.showScoreboard}
+				<div class="basis-full md:basis-[45%] order-first p-2 md:order-last">
+					<Scoreboard />
 				</div>
 			{/if}
 		</div>
-		{#if data.settings.showScoreboard}
-			<div class="basis-full md:basis-[45%] order-first p-2 md:order-last">
-				<Scoreboard />
-			</div>
-		{/if}
-	</div>
-{:else}
-	<div class="h-screen flex items-center justify-center">
+	{:else}
 		<p class="p-4 text-lg text-center">Loading game...</p>
-	</div>
-{/if}
+	{/if}
+</div>
