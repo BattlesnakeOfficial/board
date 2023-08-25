@@ -59,13 +59,9 @@
 					const iframe = event.source.frameElement;
 					if (!isResized.includes(iframe.id)) {
 						setTimeout(() => {
-							const heightPixels = iframe.contentWindow.document.body.scrollHeight;
-							iframe.parentElement.style.height = `${heightPixels + 4}px`;
-
-							const widthPixels = iframe.contentWindow.document.body.scrollWidth;
-
-							console.log(iframe.id, widthPixels, heightPixels, widthPixels / heightPixels);
-						}, 250);
+							const h = iframe.contentWindow.document.body.scrollHeight;
+							iframe.style.height = `${h}px`;
+						}, 100);
 						isResized.push(iframe.id);
 					}
 				}
@@ -80,8 +76,8 @@
 		<div class="flex flex-col w-full mb-16">
 			<p class="mb-4 text-xl font-bold text-center">{config.title}</p>
 			<div
-				class="md:aspect-video rounded-sm border-2 border-solid border-pink-500 mx-auto"
-				style:width={config.width}
+				class="w-full mx-auto rounded-sm border-2 border-solid border-pink-500"
+				style:max-width={config.width}
 			>
 				<iframe
 					id={config.id}
