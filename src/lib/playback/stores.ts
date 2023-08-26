@@ -128,6 +128,10 @@ const controls = {
         } else if (get(writableState)?.mode == PlaybackMode.PLAYING) {
             controls.pause();
         }
+    },
+    jumpToFrame: (i: number) => {
+        controls.pause();
+        setCurrentFrame(i);
     }
 }
 
@@ -136,7 +140,8 @@ const onFrameLoad = (frame: Frame) => {
     if (frame.turn == settings.turn) {
         writableState.set({
             frame: frame,
-            mode: PlaybackMode.PAUSED
+            mode: PlaybackMode.PAUSED,
+            finalFrame: null,
         });
 
         setCurrentFrame(settings.turn);
@@ -144,6 +149,15 @@ const onFrameLoad = (frame: Frame) => {
             setTimeout(controls.play, AUTOPLAY_DELAY_MS);
         }
     }
+}
+
+const onFinalFrame = (frame: Frame) => {
+    writableState.update(($state) => {
+        if ($state) {
+            $state.finalFrame = frame;
+        }
+        return $state
+    });
 }
 
 const onEngineError = (message: string) => {
@@ -157,7 +171,7 @@ function createPlaybackState() {
         subscribe: writableState.subscribe,
         load: (fetchFunc: typeof fetch, s: Settings) => {
             settings = { ...s }
-            fetchGame(fetchFunc, s.game, s.engine, frames, onFrameLoad, onEngineError);
+            fetchGame(fetchFunc, s.game, s.engine, frames, onFrameLoad, onFinalFrame, onEngineError);
         },
         reset,
     }

@@ -16,7 +16,7 @@ export function httpToWsProtocol(url: string) {
 }
 
 
-export function fetchGame(fetchFunc: typeof fetch, gameID: string, engineURL: string, frames: Frame[], onFrameLoad: FrameCallback, onError: (message: string) => void) {
+export function fetchGame(fetchFunc: typeof fetch, gameID: string, engineURL: string, frames: Frame[], onFrameLoad: FrameCallback, onFinalFrame: FrameCallback, onError: (message: string) => void) {
     console.debug(`[playback] loading game ${gameID}`);
 
     // Reset
@@ -59,8 +59,11 @@ export function fetchGame(fetchFunc: typeof fetch, gameID: string, engineURL: st
 
                 } else if (engineEvent.Type == 'game_end') {
                     console.debug('[playback] received final frame');
-                    frames[frames.length - 1].isFinalFrame = true;
                     if (ws) ws.close();
+
+                    // Flag last frame as the last one and fire callback
+                    frames[frames.length - 1].isFinalFrame = true;
+                    onFinalFrame(frames[frames.length - 1]);
                 }
             };
 

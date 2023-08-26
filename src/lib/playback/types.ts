@@ -45,6 +45,7 @@ export type PlaybackHandler = () => void;
 export type PlaybackState = {
     frame: Frame,
     mode: PlaybackMode,
+    finalFrame: null | Frame,
 }
 
 // We're lenient with typing data that's received from the game engine

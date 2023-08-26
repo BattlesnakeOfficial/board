@@ -12,11 +12,13 @@
 	import Scoreboard from '$lib/components/Scoreboard.svelte';
 	import TooltipTemplateHotkeys from '$lib/components/TooltipTemplateHotkeys.svelte';
 	import TooltipTemplateSettings from '$lib/components/TooltipTemplateSettings.svelte';
+	import Scrubber from '$lib/components/Scrubber.svelte';
 
 	import IconCog from '~icons/heroicons/cog-8-tooth';
 	import IconHelp from '~icons/heroicons/question-mark-circle';
 
 	import type { PageData } from '../$types';
+
 	export let data: PageData;
 
 	const helpTooltipOptions = {
@@ -82,6 +84,11 @@
 				{/if}
 				<Gameboard showCoordinates={data.settings.showCoords} />
 				{#if data.settings.showControls}
+					{#if data.settings.showScrubber}
+						<div class="w-full px-[7.5%]">
+							<Scrubber />
+						</div>
+					{/if}
 					<div class="flex justify-evenly text-xl py-2 px-6">
 						<div use:tooltip={helpTooltipOptions}>
 							<IconHelp />

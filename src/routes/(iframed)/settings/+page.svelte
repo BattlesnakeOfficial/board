@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { autoplay, fps, showCoords, theme } from '$lib/settings/stores';
+	import { autoplay, fps, showCoords, showScrubber, theme } from '$lib/settings/stores';
 
 	const playbackSpeedOptions = [
 		{ value: 2, text: 'Slow' },
@@ -43,29 +43,24 @@
 			<input type="checkbox" bind:checked={$autoplay} />
 			<span class="font-bold mx-2">Autoplay</span>
 		</label>
-		<p class="text-sm">All games will start playing as soon as the game loads.</p>
+		<p class="text-sm">Start playback as soon as the first turn is ready.</p>
 	</div>
 
 	<div class="mb-4">
 		<label class="inline-flex items-center">
 			<input type="checkbox" bind:checked={$showCoords} />
-			<span class="font-bold mx-2">Display Coordinates</span>
+			<span class="font-bold mx-2">Board Coordinates</span>
 		</label>
-		<p class="text-sm">
-			Display coordinate labels on the game board. These go from 0 to the width/height of the board
-			to make it easier to debug games.
-		</p>
+		<p class="text-sm">Show coordinate labels on the game board.</p>
 	</div>
 
-	<!-- <div class="mb-4">
+	<div class="mb-4">
 		<label class="inline-flex items-center">
-			<input type="checkbox" />
-			<span class="font-bold mx-2">Frame Scrubber</span>
+			<input type="checkbox" bind:checked={$showScrubber} />
+			<span class="font-bold mx-2">Turn Scrubber</span>
 		</label>
-		<p class="text-sm">
-			Display progress bar that shows current frame and allows quickly jumping to specific frames.
-		</p>
-	</div> -->
+		<p class="text-sm">Show a scrubbable progress bar under the game board.</p>
+	</div>
 
 	<p><a on:click={navigateBack} href="/">Back</a></p>
 </div>

@@ -21,6 +21,7 @@ export enum Setting {
     LOOP = 'loop',
     SHOW_CONTROLS = 'showControls',
     SHOW_COORDS = 'showCoords',
+    SHOW_SCRUBBER = 'showScrubber',
     SHOW_SCOREBOARD = 'showScoreboard',
     THEME = 'theme',
     TITLE = 'title',
@@ -41,6 +42,7 @@ export type Settings = {
     loop: boolean,
     showControls: boolean,
     showCoords: boolean,
+    showScrubber: boolean,
     showScoreboard: boolean,
     theme: Theme,
     title: string,
@@ -56,6 +58,7 @@ export function getDefaultSettings(): Settings {
         loop: false,
         showControls: true,
         showCoords: false,
+        showScrubber: false,
         showScoreboard: true,
         theme: Theme.SYSTEM,
         title: '',
@@ -83,6 +86,12 @@ showCoords.subscribe((value: boolean) => {
     toLocalStorage(Setting.SHOW_COORDS, value);
 });
 
+// Show Turn Scrubber
+export const showScrubber = writable<boolean>(fromLocalStorage(Setting.SHOW_SCRUBBER, getDefaultSettings().showScrubber));
+showScrubber.subscribe((value: boolean) => {
+    toLocalStorage(Setting.SHOW_SCRUBBER, value);
+});
+
 // Theme
 export const theme = writable<Theme>(fromLocalStorage(Setting.THEME, getDefaultSettings().theme));
 theme.subscribe((value: Theme) => {
@@ -101,6 +110,7 @@ export function loadSettingsWithURLOverrides(url: URL): Settings {
         autoplay: getBoolFromURL(url, Setting.AUTOPLAY, get(autoplay)),
         fps: getIntFromURL(url, Setting.FPS, get(fps)),
         showCoords: getBoolFromURL(url, Setting.SHOW_COORDS, get(showCoords)),
+        showScrubber: getBoolFromURL(url, Setting.SHOW_SCRUBBER, get(showScrubber)),
         theme: getStringFromURL(url, Setting.THEME, get(theme)) as Theme,
         // URL param controlled
         engine: getStringFromURL(url, Setting.ENGINE, defaults.engine),
