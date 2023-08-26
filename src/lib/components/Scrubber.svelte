@@ -21,10 +21,15 @@
 		value = $playbackState.frame.turn;
 	}
 
-	// Jump to frame on scrub event. Note that we can't use
-	// the bound `value` here because it hasn't updated yet.
 	function onScrub(e: Event) {
+		// Jump to frame on scrub event. Note that we can't use
+		// the bound `value` here because it hasn't updated yet.
 		playbackState?.controls.jumpToFrame(e.target.value);
+	}
+
+	function onFocus(e: Event) {
+		// Prevent input from being focused (it messes with hotkeys)
+		e.target.blur();
 	}
 </script>
 
@@ -36,6 +41,7 @@
 		{max}
 		{step}
 		{disabled}
+		on:focus={onFocus}
 		on:input={onScrub}
 		bind:value
 	/>
