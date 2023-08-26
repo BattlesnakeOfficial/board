@@ -2,47 +2,36 @@
 
 ![Release Build Status](https://github.com/BattlesnakeOfficial/board/actions/workflows/release.yaml/badge.svg)
 
-The board project is used to display Battlesnake games on [play.battlesnake.com](https://play.battlesnake.com/), as well as live streams and competitions. It's built using SvelteKit to produce animated SVGs visualizations.
+The board project is used to visualize and replay Battlesnake games on [play.battlesnake.com](https://play.battlesnake.com/), as well as live streams and competitions. It uses SvelteKit to orchestrate playback and renders the board with dynamic SVGs.
 
 
-## Development
+## Development Server
 
-This project uses a standard SvelteKit development setup.
+We recommend using a [VSCode Devcontainer](https://code.visualstudio.com/docs/devcontainers/containers) or [GitHub Codespaces](https://github.com/features/codespaces) for development.
 
-**Devcontainer**
-
-This repo is setup to run in a [GitHub Codespace](https://github.com/features/codespaces) or [VSCode Devcontainer](https://code.visualstudio.com/docs/devcontainers/containers). See [devcontainer.json](.devcontainer/devcontainer.json) for details.
-
-
-**Local Development**
-
-You can also use these commands to launch a local dev server.
+Commands to start dev server:
 
 ```sh
 npm install
 npm run dev
-open https://127.0.0.1:5173
 ```
-
 
 
 ## Required Parameters
 
-A valid `game` ID is required to be passed as a URL parameter.
-
-For example:
+A valid `game` ID is required to be passed as a URL parameter. For example:
 `http://127.0.0.1/?game=ASDF-1234-QWER-6789`.
 
 
-## Settings
+## Playback Settings
 
-All playback settings can be set using URL parameters. Some settings are also configurable via UI and stored in local storage.
+Playback settings are used to control playback speed, visual theme, media controls, etc. Some settings are persisted in local storage, and all settings can be overridden using URL parameters.
 
-Settings provided as URL params will override values stored in local storage. See [src/lib/settings/stores.ts](src/lib/settings/stores.ts) for more details.
+See [lib/settings](src/lib/settings) for more details.
 
 ### Persisted Settings
 
-These values are configurable in the game board UI and persisted in local storage.
+These values are configurable in the UI and persisted in local storage. They can also be overridden using URL parameters.
 
 - `autoplay: boolean` -  Start playback as soon as game is loaded. Defaults to false.
 - `fps: number` - Playback speed, defined in 'frames per second'. Defaults to 6.
@@ -60,6 +49,58 @@ These values can be set with URL parameters and are not persisted between games.
 - `title: string` - Display a title above the board. Defaults to empty string.
 - `turn: int` - Start playback on a specific turn. Defaults to 0.
 
+
 ## Tests & Linting
 
 eslint and playwright are setup but not currently enforced.
+
+
+## Usage
+
+The board project is intended to be embedded into other webpages using an `<iframe>`. For example:
+
+```html
+<iframe scrolling="no" style="width:1280px" src="https://board.battlesnake.com/?game=1234"></iframe>
+```
+
+If you want specific settings to be used, add their values to the src URL as additional parameters.
+
+### Sizing
+
+It's expected that the iframe element will have a width and height of 100%, and be contained by a parent with a fixed width. Board will react to the width of the container and size accordingly, with a maximum width of 1280px and a perferred aspect ratio of 16x9 on larger screens.
+
+If you know you're viewing on a larger screen, you can safely set the aspect ratio to 16x9, or fix both dimensions.
+
+```html
+<div style="width: 1280px; aspect-ratio: 16 / 9;">
+    <iframe style="width: 100%;height: 100%" src="..."></frame>
+</div>
+```
+
+Otherwise you should listen for the posted 'RESIZE' message from the iframe to know what height the board has chosen to render (see below).
+
+
+### Cross-Origin Messages
+
+The board will post messages to the parent frame to signal major playback events, such a new frame being displayed and playback ending.
+
+These messages are useful for loading new games, triggering surrounding UI, and properly sizing the embedded iframe.
+
+Example code for listening to these messages:
+
+```javascript
+window.addEventListener('message', (e) => {
+    if (e.origin !== 'https://board.battlesnake.com') {
+        return;
+    }
+    console.log(e.data);
+});
+```
+
+#### Messages
+
+`RESIZE`: Signals the board has drawn at a new size and includes sizing information. Useful for rendering a responsive iframe.
+
+`TURN`: Sent every time a new game state is displayed, and includes full game state information.
+
+`GAME_OVER`: Signals that playback has concluded and the final frame is being displayed.
