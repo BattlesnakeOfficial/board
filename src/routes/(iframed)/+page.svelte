@@ -3,6 +3,8 @@
 
 	import { keybind } from '$lib/actions/keybind';
 	import { tooltip } from '$lib/actions/tooltip';
+	import { resize } from '$lib/actions/resize';
+	import { sendResizeMessage } from '$lib/playback/messages';
 	import { playbackError, playbackState } from '$lib/playback/stores';
 
 	import Gameboard from '$lib/components/Gameboard.svelte';
@@ -41,6 +43,10 @@
 	function navigateToSettings() {
 		goto('/settings');
 	}
+
+	function onResize(width: number, height: number) {
+		sendResizeMessage(width, height);
+	}
 </script>
 
 <svelte:window
@@ -54,7 +60,7 @@
 	use:keybind={{ keys: [','], f: navigateToSettings }}
 />
 
-<div class="h-full w-full flex flex-col items-center justify-center">
+<div use:resize={{ f: onResize }} class="h-full w-full flex flex-col items-center justify-center">
 	{#if data.settingError}
 		<p class="p-4 font-bold text-lg text-center">
 			To display a game you need to specify the ID in the URL.

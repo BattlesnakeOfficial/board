@@ -4,8 +4,11 @@ import { playbackState } from "./stores";
 import type { PlaybackState } from "./types";
 
 enum GameEvent {
-    GAME_OVER = 'GAME_OVER',
-    TURN = 'TURN'
+    // Basic display messages
+    RESIZE = 'RESIZE',
+    TURN = 'TURN',
+    GAME_OVER = 'GAME_OVER'
+
     // Could do eliminations, food spawns, hazard damage, etc etc etc.
 }
 
@@ -22,6 +25,12 @@ function postMessageToParent(message: Message) {
             console.error(e);
         }
     }
+}
+
+export function sendResizeMessage(width: number, height: number) {
+    postMessageToParent({
+        event: GameEvent.RESIZE, data: { width, height }
+    });
 }
 
 export function initWindowMessages() {
