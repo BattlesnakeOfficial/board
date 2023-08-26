@@ -1,6 +1,6 @@
 # Battlesnake Game Board
 
-![CI Build Status](https://github.com/BattlesnakeOfficial/board/actions/workflows/ci.yml/badge.svg)  ![Release Build Status](https://github.com/BattlesnakeOfficial/board/actions/workflows/release.yml/badge.svg)
+![Release Build Status](https://github.com/BattlesnakeOfficial/board/actions/workflows/release.yaml/badge.svg)
 
 The board project is used to display Battlesnake games on [play.battlesnake.com](https://play.battlesnake.com/), as well as live streams and competitions. It's built using SvelteKit to produce animated SVGs visualizations.
 
