@@ -165,7 +165,6 @@ const onEngineError = (message: string) => {
 }
 
 function createPlaybackState() {
-    console.debug('[playback] create store');
     return {
         controls,
         subscribe: writableState.subscribe,

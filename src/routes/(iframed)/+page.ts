@@ -1,5 +1,3 @@
-export const ssr = false;
-
 import { initWindowMessages } from '$lib/playback/messages';
 import { playbackState } from '$lib/playback/stores';
 import { loadSettingsWithURLOverrides } from '$lib/settings/stores';
