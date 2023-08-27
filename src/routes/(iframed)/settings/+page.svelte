@@ -57,7 +57,7 @@
 	<div class="mb-4">
 		<label class="inline-flex items-center">
 			<input type="checkbox" bind:checked={$showScrubber} />
-			<span class="font-bold mx-2">Turn Scrubber</span>
+			<span class="font-bold mx-2">Scrub Bar</span>
 		</label>
 		<p class="text-sm">Show a scrubbable progress bar under the game board.</p>
 	</div>
