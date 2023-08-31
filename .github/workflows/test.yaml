@@ -1,0 +1,16 @@
+name: Tests
+
+on:
+  push: # Branch pushes only, not tags
+    branches:
+      - "**"
+  workflow_call: # Allow other workflows to call this one
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: npm ci
+      - run: npm run lint

@@ -6,19 +6,24 @@ on:
     branches: [main]
 
 jobs:
+  tests:
+    name: Tests
+    uses: ./.github/workflows/tests.yaml
+
   deploy:
     name: Deploy to Netlify
+    needs: [tests]
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - run: echo ${{ github.event.release.tag_name }} > ./static/version
-    - run: npm ci
-    - run: npm install -g netlify-cli
-    - run: netlify build
-      env:
-        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-    - run: netlify deploy --prod --message ${{ github.event.release.tag_name }}
-      env:
-        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+      - uses: actions/checkout@v3
+      - run: echo ${{ github.event.release.tag_name }} > ./static/version
+      - run: npm ci
+      - run: npm install -g netlify-cli
+      - run: netlify build
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+      - run: netlify deploy --prod --message ${{ github.event.release.tag_name }}
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}

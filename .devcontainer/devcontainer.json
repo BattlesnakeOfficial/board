@@ -1,16 +1,12 @@
 {
-	"name": "board.battlesnake.local",
-	"image": "mcr.microsoft.com/devcontainers/javascript-node:18",
-	"postCreateCommand": "npm install",
-	"forwardPorts": [
-		5173
-	],
-	"customizations": {
-		"vscode": {
-			"extensions": [
-				"svelte.svelte-vscode"
-			],
-			"settings": {}
-		}
-	}
+  "name": "board.battlesnake.local",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:18",
+  "postCreateCommand": "npm install",
+  "forwardPorts": [5173],
+  "customizations": {
+    "vscode": {
+      "extensions": ["svelte.svelte-vscode"],
+      "settings": {}
+    }
+  }
 }

@@ -1,21 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=Lilita+One&family=Poppins:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap');
-@import 'tippy.js/dist/tippy.css';
+@import url("https://fonts.googleapis.com/css2?family=Lilita+One&family=Poppins:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap");
+@import "tippy.js/dist/tippy.css";
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-
 html {
-    font-family: 'Poppins', sans-serif;
-    @apply bg-white text-neutral-700;
+  font-family: "Poppins", sans-serif;
+  @apply bg-white text-neutral-700;
 }
 
 html.dark,
 html.dark select,
-html.dark input[type=checkbox],
-html.dark input[type=checkbox]:hover,
-html.dark input[type=checkbox]:focus {
-    @apply text-white;
-    background-color: #0f0b19;
+html.dark input[type="checkbox"],
+html.dark input[type="checkbox"]:hover,
+html.dark input[type="checkbox"]:focus {
+  @apply text-white;
+  background-color: #0f0b19;
 }

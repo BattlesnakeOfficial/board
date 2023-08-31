@@ -4,7 +4,6 @@
 
 The board project is used to visualize and replay Battlesnake games on [play.battlesnake.com](https://play.battlesnake.com/), as well as live streams and competitions. It uses SvelteKit to orchestrate playback and renders the board with dynamic SVGs.
 
-
 ## Development Server
 
 We recommend using a [VSCode Devcontainer](https://code.visualstudio.com/docs/devcontainers/containers) or [GitHub Codespaces](https://github.com/features/codespaces) for development.
@@ -16,12 +15,10 @@ npm install
 npm run dev
 ```
 
-
 ## Required Parameters
 
 A valid `game` ID is required to be passed as a URL parameter. For example:
 `http://127.0.0.1/?game=ASDF-1234-QWER-6789`.
-
 
 ## Playback Settings
 
@@ -33,7 +30,7 @@ See [lib/settings](src/lib/settings) for more details.
 
 These values are configurable in the UI and persisted in local storage. They can also be overridden using URL parameters.
 
-- `autoplay: boolean` -  Start playback as soon as game is loaded. Defaults to false.
+- `autoplay: boolean` - Start playback as soon as game is loaded. Defaults to false.
 - `fps: number` - Playback speed, defined in 'frames per second'. Defaults to 6.
 - `showCoords: boolean` - Display coordinates on game board. Defaults to false.
 - `theme: string` - Display theme. Defaults to 'system'.
@@ -49,11 +46,9 @@ These values can be set with URL parameters and are not persisted between games.
 - `title: string` - Display a title above the board. Defaults to empty string.
 - `turn: int` - Start playback on a specific turn. Defaults to 0.
 
-
 ## Tests & Linting
 
 eslint and playwright are setup but not currently enforced.
-
 
 ## Usage
 
@@ -79,7 +74,6 @@ If you know you're viewing on a larger screen, you can safely set the aspect rat
 
 Otherwise you should listen for the posted 'RESIZE' message from the iframe to know what height the board has chosen to render (see below).
 
-
 ### Cross-Origin Messages
 
 The board will post messages to the parent frame to signal major playback events, such a new frame being displayed and playback ending.
@@ -89,11 +83,11 @@ These messages are useful for loading new games, triggering surrounding UI, and 
 Example code for listening to these messages:
 
 ```javascript
-window.addEventListener('message', (e) => {
-    if (e.origin !== 'https://board.battlesnake.com') {
-        return;
-    }
-    console.log(e.data);
+window.addEventListener("message", (e) => {
+  if (e.origin !== "https://board.battlesnake.com") {
+    return;
+  }
+  console.log(e.data);
 });
 ```
 
