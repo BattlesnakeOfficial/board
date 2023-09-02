@@ -1,6 +1,6 @@
 # Battlesnake Game Board
 
-![Release Build Status](https://github.com/BattlesnakeOfficial/board/actions/workflows/release.yaml/badge.svg)
+![Test Status](https://github.com/BattlesnakeOfficial/board/actions/workflows/test.yaml/badge.svg) ![Release Status](https://github.com/BattlesnakeOfficial/board/actions/workflows/release.yaml/badge.svg)
 
 The board project is used to visualize and replay Battlesnake games on [play.battlesnake.com](https://play.battlesnake.com/), as well as live streams and competitions. It uses SvelteKit to orchestrate playback and renders the board with dynamic SVGs.
 
