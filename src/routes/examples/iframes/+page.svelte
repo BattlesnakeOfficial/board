@@ -42,6 +42,7 @@
       src: `/?game=${gameId}&title=${gameTitle}&autoplay=true&fps=10`
     },
     {
+      id: "full-width",
       title: "Full Width (100%)",
       url: `https://play.battlesnake.com/game/${gameId}`,
       width: "100%",
@@ -49,20 +50,20 @@
     }
   ];
 
-  const isResized: string[] = [];
-
   if (browser) {
     window.addEventListener(
       "message",
-      function (event) {
-        if (event.data.event == "TURN" && event.source.frameElement) {
-          const iframe = event.source.frameElement;
-          if (!isResized.includes(iframe.id)) {
-            setTimeout(() => {
-              const h = iframe.contentWindow.document.body.scrollHeight;
-              iframe.style.height = `${h}px`;
-            }, 100);
-            isResized.push(iframe.id);
+      function (message) {
+        if (message.source && message.data.event == "RESIZE") {
+          // We need to find which iframe sent the message
+          for (let i = 0; i < configs.length; i++) {
+            const iframeElement = this.document.getElementById(configs[i].id) as HTMLIFrameElement;
+            if (iframeElement.contentWindow == message.source) {
+              const height = iframeElement.contentWindow.document.body.scrollHeight;
+              setTimeout(() => {
+                iframeElement.style.height = `${height}px`;
+              }, 100);
+            }
           }
         }
       },
