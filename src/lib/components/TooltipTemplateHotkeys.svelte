@@ -46,7 +46,7 @@
   </div>
 </template>
 
-<style>
+<style lang="postcss">
   .hotkey {
     @apply px-2 rounded bg-pink-800/50;
     border: 1px solid #888;

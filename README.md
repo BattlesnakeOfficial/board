@@ -48,7 +48,9 @@ These values can be set with URL parameters and are not persisted between games.
 
 ## Tests & Linting
 
-eslint and playwright are setup but not currently enforced.
+Formatting is enforced with prettier, and linting is enforced with eslint.
+
+Playwright is included in the repo but not yet in use.
 
 ## Usage
 

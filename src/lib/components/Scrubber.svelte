@@ -24,12 +24,17 @@
   function onScrub(e: Event) {
     // Jump to frame on scrub event. Note that we can't use
     // the bound `value` here because it hasn't updated yet.
-    playbackState?.controls.jumpToFrame(e.target.value);
+    if (e.target) {
+      const frame = parseInt((e.target as HTMLInputElement).value);
+      playbackState?.controls.jumpToFrame(frame);
+    }
   }
 
   function onFocus(e: Event) {
     // Prevent input from being focused (it messes with hotkeys)
-    e.target.blur();
+    if (e.target) {
+      (e.target as HTMLElement).blur();
+    }
   }
 </script>
 

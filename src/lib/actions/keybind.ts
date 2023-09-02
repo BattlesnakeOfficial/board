@@ -5,8 +5,8 @@ type Options = {
   f: () => void;
 };
 
-export function keybind(node, options: Options) {
-  const mousetrap = new Mousestrap(window.document);
+export function keybind(node: HTMLElement, options: Options) {
+  const mousetrap = new Mousestrap(document.getElementsByTagName("main")[0]);
   mousetrap.bind(options.keys, () => {
     options.f();
 

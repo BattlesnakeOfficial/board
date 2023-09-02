@@ -10,7 +10,14 @@ export async function fetchCustomizationSvgDef(type: string, name: string) {
         const tempElememt = document.createElement("template");
         tempElememt.innerHTML = textSVG.trim();
         console.debug(`[customizations] loaded svg definition for ${mediaPath}`);
-        return tempElememt.content.firstChild.innerHTML;
+
+        if (tempElememt.content.firstChild === null) {
+          console.debug("[customizations] error loading customization, no elements found");
+          return "";
+        }
+
+        const child = <HTMLElement>tempElememt.content.firstChild;
+        return child.innerHTML;
       });
   }
   return mediaCache[mediaPath];

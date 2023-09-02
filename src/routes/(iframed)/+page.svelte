@@ -17,7 +17,7 @@
   import IconCog from "~icons/heroicons/cog-8-tooth";
   import IconHelp from "~icons/heroicons/question-mark-circle";
 
-  import type { PageData } from "../$types";
+  import type { PageData } from "./$types";
 
   export let data: PageData;
 

@@ -5,7 +5,7 @@ type Options = {
   tippyProps: object;
 };
 
-export function tooltip(node, options: Options) {
+export function tooltip(node: HTMLElement, options: Options) {
   const props = {
     ...options.tippyProps,
     allowHTML: true,

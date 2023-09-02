@@ -96,7 +96,7 @@
   {/each}
 {/if}
 
-<style>
+<style lang="postcss">
   .text-outline {
     text-shadow: 0 0 2px black, 0 0 2px black, 0 0 2px black, 0 0 2px black;
   }

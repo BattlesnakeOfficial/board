@@ -2,7 +2,7 @@ type Options = {
   f: (width: number, height: number) => void;
 };
 
-export function resize(node, options: Options) {
+export function resize(node: HTMLElement, options: Options) {
   const resizeObserver = new ResizeObserver((entries) => {
     for (const entry of entries) {
       const w = entry.contentBoxSize[0].inlineSize;

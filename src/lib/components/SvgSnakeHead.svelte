@@ -68,7 +68,7 @@
   {/if}
 {/await}
 
-<style>
+<style lang="postcss">
   /* Offset shadows in the direction the head is
 	   facing to avoid drawing shadow over the body */
   svg.head.up.shadow {
