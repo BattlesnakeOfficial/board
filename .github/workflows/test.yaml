@@ -8,7 +8,7 @@ on:
 
 jobs:
   lint:
-    name: Lint
+    name: npm run lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -16,7 +16,7 @@ jobs:
       - run: npm run lint
 
   check:
-    name: Check
+    name: npm run check
     needs: [lint]
     runs-on: ubuntu-latest
     steps:
@@ -25,7 +25,7 @@ jobs:
       - run: npm run check
 
   unit:
-    name: Unit Tests
+    name: npm run test:unit
     needs: [check]
     runs-on: ubuntu-latest
     steps:
