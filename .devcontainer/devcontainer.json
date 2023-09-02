@@ -2,27 +2,17 @@
   "name": "board.battlesnake.local",
   "image": "mcr.microsoft.com/devcontainers/javascript-node:18",
   "postCreateCommand": "npm install",
-  "forwardPorts": [
-    5173
-  ],
+  "forwardPorts": [5173],
   "customizations": {
     "vscode": {
-      "extensions": [
-        "svelte.svelte-vscode"
-      ],
+      "extensions": ["svelte.svelte-vscode"],
       "settings": {
-        // Editor Setting
         "editor.tabSize": 2,
         "editor.formatOnSave": true,
         "[css][html][javascript][json][markdown][typescript][yaml]": {
           "editor.defaultFormatter": "esbenp.prettier-vscode"
         },
-        // Extension Settings
-        "eslint.validate": [
-          "javascript",
-          "svelte",
-          "typescript"
-        ],
+        "eslint.validate": ["javascript", "svelte", "typescript"],
         "prettier.requireConfig": true,
         "svelte.enable-ts-plugin": true
       }
