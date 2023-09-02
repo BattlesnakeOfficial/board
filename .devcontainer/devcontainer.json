@@ -5,13 +5,11 @@
   "forwardPorts": [5173],
   "customizations": {
     "vscode": {
-      "extensions": ["svelte.svelte-vscode", "esbenp.prettier-vscode"],
+      "extensions": ["svelte.svelte-vscode", "esbenp.prettier-vscode", "dbaeumer.vscode-eslint"],
       "settings": {
         "editor.tabSize": 2,
         "editor.formatOnSave": true,
-        "[css][html][javascript][json][markdown][typescript][yaml]": {
-          "editor.defaultFormatter": "esbenp.prettier-vscode"
-        },
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
         "eslint.validate": ["javascript", "svelte", "typescript"],
         "prettier.requireConfig": true,
         "svelte.enable-ts-plugin": true
