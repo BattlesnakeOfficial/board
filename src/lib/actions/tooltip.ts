@@ -9,7 +9,7 @@ export function tooltip(node: HTMLElement, options: Options) {
   const props = {
     ...options.tippyProps,
     allowHTML: true,
-    content: document.getElementById(options.templateId).innerHTML.slice()
+    content: document.getElementById(options.templateId)?.innerHTML.slice()
   };
 
   const tip = tippy(node, props);

@@ -184,8 +184,8 @@
     return {
       points,
       "stroke-width": svgCalcParams.cellSize,
-      "stroke-linecap": "butt",
-      "stroke-linejoin": "round"
+      "stroke-linecap": "butt" as const,
+      "stroke-linejoin": "round" as const
     };
   }
 </script>
