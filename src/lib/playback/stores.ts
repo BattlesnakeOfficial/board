@@ -35,7 +35,8 @@ const setCurrentFrame = (index: number) => {
       $state.frame = newFrame;
 
       if ($state.frame.isFinalFrame && $state.mode == PlaybackMode.PLAYING) {
-        controls.pause();
+        stopPlayback();
+        $state.mode = PlaybackMode.PAUSED;
         if (settings.loop) {
           setTimeout(controls.firstFrame, LOOP_DELAY_MS);
           setTimeout(controls.play, LOOP_DELAY_MS * 2);
