@@ -2,6 +2,7 @@
   import type { Snake } from "$lib/playback/types";
   import { fetchCustomizationSvgDef } from "$lib/customizations";
   import { type SvgCalcParams, svgCalcCellRect } from "$lib/svg";
+  import { calcDestinationWrapPosition, isAdjacentPoint } from "$lib/geometry";
 
   export let snake: Snake;
   export let svgCalcParams: SvgCalcParams;
@@ -15,7 +16,13 @@
 
   $: headDirection = calcHeadDirection(snake);
   function calcHeadDirection(snake: Snake): string {
-    const [head, neck] = snake.body.slice(0, 2);
+    const [head, neckPoint] = snake.body.slice(0, 2);
+
+    let neck = neckPoint;
+    // If head is wrapped we need to calcualte neck position on border
+    if (!isAdjacentPoint(neck, head)) {
+      neck = calcDestinationWrapPosition(neck, head);
+    }
 
     // Determine head direction based on relative position of neck and tail.
     // If neck and tail overlap, we return the default direction (right).
