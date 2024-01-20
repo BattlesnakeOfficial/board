@@ -2,6 +2,7 @@
   import type { Snake } from "$lib/playback/types";
   import { fetchCustomizationSvgDef } from "$lib/customizations";
   import { type SvgCalcParams, svgCalcCellRect } from "$lib/svg";
+  import { calcDestinationWrapPosition, isAdjacentPoint } from "$lib/geometry";
 
   export let snake: Snake;
   export let svgCalcParams: SvgCalcParams;
@@ -33,6 +34,11 @@
         return "";
       }
       preTail = snake.body[preTailIndex];
+    }
+
+    // If tail is wrapped we need to calcualte neck position on border
+    if (!isAdjacentPoint(preTail, tail)) {
+      preTail = calcDestinationWrapPosition(preTail, tail);
     }
 
     // Return transform based on relative location

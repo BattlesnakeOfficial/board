@@ -8,6 +8,15 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "sourceMap": true,
-    "strict": true
+    "strict": true,
+    "lib": [
+      // at() support
+      "ES2022",
+
+      // svelte-kit libs
+      "esnext",
+      "DOM",
+      "DOM.Iterable"
+    ]
   }
 }
