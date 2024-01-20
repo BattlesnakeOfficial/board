@@ -32,3 +32,12 @@ jobs:
       - uses: actions/checkout@v3
       - run: npm ci
       - run: npm run test:unit
+
+  build:
+    name: npm run build
+    needs: [check]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: npm ci
+      - run: npm run build

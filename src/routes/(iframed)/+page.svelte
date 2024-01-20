@@ -1,10 +1,12 @@
 <script lang="ts">
+  import { onMount } from "svelte";
+
   import { beforeNavigate, goto } from "$app/navigation";
 
   import { keybind } from "$lib/actions/keybind";
   import { tooltip } from "$lib/actions/tooltip";
   import { resize } from "$lib/actions/resize";
-  import { sendResizeMessage } from "$lib/playback/messages";
+  import { initWindowMessages, sendResizeMessage } from "$lib/playback/messages";
   import { playbackError, playbackState } from "$lib/playback/stores";
 
   import Gameboard from "$lib/components/Gameboard.svelte";
@@ -17,9 +19,8 @@
   import IconCog from "~icons/heroicons/cog-8-tooth";
   import IconHelp from "~icons/heroicons/question-mark-circle";
 
-  import type { PageData } from "./$types";
-
-  export let data: PageData;
+  import { getDefaultSettings, loadSettingsWithURLOverrides } from "$lib/settings/stores";
+  import { setTheme } from "$lib/theme";
 
   const helpTooltipOptions = {
     templateId: "hotkeysTooltip",
@@ -49,6 +50,22 @@
   function onResize(width: number, height: number) {
     sendResizeMessage(width, height);
   }
+
+  let settings = getDefaultSettings();
+  let settingError = true;
+
+  onMount(() => {
+    const url = new URL(window.location.href);
+    settings = loadSettingsWithURLOverrides(url);
+
+    setTheme(settings.theme);
+
+    if (settings.game.length > 0 && settings.engine.length > 0) {
+      settingError = false;
+      playbackState.load(fetch, settings);
+      initWindowMessages();
+    }
+  });
 </script>
 
 <svelte:window
@@ -63,7 +80,7 @@
 />
 
 <div use:resize={{ f: onResize }} class="h-full w-full flex flex-col items-center justify-center">
-  {#if data.settingError}
+  {#if settingError}
     <p class="p-4 font-bold text-lg text-center">
       To display a game you need to specify the ID in the URL.
     </p>
@@ -76,15 +93,15 @@
     </p>
   {:else if $playbackState}
     <TooltipTemplateHotkeys id={helpTooltipOptions.templateId} />
-    <TooltipTemplateSettings id={settingsTooltipOptions.templateId} settings={data.settings} />
+    <TooltipTemplateSettings id={settingsTooltipOptions.templateId} {settings} />
     <div class="w-full h-full flex flex-col md:flex-row">
       <div class="flex flex-col grow">
-        {#if data.settings.title}
-          <h1 class="text-center font-bold pt-2 text-lg">{data.settings.title}</h1>
+        {#if settings.title}
+          <h1 class="text-center font-bold pt-2 text-lg">{settings.title}</h1>
         {/if}
-        <Gameboard showCoordinates={data.settings.showCoords} />
-        {#if data.settings.showControls}
-          {#if data.settings.showScrubber}
+        <Gameboard showCoordinates={settings.showCoords} />
+        {#if settings.showControls}
+          {#if settings.showScrubber}
             <div class="w-full px-[7.5%]">
               <Scrubber />
             </div>
@@ -102,7 +119,7 @@
           </div>
         {/if}
       </div>
-      {#if data.settings.showScoreboard}
+      {#if settings.showScoreboard}
         <div class="basis-full md:basis-[45%] order-first p-2 md:order-last">
           <Scoreboard />
         </div>

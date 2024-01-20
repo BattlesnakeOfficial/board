@@ -7,7 +7,9 @@
     { value: 18, text: "Fast" }
   ];
 
-  function navigateBack() {
+  function navigateBack(e: MouseEvent) {
+    e.preventDefault();
+
     history.back();
   }
 </script>
