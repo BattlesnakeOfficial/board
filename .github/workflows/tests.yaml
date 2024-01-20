@@ -34,7 +34,7 @@ jobs:
       - run: npm run test:unit
 
   build:
-    name: npm run test:unit
+    name: npm run build
     needs: [check]
     runs-on: ubuntu-latest
     steps:
