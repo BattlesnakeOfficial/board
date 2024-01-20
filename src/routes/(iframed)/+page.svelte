@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+  import { onMount } from "svelte";
 
   import { beforeNavigate, goto } from "$app/navigation";
 
@@ -19,8 +19,8 @@
   import IconCog from "~icons/heroicons/cog-8-tooth";
   import IconHelp from "~icons/heroicons/question-mark-circle";
 
-  import { Setting, getDefaultSettings, loadSettingsWithURLOverrides } from '$lib/settings/stores';
-  import { setTheme } from '$lib/theme';
+  import { getDefaultSettings, loadSettingsWithURLOverrides } from "$lib/settings/stores";
+  import { setTheme } from "$lib/theme";
 
   const helpTooltipOptions = {
     templateId: "hotkeysTooltip",
@@ -65,7 +65,7 @@
       playbackState.load(fetch, settings);
       initWindowMessages();
     }
-  })
+  });
 </script>
 
 <svelte:window
@@ -93,7 +93,7 @@
     </p>
   {:else if $playbackState}
     <TooltipTemplateHotkeys id={helpTooltipOptions.templateId} />
-    <TooltipTemplateSettings id={settingsTooltipOptions.templateId} settings={settings} />
+    <TooltipTemplateSettings id={settingsTooltipOptions.templateId} {settings} />
     <div class="w-full h-full flex flex-col md:flex-row">
       <div class="flex flex-col grow">
         {#if settings.title}
