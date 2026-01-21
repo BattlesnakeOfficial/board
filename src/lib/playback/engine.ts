@@ -26,6 +26,45 @@ export function fetchGame(
 ) {
   console.debug(`[playback] loading game ${gameID}`);
 
+  /**
+   * Helper function to add a single frame, whether via live Websocket
+   * or replay JSON.
+   */
+  // TODO(schoon): Real types for these arguments.
+  function ingestFrame(gameInfo: any, engineEvent: any) {
+    if (engineEvent.Type == "frame" && !loadedFrames.has(engineEvent.Data.Turn)) {
+      loadedFrames.add(engineEvent.Data.Turn);
+
+      const frame = engineEventToFrame(gameInfo, engineEvent.Data);
+      frames.push(frame);
+      frames.sort((a: Frame, b: Frame) => a.turn - b.turn);
+
+      // Fire frame callback
+      if (engineEvent.Data.Turn == 0) {
+        console.debug("[playback] received first frame");
+      }
+      onFrameLoad(frame);
+    } else if (engineEvent.Type == "game_end") {
+      console.debug("[playback] received final frame");
+      if (ws) ws.close();
+
+      // Flag last frame as the last one and fire callback
+      frames[frames.length - 1].isFinalFrame = true;
+      onFinalFrame(frames[frames.length - 1]);
+    }
+  }
+
+  // Special "url" for local files.
+  if (engineURL === "local") {
+    console.log("Using local playback engine...");
+    fetchFunc(`/replays/${gameID}`)
+      .then((response) => response.json())
+      .then(({ info, frames }) => {
+        frames.forEach((frame: unknown) => ingestFrame(info, frame));
+      });
+    return;
+  }
+
   // Reset
   if (ws) ws.close();
   loadedFrames = new Set();
@@ -51,26 +90,7 @@ export function fetchGame(
       ws.onmessage = (message) => {
         const engineEvent = JSON.parse(message.data);
 
-        if (engineEvent.Type == "frame" && !loadedFrames.has(engineEvent.Data.Turn)) {
-          loadedFrames.add(engineEvent.Data.Turn);
-
-          const frame = engineEventToFrame(gameInfo, engineEvent.Data);
-          frames.push(frame);
-          frames.sort((a: Frame, b: Frame) => a.turn - b.turn);
-
-          // Fire frame callback
-          if (engineEvent.Data.Turn == 0) {
-            console.debug("[playback] received first frame");
-          }
-          onFrameLoad(frame);
-        } else if (engineEvent.Type == "game_end") {
-          console.debug("[playback] received final frame");
-          if (ws) ws.close();
-
-          // Flag last frame as the last one and fire callback
-          frames[frames.length - 1].isFinalFrame = true;
-          onFinalFrame(frames[frames.length - 1]);
-        }
+        ingestFrame(gameInfo, engineEvent);
       };
 
       ws.onclose = () => {
